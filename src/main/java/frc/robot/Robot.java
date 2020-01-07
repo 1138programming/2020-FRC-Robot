@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Camera;
+import frc.robot.commands.Base.DriveWithJoysticks;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,9 +23,10 @@ import frc.robot.subsystems.Intake;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Base base = new Base();
-  public static Hang hang = new Hang();
-  public static Intake intake = new Intake();
+  public static final Base base = new Base();
+  public static final Hang hang = new Hang();
+  public static final Intake intake = new Intake();
+  public static final Camera camera = new Camera();
 
   private Command m_autonomousCommand;
 
@@ -38,6 +41,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    base.setDefaultCommand(new DriveWithJoysticks());
   }
 
   /**

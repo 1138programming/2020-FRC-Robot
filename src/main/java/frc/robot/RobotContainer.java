@@ -24,8 +24,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   // Controller Constants
   private static final int KLogitechDrive = 0;
@@ -84,6 +84,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    //return m_autoCommand;
+    return null;
   }
 }

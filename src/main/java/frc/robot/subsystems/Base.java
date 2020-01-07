@@ -35,8 +35,6 @@ public class Base extends SubsystemBase {
 
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
-
-    setDefaultCommand(new DriveWithJoysticks());
   }
 
   @Override
