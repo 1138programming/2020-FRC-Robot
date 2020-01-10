@@ -46,4 +46,11 @@ public class Base extends SubsystemBase {
     leftFront.set(ControlMode.PercentOutput, leftSpeed);
     rightFront.set(ControlMode.PercentOutput, rightSpeed);
   } 
+
+  public void zeroEncoders(){
+    leftFront.getSensorCollection().setQuadraturePosition(0,0);
+    rightFront.getSensorCollection().setQuadraturePosition(0,0);
+    leftBack.getSensorCollection().setQuadraturePosition(0,0);
+    rightBack.getSensorCollection().setQuadraturePosition(0,0);
+  }
 }
