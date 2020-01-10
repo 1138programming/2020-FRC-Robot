@@ -9,11 +9,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Hang extends SubsystemBase {
+public class Winch extends SubsystemBase {
   /**
-   * Creates a new Hang.
+   * Creates a new Winch.
    */
-  public Hang() {
+  public Winch() {
 
   }
 
