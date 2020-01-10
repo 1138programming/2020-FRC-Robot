@@ -54,7 +54,8 @@ public class Base extends SubsystemBase {
     leftFront.set(ControlMode.PercentOutput, leftSpeed);
     rightFront.set(ControlMode.PercentOutput, rightSpeed);
   } 
-   public double getLeftFrontEncoder() {
+   
+  public double getLeftFrontEncoder() {
     return leftFront.getSelectedSensorPosition();
   }
 
@@ -73,5 +74,12 @@ public class Base extends SubsystemBase {
 
   public ShiftState GetBaseShift() {
     return baseShiftState;
+  }
+
+  public void zeroEncoders(){
+    leftFront.getSensorCollection().setQuadraturePosition(0,0);
+    rightFront.getSensorCollection().setQuadraturePosition(0,0);
+    leftBack.getSensorCollection().setQuadraturePosition(0,0);
+    rightBack.getSensorCollection().setQuadraturePosition(0,0);
   }
 }
