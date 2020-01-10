@@ -24,7 +24,7 @@ import frc.robot.commands.Base.DriveWithJoysticks;
  */
 public class Robot extends TimedRobot {
   public static final Base base = new Base();
-  public static final Winch Winch = new Winch();
+  public static final Winch winch = new Winch();
   public static final Intake intake = new Intake();
   public static final Camera camera = new Camera();
 

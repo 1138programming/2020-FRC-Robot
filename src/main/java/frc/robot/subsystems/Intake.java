@@ -21,7 +21,8 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
   private final TalonSRX Intake;
-  public static final int KIntakeTalon = 1; 
+  public static final int KIntakeTalon = 1;
+  public static double KIntakeSpeed = 1; 
   
   public Intake() {
     Intake = new TalonSRX(KIntakeTalon);
