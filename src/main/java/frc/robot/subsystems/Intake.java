@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void TakeBall(double IntakeSpeed){
+  public void move(double IntakeSpeed){
     Intake.set(ControlMode.PercentOutput, IntakeSpeed);
   }
 }
