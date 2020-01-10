@@ -13,19 +13,25 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import frc.robot.commands.Base.DriveWithJoysticks;
+import frc.robot.enums.ShiftState;
 
 public class Base extends SubsystemBase {
   /**
    * Creates a new Base.
    */
-
+ 
   private final TalonSRX leftFront, leftBack, rightFront, rightBack;
   public static final int KLeftFrontTalon = 1;
   public static final int KLeftBackTalon = 2;
   public static final int KRightFrontTalon = 3;
   public static final int KRightBackTalon = 4;
+  private ShiftState baseShiftState = ShiftState.HIGH;
+  private final DoubleSolenoid shifterSolenoid;
+  public static final int KShifterSolenoid1 = 0;
+  public static final int KShifterSolenoid2 = 1;
 
   public Base() {
     leftFront = new TalonSRX(KLeftFrontTalon);
@@ -37,6 +43,8 @@ public class Base extends SubsystemBase {
     rightBack.follow(rightFront);
 
     setDefaultCommand(new DriveWithJoysticks());
+
+    shifterSolenoid = new DoubleSolenoid(KShifterSolenoid1, KShifterSolenoid2);
   }
 
   @Override
@@ -48,4 +56,24 @@ public class Base extends SubsystemBase {
     leftFront.set(ControlMode.PercentOutput, leftSpeed);
     rightFront.set(ControlMode.PercentOutput, rightSpeed);
   } 
+   public double getLeftFrontEncoder() {
+    return leftFront.getSelectedSensorPosition();
+  }
+
+  public double getRightFrontEncoder() {
+    return rightFront.getSelectedSensorPosition();
+  }
+
+  public void SetBaseShift(ShiftState state) {
+    if(baseShiftState == ShiftState.LOW) {
+      shifterSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+    else{
+      shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+  }
+
+  public ShiftState GetBaseShift() {
+    return baseShiftState;
+  }
 }
