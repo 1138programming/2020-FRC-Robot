@@ -43,7 +43,7 @@ public class Wheel extends SubsystemBase {
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
-  
+  //code by Corey
 
   public Wheel() {
     Wheel = new TalonSRX(KWheel);
@@ -51,7 +51,8 @@ public class Wheel extends SubsystemBase {
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
-    m_colorMatcher.addColorMatch(kYellowTarget);  
+    m_colorMatcher.addColorMatch(kYellowTarget); 
+    //code by Corey 
   }
 
   @Override
