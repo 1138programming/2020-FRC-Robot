@@ -15,7 +15,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 
-
 public class Winch extends SubsystemBase {
   /**
    * Creates a new Winch.
