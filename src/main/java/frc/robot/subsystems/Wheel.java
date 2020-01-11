@@ -18,12 +18,18 @@ public class Wheel extends SubsystemBase {
   /**
    * Creates a new Wheel.
    */
-  public Wheel() {
+  private final TalonSRX Wheel;
+  public static final int KWheel = 1;
 
+  public Wheel() {
+    Wheel = new TalonSRX(KWheel);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public void move(double WheelSpeed) {
+    Wheel.set(ControlMode.PercentOutput, WheelSpeed);
   }
 }
