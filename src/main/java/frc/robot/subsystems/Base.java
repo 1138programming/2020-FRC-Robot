@@ -32,6 +32,11 @@ public class Base extends SubsystemBase {
   private final DoubleSolenoid shifterSolenoid;
   public static final int KShifterSolenoid1 = 0;
   public static final int KShifterSolenoid2 = 1;
+  public static final int TicksPerRotation = 8; //conversion factor that we have to find
+  public static final int FreeSpeed = (6380/3600) * TicksPerRotation; 
+  public static final double LowGear = 62/8; 
+  public static final double HighGear = 32/24;
+   
 
   public Base() {
     leftFront = new TalonSRX(KLeftFrontTalon);
@@ -81,5 +86,9 @@ public class Base extends SubsystemBase {
     rightFront.getSensorCollection().setQuadraturePosition(0,0);
     leftBack.getSensorCollection().setQuadraturePosition(0,0);
     rightBack.getSensorCollection().setQuadraturePosition(0,0);
+  }
+
+  public int getShiftSpeed() {
+    return (int)(FreeSpeed / (HighGear + LowGear));
   }
 }
