@@ -14,27 +14,16 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-
-
-public class Winch extends SubsystemBase {
+public class Wheel extends SubsystemBase {
   /**
-   * Creates a new Winch.
+   * Creates a new Wheel.
    */
-  private final TalonSRX WinchLeft, WinchRight;
-  public static final int KWinchLeft = 1;
-  public static final int KWinchRight = 2;
-  
-  public Winch() {
-    WinchLeft = new TalonSRX(KWinchLeft);
-    WinchRight = new TalonSRX(KWinchRight);
+  public Wheel() {
+
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-  public void move(double WinchLeftSpeed, double WinchRightSpeed){
-    WinchLeft.set(ControlMode.PercentOutput, WinchLeftSpeed);
-    WinchRight.set(ControlMode.PercentOutput,WinchRightSpeed);
   }
 }
