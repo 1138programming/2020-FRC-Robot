@@ -8,17 +8,25 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 
 public class Collector extends SubsystemBase {
   /**
    * Creates a new Collector.
    */
+  private final TalonSRX CollectorMotor;
+  public static final int KCollector = 1;
+
   public Collector() {
-    
+    CollectorMotor = new TalonSRX(KCollector);
   }
 
   public void move(double CollectorSpeed) {
-    collectorMotor.set(ControlMode.PercentOutput, CollectorSpeed)
+    CollectorMotor.set(ControlMode.PercentOutput, CollectorSpeed);
   }
 
   @Override
