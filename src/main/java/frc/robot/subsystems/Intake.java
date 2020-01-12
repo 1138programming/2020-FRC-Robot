@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import frc.robot.commands.Base.DriveWithJoysticks;
 
 public class Intake extends SubsystemBase {
   /**
@@ -34,5 +33,9 @@ public class Intake extends SubsystemBase {
   }
   public void move(double IntakeSpeed){
     Intake.set(ControlMode.PercentOutput, IntakeSpeed);
+  }
+
+  public void stop(){
+    Intake.set(ControlMode.PercentOutput, 0.0);
   }
 }
