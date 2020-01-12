@@ -89,4 +89,12 @@ public class Base extends SubsystemBase {
   public int getShiftSpeed() {
     return (int)(FreeSpeed / (HighGear + LowGear));
   }
+
+  public double getLeftSpeed(){
+    return leftFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+  }
+
+  public double getRightSpeed(){
+    return rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+  }
 }
