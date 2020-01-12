@@ -82,4 +82,12 @@ public class Base extends SubsystemBase {
     leftBack.getSensorCollection().setQuadraturePosition(0,0);
     rightBack.getSensorCollection().setQuadraturePosition(0,0);
   }
+
+  public void getLeftSpeed(){
+    return leftFront.getSelectedSensorVelocity();
+  }
+
+  public void getRightSpeed(){
+    return rightFront.getSelectedSensorVelocity();
+  }
 }
