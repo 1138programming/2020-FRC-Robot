@@ -14,6 +14,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import frc.robot.commands.Flywheel.SpinFlywheelAt;
+import frc.robot.commands.Flywheel.StopFlywheel;
 
 public class Flywheel extends SubsystemBase {
   /**

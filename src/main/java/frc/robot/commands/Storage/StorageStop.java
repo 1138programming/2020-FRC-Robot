@@ -5,19 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Base;
+package frc.robot.commands.Storage;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.subsystems.Base;
 
-public class DriveWithJoysticks extends CommandBase {
+public class StorageStop extends CommandBase {
   /**
-   * Creates a new DriveWithJoysticks.
+   * Creates a new StorageStop.
    */
-  public DriveWithJoysticks() {
+  public StorageStop() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.base);
   }
 
   // Called when the command is initially scheduled.
@@ -28,9 +25,6 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = Robot.m_robotContainer.getLeftAxis();
-    double rightSpeed = Robot.m_robotContainer.getRightAxis();
-    Robot.base.move(leftSpeed, rightSpeed);
   }
 
   // Called once the command ends or is interrupted.
