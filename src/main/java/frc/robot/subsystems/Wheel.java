@@ -57,7 +57,6 @@ public class Wheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-
     // This method will be called once per scheduler run
   }
 
@@ -66,51 +65,86 @@ public class Wheel extends SubsystemBase {
   }
 
   public RotationDirection getRotationDirection(ColorLabel Current, ColorLabel Target) {
-    int T = Target.getValue();
-    int C = Current.getValue();
-    int TC = T - C;
-    int CT = C - T;
-
-    if (TC < 0) {
-      TC += 4;
-    }
-    if (CT < 0) {
-      CT += 4;
+    // Make sure both colors are known
+    if (Current == ColorLabel.UNKNOWN || Target == ColorLabel.UNKNOWN) {
+      return RotationDirection.NONE;
     }
 
-    if (TC < CT) {
-      return RotationDirection.CLOCK;
+    // Get the number associated with each color
+    int targetNum = Target.getValue();
+    int currentNum = Current.getValue();
+
+    // Make sure the current color is not the target color
+    if (targetNum == currentNum) {
+      return RotationDirection.NONE;
+    }
+
+    // Gets distances the wheel would have to turn in both directions
+    int clockwiseDistance = targetNum - currentNum;
+    int counterclockwiseDistance = currentNum - targetNum;
+
+    // Normalizes between 0 and 3
+    if (clockwiseDistance < 0) {
+      clockwiseDistance += 4;
+    }
+
+    // Normalizes between 0 and 3
+    if (counterclockwiseDistance < 0) {
+      counterclockwiseDistance += 4;
+    }
+
+    // Compares the two distances, returning the direction associated with the shorter one
+    if (clockwiseDistance < counterclockwiseDistance) {
+      return RotationDirection.CLOCKWISE;
     } else {
-      return RotationDirection.COUNTERCLOCK;
+      return RotationDirection.COUNTERCLOCKWISE;
     }
   }
 
   public ColorLabel getColor(){
-
     Color detectedColor = m_colorSensor.getColor();
     double IR = m_colorSensor.getIR();
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     ColorLabel color;
     String colorString;
 
+    /*switch (match) {
+      case kBlueTarget:
+        color = ColorLabel.BLUE;
+        colorString = "blue";
+        break;
+      case kRedTarget:
+        color = ColorLabel.RED;
+        colorString = "Red";  
+        break;
+      case kGreenTarget:
+        color = ColorLabel.GREEN;
+        colorString = "Green";
+        break;
+      case kYellowTarget:
+        color = ColorLabel.YELLOW;
+        colorString = "Yellow";
+        break;
+      default:
+        color = ColorLabel.UNKNOWN;
+        colorString = "Unknown";
+        break;
+    }*/
+
     if (match.color == kBlueTarget) {
       color = ColorLabel.BLUE;
       colorString = "blue";
-    }
-    else if (match.color == kRedTarget) {
+    } else if (match.color == kRedTarget) {
       color = ColorLabel.RED;
       colorString = "Red";
-    }
-    else if (match.color == kGreenTarget) {
+    } else if (match.color == kGreenTarget) {
       color = ColorLabel.GREEN;
       colorString = "Green";
-    }
-    else if (match.color == kYellowTarget) {
+    } else if (match.color == kYellowTarget) {
       color = ColorLabel.YELLOW;
       colorString = "Yellow";
-    }
-    else {
-      color = ColorLabel.BLUE;
+    } else {
+      color = ColorLabel.UNKNOWN;
       colorString = "Unknown";
     }
 
@@ -121,6 +155,6 @@ public class Wheel extends SubsystemBase {
     SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putNumber("IR", IR);
 
-   return color;
+    return color;
   }
 }

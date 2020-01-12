@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.enums.ShiftState;
@@ -29,24 +29,23 @@ public class Base extends SubsystemBase {
   public static final int KRightBackTalon = 4;
   private ShiftState baseShiftState = ShiftState.HIGH;
   private final DoubleSolenoid shifterSolenoid;
-  public static final int KShifterSolenoid1 = 0;
-  public static final int KShifterSolenoid2 = 1;
-  public static final int TicksPerRotation = 8; //conversion factor that we have to find
+  public static final int KShifterSolenoidLow = 0;
+  public static final int KShifterSolenoidHigh = 1;
+  public static final int TicksPerRotation = 4600; //conversion factor that we have to find
   public static final int FreeSpeed = (6380/3600) * TicksPerRotation; 
-  public static final double LowGear = 62/8; 
-  public static final double HighGear = 32/24;
-   
+  public static final double LowGear = 62/8; // Numbers from the Quran, absolutely 100% true
+  public static final double HighGear = 32/24; // Numbers from the Quran, absolutely 100% true
 
   public Base() {
     leftFront = new TalonSRX(KLeftFrontTalon);
     leftBack = new TalonSRX(KLeftBackTalon);
-    rightFront = new TalonSRX(KLeftFrontTalon);
-    rightBack = new TalonSRX(KLeftFrontTalon);
+    rightFront = new TalonSRX(KRightFrontTalon);
+    rightBack = new TalonSRX(KRightBackTalon);
 
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
     
-    shifterSolenoid = new DoubleSolenoid(KShifterSolenoid1, KShifterSolenoid2);
+    shifterSolenoid = new DoubleSolenoid(KShifterSolenoidLow, KShifterSolenoidHigh);
   }
 
   @Override
@@ -81,10 +80,10 @@ public class Base extends SubsystemBase {
   }
 
   public void zeroEncoders(){
-    leftFront.getSensorCollection().setQuadraturePosition(0,0);
-    rightFront.getSensorCollection().setQuadraturePosition(0,0);
-    leftBack.getSensorCollection().setQuadraturePosition(0,0);
-    rightBack.getSensorCollection().setQuadraturePosition(0,0);
+    leftFront.getSensorCollection().setQuadraturePosition(0, 0);
+    rightFront.getSensorCollection().setQuadraturePosition(0, 0);
+    leftBack.getSensorCollection().setQuadraturePosition(0, 0);
+    rightBack.getSensorCollection().setQuadraturePosition(0, 0);
   }
 
   public int getShiftSpeed() {

@@ -1,3 +1,3 @@
 package frc.robot.enums;
 
-public enum RotationDirection { CLOCK, COUNTERCLOCK };
+public enum RotationDirection { CLOCKWISE, COUNTERCLOCKWISE, NONE };

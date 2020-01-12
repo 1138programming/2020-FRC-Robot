@@ -14,19 +14,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 
-public class Collector extends SubsystemBase {
+public class Storage extends SubsystemBase {
   /**
-   * Creates a new Collector.
+   * Creates a new Storage.
    */
-  private final TalonSRX CollectorMotor;
-  public static final int KCollector = 1;
+  private final TalonSRX StorageMotor;
+  public static final int KStorage = 1;
 
-  public Collector() {
-    CollectorMotor = new TalonSRX(KCollector);
+  public Storage() {
+    StorageMotor = new TalonSRX(KStorage);
   }
 
-  public void move(double CollectorSpeed) {
-    CollectorMotor.set(ControlMode.PercentOutput, CollectorSpeed);
+  public void move(double StorageSpeed) {
+    StorageMotor.set(ControlMode.PercentOutput, StorageSpeed);
   }
 
   @Override
