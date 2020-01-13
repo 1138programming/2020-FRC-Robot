@@ -20,7 +20,8 @@ public class Indexer extends SubsystemBase {
    * Creates a new Indexer.
    */
   private final TalonSRX Indexer;
-  public static final int KIndexer = 1;
+  public static final int KIndexer = 7;
+  public static double KIndexerSpeed = 1;
   
   public Indexer() {
     Indexer = new TalonSRX(KIndexer);

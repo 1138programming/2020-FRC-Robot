@@ -22,8 +22,8 @@ public class Flywheel extends SubsystemBase {
    * Creates a new Flywheel.
    */
   private final TalonSRX Flywheel1, Flywheel2;
-  public static final int KFlywheel1 = 1;
-  public static final int KFlywheel2 = 2;
+  public static final int KFlywheel1 = 5;
+  public static final int KFlywheel2 = 6;
 
   public Flywheel() {
     Flywheel1 = new TalonSRX(KFlywheel1);
