@@ -14,9 +14,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import frc.robot.commands.Indexer.IndexIn;
-import frc.robot.commands.Indexer.IndexOut;
-import frc.robot.commands.Indexer.IndexStop;
 
 public class Indexer extends SubsystemBase {
   /**

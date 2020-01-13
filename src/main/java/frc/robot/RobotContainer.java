@@ -13,12 +13,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Storage;
+import frc.robot.subsystems.Indexer;
+import frc.robot.commands.Indexer.IndexIn;
+import frc.robot.commands.Indexer.IndexOut;
+import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Storage.MoveIn;
 import frc.robot.commands.Storage.MoveOut;
 import frc.robot.commands.Storage.StorageStop;
-import frc.robot.commands.IntakeIn;
-import frc.robot.commands.IntakeOut;
-import frc.robot.commands.IntakeStop;
+import frc.robot.commands.Intake.IntakeIn;
+import frc.robot.commands.Intake.IntakeOut;
+import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
@@ -54,6 +58,7 @@ public class RobotContainer {
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
+    Robot.indexer.setDefaultCommand(new IndexStop());
 
     logitech = new Joystick(KLogitechDrive);
     xbox = new XboxController(KXboxArms);

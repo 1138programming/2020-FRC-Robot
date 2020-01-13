@@ -8,6 +8,8 @@
 package frc.robot.commands.Indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Indexer;
+import frc.robot.Robot;
 
 public class IndexStop extends CommandBase {
   /**
@@ -25,6 +27,8 @@ public class IndexStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Robot.indexer.move(0);
+
   }
 
   // Called once the command ends or is interrupted.
