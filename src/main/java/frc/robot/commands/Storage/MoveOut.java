@@ -7,6 +7,8 @@
 
 package frc.robot.commands.Storage;
 
+import frc.robot.Robot;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class MoveOut extends CommandBase {
