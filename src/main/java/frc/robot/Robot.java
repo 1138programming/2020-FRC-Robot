@@ -15,7 +15,9 @@ import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Storage;
+import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Wheel;
 import frc.robot.commands.Base.DriveWithJoysticks;
 
 
@@ -31,7 +33,9 @@ public class Robot extends TimedRobot {
   public static final Intake intake = new Intake();
   public static final Camera camera = new Camera();
   public static final Storage storage = new Storage();
+  public static final Flywheel flywheel = new Flywheel();
   public static final Indexer indexer = new Indexer();
+  public static final Wheel wheel = new Wheel();
 
   private Command m_autonomousCommand;
 

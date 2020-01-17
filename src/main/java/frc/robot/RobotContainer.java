@@ -12,8 +12,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Storage;
+import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Wheel;
+import frc.robot.subsystems.Winch;
+import frc.robot.subsystems.Storage;
+import frc.robot.commands.Intake.IntakeIn;
+import frc.robot.commands.Intake.IntakeOut;
+import frc.robot.commands.Intake.IntakeStop;
+import frc.robot.commands.Flywheel.SpinFlywheelAt;
+import frc.robot.commands.Flywheel.StopFlywheel;
+import frc.robot.commands.Hang.HangTheBot;
 import frc.robot.commands.Indexer.IndexIn;
 import frc.robot.commands.Indexer.IndexOut;
 import frc.robot.commands.Indexer.IndexStop;
@@ -23,7 +33,11 @@ import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeStop;
+import frc.robot.commands.Wheel.GoToColor;
+import frc.robot.commands.Wheel.Spin;
+import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Base.DriveWithJoysticks;
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -53,12 +67,14 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {
+  public RobotContainer() { 
 
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
+    Robot.flywheel.setDefaultCommand(new StopFlywheel());
+    Robot.indexer.setDefaultCommand(new IndexStop());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
-    Robot.indexer.setDefaultCommand(new IndexStop());
+    Robot.wheel.setDefaultCommand(new WheelStop());
 
     logitech = new Joystick(KLogitechDrive);
     xbox = new XboxController(KXboxArms);
