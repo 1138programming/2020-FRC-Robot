@@ -27,7 +27,7 @@ public class IndexIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.indexer.move(Indexer.KIntakeSpeed);
+    Robot.indexer.move(Indexer.KIndexerSpeed);
   }
 
   // Called once the command ends or is interrupted.
