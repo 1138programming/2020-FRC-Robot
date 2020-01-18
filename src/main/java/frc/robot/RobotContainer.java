@@ -21,6 +21,8 @@ import frc.robot.subsystems.Storage;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeStop;
+import frc.robot.commands.Intake.IntakeDeploy;
+import frc.robot.commands.Intake.IntakeRetract;
 import frc.robot.commands.Flywheel.SpinFlywheelAt;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Indexer.IndexIn;

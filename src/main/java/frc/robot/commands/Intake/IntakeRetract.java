@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class IntakeStop extends CommandBase {
+public class IntakeRetract extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   /**
@@ -22,7 +22,7 @@ public class IntakeStop extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeStop() {
+  public IntakeRetract() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.intake);
   }
@@ -35,8 +35,7 @@ public class IntakeStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      Robot.intake.move(0);
-      Robot.intake.Solinoidstop();
+      Robot.intake.setIntakePosition(false);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,6 +46,6 @@ public class IntakeStop extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
