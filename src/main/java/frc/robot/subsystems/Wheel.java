@@ -7,8 +7,15 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Solenoid;
+
 import frc.robot.enums.ColorLabel;
 import frc.robot.enums.RotationDirection;
+import frc.robot.enums.SolenoidState;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,8 +31,12 @@ import frc.robot.commands.Wheel.WheelStop;
 public class Wheel extends SubsystemBase {
 
   //Create the talons
-  private final TalonSRX Wheel;
+  private final CANSparkMax WheelMotor;
   public static final int KWheel = 1;
+
+  //Create the solenoids
+  private final Solenoid WheelSolenoid;
+  public static final int KWheelSolenoid = 7;
 
   //Create the color sensors
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -37,11 +48,18 @@ public class Wheel extends SubsystemBase {
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+  //create variables, enums, etc. 
+  public SolenoidState SolenoidState = SolenoidState.DEFAULT;
+
   //code by Corey
 
   public Wheel() {
     //instantiate the talons
-    Wheel = new TalonSRX(KWheel);
+    WheelMotor = new CANSparkMax(KWheel, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+    //instantiate the solenoid
+    WheelSolenoid = new Solenoid(KWheelSolenoid);
 
     //set the colors of the matcher
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -56,8 +74,13 @@ public class Wheel extends SubsystemBase {
   }
 
   //moves the wheel
-  public void move(double WheelSpeed) {
-    Wheel.set(ControlMode.PercentOutput, WheelSpeed);
+  public void moveMotor(double WheelSpeed) {
+    WheelMotor.set(WheelSpeed);
+  }
+
+  public void moveSolenoid(SolenoidState state) {
+    SolenoidState = state;
+    WheelSolenoid.set(SolenoidState == SolenoidState.ACTIVE);
   }
 
   //gets the direction we need to go to get to our target

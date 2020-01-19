@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class Intake extends SubsystemBase {
 
   //Create talons
-  private final TalonSRX Intake;
+  private final VictorSPX Intake;
   public static final int KIntakeTalon = 8;
 
   //Create solenoids
@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase {
   
   public Intake() {
     //instantiate talons
-    Intake = new TalonSRX(KIntakeTalon);
+    Intake = new VictorSPX(KIntakeTalon);
 
     //instantiate solenoids
     IntakeSolenoid1 = new Solenoid(kSolenoid3);

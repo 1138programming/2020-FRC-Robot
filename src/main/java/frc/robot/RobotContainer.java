@@ -12,7 +12,7 @@ import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Wheel;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Storage;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;

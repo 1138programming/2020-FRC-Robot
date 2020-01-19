@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Camera;
@@ -22,7 +22,7 @@ import frc.robot.commands.Base.DriveWithJoysticks;
  */
 public class Robot extends TimedRobot {
   public static final Base base = new Base();
-  public static final Lift Lift = new Lift();
+  public static final Climb climb = new Climb();
   public static final Intake intake = new Intake();
   public static final Camera camera = new Camera();
   public static final Storage storage = new Storage();

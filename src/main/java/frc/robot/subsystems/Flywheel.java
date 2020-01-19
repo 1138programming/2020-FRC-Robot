@@ -7,21 +7,24 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import frc.robot.commands.Flywheel.SpinFlywheelAt;
 import frc.robot.commands.Flywheel.StopFlywheel;
 
 public class Flywheel extends SubsystemBase {
 
-  private final TalonSRX Flywheel1, Flywheel2;
+  private final CANSparkMax Flywheel1, Flywheel2;
   public static final int KFlywheel1 = 5;
   public static final int KFlywheel2 = 6;
 
   public Flywheel() {
-    Flywheel1 = new TalonSRX(KFlywheel1);
-    Flywheel2 = new TalonSRX(KFlywheel2);
+    Flywheel1 = new CANSparkMax(KFlywheel1, CANSparkMaxLowLevel.MotorType.kBrushless);
+    Flywheel2 = new CANSparkMax(KFlywheel2, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     Flywheel2.setInverted(true);
-    Flywheel2.follow(Flywheel1);
   }
 
   @Override
@@ -30,7 +33,7 @@ public class Flywheel extends SubsystemBase {
   }
   
   public void move(double FlywheelSpeed) {
-    Flywheel1.set(ControlMode.PercentOutput, FlywheelSpeed);
-    Flywheel2.set(ControlMode.PercentOutput, FlywheelSpeed);
+    Flywheel1.set(FlywheelSpeed);
+    Flywheel2.set(FlywheelSpeed);
   }
 }
