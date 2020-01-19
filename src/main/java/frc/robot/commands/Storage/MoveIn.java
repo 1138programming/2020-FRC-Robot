@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.Storage;
 import frc.robot.Robot;
 import frc.robot.subsystems.Storage;
@@ -12,12 +5,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.enums.StorageStage;
 
 public class MoveIn extends CommandBase {
-  /**
-   * Creates a new MoveIn.
-   */
+
   public static boolean LastState;
+
   public MoveIn() {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.storage);
   }
 
@@ -30,7 +21,6 @@ public class MoveIn extends CommandBase {
   @Override
   public void execute() {
     Robot.storage.move(Storage.KStorageSpeed, StorageStage.BOTH);
-    //LastState = Storage.BallSensor1.get();
     if (Storage.BallSensor1.get() == false && Storage.BallSensor1.get() != LastState) {
       Storage.numberOfBalls ++;
     } 
