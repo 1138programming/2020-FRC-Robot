@@ -21,29 +21,38 @@ public class Base extends SubsystemBase {
   /**
    * Creates a new Base.
    */
- 
+  
+  //Creating the Talons
   private final TalonSRX leftFront, leftBack, rightFront, rightBack;
   public static final int KLeftFrontTalon = 1;
   public static final int KLeftBackTalon = 2;
   public static final int KRightFrontTalon = 3;
   public static final int KRightBackTalon = 4;
-  private BaseState baseState = BaseState.HIGH;
+  //Sets the default state to medium
+  private BaseState baseState = BaseState.MEDIUM;
+
+  //Creating the Solenoids
   private final Solenoid shifterSolenoid;
   public static final int KShifterSolenoid = 0;
+
+  //Variables
   public static final int TicksPerRotation = 4600; //conversion factor that we have to find
   public static final int FreeSpeed = (6380/3600) * TicksPerRotation; 
   public static final double LowGear = 62/8; // Numbers from the Quran, absolutely 100% true
   public static final double HighGear = 32/24; // Numbers from the Quran, absolutely 100% true
 
   public Base() {
+    //instantiating the talons
     leftFront = new TalonSRX(KLeftFrontTalon);
     leftBack = new TalonSRX(KLeftBackTalon);
     rightFront = new TalonSRX(KRightFrontTalon);
     rightBack = new TalonSRX(KRightBackTalon);
 
+    //slaving the talons
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
     
+    //instantiating the solenoid
     shifterSolenoid = new Solenoid(KShifterSolenoid);
   }
 
@@ -52,6 +61,7 @@ public class Base extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  //moves the base
   public void move(double leftSpeed, double rightSpeed) {
     if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftSpeed * 0.8);
@@ -61,16 +71,9 @@ public class Base extends SubsystemBase {
       rightFront.set(ControlMode.PercentOutput, rightSpeed);
     }
   } 
-   
-  public double getLeftFrontEncoder() {
-    return leftFront.getSelectedSensorPosition();
-  }
 
-  public double getRightFrontEncoder() {
-    return rightFront.getSelectedSensorPosition();
-  }
-
-  public void setBaseShift(BaseState state) {
+  //shifts the base to the state we want to be in mechanically
+  public void setBaseState(BaseState state) {
     baseState = state; 
     
     if(baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
@@ -80,10 +83,7 @@ public class Base extends SubsystemBase {
     }
   }
 
-  public BaseState getBaseState() {
-    return baseState;
-  }
-
+  //Zeroes encoders
   public void zeroEncoders(){
     leftFront.getSensorCollection().setQuadraturePosition(0, 0);
     rightFront.getSensorCollection().setQuadraturePosition(0, 0);
@@ -91,6 +91,8 @@ public class Base extends SubsystemBase {
     rightBack.getSensorCollection().setQuadraturePosition(0, 0);
   }
 
+  //Getters
+  //This specifically finds the speed at which we need to shift (documentation is in ryver)
   public int getShiftSpeed() {
     return (int)(FreeSpeed / (HighGear + LowGear));
   }
@@ -101,5 +103,17 @@ public class Base extends SubsystemBase {
 
   public double getRightSpeed(){
     return rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+  }
+
+  public double getLeftFrontEncoder() {
+    return leftFront.getSelectedSensorPosition();
+  }
+
+  public double getRightFrontEncoder() {
+    return rightFront.getSelectedSensorPosition();
+  }
+
+  public BaseState getBaseState() {
+    return baseState;
   }
 }

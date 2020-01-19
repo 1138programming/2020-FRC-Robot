@@ -17,6 +17,7 @@ public class Storage extends SubsystemBase {
   /**
    * Creates a new Storage.
    */
+
   private final TalonSRX StorageMotor;
   public static final int KStorage = 9;
   public static double KStorageSpeed = 1;

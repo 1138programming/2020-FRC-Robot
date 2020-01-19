@@ -24,21 +24,28 @@ public class Intake extends SubsystemBase {
   /*
    * Creates a new Intake.
    */
+
+  //Create talons
+  private final TalonSRX Intake;
+  public static final int KIntakeTalon = 8;
+
+  //Create solenoids
+  private Solenoid IntakeSolenoid1;
+  private Solenoid IntakeSolenoid2;
   public static final int kSolenoid3 = 3;
   public static final int kSolenoid4 = 4;
 
-  private final TalonSRX Intake;
-  private Solenoid IntakeSolenoid1;
-  private Solenoid IntakeSolenoid2;
-  public static final int KIntakeTalon = 8;
+  //Variables, enums, etc
   public static double KIntakeSpeed = 1;
   public SolenoidState SolenoidState;
-
   public static String SolenoidStatus;
 
   
   public Intake() {
+    //instantiate talons
     Intake = new TalonSRX(KIntakeTalon);
+
+    //instantiate solenoids
     IntakeSolenoid1 = new Solenoid(kSolenoid3);
     IntakeSolenoid2 = new Solenoid(kSolenoid4);
   }
@@ -49,19 +56,19 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putString("SolenoidState", SolenoidStatus);
   }
 
+  //move intake
   public void move(double IntakeSpeed){
     Intake.set(ControlMode.PercentOutput, IntakeSpeed);
   }
 
+  //sets the position of the intake to extended (active) or retracted 
   public void setIntakePosition(SolenoidState position) {
-    SolenoidState = position; 
-    if(SolenoidState == SolenoidState.ACTIVE) {
-      SolenoidStatus = "ACTIVE";
+    SolenoidStatus = position.name(); 
+    if(position == SolenoidState.ACTIVE) {
       IntakeSolenoid1.set(true);
       IntakeSolenoid2.set(true);
     }
     else if(position == SolenoidState.DEFAULT) {
-      SolenoidStatus = "DEFAULT";
       IntakeSolenoid1.set(false);
       IntakeSolenoid2.set(false);
     }
@@ -70,11 +77,7 @@ public class Intake extends SubsystemBase {
     }
   }
 
-  public void solenoidStop() {
-    IntakeSolenoid1.set(false);
-    IntakeSolenoid2.set(false);
-  }
-
+  //gets current state of the intake
   public SolenoidState getIntakeState() {
     return SolenoidState; 
   }
