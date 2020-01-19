@@ -36,7 +36,7 @@ public class IntakeStop extends CommandBase {
   @Override
   public void execute() {
       Robot.intake.move(0);
-      Robot.intake.Solinoidstop();
+      Robot.intake.solenoidStop();
   }
 
   // Called once the command ends or is interrupted.

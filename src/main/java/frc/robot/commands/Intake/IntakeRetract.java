@@ -8,6 +8,7 @@
 package frc.robot.commands.Intake;
 
 import frc.robot.Robot;
+import frc.robot.enums.SolenoidState;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -35,7 +36,7 @@ public class IntakeRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      Robot.intake.setIntakePosition(false);
+      Robot.intake.setIntakePosition(SolenoidState.DEFAULT);
   }
 
   // Called once the command ends or is interrupted.

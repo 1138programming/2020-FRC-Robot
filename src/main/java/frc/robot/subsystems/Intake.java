@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.enums.SolenoidState;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -40,17 +42,27 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void move(double IntakeSpeed){
     Intake.set(ControlMode.PercentOutput, IntakeSpeed);
   }
 
-  public void setIntakePosition(boolean position) {
-    IntakeSolenoid1.set(position);
-    IntakeSolenoid2.set(position);
+  public void setIntakePosition(SolenoidState position) {
+    if(position == SolenoidState.ACTIVE) {
+      IntakeSolenoid1.set(true);
+      IntakeSolenoid2.set(true);
+    }
+    else if(position == SolenoidState.DEFAULT) {
+      IntakeSolenoid1.set(false);
+      IntakeSolenoid2.set(false);
+    }
+    else {
+
+    }
   }
 
-  public void Solinoidstop(){
-    IntakeSolenoid1.close();
-    IntakeSolenoid2.close();
+  public void solenoidStop() {
+    IntakeSolenoid1.set(false);
+    IntakeSolenoid2.set(false);
   }
 }
