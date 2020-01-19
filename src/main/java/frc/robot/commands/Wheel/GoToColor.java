@@ -8,6 +8,8 @@
 package frc.robot.commands.Wheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.subsystems.Wheel;
 
 public class GoToColor extends CommandBase {
   /**
@@ -15,6 +17,7 @@ public class GoToColor extends CommandBase {
    */
   public GoToColor() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.wheel);
   }
 
   // Called when the command is initially scheduled.

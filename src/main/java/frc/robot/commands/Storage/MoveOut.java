@@ -16,6 +16,7 @@ public class MoveOut extends CommandBase {
    */
   public MoveOut() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.storage);
   }
 
   // Called when the command is initially scheduled.
