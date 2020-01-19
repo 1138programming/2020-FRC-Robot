@@ -70,7 +70,7 @@ public class Base extends SubsystemBase {
     return rightFront.getSelectedSensorPosition();
   }
 
-  public void SetBaseShift(BaseState state) {
+  public void setBaseShift(BaseState state) {
     baseState = state; 
     
     if(baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
@@ -80,7 +80,7 @@ public class Base extends SubsystemBase {
     }
   }
 
-  public BaseState GetBaseState() {
+  public BaseState getBaseState() {
     return baseState;
   }
 

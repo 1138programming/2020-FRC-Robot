@@ -29,7 +29,7 @@ public class BaseShiftMedium extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.base.SetBaseShift(BaseState.MEDIUM);
+    Robot.base.setBaseShift(BaseState.MEDIUM);
   }
 
   // Called once the command ends or is interrupted.

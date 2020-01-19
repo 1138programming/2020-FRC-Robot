@@ -29,7 +29,7 @@ public class BaseShiftLow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.base.SetBaseShift(BaseState.LOW);
+    Robot.base.setBaseShift(BaseState.LOW);
   }
 
   // Called once the command ends or is interrupted.
