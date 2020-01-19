@@ -17,6 +17,7 @@ public class IndexIn extends CommandBase {
    */
   public IndexIn() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.indexer);
   }
 
   // Called when the command is initially scheduled.

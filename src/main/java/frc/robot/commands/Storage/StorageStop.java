@@ -17,6 +17,7 @@ public class StorageStop extends CommandBase {
    */
   public StorageStop() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.storage);
   }
 
   // Called when the command is initially scheduled.

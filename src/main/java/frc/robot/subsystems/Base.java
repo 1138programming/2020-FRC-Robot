@@ -13,9 +13,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.commands.Base.DriveWithJoysticks;
-import frc.robot.enums.ShiftState;
+import frc.robot.enums.BaseState;
 
 public class Base extends SubsystemBase {
   /**
@@ -27,10 +27,9 @@ public class Base extends SubsystemBase {
   public static final int KLeftBackTalon = 2;
   public static final int KRightFrontTalon = 3;
   public static final int KRightBackTalon = 4;
-  private ShiftState baseShiftState = ShiftState.HIGH;
-  private final DoubleSolenoid shifterSolenoid;
-  public static final int KShifterSolenoidLow = 0;
-  public static final int KShifterSolenoidHigh = 1;
+  private BaseState baseState = BaseState.HIGH;
+  private final Solenoid shifterSolenoid;
+  public static final int KShifterSolenoid = 0;
   public static final int TicksPerRotation = 4600; //conversion factor that we have to find
   public static final int FreeSpeed = (6380/3600) * TicksPerRotation; 
   public static final double LowGear = 62/8; // Numbers from the Quran, absolutely 100% true
@@ -45,7 +44,7 @@ public class Base extends SubsystemBase {
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
     
-    shifterSolenoid = new DoubleSolenoid(KShifterSolenoidLow, KShifterSolenoidHigh);
+    shifterSolenoid = new Solenoid(KShifterSolenoid);
   }
 
   @Override
@@ -54,8 +53,13 @@ public class Base extends SubsystemBase {
   }
 
   public void move(double leftSpeed, double rightSpeed) {
-    leftFront.set(ControlMode.PercentOutput, leftSpeed);
-    rightFront.set(ControlMode.PercentOutput, rightSpeed);
+    if (baseState == BaseState.MEDIUM) {
+      leftFront.set(ControlMode.PercentOutput, leftSpeed * 0.8);
+      rightFront.set(ControlMode.PercentOutput, rightSpeed * 0.8);
+    } else {
+      leftFront.set(ControlMode.PercentOutput, leftSpeed);
+      rightFront.set(ControlMode.PercentOutput, rightSpeed);
+    }
   } 
    
   public double getLeftFrontEncoder() {
@@ -66,17 +70,18 @@ public class Base extends SubsystemBase {
     return rightFront.getSelectedSensorPosition();
   }
 
-  public void SetBaseShift(ShiftState state) {
-    if(baseShiftState == ShiftState.LOW) {
-      shifterSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
-    else{
-      shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
+  public void setBaseShift(BaseState state) {
+    baseState = state; 
+    
+    if(baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
+      shifterSolenoid.set(true);
+    } else {
+      shifterSolenoid.set(false);
     }
   }
 
-  public ShiftState GetBaseShift() {
-    return baseShiftState;
+  public BaseState getBaseState() {
+    return baseState;
   }
 
   public void zeroEncoders(){
