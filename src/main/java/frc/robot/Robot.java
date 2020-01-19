@@ -29,7 +29,7 @@ import frc.robot.commands.Base.DriveWithJoysticks;
  */
 public class Robot extends TimedRobot {
   public static final Base base = new Base();
-  public static final Lift Lift = new Lift();
+  public static final Lift lift = new Lift();
   public static final Intake intake = new Intake();
   public static final Camera camera = new Camera();
   public static final Storage storage = new Storage();

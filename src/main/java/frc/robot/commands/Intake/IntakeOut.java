@@ -24,7 +24,7 @@ public class IntakeOut extends CommandBase {
    */
   public IntakeOut() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements();
+    addRequirements(Robot.intake);
   }
 
   // Called when the command is initially scheduled.

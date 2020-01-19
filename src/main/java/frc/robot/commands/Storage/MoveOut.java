@@ -9,6 +9,7 @@ package frc.robot.commands.Storage;
 import frc.robot.Robot;
 import frc.robot.subsystems.Storage;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.enums.StorageStage;
 
 public class MoveOut extends CommandBase {
   /**
@@ -16,6 +17,7 @@ public class MoveOut extends CommandBase {
    */
   public MoveOut() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.storage);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +28,7 @@ public class MoveOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   Robot.storage.move(-Storage.KStorageSpeed);
+   Robot.storage.move(-Storage.KStorageSpeed, StorageStage.BOTH);
   }
 
   // Called once the command ends or is interrupted.
