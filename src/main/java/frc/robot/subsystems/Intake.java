@@ -11,22 +11,20 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
+import static frc.robot.Contstants.*;
 
 
 public class Intake extends SubsystemBase {
 
   //Create talons
   private final VictorSPX Intake;
-  public static final int KIntakeTalon = 8;
 
   //Create solenoids
   private Solenoid IntakeSolenoid1;
   private Solenoid IntakeSolenoid2;
-  public static final int kSolenoid3 = 3;
-  public static final int kSolenoid4 = 4;
+
 
   //Variables, enums, etc
-  public static double KIntakeSpeed = 1;
   public SolenoidState SolenoidState;
   public static String SolenoidStatus;
 

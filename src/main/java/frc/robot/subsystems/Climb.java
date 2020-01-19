@@ -10,16 +10,16 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import frc.robot.enums.SolenoidState;
+import static frc.robot.Constants.*;
 
 public class Climb extends SubsystemBase {
 
   private final TalonSRX ClimbLeft;
   private final VictorSPX ClimbRight;
-  public static final int KClimbLeft = 1;
-  public static final int KClimbRight = 2;
+
 
   private final Solenoid ClimbSolenoid;
-  public static final int KClimbSolenoid = 6;
+
 
   public SolenoidState SolenoidState = SolenoidState.DEFAULT;
   

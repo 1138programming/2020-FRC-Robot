@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import static frc.robot.Constants.*;
 
 public class Storage extends SubsystemBase {
   /**
@@ -19,8 +20,7 @@ public class Storage extends SubsystemBase {
    */
 
   private final TalonSRX StorageMotor;
-  public static final int KStorage = 9;
-  public static double KStorageSpeed = 1;
+
 
   public Storage() {
     StorageMotor = new TalonSRX(KStorage);

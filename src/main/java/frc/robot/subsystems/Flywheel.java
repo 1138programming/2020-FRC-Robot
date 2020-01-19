@@ -13,12 +13,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.commands.Flywheel.SpinFlywheelAt;
 import frc.robot.commands.Flywheel.StopFlywheel;
+import static frc.robot.Constants.*;
 
 public class Flywheel extends SubsystemBase {
 
   private final CANSparkMax Flywheel1, Flywheel2;
-  public static final int KFlywheel1 = 5;
-  public static final int KFlywheel2 = 6;
+
 
   public Flywheel() {
     Flywheel1 = new CANSparkMax(KFlywheel1, CANSparkMaxLowLevel.MotorType.kBrushless);

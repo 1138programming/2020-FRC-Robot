@@ -9,19 +9,17 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.enums.BaseState;
+import static frc.robot.Constants.*;
 
 public class Base extends SubsystemBase {
 
   //Creating the Talons
   private final TalonSRX leftFront, leftBack, rightFront, rightBack;
-  public static final int KLeftFrontTalon = 1;
-  public static final int KLeftBackTalon = 2;
-  public static final int KRightFrontTalon = 3;
-  public static final int KRightBackTalon = 4;
+
 
   //Creating the Solenoids
   private final Solenoid shifterSolenoid;
-  public static final int KShifterSolenoid = 0;
+
 
   //Sets the default state to medium
   private BaseState baseState = BaseState.MEDIUM;
