@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,16 +22,17 @@ import frc.robot.commands.Wheel.Spin;
 import frc.robot.commands.Wheel.WheelStop;
 
 public class Wheel extends SubsystemBase {
-  /**
-   * Creates a new Wheel.
-   */
+
+  //Create the talons
   private final TalonSRX Wheel;
   public static final int KWheel = 1;
 
+  //Create the color sensors
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
+  //Create the color targets
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
@@ -46,13 +40,14 @@ public class Wheel extends SubsystemBase {
   //code by Corey
 
   public Wheel() {
+    //instantiate the talons
     Wheel = new TalonSRX(KWheel);
 
+    //set the colors of the matcher
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget); 
-    //code by Corey 
   }
 
   @Override
@@ -60,10 +55,12 @@ public class Wheel extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  //moves the wheel
   public void move(double WheelSpeed) {
     Wheel.set(ControlMode.PercentOutput, WheelSpeed);
   }
 
+  //gets the direction we need to go to get to our target
   public RotationDirection getRotationDirection(ColorLabel Current, ColorLabel Target) {
     // Make sure both colors are known
     if (Current == ColorLabel.UNKNOWN || Target == ColorLabel.UNKNOWN) {
@@ -101,35 +98,13 @@ public class Wheel extends SubsystemBase {
     }
   }
 
+  //gets the color we are on from the color sensor
   public ColorLabel getColor(){
     Color detectedColor = m_colorSensor.getColor();
     double IR = m_colorSensor.getIR();
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     ColorLabel color;
     String colorString;
-
-    /*switch (match) {
-      case kBlueTarget:
-        color = ColorLabel.BLUE;
-        colorString = "blue";
-        break;
-      case kRedTarget:
-        color = ColorLabel.RED;
-        colorString = "Red";  
-        break;
-      case kGreenTarget:
-        color = ColorLabel.GREEN;
-        colorString = "Green";
-        break;
-      case kYellowTarget:
-        color = ColorLabel.YELLOW;
-        colorString = "Yellow";
-        break;
-      default:
-        color = ColorLabel.UNKNOWN;
-        colorString = "Unknown";
-        break;
-    }*/
 
     if (match.color == kBlueTarget) {
       color = ColorLabel.BLUE;

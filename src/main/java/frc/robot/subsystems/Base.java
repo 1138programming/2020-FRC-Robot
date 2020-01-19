@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,23 +11,21 @@ import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.enums.BaseState;
 
 public class Base extends SubsystemBase {
-  /**
-   * Creates a new Base.
-   */
-  
+
   //Creating the Talons
   private final TalonSRX leftFront, leftBack, rightFront, rightBack;
   public static final int KLeftFrontTalon = 1;
   public static final int KLeftBackTalon = 2;
   public static final int KRightFrontTalon = 3;
   public static final int KRightBackTalon = 4;
-  //Sets the default state to medium
-  private BaseState baseState = BaseState.MEDIUM;
 
   //Creating the Solenoids
   private final Solenoid shifterSolenoid;
   public static final int KShifterSolenoid = 0;
 
+  //Sets the default state to medium
+  private BaseState baseState = BaseState.MEDIUM;
+  
   //Variables
   public static final int TicksPerRotation = 4600; //conversion factor that we have to find
   public static final int FreeSpeed = (6380/3600) * TicksPerRotation; 
