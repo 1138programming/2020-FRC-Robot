@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.enums.SolenoidState;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -30,6 +32,9 @@ public class Intake extends SubsystemBase {
   private Solenoid IntakeSolenoid2;
   public static final int KIntakeTalon = 8;
   public static double KIntakeSpeed = 1;
+  public SolenoidState SolenoidState;
+
+  public static String SolenoidStatus;
 
   
   public Intake() {
@@ -41,6 +46,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putString("SolenoidState", SolenoidStatus);
   }
 
   public void move(double IntakeSpeed){
@@ -48,11 +54,14 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakePosition(SolenoidState position) {
-    if(position == SolenoidState.ACTIVE) {
+    SolenoidState = position; 
+    if(SolenoidState == SolenoidState.ACTIVE) {
+      SolenoidStatus = "ACTIVE";
       IntakeSolenoid1.set(true);
       IntakeSolenoid2.set(true);
     }
     else if(position == SolenoidState.DEFAULT) {
+      SolenoidStatus = "DEFAULT";
       IntakeSolenoid1.set(false);
       IntakeSolenoid2.set(false);
     }
@@ -64,5 +73,9 @@ public class Intake extends SubsystemBase {
   public void solenoidStop() {
     IntakeSolenoid1.set(false);
     IntakeSolenoid2.set(false);
+  }
+
+  public SolenoidState getIntakeState() {
+    return SolenoidState; 
   }
 }
