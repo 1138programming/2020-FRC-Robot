@@ -25,6 +25,8 @@ public class Intake extends SubsystemBase {
   
   public Intake() {
     Intake = new TalonSRX(KIntakeTalon);
+    Shifter1 = new Solenoid(KSolenoid1); 
+    Shifter2 = new Solenoid(kSolenoid2);
   }
 
   @Override
@@ -37,5 +39,10 @@ public class Intake extends SubsystemBase {
 
   public void stop(){
     Intake.set(ControlMode.PercentOutput, 0.0);
+
+  public void setIntakePosition(SolenoidState state){
+      Shifter1.set(state == SolenoidState.ACTIVE);
+      Shifter2.set(state == SolenoidState.ACTIVE);
+    }
   }
 }
