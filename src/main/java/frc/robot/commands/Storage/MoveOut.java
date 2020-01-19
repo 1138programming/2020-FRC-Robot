@@ -15,6 +15,7 @@ public class MoveOut extends CommandBase {
   /**
    * Creates a new MoveOut.
    */
+  public static boolean LastState;
   public MoveOut() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.storage);
@@ -28,7 +29,12 @@ public class MoveOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   Robot.storage.move(-Storage.KStorageSpeed, StorageStage.BOTH);
+   Robot.storage.move(Storage.KStorageSpeed, StorageStage.BOTH);
+    //LastState = Storage.BallSensor1.get();
+    if (Storage.BallSensor1.get() == true && Storage.BallSensor1.get() != LastState) {
+      Storage.numberOfBalls --;
+    }
+    LastState = Storage.BallSensor1.get();
   }
 
   // Called once the command ends or is interrupted.

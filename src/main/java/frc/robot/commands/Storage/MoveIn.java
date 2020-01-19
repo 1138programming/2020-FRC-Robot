@@ -15,6 +15,7 @@ public class MoveIn extends CommandBase {
   /**
    * Creates a new MoveIn.
    */
+  public static boolean LastState;
   public MoveIn() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.storage);
@@ -29,6 +30,11 @@ public class MoveIn extends CommandBase {
   @Override
   public void execute() {
     Robot.storage.move(Storage.KStorageSpeed, StorageStage.BOTH);
+    //LastState = Storage.BallSensor1.get();
+    if (Storage.BallSensor1.get() == false && Storage.BallSensor1.get() != LastState) {
+      Storage.numberOfBalls ++;
+    } 
+    LastState = Storage.BallSensor1.get();
   }
 
   // Called once the command ends or is interrupted.

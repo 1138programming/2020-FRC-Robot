@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.enums.SolenoidState;
 import frc.robot.enums.StorageStage;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Storage extends SubsystemBase {
   /**
@@ -27,12 +28,20 @@ public class Storage extends SubsystemBase {
   public static final int KStage2Talon = 10;
   public static final int KSolenoid = 11;
   public static double KStorageSpeed = 1;
+
+  public static DigitalInput BallSensor1;
+  public static DigitalInput BallSensor2;
+  public static final int KBallSensor1 = 12; 
+  public static final int KBallSensor2 = 13; 
  
+  public static int numberOfBalls = 0;
 
   public Storage() {
     Shifter = new Solenoid(KSolenoid);
     Stage1 = new TalonSRX(KStage1Talon);
     Stage2 = new TalonSRX(KStage2Talon);
+    BallSensor1 = new DigitalInput(KBallSensor1);
+    BallSensor2 = new DigitalInput(KBallSensor2);
   }
 
   public void move(double speed, StorageStage stage) {
@@ -53,9 +62,10 @@ public class Storage extends SubsystemBase {
     //}
   }
 
-  // public ballCount(Boolean isIntaking){
-    
-  // }
+   public int ballCount(boolean isIntaking){
+     numberOfBalls +=1;
+     return numberOfBalls;
+   }
   
 
   @Override
