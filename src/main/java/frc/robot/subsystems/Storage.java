@@ -27,6 +27,8 @@ public class Storage extends SubsystemBase {
   private int numberOfBalls = 0;
   private boolean isIntaking;
   private SolenoidState shifterState = SolenoidState.DEFAULT;
+  private boolean bs1LastState = false; // Keeps track of the last state of the 1st ball sensor
+  private double stage1Speed = 0; // Keeps track of the speed of stage 1
 
   public Storage() {
     //Instantiate everything
@@ -40,17 +42,34 @@ public class Storage extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    boolean bs1State = ballSensor1.get();
+
+    // Counts balls as in on the rising edge and out on the falling edge
+    if (stage1Speed > 0) {
+      if (bs1State && !bs1LastState) {
+          numberOfBalls++;
+      }
+    } else {
+      if (!bs1State && bs1LastState) {
+        numberOfBalls--;
+      }
+    }
+    bs1LastState = bs1State;
   }
 
   // Moves the storage based on which stage we want moving
   public void move(double speed, StorageStage stage) {
     if (stage == StorageStage.STAGE1) {
+      stage1Speed = speed;
       stage1.set(ControlMode.PercentOutput, speed);
     }
+
     if (stage == StorageStage.STAGE2) {
       stage2.set(ControlMode.PercentOutput, speed);
     }
+
     if (stage == StorageStage.BOTH) {
+      stage1Speed = speed;
       stage1.set(ControlMode.PercentOutput, speed);
 
       // Make sure stage 2 is engaged before running the motor
@@ -69,17 +88,5 @@ public class Storage extends SubsystemBase {
   // Gets the state of the shifter
   public SolenoidState getShifterState() {
     return shifterState;
-  }
-
-  // Increment or decrements our ball counter depending on the direction of intake (UNFINISHED)
-  public int ballCount(boolean isIntaking){
-    if (isIntaking == true) {
-      numberOfBalls ++;
-    }
-    if (isIntaking == false) { 
-      numberOfBalls --;
-    }
-    
-    return numberOfBalls;
   }
 }

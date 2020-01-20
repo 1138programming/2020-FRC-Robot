@@ -51,7 +51,7 @@ public class Wheel extends SubsystemBase {
     wheelMotor = new CANSparkMax(KWheel, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     //instantiate the solenoid
-    el = new Solenoid(KWheelSolenoid);
+    wheelSolenoid = new Solenoid(KWheelSolenoid);
 
     //set the colors of the matcher
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -72,7 +72,7 @@ public class Wheel extends SubsystemBase {
 
   public void moveSolenoid(SolenoidState state) {
     wheelState = state;
-    el.set(state == SolenoidState.ACTIVE);
+    wheelSolenoid.set(state == SolenoidState.ACTIVE);
   }
 
   //gets the direction we need to go to get to our target

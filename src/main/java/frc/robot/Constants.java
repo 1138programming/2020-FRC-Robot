@@ -54,7 +54,7 @@ public final class Constants {
     //Intake Constants
     public static final int KIntakeVictor = 8;
     public static final int KLeftIntakeSolenoid = 3;
-    public static final int kRightIntakeSolenoid = 4;
+    public static final int KRightIntakeSolenoid = 4;
     public static double KIntakeSpeed = 1;
 
     //FlyWheel Constants

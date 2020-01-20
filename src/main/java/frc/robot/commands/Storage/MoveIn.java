@@ -8,7 +8,7 @@ import frc.robot.enums.StorageStage;
 
 public class MoveIn extends CommandBase {
 
-  public static boolean LastState;
+  private boolean LastState;
 
   public MoveIn() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,11 +23,11 @@ public class MoveIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(Storage.KStorageSpeed, StorageStage.BOTH);
-    if (Storage.BallSensor1.get() == false && Storage.BallSensor1.get() != LastState) {
+    Robot.storage.move(KStorageSpeed, StorageStage.BOTH);
+    /*if (Storage.ballSensor1.get() == false && Storage.ballSensor1.get() != LastState) {
       Storage.isIntaking = true; 
     } 
-    LastState = Storage.BallSensor1.get();
+    LastState = Storage.BallSensor1.get();*/
   }
 
   // Called once the command ends or is interrupted.

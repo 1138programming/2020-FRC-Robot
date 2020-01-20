@@ -14,7 +14,7 @@ import static frc.robot.Constants.*;
 public class Intake extends SubsystemBase {
 
   //Create victor
-  private final VictorSPX Intake;
+  private final VictorSPX intake;
 
   // Create solenoids
   private Solenoid leftSolenoid;
