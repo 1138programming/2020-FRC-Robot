@@ -5,16 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hang;
-
+package frc.robot.commands.Storage;
+import frc.robot.Robot;
+import frc.robot.subsystems.Storage;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import static frc.robot.Constants.*;
 
-public class HangTheBot extends CommandBase {
+public class MoveIn extends CommandBase {
   /**
-   * Creates a new HangTheBot.
+   * Creates a new MoveIn.
    */
-  public HangTheBot() {
+  public MoveIn() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.storage);
   }
 
   // Called when the command is initially scheduled.
@@ -25,6 +28,7 @@ public class HangTheBot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Robot.storage.move(KStorageSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -35,6 +39,6 @@ public class HangTheBot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

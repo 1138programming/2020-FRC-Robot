@@ -3,11 +3,12 @@ package frc.robot.commands.Base;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Base;
+import frc.robot.enums.BaseState;
 import static frc.robot.Constants.*;
 
-public class DriveWithJoysticks extends CommandBase {
+public class BaseShiftHigh extends CommandBase {
 
-  public DriveWithJoysticks() {
+  public BaseShiftHigh() {
     addRequirements(Robot.base);
   }
 
@@ -19,9 +20,7 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = Robot.m_robotContainer.getLeftAxis();
-    double rightSpeed = Robot.m_robotContainer.getRightAxis();
-    Robot.base.move(leftSpeed, rightSpeed);
+    Robot.base.setBaseState(BaseState.HIGH);
   }
 
   // Called once the command ends or is interrupted.
@@ -32,6 +31,6 @@ public class DriveWithJoysticks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

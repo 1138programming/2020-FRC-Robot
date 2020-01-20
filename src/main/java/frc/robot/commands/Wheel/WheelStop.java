@@ -1,14 +1,14 @@
-package frc.robot.commands.Base;
+package frc.robot.commands.Wheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.Base;
+import frc.robot.subsystems.Wheel;
 import static frc.robot.Constants.*;
 
-public class DriveWithJoysticks extends CommandBase {
+public class WheelStop extends CommandBase {
 
-  public DriveWithJoysticks() {
-    addRequirements(Robot.base);
+  public WheelStop() {
+    addRequirements(Robot.wheel);
   }
 
   // Called when the command is initially scheduled.
@@ -19,9 +19,7 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = Robot.m_robotContainer.getLeftAxis();
-    double rightSpeed = Robot.m_robotContainer.getRightAxis();
-    Robot.base.move(leftSpeed, rightSpeed);
+    Robot.wheel.move(0);
   }
 
   // Called once the command ends or is interrupted.

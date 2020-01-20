@@ -1,14 +1,14 @@
-package frc.robot.commands.Base;
+package frc.robot.commands.Indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Indexer;
 import frc.robot.Robot;
-import frc.robot.subsystems.Base;
 import static frc.robot.Constants.*;
 
-public class DriveWithJoysticks extends CommandBase {
+public class IndexStop extends CommandBase {
 
-  public DriveWithJoysticks() {
-    addRequirements(Robot.base);
+  public IndexStop() {
+    addRequirements(Robot.indexer);
   }
 
   // Called when the command is initially scheduled.
@@ -19,9 +19,8 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = Robot.m_robotContainer.getLeftAxis();
-    double rightSpeed = Robot.m_robotContainer.getRightAxis();
-    Robot.base.move(leftSpeed, rightSpeed);
+    Robot.indexer.move(0);
+
   }
 
   // Called once the command ends or is interrupted.

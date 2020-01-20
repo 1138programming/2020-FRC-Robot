@@ -8,32 +8,30 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import static frc.robot.Constants.*;
 
-
-public class Winch extends SubsystemBase {
+public class Storage extends SubsystemBase {
   /**
-   * Creates a new Winch.
+   * Creates a new Storage.
    */
-  private final TalonSRX WinchLeft, WinchRight;
-  public static final int KWinchLeft = 1;
-  public static final int KWinchRight = 2;
-  
-  public Winch() {
-    WinchLeft = new TalonSRX(KWinchLeft);
-    WinchRight = new TalonSRX(KWinchRight);
+
+  private final TalonSRX StorageMotor;
+
+
+  public Storage() {
+    StorageMotor = new TalonSRX(KStorage);
+  }
+
+  public void move(double StorageSpeed) {
+    StorageMotor.set(ControlMode.PercentOutput, StorageSpeed);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-  public void move(double WinchLeftSpeed, double WinchRightSpeed){
-    WinchLeft.set(ControlMode.PercentOutput, WinchLeftSpeed);
-    WinchRight.set(ControlMode.PercentOutput,WinchRightSpeed);
   }
 }
