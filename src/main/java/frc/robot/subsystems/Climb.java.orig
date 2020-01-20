@@ -14,9 +14,10 @@ public class Climb extends SubsystemBase {
   private final TalonSRX climbTalon;
   private final VictorSPX climbVictor;
 
-  private final Solenoid ratchetSolenoid;
+  private final Solenoid climbSolenoid;
 
-  public SolenoidState ratchetState = SolenoidState.DEFAULT;
+
+  public SolenoidState climbState = SolenoidState.DEFAULT;
   
   public Climb() {
     climbTalon = new TalonSRX(KClimbTalon);
@@ -27,7 +28,7 @@ public class Climb extends SubsystemBase {
 
     climbVictor.follow(climbTalon);
 
-    ratchetSolenoid = new Solenoid(KClimbRatchetSolenoid);
+    climbSolenoid = new Solenoid(KClimbSolenoid);
   }
 
   @Override
@@ -35,16 +36,17 @@ public class Climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double speed){
-    climbTalon.set(ControlMode.PercentOutput, speed);
+<<<<<<< HEAD
+  public void moveMotor(double LiftLeftSpeed, double LiftRightSpeed){
+    climbTalon.set(ControlMode.PercentOutput, LiftLeftSpeed);
+=======
+  public void moveMotor(double LiftLeftSpeed){
+    ClimbLeft.set(ControlMode.PercentOutput, LiftLeftSpeed);
+>>>>>>> LiftCommands_Krishna
   }
 
-  public void setRatchetState(SolenoidState state) {
-    ratchetState = state;
-    ratchetSolenoid.set(state == SolenoidState.ACTIVE);
-  }
-
-  public SolenoidState getRatchetState() {
-    return ratchetState;
+  public void moveSolenoid(SolenoidState state) {
+    climbState = state;
+    climbSolenoid.set(state == SolenoidState.ACTIVE);
   }
 }

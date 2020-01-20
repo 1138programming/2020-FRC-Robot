@@ -64,7 +64,8 @@ public final class Constants {
     //Climb Constants
     public static final int KClimbTalon = 1;
     public static final int KClimbVictor = 2;
-    public static final int KClimbSolenoid = 6;
+    public static final int KClimbRatchetSolenoid = 6;
+    public static final double KClimbSpeed = 1;
 
     //Camera Constan (none at the moment)
 

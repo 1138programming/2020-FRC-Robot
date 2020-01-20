@@ -3,7 +3,7 @@ package frc.robot.commands.Climb;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climb;
 import frc.robot.Robot;
-
+import static frc.robot.Constants.*;
 
 public class ClimbDown extends CommandBase {
 
@@ -19,7 +19,7 @@ public class ClimbDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.climb.moveMotor(-1.0);
+    Robot.climb.move(-KClimbSpeed);
   }
 
   // Called once the command ends or is interrupted.
