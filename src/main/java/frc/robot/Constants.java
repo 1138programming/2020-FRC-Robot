@@ -66,6 +66,8 @@ public final class Constants {
     public static final int KClimbVictor = 2;
     public static final int KClimbSolenoid = 6;
 
-    //Camera Constan (none at the moment)
+    //Camera Constants (none at the moment)
 
+    //Tilter Constants
+    public static final int KTilterSparkMax = 1;
 }
