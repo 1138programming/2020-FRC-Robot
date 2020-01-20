@@ -1,14 +1,14 @@
-package frc.robot.commands.Lift;
+package frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Climb;
 import frc.robot.Robot;
 
 
-public class LiftDown extends CommandBase {
+public class ClimbStop extends CommandBase {
 
-  public LiftDown() {
-      addRequirements(Robot.lift);
+  public ClimbStop() {
+      addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
@@ -19,7 +19,7 @@ public class LiftDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.Lift.move();
+    Robot.climb.move(0);
   }
 
   // Called once the command ends or is interrupted.
