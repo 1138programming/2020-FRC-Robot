@@ -40,7 +40,7 @@ public class Climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void moveMotor(double LiftLeftSpeed, double LiftRightSpeed){
+  public void moveMotor(double LiftLeftSpeed){
     ClimbLeft.set(ControlMode.PercentOutput, LiftLeftSpeed);
   }
 

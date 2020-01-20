@@ -19,7 +19,7 @@ public class ClimbDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.climb.move();
+    Robot.climb.moveMotor(-1.0);
   }
 
   // Called once the command ends or is interrupted.
