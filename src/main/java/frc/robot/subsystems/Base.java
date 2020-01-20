@@ -12,14 +12,11 @@ import frc.robot.enums.BaseState;
 import static frc.robot.Constants.*;
 
 public class Base extends SubsystemBase {
-
   //Creating the Talons
   private final TalonSRX leftFront, leftBack, rightFront, rightBack;
 
-
   //Creating the Solenoids
-  private final Solenoid shifterSolenoid;
-
+  private final Solenoid shifter;
 
   //Sets the default state to medium
   private BaseState baseState = BaseState.MEDIUM;
@@ -42,7 +39,7 @@ public class Base extends SubsystemBase {
     rightBack.follow(rightFront);
     
     //instantiating the solenoid
-    shifterSolenoid = new Solenoid(KShifterSolenoid);
+    shifter = new Solenoid(KBaseShifterSolenoid);
   }
 
   @Override
@@ -53,8 +50,8 @@ public class Base extends SubsystemBase {
   //moves the base
   public void move(double leftSpeed, double rightSpeed) {
     if (baseState == BaseState.MEDIUM) {
-      leftFront.set(ControlMode.PercentOutput, leftSpeed * 0.8);
-      rightFront.set(ControlMode.PercentOutput, rightSpeed * 0.8);
+      leftFront.set(ControlMode.PercentOutput, leftSpeed * KBaseMediumSpeed);
+      rightFront.set(ControlMode.PercentOutput, rightSpeed * KBaseMediumSpeed);
     } else {
       leftFront.set(ControlMode.PercentOutput, leftSpeed);
       rightFront.set(ControlMode.PercentOutput, rightSpeed);
@@ -63,12 +60,12 @@ public class Base extends SubsystemBase {
 
   //shifts the base to the state we want to be in mechanically
   public void setBaseState(BaseState state) {
-    baseState = state; 
+    baseState = state;
     
     if(baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
-      shifterSolenoid.set(true);
+      shifter.set(true);
     } else {
-      shifterSolenoid.set(false);
+      shifter.set(false);
     }
   }
 

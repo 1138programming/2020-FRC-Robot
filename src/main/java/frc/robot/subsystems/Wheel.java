@@ -30,18 +30,16 @@ import frc.robot.commands.Wheel.WheelStop;
 import static frc.robot.Constants.*;
 
 public class Wheel extends SubsystemBase {
-
   //Create the talons
-  private final CANSparkMax WheelMotor;
+  private final CANSparkMax wheelMotor;
 
   //Create the solenoids
-  private final Solenoid WheelSolenoid;
+  private final Solenoid wheelSolenoid;
 
   //Create the color sensors
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
-
 
   //create variables, enums, etc. 
   public SolenoidState wheelState = SolenoidState.DEFAULT;
@@ -50,10 +48,10 @@ public class Wheel extends SubsystemBase {
 
   public Wheel() {
     //instantiate the talons
-    WheelMotor = new CANSparkMax(KWheel, CANSparkMaxLowLevel.MotorType.kBrushless);
+    wheelMotor = new CANSparkMax(KWheel, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     //instantiate the solenoid
-    WheelSolenoid = new Solenoid(KWheelSolenoid);
+    el = new Solenoid(KWheelSolenoid);
 
     //set the colors of the matcher
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -68,13 +66,13 @@ public class Wheel extends SubsystemBase {
   }
 
   //moves the wheel
-  public void move(double WheelSpeed) {
-    WheelMotor.set(WheelSpeed);
+  public void move(double speed) {
+    wheelMotor.set(speed);
   }
 
   public void moveSolenoid(SolenoidState state) {
     wheelState = state;
-    WheelSolenoid.set(state == SolenoidState.ACTIVE);
+    el.set(state == SolenoidState.ACTIVE);
   }
 
   //gets the direction we need to go to get to our target

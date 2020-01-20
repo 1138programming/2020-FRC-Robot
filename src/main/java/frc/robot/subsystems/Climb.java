@@ -1,38 +1,34 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.Solenoid;
-
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 
 public class Climb extends SubsystemBase {
 
-  private final TalonSRX ClimbLeft;
-  private final VictorSPX ClimbRight;
+  private final TalonSRX climbTalon;
+  private final VictorSPX climbVictor;
 
-
-  private final Solenoid ClimbSolenoid;
+  private final Solenoid climbSolenoid;
 
 
   public SolenoidState climbState = SolenoidState.DEFAULT;
   
   public Climb() {
-    ClimbLeft = new TalonSRX(KClimbLeft);
-    ClimbRight = new VictorSPX(KClimbRight);
+    climbTalon = new TalonSRX(KClimbTalon);
+    climbVictor = new VictorSPX(KClimbVictor);
 
-    ClimbLeft.setInverted(false);
-    ClimbRight.setInverted(true);
+    climbTalon.setInverted(false);
+    climbVictor.setInverted(true);
 
-    ClimbRight.follow(ClimbLeft);
+    climbVictor.follow(climbTalon);
 
-    ClimbSolenoid = new Solenoid(KClimbSolenoid);
+    climbSolenoid = new Solenoid(KClimbSolenoid);
   }
 
   @Override
@@ -41,11 +37,11 @@ public class Climb extends SubsystemBase {
   }
 
   public void moveMotor(double LiftLeftSpeed, double LiftRightSpeed){
-    ClimbLeft.set(ControlMode.PercentOutput, LiftLeftSpeed);
+    climbTalon.set(ControlMode.PercentOutput, LiftLeftSpeed);
   }
 
   public void moveSolenoid(SolenoidState state) {
     climbState = state;
-    ClimbSolenoid.set(state == SolenoidState.ACTIVE);
+    climbSolenoid.set(state == SolenoidState.ACTIVE);
   }
 }

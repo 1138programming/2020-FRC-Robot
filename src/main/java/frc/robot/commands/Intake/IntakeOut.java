@@ -9,6 +9,7 @@ public class IntakeOut extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   public IntakeOut() {
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.intake);
   }
 
@@ -20,7 +21,7 @@ public class IntakeOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.intake.move(KIntakeSpeed);
+    Robot.intake.move(-KIntakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

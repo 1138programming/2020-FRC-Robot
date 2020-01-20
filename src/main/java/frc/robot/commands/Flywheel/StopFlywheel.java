@@ -8,6 +8,7 @@ import static frc.robot.Constants.*;
 public class StopFlywheel extends CommandBase {
 
   public StopFlywheel() {
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.flywheel);
   }
 

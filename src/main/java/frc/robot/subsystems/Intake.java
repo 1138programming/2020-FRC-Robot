@@ -1,72 +1,58 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import frc.robot.enums.SolenoidState;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.Solenoid;
 import static frc.robot.Constants.*;
 
 
 public class Intake extends SubsystemBase {
 
-  //Create talons
+  //Create victor
   private final VictorSPX Intake;
 
-  //Create solenoids
-  private Solenoid IntakeSolenoid1;
-  private Solenoid IntakeSolenoid2;
-
+  // Create solenoids
+  private Solenoid leftSolenoid;
+  private Solenoid rightSolenoid;
 
   //Variables, enums, etc
-  public SolenoidState SolenoidState;
-  public static String SolenoidStatus;
-
+  public SolenoidState intakePosition = SolenoidState.DEFAULT;
   
+  /**
+   * Creates a new Intake.
+   */
   public Intake() {
-    //instantiate talons
-    Intake = new VictorSPX(KIntakeTalon);
+    // instantiate victor
+    intake = new VictorSPX(KIntakeVictor);
 
-    //instantiate solenoids
-    IntakeSolenoid1 = new Solenoid(kSolenoid3);
-    IntakeSolenoid2 = new Solenoid(kSolenoid4);
+    // instantiate solenoids
+    leftSolenoid = new Solenoid(KLeftIntakeSolenoid); 
+    rightSolenoid = new Solenoid(KRightIntakeSolenoid);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putString("SolenoidState", SolenoidStatus);
   }
 
   //move intake
-  public void move(double IntakeSpeed){
-    Intake.set(ControlMode.PercentOutput, IntakeSpeed);
-  }
-
-  //sets the position of the intake to extended (active) or retracted 
-  public void setIntakePosition(SolenoidState position) {
-    SolenoidStatus = position.name(); 
-    if(position == SolenoidState.ACTIVE) {
-      IntakeSolenoid1.set(true);
-      IntakeSolenoid2.set(true);
-    }
-    else if(position == SolenoidState.DEFAULT) {
-      IntakeSolenoid1.set(false);
-      IntakeSolenoid2.set(false);
-    }
-    else {
-
-    }
+  public void move(double speed){
+    intake.set(ControlMode.PercentOutput, speed);
   }
 
   //gets current state of the intake
-  public SolenoidState getIntakeState() {
-    return SolenoidState; 
+  public SolenoidState getIntakePosition() {
+    return intakePosition;
+  }
+
+  public void setIntakePosition(SolenoidState state) {
+    intakePosition = state;
+    leftSolenoid.set(state == SolenoidState.ACTIVE);
+    rightSolenoid.set(state == SolenoidState.ACTIVE);
   }
 }

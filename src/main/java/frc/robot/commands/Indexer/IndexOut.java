@@ -8,6 +8,7 @@ import static frc.robot.Constants.*;
 public class IndexOut extends CommandBase {
 
   public IndexOut() {
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.indexer);
   }
 

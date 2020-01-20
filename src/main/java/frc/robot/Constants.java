@@ -26,7 +26,8 @@ public final class Constants {
     public static final int KLeftBackTalon = 2;
     public static final int KRightFrontTalon = 3;
     public static final int KRightBackTalon = 4;
-    public static final int KShifterSolenoid = 0;
+    public static final int KBaseShifterSolenoid = 0;
+    public static final double KBaseMediumSpeed = 0.75;
 
     //wheel constants
     public static final int KWheel = 1;
@@ -37,7 +38,11 @@ public final class Constants {
     public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     //Storage constants 
-    public static final int KStorage = 9;
+    public static final int KStage1Talon = 9;
+    public static final int KStage2Talon = 10;
+    public static final int KStorageShifter = 11;
+    public static final int KBallSensor1 = 12; 
+    public static final int KBallSensor2 = 13; 
     public static double KStorageSpeed = 1;
 
     //Pneumatics Contsants(none at the moment)
@@ -47,18 +52,18 @@ public final class Constants {
     public static double KIndexerSpeed = 1;
 
     //Intake Constants
-    public static final int KIntakeTalon = 8;
-    public static final int kSolenoid3 = 3;
-    public static final int kSolenoid4 = 4;
+    public static final int KIntakeVictor = 8;
+    public static final int KLeftIntakeSolenoid = 3;
+    public static final int kRightIntakeSolenoid = 4;
     public static double KIntakeSpeed = 1;
 
     //FlyWheel Constants
-    public static final int KFlywheel1 = 5;
-    public static final int KFlywheel2 = 6;
+    public static final int KFlywheelTop = 5;
+    public static final int KFlywheelBottom = 6;
 
     //Climb Constants
-    public static final int KClimbLeft = 1;
-    public static final int KClimbRight = 2;
+    public static final int KClimbTalon = 1;
+    public static final int KClimbVictor = 2;
     public static final int KClimbSolenoid = 6;
 
     //Camera Constan (none at the moment)

@@ -7,7 +7,7 @@ public class Tilter extends SubsystemBase {
     private final TalonSRX tilterMotor; 
     public static final int KTilterTalon = 1; 
 
-    public Tilter (){
+    public Tilter() {
         tilterMotor = new TalonSRX(KTilterTalon); 
     }
 }
