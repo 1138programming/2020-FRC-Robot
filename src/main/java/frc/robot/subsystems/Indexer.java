@@ -6,13 +6,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import static frc.robot.Constants.*;
 
 
 public class Indexer extends SubsystemBase {
 
   private final TalonSRX Indexer;
-  public static final int KIndexer = 7;
-  public static double KIndexerSpeed = 1;
+
   
   public Indexer() {
     Indexer = new TalonSRX(KIndexer);

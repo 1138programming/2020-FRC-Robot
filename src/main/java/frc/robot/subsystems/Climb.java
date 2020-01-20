@@ -10,18 +10,18 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import frc.robot.enums.SolenoidState;
+import static frc.robot.Constants.*;
 
 public class Climb extends SubsystemBase {
 
   private final TalonSRX ClimbLeft;
   private final VictorSPX ClimbRight;
-  public static final int KClimbLeft = 1;
-  public static final int KClimbRight = 2;
+
 
   private final Solenoid ClimbSolenoid;
-  public static final int KClimbSolenoid = 6;
 
-  public SolenoidState SolenoidState = SolenoidState.DEFAULT;
+
+  public SolenoidState climbState = SolenoidState.DEFAULT;
   
   public Climb() {
     ClimbLeft = new TalonSRX(KClimbLeft);
@@ -32,7 +32,7 @@ public class Climb extends SubsystemBase {
 
     ClimbRight.follow(ClimbLeft);
 
-    ClimbSolenoid = newSolenoid(KClimbSolenoid);
+    ClimbSolenoid = new Solenoid(KClimbSolenoid);
   }
 
   @Override
@@ -45,7 +45,7 @@ public class Climb extends SubsystemBase {
   }
 
   public void moveSolenoid(SolenoidState state) {
-    SolenoidState = state;
-    ClimbSolenoid.set(SolenoidState == SolenoidState.ACTIVE);
+    climbState = state;
+    ClimbSolenoid.set(state == SolenoidState.ACTIVE);
   }
 }
