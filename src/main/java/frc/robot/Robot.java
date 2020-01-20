@@ -11,6 +11,7 @@ import frc.robot.subsystems.Storage;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Wheel;
+import frc.robot.subsystems.Tilter;
 import frc.robot.commands.Base.DriveWithJoysticks;
 
 
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
   public static final Flywheel flywheel = new Flywheel();
   public static final Indexer indexer = new Indexer();
   public static final Wheel wheel = new Wheel();
+  public static final Tilter tilter = new Tilter();
 
   private Command m_autonomousCommand;
 
