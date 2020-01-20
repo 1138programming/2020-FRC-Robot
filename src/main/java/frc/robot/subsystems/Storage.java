@@ -31,7 +31,10 @@ public class Storage extends SubsystemBase {
   //Variables, enums, etc.
   public static double KStorageSpeed = 1; 
   public static int numberOfBalls = 0;
+  public static boolean isIntaking;
   public SolenoidState StorageSolenoidState;
+
+  
 
   public Storage() {
     //Instantiate everything
@@ -69,7 +72,13 @@ public class Storage extends SubsystemBase {
 
   //increment or decrements our ball counter depending on the direction of intake (UNFINISHED)
   public int ballCount(boolean isIntaking){
-    numberOfBalls +=1;
+    if (isIntaking == true) {
+      numberOfBalls ++;
+    }
+    if (isIntaking == false) { 
+      numberOfBalls --;
+    }
+    
     return numberOfBalls;
   }
 }

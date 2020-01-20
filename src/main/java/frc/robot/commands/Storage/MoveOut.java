@@ -23,7 +23,7 @@ public class MoveOut extends CommandBase {
   public void execute() {
    Robot.storage.move(Storage.KStorageSpeed, StorageStage.BOTH);
     if (Storage.BallSensor1.get() == true && Storage.BallSensor1.get() != LastState) {
-      Storage.numberOfBalls--;
+      Storage.isIntaking = false;
     }
     LastState = Storage.BallSensor1.get();
   }

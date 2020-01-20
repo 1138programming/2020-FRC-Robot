@@ -22,7 +22,7 @@ public class MoveIn extends CommandBase {
   public void execute() {
     Robot.storage.move(Storage.KStorageSpeed, StorageStage.BOTH);
     if (Storage.BallSensor1.get() == false && Storage.BallSensor1.get() != LastState) {
-      Storage.numberOfBalls ++;
+      Storage.isIntaking = true; 
     } 
     LastState = Storage.BallSensor1.get();
   }
