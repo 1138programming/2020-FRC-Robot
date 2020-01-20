@@ -27,7 +27,7 @@ import com.revrobotics.ColorMatch;
 import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Wheel.Spin;
 import frc.robot.commands.Wheel.WheelStop;
-import static frc.robot.constants.*;
+import static frc.robot.Constants.*;
 
 public class Wheel extends SubsystemBase {
 
@@ -44,7 +44,7 @@ public class Wheel extends SubsystemBase {
 
 
   //create variables, enums, etc. 
-  public SolenoidState SolenoidState = SolenoidState.DEFAULT;
+  public SolenoidState wheelState = SolenoidState.DEFAULT;
 
   //code by Corey
 
@@ -68,13 +68,13 @@ public class Wheel extends SubsystemBase {
   }
 
   //moves the wheel
-  public void moveMotor(double WheelSpeed) {
+  public void move(double WheelSpeed) {
     WheelMotor.set(WheelSpeed);
   }
 
   public void moveSolenoid(SolenoidState state) {
-    SolenoidState = state;
-    WheelSolenoid.set(SolenoidState == SolenoidState.ACTIVE);
+    wheelState = state;
+    WheelSolenoid.set(state == SolenoidState.ACTIVE);
   }
 
   //gets the direction we need to go to get to our target

@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
-import static frc.robot.Contstants.*;
+import static frc.robot.Constants.*;
 
 
 public class Intake extends SubsystemBase {

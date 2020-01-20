@@ -8,6 +8,18 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+import edu.wpi.first.wpilibj.util.Color;
+import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.enums.SolenoidState;
+
 public final class Constants {
     //base constants
     public static final int KLeftFrontTalon = 1;
@@ -27,16 +39,19 @@ public final class Constants {
     //Storage constants 
     public static final int KStorage = 9;
     public static double KStorageSpeed = 1;
+
     //Pneumatics Contsants(none at the moment)
 
     //Indexer constants
     public static final int KIndexer = 7;
     public static double KIndexerSpeed = 1;
+
     //Intake Constants
     public static final int KIntakeTalon = 8;
     public static final int kSolenoid3 = 3;
     public static final int kSolenoid4 = 4;
     public static double KIntakeSpeed = 1;
+
     //FlyWheel Constants
     public static final int KFlywheel1 = 5;
     public static final int KFlywheel2 = 6;
@@ -45,6 +60,7 @@ public final class Constants {
     public static final int KClimbLeft = 1;
     public static final int KClimbRight = 2;
     public static final int KClimbSolenoid = 6;
+
     //Camera Constan (none at the moment)
 
 }

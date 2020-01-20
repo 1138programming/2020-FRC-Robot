@@ -21,7 +21,7 @@ public class Climb extends SubsystemBase {
   private final Solenoid ClimbSolenoid;
 
 
-  public SolenoidState SolenoidState = SolenoidState.DEFAULT;
+  public SolenoidState climbState = SolenoidState.DEFAULT;
   
   public Climb() {
     ClimbLeft = new TalonSRX(KClimbLeft);
@@ -32,7 +32,7 @@ public class Climb extends SubsystemBase {
 
     ClimbRight.follow(ClimbLeft);
 
-    ClimbSolenoid = newSolenoid(KClimbSolenoid);
+    ClimbSolenoid = new Solenoid(KClimbSolenoid);
   }
 
   @Override
@@ -45,7 +45,7 @@ public class Climb extends SubsystemBase {
   }
 
   public void moveSolenoid(SolenoidState state) {
-    SolenoidState = state;
-    ClimbSolenoid.set(SolenoidState == SolenoidState.ACTIVE);
+    climbState = state;
+    ClimbSolenoid.set(state == SolenoidState.ACTIVE);
   }
 }
