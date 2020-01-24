@@ -1,16 +1,14 @@
-package frc.robot.commands.Storage;
+package frc.robot.commands.Climb;
 
-import frc.robot.Robot;
-import frc.robot.subsystems.Storage;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climb;
+import frc.robot.Robot;
 import static frc.robot.Constants.*;
-import frc.robot.enums.StorageStage;
 
-public class StorageStop extends CommandBase {
+public class ClimbUp extends CommandBase {
 
-  public StorageStop() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.storage);
+  public ClimbUp() {
+      addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +19,7 @@ public class StorageStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(0, StorageStage.BOTH);
+    Robot.climb.move(KClimbSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -32,6 +30,6 @@ public class StorageStop extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

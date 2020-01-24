@@ -1,21 +1,21 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import static frc.robot.Constants.*;
 
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Indexer extends SubsystemBase {
+  private final CANSparkMax indexer;
 
-  private final TalonSRX Indexer;
-
-  
   public Indexer() {
-    Indexer = new TalonSRX(KIndexer);
+    indexer = new CANSparkMax(KIndexer);
   }
 
   @Override
@@ -23,7 +23,7 @@ public class Indexer extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
-  public void move(double IndexerSpeed) {
-    Indexer.set(ControlMode.PercentOutput, IndexerSpeed);
+  public void move(double speed) {
+    indexer.set(ControlMode.PercentOutput, speed);
   }
 }

@@ -1,11 +1,10 @@
 package frc.robot.enums;
 
-public enum RotationDirection { 
-
-    CLOCKWISE(0), COUNTERCLOCKWISE(1), NONE(2);
+public enum StorageStage { 
+    STAGE1(0), STAGE2(1), BOTH(2);
 
     private final int value;
-    private RotationDirection(int value) {
+    private StorageStage(int value) {
        this.value = value;
     }
     

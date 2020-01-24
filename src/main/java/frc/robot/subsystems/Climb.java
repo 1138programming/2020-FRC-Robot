@@ -1,38 +1,40 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.Solenoid;
-
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Climb extends SubsystemBase {
 
-  private final TalonSRX ClimbLeft;
-  private final VictorSPX ClimbRight;
+  private final TalonSRX climbTalon;
+  private final VictorSPX climbVictor;
 
+  private final Solenoid ratchetSolenoid;
+  private final DigitalInput TopSensor;
+  private final DigitalInput BottomSensor;
 
-  private final Solenoid ClimbSolenoid;
+  public SolenoidState ratchetState = SolenoidState.DEFAULT;
 
-
-  public SolenoidState climbState = SolenoidState.DEFAULT;
+  public double climbSpeed;
   
   public Climb() {
-    ClimbLeft = new TalonSRX(KClimbLeft);
-    ClimbRight = new VictorSPX(KClimbRight);
+    climbTalon = new TalonSRX(KClimbTalon);
+    climbVictor = new VictorSPX(KClimbVictor);
+    TopSensor = new DigitalInput(KTopSensor);
+    BottomSensor = new DigitalInput(KBottomSensor);
 
-    ClimbLeft.setInverted(false);
-    ClimbRight.setInverted(true);
+    climbTalon.setInverted(false);
+    climbVictor.setInverted(true);
 
-    ClimbRight.follow(ClimbLeft);
+    climbVictor.follow(climbTalon);
 
-    ClimbSolenoid = new Solenoid(KClimbSolenoid);
+    ratchetSolenoid = new Solenoid(KClimbRatchetSolenoid);
   }
 
   @Override
@@ -40,12 +42,31 @@ public class Climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void moveMotor(double LiftLeftSpeed, double LiftRightSpeed){
-    ClimbLeft.set(ControlMode.PercentOutput, LiftLeftSpeed);
+  public void move(double climbSpeed){
+    if (TopSensor.get() == false && BottomSensor.get() == false){
+      climbTalon.set(ControlMode.PercentOutput, climbSpeed);
+    }
   }
 
-  public void moveSolenoid(SolenoidState state) {
-    climbState = state;
-    ClimbSolenoid.set(state == SolenoidState.ACTIVE);
+  public void moveUntilLimit(boolean movingUp){
+    if (movingUp == true){
+      if (TopSensor.get() == false && BottomSensor.get() == false){
+        climbTalon.set(ControlMode.PercentOutput, climbSpeed);
+      }
+    }
+    if (movingUp == false){
+      if (TopSensor.get() == false && BottomSensor.get() == false){
+        climbTalon.set(ControlMode.PercentOutput, -climbSpeed);
+      }
+    }
+  }
+
+  public void setRatchetState(SolenoidState state) {
+    ratchetState = state;
+    ratchetSolenoid.set(state == SolenoidState.ACTIVE);
+  }
+
+  public SolenoidState getRatchetState() {
+    return ratchetState;
   }
 }

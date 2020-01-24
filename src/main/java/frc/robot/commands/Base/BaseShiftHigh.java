@@ -7,7 +7,6 @@ import frc.robot.enums.BaseState;
 import static frc.robot.Constants.*;
 
 public class BaseShiftHigh extends CommandBase {
-
   public BaseShiftHigh() {
     addRequirements(Robot.base);
   }
