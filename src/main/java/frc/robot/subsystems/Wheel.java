@@ -31,7 +31,7 @@ import static frc.robot.Constants.*;
 
 public class Wheel extends SubsystemBase {
   //Create the talons
-  private final CANSparkMax wheelMotor;
+  private final TalonSRX wheelMotor;
 
   //Create the solenoids
   private final Solenoid wheelSolenoid;
@@ -48,7 +48,7 @@ public class Wheel extends SubsystemBase {
 
   public Wheel() {
     //instantiate the talons
-    wheelMotor = new CANSparkMax(KWheel, CANSparkMaxLowLevel.MotorType.kBrushless);
+    wheelMotor = new TalonSRX(KWheel);
 
     //instantiate the solenoid
     wheelSolenoid = new Solenoid(KWheelSolenoid);
@@ -67,8 +67,8 @@ public class Wheel extends SubsystemBase {
 
   //moves the wheel
   public void move(double speed) {
-    wheelMotor.set(speed);
-  }
+    wheelMotor.set(ControlMode.PercentOutput, speed);
+  } 
 
   public void moveSolenoid(SolenoidState state) {
     wheelState = state;

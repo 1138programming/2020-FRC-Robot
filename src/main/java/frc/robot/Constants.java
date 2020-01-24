@@ -69,4 +69,6 @@ public final class Constants {
 
     //Camera Constan (none at the moment)
 
+    //Tilter Constan
+    public static final int KTilterTalon = 1; 
 }
