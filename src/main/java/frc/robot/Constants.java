@@ -69,8 +69,8 @@ public final class Constants {
     public static final int KTopSensor = 14; 
     public static final int KBottomSensor = 15; 
 
-    //Camera Constan (none at the moment)
+    //Camera Constants (none at the moment)
 
-    //Tilter Constan
+    //Tilter Constant
     public static final int KTilterTalon = 1; 
 }
