@@ -66,6 +66,8 @@ public final class Constants {
     public static final int KClimbVictor = 2;
     public static final int KClimbRatchetSolenoid = 6;
     public static final double KClimbSpeed = 1;
+    public static final int KTopSensor = 14; 
+    public static final int KBottomSensor = 15; 
 
     //Camera Constan (none at the moment)
 

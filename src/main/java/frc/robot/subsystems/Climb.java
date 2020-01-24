@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Climb extends SubsystemBase {
 
@@ -15,12 +16,18 @@ public class Climb extends SubsystemBase {
   private final VictorSPX climbVictor;
 
   private final Solenoid ratchetSolenoid;
+  private final DigitalInput TopSensor;
+  private final DigitalInput BottomSensor;
 
   public SolenoidState ratchetState = SolenoidState.DEFAULT;
+
+  public double climbSpeed;
   
   public Climb() {
     climbTalon = new TalonSRX(KClimbTalon);
     climbVictor = new VictorSPX(KClimbVictor);
+    TopSensor = new DigitalInput(KTopSensor);
+    BottomSensor = new DigitalInput(KBottomSensor);
 
     climbTalon.setInverted(false);
     climbVictor.setInverted(true);
@@ -35,8 +42,23 @@ public class Climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double speed){
-    climbTalon.set(ControlMode.PercentOutput, speed);
+  public void move(double climbSpeed){
+    if (TopSensor.get() == false && BottomSensor.get() == false){
+      climbTalon.set(ControlMode.PercentOutput, climbSpeed);
+    }
+  }
+
+  public void moveUntilLimit(boolean movingUp){
+    if (movingUp == true){
+      if (TopSensor.get() == false && BottomSensor.get() == false){
+        climbTalon.set(ControlMode.PercentOutput, climbSpeed);
+      }
+    }
+    if (movingUp == false){
+      if (TopSensor.get() == false && BottomSensor.get() == false){
+        climbTalon.set(ControlMode.PercentOutput, -climbSpeed);
+      }
+    }
   }
 
   public void setRatchetState(SolenoidState state) {

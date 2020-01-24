@@ -11,7 +11,7 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import frc.robot.commands.Flywheel.SpinFlywheelAt;
+import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import static frc.robot.Constants.*;
 
@@ -30,8 +30,8 @@ public class Flywheel extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
-  public void move(double FlywheelSpeed) {
-    flywheelTop.set(FlywheelSpeed);
-    flywheelBottom.set(FlywheelSpeed);
+  public void move(double topSpeed, double bottomSpeed) {
+    flywheelTop.set(topSpeed);
+    flywheelBottom.set(bottomSpeed);
   }
 }

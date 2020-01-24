@@ -20,7 +20,7 @@ public class StopFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.flywheel.move(0.0);
+    Robot.flywheel.move(0.0, 0.0);
   }
 
   // Called once the command ends or is interrupted.
