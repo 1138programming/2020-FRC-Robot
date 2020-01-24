@@ -13,8 +13,8 @@ import static frc.robot.Constants.*;
 
 public class Storage extends SubsystemBase {
   //Create the talons
-  private final TalonSRX stage1;
-  private final TalonSRX stage2;
+  private final VictorSPX stage1;
+  private final VictorSPX stage2;
 
   //Create the solenoid
   private final Solenoid shifter;
@@ -32,8 +32,8 @@ public class Storage extends SubsystemBase {
 
   public Storage() {
     //Instantiate everything
-    stage1 = new TalonSRX(KStage1Talon);
-    stage2 = new TalonSRX(KStage2Talon);
+    stage1 = new VictorSPX(KStage1Talon);
+    stage2 = new VictorSPX(KStage2Talon);
     shifter = new Solenoid(KStorageShifter);
     ballSensor1 = new DigitalInput(KBallSensor1);
     ballSensor2 = new DigitalInput(KBallSensor2);
