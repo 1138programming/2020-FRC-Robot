@@ -8,13 +8,16 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import static frc.robot.Constants.*;
 
 
 public class Intake extends SubsystemBase {
 
   //Create victor
-  private final VictorSPX intake;
+  private final CANSparkMax intake;
 
   // Create solenoids
   private Solenoid leftSolenoid;
@@ -28,7 +31,7 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
     // instantiate victor
-    intake = new VictorSPX(KIntakeVictor);
+    intake = new CANSparkMax(KIntakeVictor, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     // instantiate solenoids
     leftSolenoid = new Solenoid(KLeftIntakeSolenoid); 
@@ -42,7 +45,7 @@ public class Intake extends SubsystemBase {
 
   //move intake
   public void move(double speed){
-    intake.set(ControlMode.PercentOutput, speed);
+    intake.set(speed);
   }
 
   //gets current state of the intake
