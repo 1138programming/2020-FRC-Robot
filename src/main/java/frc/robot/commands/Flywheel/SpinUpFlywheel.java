@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import static frc.robot.Constants.*;
 
-public class SpinFlywheelAt extends CommandBase {
+public class SpinUpFlywheel extends CommandBase {
 
-  public SpinFlywheelAt() {
+  public SpinUpFlywheel() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.flywheel);
   }
@@ -19,7 +19,7 @@ public class SpinFlywheelAt extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.flywheel.move(1.0);
+    Robot.flywheel.move(1.0, 1.0);
   }
 
   // Called once the command ends or is interrupted.
