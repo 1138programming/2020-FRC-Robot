@@ -7,11 +7,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import static frc.robot.Constants.*;
 
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 public class Indexer extends SubsystemBase {
-  private final TalonSRX indexer;
+  private final CANSparkMax indexer;
 
   public Indexer() {
-    indexer = new TalonSRX(KIndexer);
+    indexer = new CANSparkMax(KIndexer);
   }
 
   @Override
