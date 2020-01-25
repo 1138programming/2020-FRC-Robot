@@ -11,7 +11,6 @@ public class Spin extends CommandBase {
   private int count;
   ColorLabel initialColor;
   ColorLabel lastColor;
-  
 
   public Spin() {
     addRequirements(Robot.wheel);
