@@ -8,9 +8,9 @@ import frc.robot.enums.RotationDirection;
 import static frc.robot.Constants.*;
 
 public class Spin extends CommandBase {
-  private int count;
-  ColorLabel initialColor;
-  ColorLabel lastColor;
+  private int halfSpins; // Number of half spins we have detected
+  private ColorLabel initialColor; // The first color we detected
+  private ColorLabel lastColor; // The last color that we have detected
 
   public Spin() {
     addRequirements(Robot.wheel);
@@ -19,20 +19,19 @@ public class Spin extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    count = 0;
+    halfSpins = 0;
     initialColor = Robot.wheel.getColor();
-    lastColor = Robot.wheel.getColor();
+    lastColor = initialColor;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.wheel.move(1);
+    Robot.wheel.move(KWheelSpeed);
     if (lastColor != Robot.wheel.getColor() && Robot.wheel.getColor() == initialColor){
-      count++;
+      halfSpins++;
     }
     lastColor = Robot.wheel.getColor();
-
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +42,6 @@ public class Spin extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return count == 6;
+    return halfSpins == 6;
   }
 }
