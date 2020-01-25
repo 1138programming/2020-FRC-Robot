@@ -3,9 +3,14 @@ package frc.robot.commands.Wheel;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Wheel;
+import frc.robot.enums.ColorLabel;
+import frc.robot.enums.RotationDirection;
 import static frc.robot.Constants.*;
 
 public class GoToColor extends CommandBase {
+  private static double speed; 
+  private ColorLabel targetColor;
+  private ColorLabel currentColor;
 
   public GoToColor() {
     addRequirements(Robot.wheel);
@@ -14,11 +19,22 @@ public class GoToColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    speed = 0.0; 
+    targetColor= Robot.wheel.getTargetColor();
+    currentColor = Robot.wheel.getColor();
+    RotationDirection spinDirection = Robot.wheel.getRotationDirection(currentColor, targetColor);
+
+    if (spinDirection == RotationDirection.CLOCKWISE){
+      speed = 1;
+    }else {
+      speed = -1;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Robot.wheel.move(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -29,6 +45,6 @@ public class GoToColor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return currentColor == targetColor;
   }
 }
