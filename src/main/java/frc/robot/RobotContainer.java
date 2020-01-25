@@ -36,6 +36,7 @@ import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Tilter.moveWithJoysticks;
 import frc.robot.commands.Tilter.moveTilterTo;
+import frc.robot.commands.Pneumatics.CompressorControl;
 
 public class RobotContainer {
   // Controller Constants
@@ -86,7 +87,7 @@ public class RobotContainer {
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
     Robot.wheel.setDefaultCommand(new WheelStop());
-
+    Robot.pneumatics.setDefaultCommand(new CompressorControl());
     //Controllers
     logitech = new Joystick(KLogitechDrive);
     xbox = new XboxController(KXboxArms);
