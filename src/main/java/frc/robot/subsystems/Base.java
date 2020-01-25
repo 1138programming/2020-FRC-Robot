@@ -107,4 +107,8 @@ public class Base extends SubsystemBase {
   public BaseState getBaseState() {
     return baseState;
   }
+
+  /*public void getLeftSpeed(){
+    return
+  }*/
 }

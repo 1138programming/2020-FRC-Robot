@@ -12,8 +12,8 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Pneumatics;
 import frc.robot.commands.Base.DriveWithJoysticks;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,7 +31,8 @@ public class Robot extends TimedRobot {
   public static final Storage storage = new Storage();
   public static final Tilter tilter = new Tilter();
   public static final Wheel wheel = new Wheel();
-
+  public static final Pneumatics pneumatics = new Pneumatics();
+  
   private Command m_autonomousCommand;
 
   public static final RobotContainer m_robotContainer = new RobotContainer();
