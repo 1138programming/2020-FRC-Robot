@@ -134,4 +134,8 @@ public class Wheel extends SubsystemBase {
 
     return color;
   }
+
+  public ColorLabel getTargetColor() {
+    return ColorLabel.BLUE;
+  }
 }
