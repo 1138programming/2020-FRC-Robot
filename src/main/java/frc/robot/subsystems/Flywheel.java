@@ -19,8 +19,8 @@ public class Flywheel extends SubsystemBase {
   private final CANSparkMax flywheelTop, flywheelBottom;
 
   public Flywheel() {
-    flywheelTop = new CANSparkMax(KFlywheelTop, CANSparkMaxLowLevel.MotorType.kBrushless);
-    flywheelBottom = new CANSparkMax(KFlywheelBottom, CANSparkMaxLowLevel.MotorType.kBrushless);
+    flywheelTop = new CANSparkMax(KFlywheelTopSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
+    flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     flywheelBottom.setInverted(true);
   }

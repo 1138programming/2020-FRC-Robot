@@ -16,18 +16,17 @@ public class Climb extends SubsystemBase {
   private final VictorSPX climbVictor;
 
   private final Solenoid ratchetSolenoid;
-  private final DigitalInput TopSensor;
-  private final DigitalInput BottomSensor;
+
+  private final DigitalInput TopLimit;
+  private final DigitalInput BottomLimit;
 
   public SolenoidState ratchetState = SolenoidState.DEFAULT;
-
-  public double climbSpeed;
   
   public Climb() {
     climbTalon = new TalonSRX(KClimbTalon);
     climbVictor = new VictorSPX(KClimbVictor);
-    TopSensor = new DigitalInput(KTopSensor);
-    BottomSensor = new DigitalInput(KBottomSensor);
+    TopLimit = new DigitalInput(KTopLimit);
+    BottomLimit = new DigitalInput(KBottomLimit);
 
     climbTalon.setInverted(false);
     climbVictor.setInverted(true);
@@ -41,25 +40,30 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+  private void moveWithoutLimits(double speed) {
+    climbTalon.set(ControlMode.PercentOutput, speed);
+  }
 
-  public void move(double climbSpeed){
-    if (TopSensor.get() == false && BottomSensor.get() == false){
-      climbTalon.set(ControlMode.PercentOutput, climbSpeed);
+  public void move(double speed) {
+    if (TopLimit.get() == false && BottomLimit.get() == false){      //limit logic in move, removed so we have a consistent move function and leave it to the methods
+      moveWithoutLimits(speed);
     }
   }
 
-  public void moveUntilLimit(boolean movingUp){
-    if (movingUp == true){
-      if (TopSensor.get() == false && BottomSensor.get() == false){
-        climbTalon.set(ControlMode.PercentOutput, climbSpeed);
+  /*public void moveWithLimits(boolean movingUp) {
+    if (movingUp == true) {
+      if (TopLimit.get() == false && BottomLimit.get() == false){
+        //climbTalon.set(ControlMode.PercentOutput, KClimbSpeed);
+        move(KClimbSpeed);
       }
     }
-    if (movingUp == false){
-      if (TopSensor.get() == false && BottomSensor.get() == false){
-        climbTalon.set(ControlMode.PercentOutput, -climbSpeed);
+    else if (movingUp == false) {
+      if (TopLimit.get() == false && BottomLimit.get() == false){
+        //climbTalon.set(ControlMode.PercentOutput, -KClimbSpeed);
+        move(-KClimbSpeed);
       }
     }
-  }
+  }*/
 
   public void setRatchetState(SolenoidState state) {
     ratchetState = state;

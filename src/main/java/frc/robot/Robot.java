@@ -23,14 +23,14 @@ import frc.robot.commands.Base.DriveWithJoysticks;
  */
 public class Robot extends TimedRobot {
   public static final Base base = new Base();
-  public static final Climb climb = new Climb();
-  public static final Intake intake = new Intake();
   public static final Camera camera = new Camera();
-  public static final Storage storage = new Storage();
+  public static final Climb climb = new Climb();
   public static final Flywheel flywheel = new Flywheel();
   public static final Indexer indexer = new Indexer();
-  public static final Wheel wheel = new Wheel();
+  public static final Intake intake = new Intake();
+  public static final Storage storage = new Storage();
   public static final Tilter tilter = new Tilter();
+  public static final Wheel wheel = new Wheel();
 
   private Command m_autonomousCommand;
 

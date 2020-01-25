@@ -1,15 +1,19 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.KBaseMediumGear;
+import static frc.robot.Constants.KBaseShifterSolenoid;
+import static frc.robot.Constants.KLeftBackTalon;
+import static frc.robot.Constants.KLeftFrontTalon;
+import static frc.robot.Constants.KRightBackTalon;
+import static frc.robot.Constants.KRightFrontTalon;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.robot.commands.Base.DriveWithJoysticks;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
-import static frc.robot.Constants.*;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
@@ -22,10 +26,11 @@ public class Base extends SubsystemBase {
   private BaseState baseState = BaseState.MEDIUM;
   
   //Variables
-  public static final int TicksPerRotation = 4600; //conversion factor that we have to find
-  public static final int FreeSpeed = (6380/3600) * TicksPerRotation; 
-  public static final double LowGear = 62/8; // Numbers from the Quran, absolutely 100% true
-  public static final double HighGear = 32/24; // Numbers from the Quran, absolutely 100% true
+  private static final int TicksPerRotation = 4600; //conversion factor that we have to find
+  private static final int FreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
+  private static final int FreeSpeed = (FreeSpeedRPM / 600) * TicksPerRotation; // Free speed of the base in ticks per 100 ms
+  private static final double LowGear = 62 / 8; // Numbers from the Quran, absolutely 100% true
+  private static final double HighGear = 32 / 24; // Numbers from the Quran, absolutely 100% true
 
   public Base() {
     //instantiating the talons
@@ -34,11 +39,11 @@ public class Base extends SubsystemBase {
     rightFront = new TalonSRX(KRightFrontTalon);
     rightBack = new TalonSRX(KRightBackTalon);
 
-    //slaving the talons
+    // Slaving the talons
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
     
-    //instantiating the solenoid
+    // Instantiating the solenoid
     shifter = new Solenoid(KBaseShifterSolenoid);
   }
 
@@ -50,19 +55,19 @@ public class Base extends SubsystemBase {
   //moves the base
   public void move(double leftSpeed, double rightSpeed) {
     if (baseState == BaseState.MEDIUM) {
-      leftFront.set(ControlMode.PercentOutput, leftSpeed * KBaseMediumSpeed);
-      rightFront.set(ControlMode.PercentOutput, rightSpeed * KBaseMediumSpeed);
+      leftFront.set(ControlMode.PercentOutput, leftSpeed * KBaseMediumGear);
+      rightFront.set(ControlMode.PercentOutput, rightSpeed * KBaseMediumGear);
     } else {
       leftFront.set(ControlMode.PercentOutput, leftSpeed);
       rightFront.set(ControlMode.PercentOutput, rightSpeed);
     }
-  } 
+  }
 
   //shifts the base to the state we want to be in mechanically
   public void setBaseState(BaseState state) {
     baseState = state;
     
-    if(baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
+    if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
       shifter.set(true);
     } else {
       shifter.set(false);
@@ -70,7 +75,7 @@ public class Base extends SubsystemBase {
   }
 
   //Zeroes encoders
-  public void zeroEncoders(){
+  public void zeroEncoders() {
     leftFront.getSensorCollection().setQuadraturePosition(0, 0);
     rightFront.getSensorCollection().setQuadraturePosition(0, 0);
     leftBack.getSensorCollection().setQuadraturePosition(0, 0);
@@ -83,19 +88,19 @@ public class Base extends SubsystemBase {
     return (int)(FreeSpeed / (HighGear + LowGear));
   }
 
-  public double getLeftSpeed(){
+  public int getLeftSpeed() {
     return leftFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
   }
 
-  public double getRightSpeed(){
+  public int getRightSpeed() {
     return rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
   }
 
-  public double getLeftFrontEncoder() {
+  public int getLeftFrontEncoder() {
     return leftFront.getSelectedSensorPosition();
   }
 
-  public double getRightFrontEncoder() {
+  public int getRightFrontEncoder() {
     return rightFront.getSelectedSensorPosition();
   }
 

@@ -23,11 +23,7 @@ public class MoveIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(KStorageSpeed, StorageStage.BOTH);
-    /*if (Storage.ballSensor1.get() == false && Storage.ballSensor1.get() != LastState) {
-      Storage.isIntaking = true; 
-    } 
-    LastState = Storage.BallSensor1.get();*/
+    Robot.storage.move(KStorageSpeed);
   }
 
   // Called once the command ends or is interrupted.

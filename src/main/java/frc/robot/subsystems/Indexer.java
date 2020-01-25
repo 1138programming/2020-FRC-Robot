@@ -15,7 +15,7 @@ public class Indexer extends SubsystemBase {
   private final CANSparkMax indexer;
 
   public Indexer() {
-    indexer = new CANSparkMax(KIndexer);
+    indexer = new CANSparkMax(KIndexerSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
   }
 
   @Override
@@ -24,6 +24,6 @@ public class Indexer extends SubsystemBase {
   }
   
   public void move(double speed) {
-    indexer.set(ControlMode.PercentOutput, speed);
+    indexer.set(speed);
   }
 }

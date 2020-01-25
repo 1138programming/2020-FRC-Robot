@@ -12,11 +12,11 @@ import frc.robot.subsystems.Climb;
 import frc.robot.Robot;
 import static frc.robot.Constants.*;
 
-public class LiftWithJoysticks extends CommandBase {
+public class ClimbWithJoysticks extends CommandBase {
   /**
    * Creates a new LiftWithJoysticks.
-   */
-  public LiftWithJoysticks() {
+   */ 
+  public ClimbWithJoysticks() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.climb);
   }

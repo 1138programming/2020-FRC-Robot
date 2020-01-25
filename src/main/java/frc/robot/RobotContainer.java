@@ -1,41 +1,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.Joystick;
-
-import frc.robot.subsystems.Base;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Camera;
-import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Wheel;
-import frc.robot.subsystems.Climb;
-import frc.robot.subsystems.Storage;
-import frc.robot.commands.Intake.IntakeIn;
-import frc.robot.commands.Intake.IntakeOut;
-import frc.robot.commands.Intake.IntakeStop;
-import frc.robot.commands.Intake.IntakeDeploy;
-import frc.robot.commands.Intake.IntakeRetract;
-import frc.robot.commands.Flywheel.SpinUpFlywheel;
-import frc.robot.commands.Flywheel.StopFlywheel;
-import frc.robot.commands.Indexer.IndexIn;
-import frc.robot.commands.Indexer.IndexOut;
-import frc.robot.commands.Indexer.IndexStop;
-import frc.robot.commands.Storage.MoveIn;
-import frc.robot.commands.Storage.MoveOut;
-import frc.robot.commands.Storage.StorageStop;
-import frc.robot.commands.Intake.IntakeIn;
-import frc.robot.commands.Intake.IntakeOut;
-import frc.robot.commands.Intake.IntakeStop;
-import frc.robot.commands.Wheel.GoToColor;
-import frc.robot.commands.Wheel.Spin;
-import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Base.DriveWithJoysticks;
-import frc.robot.commands.Tilter.moveWithJoysticks;
-import frc.robot.commands.Tilter.moveTilterTo;
+import frc.robot.commands.Flywheel.StopFlywheel;
+import frc.robot.commands.Indexer.IndexStop;
+import frc.robot.commands.Intake.IntakeStop;
+import frc.robot.commands.Storage.StorageStop;
+import frc.robot.commands.Wheel.WheelStop;
 
 public class RobotContainer {
   // Controller Constants

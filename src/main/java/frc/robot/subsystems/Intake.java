@@ -1,17 +1,15 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.KIntakeVictor;
+import static frc.robot.Constants.KLeftIntakeSolenoid;
+import static frc.robot.Constants.KRightIntakeSolenoid;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.SolenoidState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Solenoid;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.*;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import static frc.robot.Constants.*;
 
 
 public class Intake extends SubsystemBase {

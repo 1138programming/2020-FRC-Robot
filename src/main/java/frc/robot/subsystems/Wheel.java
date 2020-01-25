@@ -1,33 +1,19 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorSensorV3;
 
-import com.revrobotics.*;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Solenoid;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.ColorLabel;
 import frc.robot.enums.RotationDirection;
 import frc.robot.enums.SolenoidState;
-
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
-import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorMatch;
-
-import frc.robot.commands.Wheel.GoToColor;
-import frc.robot.commands.Wheel.Spin;
-import frc.robot.commands.Wheel.WheelStop;
-import static frc.robot.Constants.*;
 
 public class Wheel extends SubsystemBase {
   //Create the talons
@@ -48,16 +34,16 @@ public class Wheel extends SubsystemBase {
 
   public Wheel() {
     //instantiate the talons
-    wheelMotor = new TalonSRX(KWheel);
+    wheelMotor = new TalonSRX(KWheelTalon);
 
     //instantiate the solenoid
     wheelSolenoid = new Solenoid(KWheelSolenoid);
 
     //set the colors of the matcher
-    m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
-    m_colorMatcher.addColorMatch(kRedTarget);
-    m_colorMatcher.addColorMatch(kYellowTarget); 
+    m_colorMatcher.addColorMatch(KBlueTarget);
+    m_colorMatcher.addColorMatch(KGreenTarget);
+    m_colorMatcher.addColorMatch(KRedTarget);
+    m_colorMatcher.addColorMatch(KYellowTarget); 
   }
 
   @Override
@@ -121,16 +107,16 @@ public class Wheel extends SubsystemBase {
     ColorLabel color;
     String colorString;
 
-    if (match.color == kBlueTarget) {
+    if (match.color == KBlueTarget) {
       color = ColorLabel.BLUE;
-      colorString = "blue";
-    } else if (match.color == kRedTarget) {
+      colorString = "Blue";
+    } else if (match.color == KRedTarget) {
       color = ColorLabel.RED;
       colorString = "Red";
-    } else if (match.color == kGreenTarget) {
+    } else if (match.color == KGreenTarget) {
       color = ColorLabel.GREEN;
       colorString = "Green";
-    } else if (match.color == kYellowTarget) {
+    } else if (match.color == KYellowTarget) {
       color = ColorLabel.YELLOW;
       colorString = "Yellow";
     } else {
