@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.ColorLabel;
 import frc.robot.enums.RotationDirection;
 import frc.robot.enums.SolenoidState;
+import static frc.robot.Constants.*;
 
 public class Wheel extends SubsystemBase {
   //Create the talons
