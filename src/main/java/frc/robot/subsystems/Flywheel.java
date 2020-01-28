@@ -30,6 +30,12 @@ public class Flywheel extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
+  /**
+   * Moves the flywheel directly
+   * 
+   * @param topSpeed    Speed to move the top wheel at
+   * @param bottomSpeed Speed to move the bottom wheel at
+   */
   public void move(double topSpeed, double bottomSpeed) {
     flywheelTop.set(topSpeed);
     flywheelBottom.set(bottomSpeed);

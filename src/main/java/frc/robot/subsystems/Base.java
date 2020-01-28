@@ -52,7 +52,12 @@ public class Base extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  //moves the base
+  /**
+   * Moves the base directly
+   * 
+   * @param leftSpeed   Speed to move the left side at
+   * @param rightSpeed  Speed to move the right side at
+   */
   public void move(double leftSpeed, double rightSpeed) {
     if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftSpeed * KBaseMediumGear);
@@ -63,7 +68,11 @@ public class Base extends SubsystemBase {
     }
   }
 
-  //shifts the base to the state we want to be in mechanically
+  /**
+   * Sets the base shift to high, medium, or low
+   * 
+   * @param state State to set the base to
+   */
   public void setBaseState(BaseState state) {
     baseState = state;
     
@@ -74,7 +83,36 @@ public class Base extends SubsystemBase {
     }
   }
 
-  //Zeroes encoders
+  /**
+   * Gets the base's state
+   * 
+   * @return State of the base
+   */
+  public BaseState getBaseState() {
+    return baseState;
+  }
+
+  /**
+   * Gets the encoder value of the left side
+   * 
+   * @return  Left encoder value
+   */
+  public double getLeftEncoder() {
+    return (double)leftFront.getSelectedSensorPosition();
+  }
+
+  /**
+   * Gets the encoder value of the right side
+   * 
+   * @return  Right encoder value
+   */
+  public double getRightEncoder() {
+    return (double)rightFront.getSelectedSensorPosition();
+  }
+
+  /**
+   * Zeroes the encoders on both sides
+   */
   public void zeroEncoders() {
     leftFront.getSensorCollection().setQuadraturePosition(0, 0);
     rightFront.getSensorCollection().setQuadraturePosition(0, 0);
@@ -83,32 +121,31 @@ public class Base extends SubsystemBase {
   }
 
   //Getters
-  //This specifically finds the speed at which we need to shift (documentation is in ryver)
-  public int getShiftSpeed() {
-    return (int)(FreeSpeed / (HighGear + LowGear));
+
+  /**
+   * Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
+   * 
+   * @return  Speed in ticks per 100 ms
+   */
+  public double getShiftSpeed() {
+    return FreeSpeed / (HighGear + LowGear);
   }
 
-  public int getLeftSpeed() {
-    return leftFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+  /**
+   * Gets the speed of the left side
+   * 
+   * @return Speed in ticks per 100 ms
+   */
+  public double getLeftSpeed() {
+    return (double)leftFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
   }
 
-  public int getRightSpeed() {
-    return rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+  /**
+   * Gets the speed of the right side
+   * 
+   * @return Speed in ticks per 100 ms
+   */
+  public double getRightSpeed() {
+    return (double)rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
   }
-
-  public int getLeftFrontEncoder() {
-    return leftFront.getSelectedSensorPosition();
-  }
-
-  public int getRightFrontEncoder() {
-    return rightFront.getSelectedSensorPosition();
-  }
-
-  public BaseState getBaseState() {
-    return baseState;
-  }
-
-  /*public void getLeftSpeed(){
-    return
-  }*/
 }

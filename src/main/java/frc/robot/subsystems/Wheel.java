@@ -20,25 +20,16 @@ public class Wheel extends SubsystemBase {
   //Create the talons
   private final TalonSRX wheelMotor;
 
-  //Create the solenoids
-  private final Solenoid wheelSolenoid;
-
   //Create the color sensors
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
-
-  //create variables, enums, etc. 
-  public SolenoidState wheelState = SolenoidState.DEFAULT;
 
   //code by Corey
 
   public Wheel() {
     //instantiate the talons
     wheelMotor = new TalonSRX(KWheelTalon);
-
-    //instantiate the solenoid
-    wheelSolenoid = new Solenoid(KWheelSolenoid);
 
     //set the colors of the matcher
     m_colorMatcher.addColorMatch(KBlueTarget);
@@ -52,17 +43,61 @@ public class Wheel extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  //moves the wheel
+  /**
+   * Moves the wheel mechanism directly
+   * 
+   * @param speed Speed to move the wheel mechanism at
+   */
   public void move(double speed) {
     wheelMotor.set(ControlMode.PercentOutput, speed);
-  } 
-
-  public void moveSolenoid(SolenoidState state) {
-    wheelState = state;
-    wheelSolenoid.set(state == SolenoidState.ACTIVE);
   }
 
-  //gets the direction we need to go to get to our target
+  /**
+   * Gets the color that the color sensor is detecting
+   * 
+   * @return  The color
+   */
+  public ColorLabel getColor(){
+    Color detectedColor = m_colorSensor.getColor();
+    double IR = m_colorSensor.getIR();
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    ColorLabel color;
+    String colorString;
+
+    if (match.color == KBlueTarget) {
+      color = ColorLabel.BLUE;
+      colorString = "Blue";
+    } else if (match.color == KRedTarget) {
+      color = ColorLabel.RED;
+      colorString = "Red";
+    } else if (match.color == KGreenTarget) {
+      color = ColorLabel.GREEN;
+      colorString = "Green";
+    } else if (match.color == KYellowTarget) {
+      color = ColorLabel.YELLOW;
+      colorString = "Yellow";
+    } else {
+      color = ColorLabel.UNKNOWN;
+      colorString = "Unknown";
+    }
+
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Confidence", match.confidence);
+    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putNumber("IR", IR);
+
+    return color;
+  }
+
+  /**
+   * Gets the direction in which the wheel mechanism needs to rotate to get to the target color
+   * 
+   * @param Current The current color the wheel is on
+   * @param Target  The target color for the wheel
+   * @return        The direction to rotate
+   */
   public RotationDirection getRotationDirection(ColorLabel Current, ColorLabel Target) {
     // Make sure both colors are known
     if (Current == ColorLabel.UNKNOWN || Target == ColorLabel.UNKNOWN) {
@@ -100,41 +135,11 @@ public class Wheel extends SubsystemBase {
     }
   }
 
-  //gets the color we are on from the color sensor
-  public ColorLabel getColor(){
-    Color detectedColor = m_colorSensor.getColor();
-    double IR = m_colorSensor.getIR();
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-    ColorLabel color;
-    String colorString;
-
-    if (match.color == KBlueTarget) {
-      color = ColorLabel.BLUE;
-      colorString = "Blue";
-    } else if (match.color == KRedTarget) {
-      color = ColorLabel.RED;
-      colorString = "Red";
-    } else if (match.color == KGreenTarget) {
-      color = ColorLabel.GREEN;
-      colorString = "Green";
-    } else if (match.color == KYellowTarget) {
-      color = ColorLabel.YELLOW;
-      colorString = "Yellow";
-    } else {
-      color = ColorLabel.UNKNOWN;
-      colorString = "Unknown";
-    }
-
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putNumber("IR", IR);
-
-    return color;
-  }
-
+  /**
+   * Gets the target color for the wheel from the FMS
+   * 
+   * @return  The target color
+   */
   public ColorLabel getTargetColor() {
     return ColorLabel.BLUE;
   }

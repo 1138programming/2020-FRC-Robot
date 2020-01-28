@@ -23,6 +23,11 @@ public class Indexer extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
+  /**
+   * Moves the indexer
+   * 
+   * @param speed Speed to move the indexer at
+   */
   public void move(double speed) {
     indexer.set(speed);
   }

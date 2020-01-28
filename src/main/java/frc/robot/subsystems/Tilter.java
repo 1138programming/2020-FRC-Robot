@@ -23,24 +23,30 @@ public class Tilter extends SubsystemBase {
         tilterPID.reset();
     }
 
-    public void move(double speed){
+    /**
+     * Moves the tilter by a given speed
+     * 
+     * @param speed The speed to move the tilter at
+     */
+    public void move(double speed) {
         tilterMotor.set(ControlMode.PercentOutput, speed);
     }
 
-    public void setTilterSetpoint (double setpoint){
+    /**
+     * Sets the setpoint for the tiler PID
+     * 
+     * @param setpoint  The setpoint
+     */
+    public void setSetpoint(double setpoint) {
         tilterPID.setSetpoint(setpoint);
     }
 
-    public double getTilterSetpoint () {
+    /**
+     * Gets the setpoint of the tilter PID
+     * 
+     * @return  The setpoint
+     */
+    public double getSetpoint () {
         return tilterPID.getSetpoint();
     }
-
-    /*public double getTilterAngle() {
-        return tilterPID.getAngle();
-    }
-
-    public void calculate (){
-        move(tilterPID.calculate(getTilterAngle()));
-    }*/
-
 }

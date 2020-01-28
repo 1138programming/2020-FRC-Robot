@@ -27,8 +27,6 @@ public final class Constants {
     //wheel constants
     //Talons
     public static final int KWheelTalon = 4;
-    //Solenoids
-    public static final int KWheelSolenoid = 1;
     //Color Targets
     public static final Color KBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static final Color KGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);

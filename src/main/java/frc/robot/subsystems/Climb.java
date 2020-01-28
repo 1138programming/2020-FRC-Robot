@@ -40,36 +40,42 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  /**
+   * Moves climb without taking limits into account
+   * 
+   * @param speed Speed to move the climb at
+   */
   private void moveWithoutLimits(double speed) {
     climbTalon.set(ControlMode.PercentOutput, speed);
   }
 
+  /**
+   * Moves the climb, taking limits into account
+   * 
+   * @param speed Speed to move the climb at
+   */
   public void move(double speed) {
     if (TopLimit.get() == false && BottomLimit.get() == false){      //limit logic in move, removed so we have a consistent move function and leave it to the methods
       moveWithoutLimits(speed);
     }
   }
 
-  /*public void moveWithLimits(boolean movingUp) {
-    if (movingUp == true) {
-      if (TopLimit.get() == false && BottomLimit.get() == false){
-        //climbTalon.set(ControlMode.PercentOutput, KClimbSpeed);
-        move(KClimbSpeed);
-      }
-    }
-    else if (movingUp == false) {
-      if (TopLimit.get() == false && BottomLimit.get() == false){
-        //climbTalon.set(ControlMode.PercentOutput, -KClimbSpeed);
-        move(-KClimbSpeed);
-      }
-    }
-  }*/
-
+  /**
+   * Sets the state of the ratchet
+   * 
+   * @param state State of the pawl for the ratchet
+   */
   public void setRatchetState(SolenoidState state) {
     ratchetState = state;
     ratchetSolenoid.set(state == SolenoidState.ACTIVE);
   }
 
+  /**
+   * Gets the state of the ratchet
+   * 
+   * @return  State of the pawl for the ratchet
+   */
   public SolenoidState getRatchetState() {
     return ratchetState;
   }

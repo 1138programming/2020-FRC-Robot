@@ -41,19 +41,32 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  //move intake
+  /**
+   * Moves the intake directly
+   * 
+   * @param speed Speed to move the intake at
+   */
   public void move(double speed){
     intake.set(speed);
   }
 
-  //gets current state of the intake
-  public SolenoidState getIntakePosition() {
-    return intakePosition;
-  }
-
+  /**
+   * Sets the position of the intake solenoid
+   * 
+   * @param state The state of the solenoids on the intake
+   */
   public void setIntakePosition(SolenoidState state) {
     intakePosition = state;
     leftSolenoid.set(state == SolenoidState.ACTIVE);
     rightSolenoid.set(state == SolenoidState.ACTIVE);
+  }
+
+  /**
+   * Gets the position of the intake
+   * 
+   * @return  State of the intake's solenoids
+   */
+  public SolenoidState getIntakePosition() {
+    return intakePosition;
   }
 }

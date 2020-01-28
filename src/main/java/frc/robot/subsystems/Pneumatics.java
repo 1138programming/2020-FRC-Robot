@@ -15,7 +15,12 @@ public class Pneumatics extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setCompressor(boolean on){
+  /**
+   * Sets the copmressor to either on or off
+   * 
+   * @param on  True means turn on the compressor, fake means turn it off
+   */
+  public void setCompressor(boolean on) {
     if(on == true) {
       pneumaticsCompressor.start();
     }else {
@@ -23,7 +28,12 @@ public class Pneumatics extends SubsystemBase {
     }
   }
 
-  public boolean getCompressor(){ 
+  /**
+   * Gets the compressor's state
+   * 
+   * @return  True means on, false means off
+   */
+  public boolean getCompressor() {
     return pneumaticsCompressor.enabled();
   }
 }
