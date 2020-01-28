@@ -9,14 +9,12 @@ package frc.robot.commands.Tilter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.Tilter;
-import static frc.robot.Constants.*;
 
-public class moveTilterTo extends CommandBase {
+public class MoveTilterTo extends CommandBase {
   /**
-   * Creates a new moveTilterTo.
+   * Creates a new MoveTilterTo.
    */
-  public moveTilterTo() {
+  public MoveTilterTo() {
     addRequirements(Robot.tilter);
   }
 

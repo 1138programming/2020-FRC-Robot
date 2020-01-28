@@ -2,8 +2,6 @@ package frc.robot.commands.Wheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.Wheel;
-import static frc.robot.Constants.*;
 
 public class WheelStop extends CommandBase {
 

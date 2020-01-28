@@ -8,7 +8,7 @@ import static frc.robot.Constants.KRightBackTalon;
 import static frc.robot.Constants.KRightFrontTalon;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -17,7 +17,7 @@ import frc.robot.enums.BaseState;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
-  private final TalonSRX leftFront, leftBack, rightFront, rightBack;
+  private final TalonFX leftFront, leftBack, rightFront, rightBack;
 
   //Creating the Solenoids
   private final Solenoid shifter;
@@ -34,10 +34,10 @@ public class Base extends SubsystemBase {
 
   public Base() {
     //instantiating the talons
-    leftFront = new TalonSRX(KLeftFrontTalon);
-    leftBack = new TalonSRX(KLeftBackTalon);
-    rightFront = new TalonSRX(KRightFrontTalon);
-    rightBack = new TalonSRX(KRightBackTalon);
+    leftFront = new TalonFX(KLeftFrontTalon);
+    leftBack = new TalonFX(KLeftBackTalon);
+    rightFront = new TalonFX(KRightFrontTalon);
+    rightBack = new TalonFX(KRightBackTalon);
 
     // Slaving the talons
     leftBack.follow(leftFront);
@@ -114,10 +114,20 @@ public class Base extends SubsystemBase {
    * Zeroes the encoders on both sides
    */
   public void zeroEncoders() {
-    leftFront.getSensorCollection().setQuadraturePosition(0, 0);
+    /*leftFront.getSensorCollection().setQuadraturePosition(0, 0);
     rightFront.getSensorCollection().setQuadraturePosition(0, 0);
     leftBack.getSensorCollection().setQuadraturePosition(0, 0);
-    rightBack.getSensorCollection().setQuadraturePosition(0, 0);
+    rightBack.getSensorCollection().setQuadraturePosition(0, 0);*/
+
+    /*leftFront.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    rightFront.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    leftBack.getSensorCollection().setIntegratedSensorPosition(0, 0);
+    rightBack.getSensorCollection().setIntegratedSensorPosition(0, 0);*/
+
+    leftFront.setSelectedSensorPosition(0);
+    rightFront.setSelectedSensorPosition(0);
+    leftBack.setSelectedSensorPosition(0);
+    rightBack.setSelectedSensorPosition(0);
   }
 
   //Getters

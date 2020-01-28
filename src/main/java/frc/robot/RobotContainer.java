@@ -11,9 +11,9 @@ import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
-import frc.robot.commands.Base.DriveWithJoysticks;
-import frc.robot.commands.Tilter.moveWithJoysticks;
-import frc.robot.commands.Tilter.moveTilterTo;
+import frc.robot.commands.Tilter.MoveWithJoysticks;
+import frc.robot.commands.Tilter.MoveTilterTo;
+import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Pneumatics.CompressorControl;
 
 public class RobotContainer {
@@ -57,20 +57,22 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains default commands, OI devices, and commands.
    */
-  public RobotContainer() { 
-
+  public RobotContainer() {
+    // Set default commands
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
     Robot.flywheel.setDefaultCommand(new StopFlywheel());
     Robot.indexer.setDefaultCommand(new IndexStop());
+    Robot.pneumatics.setDefaultCommand(new CompressorControl());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
+    Robot.tilter.setDefaultCommand(new TilterStop());
     Robot.wheel.setDefaultCommand(new WheelStop());
-    Robot.pneumatics.setDefaultCommand(new CompressorControl());
-    //Controllers
+
+    // Controllers
     logitech = new Joystick(KLogitechDrive);
     xbox = new XboxController(KXboxArms);
     
-    //Logitch Buttons 
+    // Logitch Buttons 
     btn1 = new JoystickButton(logitech, KButton1);
     btn2 = new JoystickButton(logitech, KButton2);
     btn3 = new JoystickButton(logitech, KButton3);
@@ -80,7 +82,7 @@ public class RobotContainer {
     btn7 = new JoystickButton(logitech, KButton7);
     btn8 = new JoystickButton(logitech, KButton8);
 
-    //XBox Buttons
+    // XBox Buttons
     btnA = new JoystickButton(xbox, KButtonA);
 		btnB = new JoystickButton(xbox, KButtonB);
 		btnX = new JoystickButton(xbox, KButtonX);
