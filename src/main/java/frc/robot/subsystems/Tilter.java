@@ -46,7 +46,7 @@ public class Tilter extends SubsystemBase {
      * 
      * @return  The setpoint
      */
-    public double getSetpoint () {
+    public double getSetpoint() {
         return tilterPID.getSetpoint();
     }
 }

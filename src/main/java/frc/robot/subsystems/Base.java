@@ -39,6 +39,9 @@ public class Base extends SubsystemBase {
     rightFront = new TalonFX(KRightFrontTalon);
     rightBack = new TalonFX(KRightBackTalon);
 
+    rightFront.setInverted(true);
+    rightBack.setInverted(true);
+
     // Slaving the talons
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);

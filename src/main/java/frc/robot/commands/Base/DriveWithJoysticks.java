@@ -3,6 +3,7 @@ package frc.robot.commands.Base;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Base;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
 public class DriveWithJoysticks extends CommandBase {
@@ -21,6 +22,10 @@ public class DriveWithJoysticks extends CommandBase {
   public void execute() {
     double leftSpeed = Robot.m_robotContainer.getLeftAxis();
     double rightSpeed = Robot.m_robotContainer.getRightAxis();
+
+    SmartDashboard.putNumber("Left axis", leftSpeed);
+    SmartDashboard.putNumber("Right axis", rightSpeed);
+    
     Robot.base.move(leftSpeed, rightSpeed);
   }
 

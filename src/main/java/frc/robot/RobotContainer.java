@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Base.DriveWithJoysticks;
+import frc.robot.commands.Base.BaseShiftHigh;
+import frc.robot.commands.Base.BaseShiftMedium;
+import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeStop;
@@ -15,6 +18,7 @@ import frc.robot.commands.Tilter.MoveWithJoysticks;
 import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Pneumatics.CompressorControl;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotContainer {
   // Controller Constants
@@ -25,34 +29,34 @@ public class RobotContainer {
   private static final double KDeadZone = 0.2;
 
   //Logitech Button Constants
-  public static final int KButton1 = 1;
-  public static final int KButton2 = 2;
-  public static final int KButton3 = 3;
-  public static final int KButton4 = 4;
-  public static final int KButton5 = 5; 
-  public static final int KButton6 = 6;
-  public static final int KButton7 = 7;
-  public static final int KButton8 = 8; 
+  public static final int KLogitechButtonX = 1;
+  public static final int KLogitechButtonA = 2;
+  public static final int KLogitechButtonB = 3;
+  public static final int KLogitechButtonY = 4;
+  public static final int KLogitechLeftBumper = 5; 
+  public static final int KLogitechRightBumper = 6;
+  public static final int KLogitechLeftTrigger = 7;
+  public static final int KLogitechRightTrigger = 8; 
 
-  private static final int KLeftYAxis = 5;
-  private static final int KRightYAxis = 1;
+  private static final int KLeftYAxis = 1;
+  private static final int KRightYAxis = 3;
 
-  //Xbox Button COnstants
-  public static final int KButtonA = 1; 
-  public static final int KButtonB = 2;
-  public static final int KButtonX = 3;  
-  public static final int KButtonY = 4; 
-  public static final int KLeftBumper = 5; 
-  public static final int KRightBumper = 6; 
-  public static final int KStartButton = 8; 
-  public static final int KLeftTrigger = 9; 
-  public static final int KRightTrigger = 10; 
+  //Xbox Button Constants
+  public static final int KXboxButtonA = 1; 
+  public static final int KXboxButtonB = 2;
+  public static final int KXboxButtonX = 3;  
+  public static final int KXboxButtonY = 4; 
+  public static final int KXboxLeftBumper = 5; 
+  public static final int KXboxRightBumper = 6; 
+  public static final int KXboxStartButton = 8; 
+  public static final int KXboxLeftTrigger = 9; 
+  public static final int KXboxRightTrigger = 10; 
 
 
   public static Joystick logitech;
   public static XboxController xbox; 
-  public JoystickButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8; //Logitech Button
-  public JoystickButton btnA, btnB, btnX, btnY, btnLB, btnRB, btnStrt, btnLT, btnRT;
+  public JoystickButton logitechBtnX, logitechBtnA, logitechBtnB, logitechBtnY, logitechBtnLB, logitechBtnRB, logitechBtnLT, logitechBtnRT; //Logitech Button
+  public JoystickButton xboxBtnA, xboxBtnB, xboxBtnX, xboxBtnY, xboxBtnLB, xboxBtnRB, xboxBtnStrt, xboxBtnLT, xboxBtnRT;
   
   /**
    * The container for the robot.  Contains default commands, OI devices, and commands.
@@ -65,7 +69,11 @@ public class RobotContainer {
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
-    Robot.tilter.setDefaultCommand(new TilterStop());
+
+    TilterStop tilterStop = new TilterStop();
+    SmartDashboard.putBoolean("Tilter exists?", Robot.tilter != null);
+    SmartDashboard.putBoolean("Tilter stop exists?", tilterStop != null);
+    Robot.tilter.setDefaultCommand(tilterStop);
     Robot.wheel.setDefaultCommand(new WheelStop());
 
     // Controllers
@@ -73,25 +81,25 @@ public class RobotContainer {
     xbox = new XboxController(KXboxArms);
     
     // Logitch Buttons 
-    btn1 = new JoystickButton(logitech, KButton1);
-    btn2 = new JoystickButton(logitech, KButton2);
-    btn3 = new JoystickButton(logitech, KButton3);
-    btn4 = new JoystickButton(logitech, KButton4);
-    btn5 = new JoystickButton(logitech, KButton5);
-    btn6 = new JoystickButton(logitech, KButton6);
-    btn7 = new JoystickButton(logitech, KButton7);
-    btn8 = new JoystickButton(logitech, KButton8);
+    logitechBtnX = new JoystickButton(logitech, KLogitechButtonX);
+    logitechBtnA = new JoystickButton(logitech, KLogitechButtonA);
+    logitechBtnB = new JoystickButton(logitech, KLogitechButtonB);
+    logitechBtnY = new JoystickButton(logitech, KLogitechButtonY);
+    logitechBtnLB = new JoystickButton(logitech, KLogitechLeftBumper);
+    logitechBtnRB = new JoystickButton(logitech, KLogitechRightBumper);
+    logitechBtnLT = new JoystickButton(logitech, KLogitechLeftTrigger);
+    logitechBtnRT = new JoystickButton(logitech, KLogitechRightTrigger);
 
     // XBox Buttons
-    btnA = new JoystickButton(xbox, KButtonA);
-		btnB = new JoystickButton(xbox, KButtonB);
-		btnX = new JoystickButton(xbox, KButtonX);
-		btnY = new JoystickButton(xbox, KButtonY);
-		btnLB = new JoystickButton(xbox, KLeftBumper);
-		btnRB = new JoystickButton(xbox, KRightBumper);
-		btnStrt = new JoystickButton(xbox, KStartButton);
-		btnLT = new JoystickButton(xbox, KLeftTrigger);
-    btnRT = new JoystickButton(xbox, KRightTrigger);
+    xboxBtnA = new JoystickButton(xbox, KXboxButtonA);
+  	xboxBtnB = new JoystickButton(xbox, KXboxButtonB);
+		xboxBtnX = new JoystickButton(xbox, KXboxButtonX);
+		xboxBtnY = new JoystickButton(xbox, KXboxButtonY);
+		xboxBtnLB = new JoystickButton(xbox, KXboxLeftBumper);
+		xboxBtnRB = new JoystickButton(xbox, KXboxRightBumper);
+		xboxBtnStrt = new JoystickButton(xbox, KXboxStartButton);
+		xboxBtnLT = new JoystickButton(xbox, KXboxLeftTrigger);
+    xboxBtnRT = new JoystickButton(xbox, KXboxRightTrigger);
 
 
     // Configure the button bindings
@@ -105,23 +113,26 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
+    logitechBtnRB.whenPressed(new BaseShiftHigh());
+    logitechBtnRB.whenReleased(new BaseShiftMedium());
+    logitechBtnRT.whenPressed(new BaseShiftLow());
+    logitechBtnRT.whenReleased(new BaseShiftMedium());
   }
 
   public double getRightAxis() {
-    double Y = logitech.getRawAxis(KLeftYAxis);
+    final double Y = logitech.getRawAxis(KRightYAxis);
     //SmartDashboard.putNumber("Here's a thingy!", Y);
     if (Y > KDeadZone || Y < -KDeadZone)
-      return Y;
+      return -Y;
     else
       return 0;
   }
 
   public double getLeftAxis() {
-    double Y = logitech.getRawAxis(KRightYAxis);
+    final double Y = logitech.getRawAxis(KLeftYAxis);
     //SmartDashboard.putNumber("Here's a left thingy!", Y);
     if(Y > KDeadZone || Y < -KDeadZone)
-      return Y;
+      return -Y;
     else 
       return 0; 
   }

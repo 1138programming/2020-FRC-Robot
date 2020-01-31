@@ -22,7 +22,7 @@ public final class Constants {
     //Solenoids
     public static final int KBaseShifterSolenoid = 0;
     //others
-    public static final double KBaseMediumGear = 0.75;
+    public static final double KBaseMediumGear = 0.5;
 
     //wheel constants
     //Talons
