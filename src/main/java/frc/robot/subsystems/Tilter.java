@@ -1,14 +1,10 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.KTilterTalon;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.*;
 
 public class Tilter extends SubsystemBase {
     private final CANSparkMax tilterMotor; 
@@ -36,7 +32,7 @@ public class Tilter extends SubsystemBase {
      * @param speed The speed to move the tilter at
      */
     public void move(double speed) {
-        tilterMotor.set(ControlMode.PercentOutput, speed);
+        tilterMotor.set(speed);
     }
 
     /**
@@ -66,4 +62,7 @@ public class Tilter extends SubsystemBase {
         move(tilterPID.calculate(getTilterAngle()));
     }
  
+    public boolean atSetpoint() {
+        return tilterPID.atSetpoint();
+    }
 }

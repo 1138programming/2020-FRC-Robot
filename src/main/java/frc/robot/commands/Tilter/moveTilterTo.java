@@ -11,22 +11,28 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class MoveTilterTo extends CommandBase {
+  double setpoint;
+
   /**
    * Creates a new MoveTilterTo.
    */
-  public MoveTilterTo() {
+  public MoveTilterTo(double setpoint) {
     addRequirements(Robot.tilter);
+
+    this.setpoint = setpoint;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.tilter.setSetpoint(setpoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.tilter.move(0);//not sure how do move motor to a certain angle
+    //Robot.tilter.move(0);//not sure how do move motor to a certain angle
+    Robot.tilter.calculate();
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +43,6 @@ public class MoveTilterTo extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return Robot.tilter.atSetpoint();
   }
 }

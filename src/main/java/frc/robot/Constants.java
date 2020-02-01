@@ -88,5 +88,5 @@ public final class Constants {
 
     //Tilter Constant
     //Talons
-    public static final int KTilterTalon = 13; 
+    public static final int KTilterSparkMax = 13; 
 }
