@@ -8,7 +8,7 @@ import frc.robot.commands.Intake.IntakeRetract;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Wheel.WheelStop;
 
-public class WheelStage1 extends SequentialCommandGroup {
+public class EndCollecting extends SequentialCommandGroup {
   public EndCollecting() {
     addCommands(
       new IntakeRetract(),
