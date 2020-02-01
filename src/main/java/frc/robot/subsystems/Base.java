@@ -26,8 +26,8 @@ public class Base extends SubsystemBase {
   private static final int TicksPerRotation = 4600; //conversion factor that we have to find
   private static final int FreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
   private static final int FreeSpeed = (FreeSpeedRPM / 600) * TicksPerRotation; // Free speed of the base in ticks per 100 ms
-  private static final double LowGear = 62 / 8; // Numbers from the Quran, absolutely 100% true
-  private static final double HighGear = 32 / 24; // Numbers from the Quran, absolutely 100% true
+  private static final double LowGear = (8.0 / 62.0) * (24.0 / 32.0) * 1; // Numbers from the Quran, absolutely 100% true
+  private static final double HighGear = (8.0 / 62.0) * (24.0 / 32.0) * 1; // Numbers from the Quran, absolutely 100% true
 
   public Base() {
     //instantiating the talons
