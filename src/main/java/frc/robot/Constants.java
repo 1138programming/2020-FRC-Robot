@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.enums.SolenoidState;
 
 public final class Constants {
+    public static final int KDegreesPerRevolution = 360;
+
     //base constants
     public static final int KLeftFrontTalon = 1;
     public static final int KLeftBackTalon = 2;
