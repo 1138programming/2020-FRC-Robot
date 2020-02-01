@@ -5,16 +5,23 @@ import static frc.robot.Constants.KTilterTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import com.revrobotics.*;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Tilter extends SubsystemBase {
-    private final TalonSRX tilterMotor; 
+    private final CANSparkMax tilterMotor; 
+    private final CANEncoder tilterEncoder;
     private final PIDController tilterPID;
-    private double position = 0;
+    
+    private static final double ticksPerRev = 2048; 
+    private static final double gearRatio = 300;
+    private static final double degreesPerTick = KDegreesPerRevolution / (ticksPerRev * gearRatio);
 
     public Tilter() {
-        tilterMotor = new TalonSRX(KTilterTalon);
+        tilterMotor = new CANSparkMax(KTilterSparkMax, CANSparkMaxLowLevel.MotorType.kBrushless); 
+        tilterEncoder = new CANEncoder(tilterMotor);
         tilterPID = new PIDController(0.0001, 0, 0);
 
         tilterPID.enableContinuousInput(0, 40);
@@ -49,4 +56,14 @@ public class Tilter extends SubsystemBase {
     public double getSetpoint() {
         return tilterPID.getSetpoint();
     }
+
+    public double getTilterAngle() {
+        return tilterEncoder.getPosition() * degreesPerTick; // Function that gets the encoder value from the motor object
+        
+    }
+
+    public void calculate() {
+        move(tilterPID.calculate(getTilterAngle()));
+    }
+ 
 }
