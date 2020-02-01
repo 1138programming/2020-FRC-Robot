@@ -40,6 +40,6 @@ public class Spin extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return halfSpins == 6;
+    return halfSpins == 8;
   }
 }
