@@ -11,8 +11,6 @@ import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
-import frc.robot.commands.Tilter.MoveWithJoysticks;
-import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Pneumatics.CompressorControl;
 
