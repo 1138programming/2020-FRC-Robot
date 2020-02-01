@@ -1,17 +1,14 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.KBaseMediumGear;
-import static frc.robot.Constants.KBaseShifterSolenoid;
-import static frc.robot.Constants.KLeftBackTalon;
-import static frc.robot.Constants.KLeftFrontTalon;
-import static frc.robot.Constants.KRightBackTalon;
-import static frc.robot.Constants.KRightFrontTalon;
+import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
 
@@ -20,7 +17,7 @@ public class Base extends SubsystemBase {
   private final TalonFX leftFront, leftBack, rightFront, rightBack;
 
   //Creating the Solenoids
-  private final Solenoid shifter;
+  private final DoubleSolenoid shifter;
 
   //Sets the default state to medium
   private BaseState baseState = BaseState.MEDIUM;
@@ -47,7 +44,7 @@ public class Base extends SubsystemBase {
     rightBack.follow(rightFront);
     
     // Instantiating the solenoid
-    shifter = new Solenoid(KBaseShifterSolenoid);
+    shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
   }
 
   @Override
@@ -80,9 +77,10 @@ public class Base extends SubsystemBase {
     baseState = state;
     
     if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
-      shifter.set(true);
+      //shifter.set(true);
+      shifter.set(DoubleSolenoid.Value.kForward);
     } else {
-      shifter.set(false);
+      shifter.set(DoubleSolenoid.Value.kReverse);
     }
   }
 
