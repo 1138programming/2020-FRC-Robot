@@ -12,8 +12,5 @@ public class FullSendClimbUp extends SequentialCommandGroup {
     addCommands(
       new ClimbUp()
     );
-    /*addSequentialCommand(new ClimbUp());
-    addSequentialCommand(new GoToColor());
-    addSequentialCommand(new ClimbDown());*/
   }
 }
