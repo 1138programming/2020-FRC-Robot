@@ -2,7 +2,7 @@ package frc.robot.controller;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 
-class LinearProfiler {
+public class LinearProfiler {
     private PIDController posPID; // Internal position PID
 
     private double lastPos = 0; // Last position measurement
@@ -47,7 +47,7 @@ class LinearProfiler {
      * @param kD        D gain
      * @param period    Controller period
      */
-    public LinearProfiler(double maxVel, double maxAccel, float kP, float kI, float kD, double period) {
+    public LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD, double period) {
         this.maxVel = maxVel;
         this.maxAccel = maxAccel;
         this.kP = kP;
@@ -68,7 +68,7 @@ class LinearProfiler {
      * @param kI        I gain
      * @param kD        D gain
      */
-    public LinearProfiler(double maxVel, double maxAccel, float kP, float kI, float kD) {
+    public LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD) {
         this(maxVel, maxAccel, kP, kI, kD, 0.02);
     }
 
