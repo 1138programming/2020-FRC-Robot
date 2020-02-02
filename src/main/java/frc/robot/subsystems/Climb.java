@@ -98,6 +98,6 @@ public class Climb extends SubsystemBase {
   }
 
   public void calculate(){
-    move(climbPID.calculate(getClimbEncoder(), getSetpoint()));
+    move(climbPID.calculate(getClimbEncoder()));
   }
 }

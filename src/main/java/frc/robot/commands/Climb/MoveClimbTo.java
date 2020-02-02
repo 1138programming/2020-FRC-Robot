@@ -13,22 +13,24 @@ import frc.robot.Robot;
 import static frc.robot.Constants.*;
 
 public class MoveClimbTo extends CommandBase {
+  private static double setpoint;
   /**
    * Creates a new MoveClimbTo.
    */
-  public MoveClimbTo() {
+  public MoveClimbTo(double setpoint) {
     addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.climb.setSetpoint(setpoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.climb.move(0);//not sure how do move motor to a certain position
+    Robot.climb.calculate();
   }
 
   // Called once the command ends or is interrupted.
