@@ -25,6 +25,7 @@ public class DriveWithJoysticks extends CommandBase {
 
     SmartDashboard.putNumber("Left axis", leftSpeed);
     SmartDashboard.putNumber("Right axis", rightSpeed);
+    //Robot.base.zeroEncoders();
     
     Robot.base.move(leftSpeed, rightSpeed);
   }
