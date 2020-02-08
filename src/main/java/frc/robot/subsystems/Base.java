@@ -4,6 +4,7 @@ import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 //import edu.wpi.first.wpilibj.Solenoid;
@@ -11,10 +12,15 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
+import frc.robot.controller.LinearProfiler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
   private final TalonFX leftFront, leftBack, rightFront, rightBack;
+
+  //Linear profiler for both sides of the base
+  private final LinearProfiler leftProfiler, rightProfiler;
 
   //Creating the Solenoids
   private final DoubleSolenoid shifter;
@@ -23,11 +29,16 @@ public class Base extends SubsystemBase {
   private BaseState baseState = BaseState.MEDIUM;
   
   //Variables
-  private static final int TicksPerRotation = 4600; //conversion factor that we have to find
+  private static final int TicksPerRotation = 2048; //conversion factor that we have to find
   private static final int FreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
   private static final int FreeSpeed = (FreeSpeedRPM / 600) * TicksPerRotation; // Free speed of the base in ticks per 100 ms
-  private static final double LowGear = 62 / 8; // Numbers from the Quran, absolutely 100% true
-  private static final double HighGear = 32 / 24; // Numbers from the Quran, absolutely 100% true
+  private static final double LowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
+  private static final double HighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
+
+  private double lastLeftSpeed = 0;
+  private double lastRightSpeed = 0;
+  private double leftAccel = 0;
+  private double rightAccel = 0;
 
   public Base() {
     //instantiating the talons
@@ -42,14 +53,46 @@ public class Base extends SubsystemBase {
     // Slaving the talons
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
+
+    leftBack.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+
+    zeroEncoders();
     
+    // Set up profilers for both sides
+    leftProfiler = new LinearProfiler(2000, 1000, 0.0001, 0, 0, 0.2);
+    rightProfiler = new LinearProfiler(2000, 1000, 0.0001, 0, 0, 0.2);
+    leftProfiler.setTolerance(50, 20);
+    rightProfiler.setTolerance(50, 20);
+
     // Instantiating the solenoid
     shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
   }
 
   @Override
   public void periodic() {
+    double leftSpeed = getLeftSpeed();
+    double rightSpeed = getRightSpeed();
+
+    leftAccel = (leftSpeed - lastLeftSpeed) * 5;
+    rightAccel = (rightSpeed - lastRightSpeed) * 5;
+
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Base left target position", leftProfiler.getTargetPos());
+    SmartDashboard.putNumber("Base right target position", rightProfiler.getTargetPos());
+    SmartDashboard.putNumber("Base left position", getLeftEncoder());
+    SmartDashboard.putNumber("Base right position", getRightEncoder());
+    SmartDashboard.putNumber("Base left target velocity", leftProfiler.getTargetVel());
+    SmartDashboard.putNumber("Base right target velocity", rightProfiler.getTargetVel());
+    SmartDashboard.putNumber("Base left velocity", getLeftSpeed());
+    SmartDashboard.putNumber("Base right velocity", getRightSpeed());
+    SmartDashboard.putNumber("Base left target accel", leftProfiler.getTargetAccel());
+    SmartDashboard.putNumber("Base right target accel", rightProfiler.getTargetAccel());
+    SmartDashboard.putNumber("Base left accel", getLeftAccel());
+    SmartDashboard.putNumber("Base right accel", getRightAccel());
+
+    lastLeftSpeed = leftSpeed;
+    lastRightSpeed = rightSpeed;
   }
 
   /**
@@ -100,6 +143,7 @@ public class Base extends SubsystemBase {
    */
   public double getLeftEncoder() {
     return (double)leftFront.getSelectedSensorPosition();
+    //return (double)leftFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
   /**
@@ -109,6 +153,7 @@ public class Base extends SubsystemBase {
    */
   public double getRightEncoder() {
     return (double)rightFront.getSelectedSensorPosition();
+    //return (double)rightFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
   /**
@@ -158,5 +203,63 @@ public class Base extends SubsystemBase {
    */
   public double getRightSpeed() {
     return (double)rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+  }
+
+  public double getLeftAccel() {
+    return leftAccel;
+  }
+
+  public double getRightAccel() {
+    return rightAccel;
+  }
+
+  public void setTarget(double leftTarget, double rightTarget) {
+    leftProfiler.setTarget(leftTarget);
+    rightProfiler.setTarget(rightTarget);
+  }
+
+  public void setTargetRelative(double leftTarget, double rightTarget) {
+    leftProfiler.setTargetRelative(leftTarget);
+    rightProfiler.setTargetRelative(rightTarget);
+  }
+
+  public double getLeftTarget() {
+    return leftProfiler.getTarget();
+  }
+
+  public double getRightTarget() {
+    return rightProfiler.getTarget();
+  }
+
+  public void setMaxVel(double maxVel) {
+    leftProfiler.setMaxVel(maxVel);
+    rightProfiler.setMaxVel(maxVel);
+  }
+
+  public void setMaxAccel(double maxAccel) {
+    leftProfiler.setMaxAccel(maxAccel);
+    rightProfiler.setMaxAccel(maxAccel);
+  }
+
+  public void initLinearMovement() {
+    leftProfiler.init(getLeftEncoder());
+    rightProfiler.init(getRightEncoder());
+  }
+
+  public void calculate() {
+    //double leftSpeed = leftProfiler.calculate(getLeftSpeed());
+    //double rightSpeed = rightProfiler.calculate(getRightSpeed());
+
+    double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
+    double rightSpeed = rightProfiler.calculate(rightProfiler.getTargetPos());
+
+    SmartDashboard.putNumber("Base left voltage", leftSpeed);
+    SmartDashboard.putNumber("Base right voltage", rightSpeed);
+
+    //move(leftSpeed, rightSpeed);
+  }
+
+  public boolean atTarget() {
+    return leftProfiler.atTarget() && rightProfiler.atTarget();
   }
 }
