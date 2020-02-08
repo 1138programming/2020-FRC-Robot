@@ -29,7 +29,7 @@ public class Flywheel extends SubsystemBase {
     flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     topEncoder = flywheelTop.getEncoder();
-    bottomEncoder = flywheelTop.getEncoder();
+    bottomEncoder = flywheelBottom.getEncoder();
 
     flywheelBottom.setInverted(true);
     topController = new TakeBackHalf(0.000001);
