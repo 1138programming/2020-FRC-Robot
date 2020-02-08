@@ -260,8 +260,8 @@ public class LinearProfiler {
         t_pos += t_vel * period; // Updates the target position
       
         pidSetpoint = dir * t_pos + initialPos; // Corrects the target position for the profile's direction and starting position to get the position PID setpoint
-        posPID.setSetpoint(pidSetpoint); // Sets the position PID's setpoint
-        return posPID.calculate(measurement); // Returns the calculated PWM value
+        //posPID.setSetpoint(pidSetpoint); // Sets the position PID's setpoint
+        return posPID.calculate(measurement, pidSetpoint); // Returns the calculated PWM value
     }
 
     /**

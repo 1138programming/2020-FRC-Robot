@@ -101,6 +101,10 @@ public class TakeBackHalf {
         return m_error;
     }
 
+    public double getH0() {
+        return m_H0;
+    }
+
     public void setInputRange(double minInput, double maxInput) {
         if (minInput > maxInput) {
             m_minInput = maxInput;

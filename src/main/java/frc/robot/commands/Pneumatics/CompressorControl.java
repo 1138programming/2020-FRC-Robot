@@ -4,6 +4,8 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.Compressor;
+
 
 public class CompressorControl extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -20,7 +22,12 @@ public class CompressorControl extends CommandBase {
   
   @Override
   public void execute() {
-    // Called every time
+    if (Robot.pneumatics.getCurrent() > 9.0){
+      Robot.pneumatics.setCompressor(false);
+    }
+    else {
+      Robot.pneumatics.setCompressor(true);
+    }
   }
 
   // Called once the command ends or is interrupted.
