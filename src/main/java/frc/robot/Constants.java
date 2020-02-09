@@ -26,8 +26,8 @@ public final class Constants {
     public static final int KBaseShifterReverseChannel = 7;
     //others
     public static final double KBaseMediumGear = 0.5;
-    public static final double KBaseMaxVel = 5000;
-    public static final double KBaseMaxAccel = 200;
+    public static final double KBaseMaxVel = 5;
+    public static final double KBaseMaxAccel = 0.1;
 
     //wheel constants
     //Talons
@@ -48,7 +48,7 @@ public final class Constants {
     public static final int KStorageShifterSolenoid = 2;
     //Optical Sensors
     public static final int KBallSensor1 = 0; 
-    public static final int KBallSensor2 = 1; 
+    public static final int KBallSensor2 = 1;
     //others
     public static double KStorageSpeed = 1;
 

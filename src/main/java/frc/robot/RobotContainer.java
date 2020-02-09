@@ -116,7 +116,7 @@ public class RobotContainer {
     logitechBtnRB.whenReleased(new BaseShiftMedium());
     logitechBtnRT.whenPressed(new BaseShiftLow());
     logitechBtnRT.whenReleased(new BaseShiftMedium());
-    logitechBtnLT.whenPressed(new BaseLinearMovement(100000, 100000));
+    logitechBtnLT.whenPressed(new BaseLinearMovement(20, 20));
   }
 
   public double getRightAxis() {

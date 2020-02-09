@@ -29,16 +29,19 @@ public class Base extends SubsystemBase {
   private BaseState baseState = BaseState.MEDIUM;
   
   //Variables
-  private static final int TicksPerRotation = 2048; //conversion factor that we have to find
-  private static final int FreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
-  private static final int FreeSpeed = (FreeSpeedRPM / 600) * TicksPerRotation; // Free speed of the base in ticks per 100 ms
-  private static final double LowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
-  private static final double HighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
+  private static final int KTicksPerRotation = 2048; //conversion factor that we have to find
+  private static final int KFreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
+  private static final int KFreeSpeed = KFreeSpeedRPM / 60; // Free speed of the base in ticks per second
+  private static final double KLowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KHighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KRotationsPerTickLow = KLowGear / KTicksPerRotation;
+  private static final double KRotationsPerTickHigh = KHighGear / KTicksPerRotation;
 
   private double lastLeftSpeed = 0;
   private double lastRightSpeed = 0;
   private double leftAccel = 0;
   private double rightAccel = 0;
+  private double rotationsPerTick = KRotationsPerTickHigh;
 
   public Base() {
     //instantiating the talons
@@ -60,8 +63,8 @@ public class Base extends SubsystemBase {
     zeroEncoders();
     
     // Set up profilers for both sides
-    leftProfiler = new LinearProfiler(2000, 1000, 0.0001, 0, 0, 0.2);
-    rightProfiler = new LinearProfiler(2000, 1000, 0.0001, 0, 0, 0.2);
+    leftProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
+    rightProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
     leftProfiler.setTolerance(50, 20);
     rightProfiler.setTolerance(50, 20);
 
@@ -122,8 +125,10 @@ public class Base extends SubsystemBase {
     if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
       //shifter.set(true);
       shifter.set(DoubleSolenoid.Value.kForward);
+      rotationsPerTick = KRotationsPerTickHigh;
     } else {
       shifter.set(DoubleSolenoid.Value.kReverse);
+      rotationsPerTick = KRotationsPerTickLow;
     }
   }
 
@@ -142,7 +147,7 @@ public class Base extends SubsystemBase {
    * @return  Left encoder value
    */
   public double getLeftEncoder() {
-    return (double)leftFront.getSelectedSensorPosition();
+    return (double)leftFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
     //return (double)leftFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
@@ -152,7 +157,7 @@ public class Base extends SubsystemBase {
    * @return  Right encoder value
    */
   public double getRightEncoder() {
-    return (double)rightFront.getSelectedSensorPosition();
+    return (double)rightFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
     //return (double)rightFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
@@ -184,7 +189,7 @@ public class Base extends SubsystemBase {
    * @return  Speed in ticks per 100 ms
    */
   public double getShiftSpeed() {
-    return FreeSpeed / (HighGear + LowGear);
+    return KFreeSpeed / (KHighGear + KLowGear);
   }
 
   /**
@@ -193,7 +198,7 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getLeftSpeed() {
-    return (double)leftFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+    return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
   }
 
   /**
@@ -202,7 +207,7 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getRightSpeed() {
-    return (double)rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
   }
 
   public double getLeftAccel() {
@@ -247,16 +252,16 @@ public class Base extends SubsystemBase {
   }
 
   public void calculate() {
-    //double leftSpeed = leftProfiler.calculate(getLeftSpeed());
-    //double rightSpeed = rightProfiler.calculate(getRightSpeed());
+    double leftSpeed = leftProfiler.calculate(getLeftSpeed());
+    double rightSpeed = rightProfiler.calculate(getRightSpeed());
 
-    double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
-    double rightSpeed = rightProfiler.calculate(rightProfiler.getTargetPos());
+    //double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
+    //double rightSpeed = rightProfiler.calculate(rightProfiler.getTargetPos());
 
     SmartDashboard.putNumber("Base left voltage", leftSpeed);
     SmartDashboard.putNumber("Base right voltage", rightSpeed);
 
-    //move(leftSpeed, rightSpeed);
+    move(leftSpeed, rightSpeed);
   }
 
   public boolean atTarget() {
