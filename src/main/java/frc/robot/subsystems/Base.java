@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
+import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.controller.LinearProfiler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,8 +35,8 @@ public class Base extends SubsystemBase {
   private static final int KFreeSpeed = KFreeSpeedRPM / 60; // Free speed of the base in ticks per second
   private static final double KLowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
   private static final double KHighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
-  private static final double KRotationsPerTickLow = KLowGear / KTicksPerRotation;
-  private static final double KRotationsPerTickHigh = KHighGear / KTicksPerRotation;
+  private static final double KRotationsPerTickLow = 1 / (KLowGear * KTicksPerRotation);
+  private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
 
   private double lastLeftSpeed = 0;
   private double lastRightSpeed = 0;
@@ -96,6 +97,10 @@ public class Base extends SubsystemBase {
 
     lastLeftSpeed = leftSpeed;
     lastRightSpeed = rightSpeed;
+
+    if(getTicksToShiftAt() >= getShiftSpeed()) {
+      setBaseState(BaseState.LOW);
+    }
   }
 
   /**
@@ -186,10 +191,10 @@ public class Base extends SubsystemBase {
   /**
    * Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
    * 
-   * @return  Speed in ticks per 100 ms
+   * @return  Speed in ticks per 1 s
    */
   public double getShiftSpeed() {
-    return KFreeSpeed / (KHighGear + KLowGear);
+    return KFreeSpeed / (KRotationsPerTickHigh + KRotationsPerTickLow);
   }
 
   /**
@@ -198,7 +203,7 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getLeftSpeed() {
-    return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
+    return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
   /**
@@ -207,7 +212,16 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getRightSpeed() {
-    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
+    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
+  }
+
+  public double getTicksToShiftAt() {
+    if(rightFront.getSelectedSensorVelocity() * 10 >= leftFront.getSelectedSensorVelocity() * 10) {
+      return rightFront.getSelectedSensorVelocity() * 10;
+    }
+    else {
+      return leftFront.getSelectedSensorVelocity() * 10;
+    }
   }
 
   public double getLeftAccel() {
