@@ -18,6 +18,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+
 public class Base extends SubsystemBase {
   //Creating the Talons
   private final TalonFX leftFront, leftBack, rightFront, rightBack;
@@ -53,7 +57,16 @@ public class Base extends SubsystemBase {
   private static double displacementY;
   private static double displacementZ;
 
+  private final DifferentialDriveOdometry m_odometry;
+  private static final double KwheelCircumference = 0.1524 * Math.PI; //meters 
+  private static double leftDistance;
+  private static double rightDistance;
+  private static Pose2d robotPosition;
+
   public Base() {
+
+    yawReset();//resetting Yaw for Navx
+
     //instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
     leftBack = new TalonFX(KLeftBackTalon);
@@ -82,6 +95,9 @@ public class Base extends SubsystemBase {
     shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
 
     ahrs = new AHRS(SPI.Port.kMXP);
+
+    m_odometry = new DifferentialDriveOdometry(getRotation2dAngle());
+    
   }
 
   @Override
@@ -325,4 +341,26 @@ public class Base extends SubsystemBase {
       return displacementZ;
     }
     // Navx
+    public double getLeftDistance() {
+      leftDistance = getLeftEncoder() * KwheelCircumference;
+      return leftDistance;
+    }
+
+    public double getRightDistance() {
+      rightDistance = getRightEncoder() * KwheelCircumference;
+      return rightDistance;
+    }
+
+    public Rotation2d getRotation2dAngle() {
+      return Rotation2d.fromDegrees(getFacingDirection());
+    }
+
+    public void updateOdometry() {
+      m_odometry.update(getRotation2dAngle(), getLeftDistance(), getRightDistance());
+    }
+
+    public Pose2d getPosition() {
+      robotPosition = m_odometry.getPoseMeters();
+      return robotPosition;
+    }
 }
