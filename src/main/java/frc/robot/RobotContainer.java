@@ -17,6 +17,7 @@ import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Pneumatics.CompressorControl;
+import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotContainer {
@@ -117,6 +118,12 @@ public class RobotContainer {
     logitechBtnRT.whenPressed(new BaseShiftLow());
     logitechBtnRT.whenReleased(new BaseShiftMedium());
     logitechBtnLT.whenPressed(new BaseLinearMovement(20, 20));
+
+    SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
+    logitechBtnA.toggleWhenActive(spinUpFlywheel);
+
+    //logitechBtnA.whenPressed(new SpinUpFlywheel(false));
+    //logitechBtnB.whenPressed(new SpinUpFlywheel(true));
   }
 
   public double getRightAxis() {

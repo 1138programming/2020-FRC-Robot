@@ -64,9 +64,9 @@ public class Flywheel extends SubsystemBase {
     return bottomEncoder.getVelocity();
   }
 
-  public void setSetpoints(double setpoint) {
-    topController.setSetpoint(setpoint);
-    bottomController.setSetpoint(setpoint);
+  public void setSetpoints(double topSetpoint, double bottomSetpoint) {
+    topController.setSetpoint(topSetpoint);
+    bottomController.setSetpoint(bottomSetpoint);
   }
 
   public double getTopSetpoint() {
