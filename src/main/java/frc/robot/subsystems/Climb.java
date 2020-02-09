@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.controller.PIDController;
 
 public class Climb extends SubsystemBase {
 
@@ -21,12 +22,16 @@ public class Climb extends SubsystemBase {
   private final DigitalInput BottomLimit;
 
   public SolenoidState ratchetState = SolenoidState.DEFAULT;
+
+  private final PIDController climbPID;
   
   public Climb() {
     climbTalon = new TalonSRX(KClimbTalon);
     climbVictor = new VictorSPX(KClimbVictor);
     TopLimit = new DigitalInput(KTopLimit);
     BottomLimit = new DigitalInput(KBottomLimit);
+
+    climbPID = new PIDController(0.0001, 0, 0);
 
     climbTalon.setInverted(false);
     climbVictor.setInverted(true);
@@ -78,5 +83,21 @@ public class Climb extends SubsystemBase {
    */
   public SolenoidState getRatchetState() {
     return ratchetState;
+  }
+
+  public double getClimbEncoder(){
+    return climbTalon.getSelectedSensorPosition();
+  }
+
+  public void setSetpoint(double setpoint) {
+    climbPID.setSetpoint(setpoint);
+  }
+
+  public double getSetpoint(){
+    return climbPID.getSetpoint();
+  }
+
+  public void calculate(){
+    move(climbPID.calculate(getClimbEncoder()));
   }
 }

@@ -2,8 +2,10 @@ package frc.robot.commands.Storage;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import static frc.robot.Constants.*;
+import frc.robot.subsystems.Storage;
 import frc.robot.enums.StorageStage;
+
+import static frc.robot.Constants.*;
 
 public class MoveOut extends CommandBase {
 

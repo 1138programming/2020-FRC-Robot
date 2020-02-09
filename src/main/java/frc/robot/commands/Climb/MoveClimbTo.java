@@ -5,36 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Tilter;
+package frc.robot.commands.Climb;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Climb;
+import frc.robot.Robot;
 import static frc.robot.Constants.*;
 
-public class MoveTilterTo extends CommandBase {
-  double setpoint;
-
+public class MoveClimbTo extends CommandBase {
+  private static double setpoint;
   /**
-   * Creates a new MoveTilterTo.
+   * Creates a new MoveClimbTo.
    */
-  public MoveTilterTo(double setpoint) {
-    addRequirements(Robot.tilter);
-
-    this.setpoint = setpoint;
+  public MoveClimbTo(double setpoint) {
+    addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.tilter.setSetpoint(setpoint);
+    Robot.climb.setSetpoint(setpoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Robot.tilter.move(0);//not sure how do move motor to a certain angle
-    Robot.tilter.calculate();
+    Robot.climb.calculate();
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +41,6 @@ public class MoveTilterTo extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Robot.tilter.atSetpoint();
+    return true;
   }
 }

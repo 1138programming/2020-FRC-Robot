@@ -5,36 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Tilter;
+package frc.robot.commands.Intake;
 
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Base;
+import frc.robot.enums.RobotState;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class MoveTilterTo extends CommandBase {
-  double setpoint;
-
+public class EndCollecting extends CommandBase {
   /**
-   * Creates a new MoveTilterTo.
+   * Creates a new EndCollecting.
    */
-  public MoveTilterTo(double setpoint) {
-    addRequirements(Robot.tilter);
-
-    this.setpoint = setpoint;
+  public EndCollecting() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.tilter.setSetpoint(setpoint);
+    Robot.RobotState = RobotState.DEFAULT;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Robot.tilter.move(0);//not sure how do move motor to a certain angle
-    Robot.tilter.calculate();
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +40,6 @@ public class MoveTilterTo extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Robot.tilter.atSetpoint();
+    return true;
   }
 }

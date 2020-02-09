@@ -7,14 +7,16 @@
 
 package frc.robot.commands.Tilter;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Tilter;
+import static frc.robot.Constants.*;
 
-public class MoveWithJoysticks extends CommandBase {
+public class TiltWithJoysticks extends CommandBase {
   /**
    * Creates a new MoveWithJoysticks.
    */
-  public MoveWithJoysticks() {
+  public TiltWithJoysticks() {
     addRequirements(Robot.tilter);
   }
 
