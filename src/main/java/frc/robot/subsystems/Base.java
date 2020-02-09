@@ -15,6 +15,9 @@ import frc.robot.enums.BaseState;
 import frc.robot.controller.LinearProfiler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
 public class Base extends SubsystemBase {
   //Creating the Talons
   private final TalonFX leftFront, leftBack, rightFront, rightBack;
@@ -39,6 +42,16 @@ public class Base extends SubsystemBase {
   private double lastRightSpeed = 0;
   private double leftAccel = 0;
   private double rightAccel = 0;
+
+  private final AHRS ahrs;
+  
+  private static double yawAngle;
+  private static double velocityX;
+  private static double velocityY;
+  private static double velocityZ;
+  private static double displacementX;
+  private static double displacementY;
+  private static double displacementZ;
 
   public Base() {
     //instantiating the talons
@@ -67,6 +80,8 @@ public class Base extends SubsystemBase {
 
     // Instantiating the solenoid
     shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
+
+    ahrs = new AHRS(SPI.Port.kMXP);
   }
 
   @Override
@@ -90,6 +105,14 @@ public class Base extends SubsystemBase {
     SmartDashboard.putNumber("Base right target accel", rightProfiler.getTargetAccel());
     SmartDashboard.putNumber("Base left accel", getLeftAccel());
     SmartDashboard.putNumber("Base right accel", getRightAccel());
+
+    SmartDashboard.putNumber("FacingAngle", yawAngle);
+    SmartDashboard.putNumber("VelocityX", velocityX);
+    SmartDashboard.putNumber("VelocityY", velocityY);
+    SmartDashboard.putNumber("VelocityZ", velocityZ);
+    SmartDashboard.putNumber("DisplacementX", displacementX);
+    SmartDashboard.putNumber("DisplacementY", displacementY);
+    SmartDashboard.putNumber("DisplacementZ", displacementZ);
 
     lastLeftSpeed = leftSpeed;
     lastRightSpeed = rightSpeed;
@@ -262,4 +285,44 @@ public class Base extends SubsystemBase {
   public boolean atTarget() {
     return leftProfiler.atTarget() && rightProfiler.atTarget();
   }
+
+  public void yawReset(){
+      ahrs.zeroYaw();
+    }
+
+    public double getFacingDirection(){
+      yawAngle = ahrs.getAngle();
+      return yawAngle;
+    }
+
+    public double getVelocityX(){
+      velocityX = ahrs.getVelocityX();
+      return velocityX;
+    }
+
+    public double getVelocityY(){
+      velocityY = ahrs.getVelocityY();
+      return velocityY;
+    }
+
+    public double getVelocityZ(){
+      velocityZ = ahrs.getVelocityZ();
+      return velocityZ;
+    }
+
+    public double getDisplacementX(){
+      displacementX = ahrs.getDisplacementX();
+      return displacementX;
+    }
+
+    public double getDisplacementY(){
+      displacementY = ahrs.getDisplacementY();
+      return displacementY;
+    }
+
+    public double getDisplacementZ(){
+      displacementZ = ahrs.getDisplacementZ();
+      return displacementZ;
+    }
+    // Navx
 }
