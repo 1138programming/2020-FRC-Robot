@@ -37,6 +37,7 @@ public class Base extends SubsystemBase {
   private static final double KHighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
   private static final double KRotationsPerTickLow = 1 / (KLowGear * KTicksPerRotation);
   private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
+  private static final double KShiftSpeed = KFreeSpeed / ((KRotationsPerTickHigh + KRotationsPerTickLow) * KTicksPerRotation);
 
   private double lastLeftSpeed = 0;
   private double lastRightSpeed = 0;
@@ -98,9 +99,10 @@ public class Base extends SubsystemBase {
     lastLeftSpeed = leftSpeed;
     lastRightSpeed = rightSpeed;
 
-    if(getTicksToShiftAt() >= getShiftSpeed()) {
+    /*if(getTicksToShiftAt() >= KShiftSpeed) {
       setBaseState(BaseState.LOW);
-    }
+    }*/
+    autoShift();
   }
 
   /**
@@ -193,9 +195,9 @@ public class Base extends SubsystemBase {
    * 
    * @return  Speed in ticks per 1 s
    */
-  public double getShiftSpeed() {
+  /*public double getShiftSpeed() {
     return KFreeSpeed / (KRotationsPerTickHigh + KRotationsPerTickLow);
-  }
+  }*/
 
   /**
    * Gets the speed of the left side
@@ -215,12 +217,10 @@ public class Base extends SubsystemBase {
     return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
-  public double getTicksToShiftAt() {
-    if(rightFront.getSelectedSensorVelocity() * 10 >= leftFront.getSelectedSensorVelocity() * 10) {
-      return rightFront.getSelectedSensorVelocity() * 10;
-    }
-    else {
-      return leftFront.getSelectedSensorVelocity() * 10;
+  private void autoShift() {
+    double maxVel = Math.max(getLeftSpeed(), getRightSpeed());
+    if (maxVel >= KShiftSpeed) {
+      setBaseState(BaseState.LOW);
     }
   }
 
