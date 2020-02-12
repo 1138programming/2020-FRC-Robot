@@ -89,8 +89,8 @@ public class Base extends SubsystemBase {
     double leftSpeed = getLeftSpeed();
     double rightSpeed = getRightSpeed();
 
-    leftAccel = (leftSpeed - lastLeftSpeed) * 5;
-    rightAccel = (rightSpeed - lastRightSpeed) * 5;
+    leftAccel = (leftSpeed - lastLeftSpeed) * 0.02;
+    rightAccel = (rightSpeed - lastRightSpeed) * 0.02;
 
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Base left target position", leftProfiler.getTargetPos());
@@ -286,43 +286,46 @@ public class Base extends SubsystemBase {
     return leftProfiler.atTarget() && rightProfiler.atTarget();
   }
 
+  /**
+   * Reset navx yaw
+   */
   public void yawReset(){
-      ahrs.zeroYaw();
-    }
+    ahrs.zeroYaw();
+  }
 
-    public double getFacingDirection(){
-      yawAngle = ahrs.getAngle();
-      return yawAngle;
-    }
+  public double getFacingDirection(){
+    yawAngle = ahrs.getAngle();
+    return yawAngle;
+  }
 
-    public double getVelocityX(){
-      velocityX = ahrs.getVelocityX();
-      return velocityX;
-    }
+  public double getVelocityX(){
+    velocityX = ahrs.getVelocityX();
+    return velocityX;
+  }
 
-    public double getVelocityY(){
-      velocityY = ahrs.getVelocityY();
-      return velocityY;
-    }
+  public double getVelocityY(){
+    velocityY = ahrs.getVelocityY();
+    return velocityY;
+  }
 
-    public double getVelocityZ(){
-      velocityZ = ahrs.getVelocityZ();
-      return velocityZ;
-    }
+  public double getVelocityZ(){
+    velocityZ = ahrs.getVelocityZ();
+    return velocityZ;
+  }
 
-    public double getDisplacementX(){
-      displacementX = ahrs.getDisplacementX();
-      return displacementX;
-    }
+  public double getDisplacementX(){
+    displacementX = ahrs.getDisplacementX();
+    return displacementX;
+  }
 
-    public double getDisplacementY(){
-      displacementY = ahrs.getDisplacementY();
-      return displacementY;
-    }
+  public double getDisplacementY(){
+    displacementY = ahrs.getDisplacementY();
+    return displacementY;
+  }
 
-    public double getDisplacementZ(){
-      displacementZ = ahrs.getDisplacementZ();
-      return displacementZ;
-    }
-    // Navx
+  public double getDisplacementZ(){
+    displacementZ = ahrs.getDisplacementZ();
+    return displacementZ;
+  }
+  // Navx
 }
