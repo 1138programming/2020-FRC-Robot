@@ -25,7 +25,7 @@ public class GoToColor extends CommandBase {
     currentColor = Robot.wheel.getColor();
     RotationDirection spinDirection = Robot.wheel.getRotationDirection(currentColor, targetColor);
 
-    if (spinDirection == RotationDirection.CLOCKWISE){
+    if (spinDirection == RotationDirection.CLOCKWISE) {
       speed = -KWheelSpeed;
     } 
     else if (spinDirection == RotationDirection.COUNTERCLOCKWISE) {
@@ -34,6 +34,7 @@ public class GoToColor extends CommandBase {
     else {
       speed = 0;
     }
+    
     SmartDashboard.putNumber("speed",speed);
   }
 
