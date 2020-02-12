@@ -16,6 +16,8 @@ import frc.robot.enums.RotationDirection;
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class Wheel extends SubsystemBase {
   //Create the talons
   private final VictorSPX wheelMotor;
@@ -26,6 +28,8 @@ public class Wheel extends SubsystemBase {
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
   //code by Corey
+  private static String gameData;
+  private static ColorLabel targetColor;
 
   public Wheel() {
     //instantiate the talons
@@ -141,6 +145,31 @@ public class Wheel extends SubsystemBase {
    * @return  The target color
    */
   public ColorLabel getTargetColor() {
-    return ColorLabel.BLUE;
+
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
+    if(gameData.length() > 0)
+    {
+      switch (gameData.charAt(0))
+      {
+        case 'B' :
+          targetColor = ColorLabel.BLUE;
+          break;
+        case 'G' :
+          targetColor = ColorLabel.GREEN;
+          break;
+        case 'R' :
+          targetColor = ColorLabel.RED;
+          break;
+        case 'Y' :
+          targetColor = ColorLabel.YELLOW;
+          break;
+        default :
+          //This is corrupt data
+          break;
+      }
+    } else {
+      targetColor = ColorLabel.UNKNOWN;
+    }
+    return targetColor;
   }
 }
