@@ -198,7 +198,7 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getLeftSpeed() {
-    return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
+    return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
   /**
@@ -207,7 +207,7 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getRightSpeed() {
-    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
+    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
   public double getLeftAccel() {
