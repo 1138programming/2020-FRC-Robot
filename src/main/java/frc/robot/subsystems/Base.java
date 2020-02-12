@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
+import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.controller.LinearProfiler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,8 +35,9 @@ public class Base extends SubsystemBase {
   private static final int KFreeSpeed = KFreeSpeedRPM / 60; // Free speed of the base in ticks per second
   private static final double KLowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
   private static final double KHighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
-  private static final double KRotationsPerTickLow = KLowGear / KTicksPerRotation;
-  private static final double KRotationsPerTickHigh = KHighGear / KTicksPerRotation;
+  private static final double KRotationsPerTickLow = 1 / (KLowGear * KTicksPerRotation);
+  private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
+  private static final double KShiftSpeed = KFreeSpeed / ((KRotationsPerTickHigh + KRotationsPerTickLow) * KTicksPerRotation);
 
   private double lastLeftSpeed = 0;
   private double lastRightSpeed = 0;
@@ -96,6 +98,11 @@ public class Base extends SubsystemBase {
 
     lastLeftSpeed = leftSpeed;
     lastRightSpeed = rightSpeed;
+
+    /*if(getTicksToShiftAt() >= KShiftSpeed) {
+      setBaseState(BaseState.LOW);
+    }*/
+    autoShift();
   }
 
   /**
@@ -186,11 +193,11 @@ public class Base extends SubsystemBase {
   /**
    * Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
    * 
-   * @return  Speed in ticks per 100 ms
+   * @return  Speed in ticks per 1 s
    */
-  public double getShiftSpeed() {
-    return KFreeSpeed / (KHighGear + KLowGear);
-  }
+  /*public double getShiftSpeed() {
+    return KFreeSpeed / (KRotationsPerTickHigh + KRotationsPerTickLow);
+  }*/
 
   /**
    * Gets the speed of the left side
@@ -208,6 +215,13 @@ public class Base extends SubsystemBase {
    */
   public double getRightSpeed() {
     return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
+  }
+
+  private void autoShift() {
+    double maxVel = Math.max(getLeftSpeed(), getRightSpeed());
+    if (maxVel >= KShiftSpeed) {
+      setBaseState(BaseState.LOW);
+    }
   }
 
   public double getLeftAccel() {
