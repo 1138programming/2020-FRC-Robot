@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -18,7 +18,7 @@ import static frc.robot.Constants.*;
 
 public class Wheel extends SubsystemBase {
   //Create the talons
-  private final TalonSRX wheelMotor;
+  private final VictorSPX wheelMotor;
 
   //Create the color sensors
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -29,7 +29,7 @@ public class Wheel extends SubsystemBase {
 
   public Wheel() {
     //instantiate the talons
-    wheelMotor = new TalonSRX(KWheelTalon);
+    wheelMotor = new VictorSPX(KWheelTalon);
 
     //set the colors of the matcher
     m_colorMatcher.addColorMatch(KBlueTarget);

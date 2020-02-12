@@ -1,5 +1,6 @@
 package frc.robot.commands.Wheel;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.enums.ColorLabel;
@@ -18,6 +19,7 @@ public class GoToColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putString("working", "yes");
     speed = 0;
     targetColor = Robot.wheel.getTargetColor();
     currentColor = Robot.wheel.getColor();
@@ -28,6 +30,7 @@ public class GoToColor extends CommandBase {
     } else {
       speed = -KWheelSpeed;
     }
+    SmartDashboard.putNumber("speed",speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +43,7 @@ public class GoToColor extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.wheel.move(0);
   }
 
   // Returns true when the command should end.

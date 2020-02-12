@@ -38,7 +38,7 @@ public final class Constants {
     public static final Color KRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
     public static final Color KYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     // Others
-    public static final double KWheelSpeed = 1;
+    public static final double KWheelSpeed = .15;
 
     //Storage constants 
     //Talons

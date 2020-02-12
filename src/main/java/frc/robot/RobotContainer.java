@@ -15,6 +15,7 @@ import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
+import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Pneumatics.CompressorControl;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -112,6 +113,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    logitechBtnY.whenPressed(new GoToColor());
     logitechBtnRB.whenPressed(new BaseShiftHigh());
     logitechBtnRB.whenReleased(new BaseShiftMedium());
     logitechBtnRT.whenPressed(new BaseShiftLow());
