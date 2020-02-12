@@ -7,7 +7,7 @@ import static frc.robot.Constants.*;
 
 public class SpinUpFlywheel extends CommandBase {
 
-  public SpinUpFlywheel(boolean moving) {
+  public SpinUpFlywheel() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.flywheel);
   }
@@ -22,12 +22,7 @@ public class SpinUpFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (moving == false) {
-      Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
-    }
-    else if (moving == true) {
-      Robot.flywheel.setSetpoints(0, 0);
-    }
+    Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
     Robot.flywheel.calculate();
   }
 
@@ -39,6 +34,6 @@ public class SpinUpFlywheel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

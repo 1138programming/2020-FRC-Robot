@@ -16,6 +16,7 @@ import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Tilter.TilterStop;
+import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -69,11 +70,8 @@ public class RobotContainer {
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
-
-    TilterStop tilterStop = new TilterStop();
-    SmartDashboard.putBoolean("Tilter exists?", Robot.tilter != null);
-    SmartDashboard.putBoolean("Tilter stop exists?", tilterStop != null);
-    Robot.tilter.setDefaultCommand(tilterStop);
+    //Robot.tilter.setDefaultCommand(new TilterStop());
+    Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
     Robot.wheel.setDefaultCommand(new WheelStop());
 
     // Controllers

@@ -10,11 +10,11 @@ package frc.robot.commands.Tilter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class MoveWithJoysticks extends CommandBase {
+public class TiltWithJoysticks extends CommandBase {
   /**
-   * Creates a new MoveWithJoysticks.
+   * Creates a new TiltWithJoysticks.
    */
-  public MoveWithJoysticks() {
+  public TiltWithJoysticks() {
     addRequirements(Robot.tilter);
   }
 

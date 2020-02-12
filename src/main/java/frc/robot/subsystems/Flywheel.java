@@ -14,6 +14,7 @@ import com.revrobotics.CANEncoder;
 
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import frc.robot.commands.Flywheel.StopFlywheel;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
 import frc.robot.controller.TakeBackHalf;
@@ -32,9 +33,13 @@ public class Flywheel extends SubsystemBase {
     bottomEncoder = flywheelTop.getEncoder();
 
     flywheelBottom.setInverted(true);
+
+    // Top TBH Controller
     topController = new TakeBackHalf(0.000001);
     topController.setInputRange(-40000, 40000);
     topController.setOutputRange(-1, 1);
+
+    // Bottom TBH Controller
     bottomController = new TakeBackHalf(0.000001);
     bottomController.setInputRange(-40000, 40000);
     bottomController.setOutputRange(-1, 1);
@@ -43,6 +48,8 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Flywheel Top Velocity", getTopSpeed());
+    SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomSpeed());
   }
   
   /**
