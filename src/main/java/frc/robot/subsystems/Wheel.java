@@ -67,7 +67,7 @@ public class Wheel extends SubsystemBase {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     ColorLabel color;
     String colorString;
-
+    if(match.confidence > .95) {
     if (match.color == KBlueTarget) {
       color = ColorLabel.BLUE;
       colorString = "Blue";
@@ -84,6 +84,21 @@ public class Wheel extends SubsystemBase {
       color = ColorLabel.UNKNOWN;
       colorString = "Unknown";
     }
+  }
+  else {
+    color = ColorLabel.UNKNOWN;
+    if (match.color == KBlueTarget) {
+      colorString = "Blue";
+    } else if (match.color == KRedTarget) {
+      colorString = "Red";
+    } else if (match.color == KGreenTarget) {
+      colorString = "Green";
+    } else if (match.color == KYellowTarget) {
+      colorString = "Yellow";
+    } else {
+      colorString = "Unknown";
+    }  
+  }
 
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
@@ -149,24 +164,18 @@ public class Wheel extends SubsystemBase {
     gameData = DriverStation.getInstance().getGameSpecificMessage();
     if(gameData.length() > 0)
     {
-      switch (gameData.charAt(0))
-      {
-        case 'B' :
+        if(gameData.charAt(0) == 'B') {
           targetColor = ColorLabel.BLUE;
-          break;
-        case 'G' :
+        }
+        if(gameData.charAt(0) == 'G') {
           targetColor = ColorLabel.GREEN;
-          break;
-        case 'R' :
+        }
+        if(gameData.charAt(0) == 'R') {
           targetColor = ColorLabel.RED;
-          break;
-        case 'Y' :
+        }
+        if(gameData.charAt(0) == 'Y') {
           targetColor = ColorLabel.YELLOW;
-          break;
-        default :
-          //This is corrupt data
-          break;
-      }
+        }
     } else {
       targetColor = ColorLabel.UNKNOWN;
     }
