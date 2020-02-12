@@ -15,8 +15,8 @@ public class SpinUpFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
-    SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
+    //SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
+    //SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
