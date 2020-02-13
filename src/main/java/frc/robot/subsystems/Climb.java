@@ -47,7 +47,7 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * Moves climb without taking limits into account
+   * @brief Moves climb without taking limits into account
    * 
    * @param speed Speed to move the climb at
    */
@@ -56,7 +56,7 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * Moves the climb, taking limits into account
+   * @brief Moves the climb, taking limits into account
    * 
    * @param speed Speed to move the climb at
    */
@@ -67,7 +67,7 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * Sets the state of the ratchet
+   * @brief Sets the state of the ratchet
    * 
    * @param state State of the pawl for the ratchet
    */
@@ -77,25 +77,48 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * Gets the state of the ratchet
+   * @brief Gets the state of the ratchet
    * 
-   * @return  State of the pawl for the ratchet
+   * @return State of the pawl for the ratchet
    */
   public SolenoidState getRatchetState() {
     return ratchetState;
   }
 
+  /**
+   * @brief Gets the value of the climb encoder
+   * 
+   * @return The value of the climb encoder
+   */
+
   public double getClimbEncoder(){
     return climbTalon.getSelectedSensorPosition();
   }
+
+  /**
+   * @brief Sets the setpoint for the climbPID
+   * 
+   * @param setpoint The setpoint
+   */
 
   public void setSetpoint(double setpoint) {
     climbPID.setSetpoint(setpoint);
   }
 
+  /**
+   * @brief Gets the setpoint of the climbPID
+   * 
+   * @return The setpoint
+   */
+
   public double getSetpoint(){
     return climbPID.getSetpoint();
   }
+
+  /**
+   * @brief Calculates the output of the climbPID and moves the climb motor with it
+   * 
+   */
 
   public void calculate(){
     move(climbPID.calculate(getClimbEncoder()));

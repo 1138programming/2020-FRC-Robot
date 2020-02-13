@@ -24,7 +24,7 @@ public class Indexer extends SubsystemBase {
   }
   
   /**
-   * Moves the indexer
+   * @brief Moves the indexer
    * 
    * @param speed Speed to move the indexer at
    */

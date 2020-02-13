@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
   public SolenoidState intakePosition = SolenoidState.DEFAULT;
   
   /**
-   * Creates a new Intake.
+   * @brief This is the Intake
    */
   public Intake() {
     // instantiate victor

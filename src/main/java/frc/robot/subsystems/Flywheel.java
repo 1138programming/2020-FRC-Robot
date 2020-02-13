@@ -46,7 +46,7 @@ public class Flywheel extends SubsystemBase {
   }
   
   /**
-   * Moves the flywheel directly
+   * @brief Moves the flywheel directly
    * 
    * @param topSpeed    Speed to move the top wheel at
    * @param bottomSpeed Speed to move the bottom wheel at
@@ -56,26 +56,50 @@ public class Flywheel extends SubsystemBase {
     flywheelBottom.set(bottomSpeed);
   }
 
+  /**
+   * @brief 
+   */
+
   public double getTopSpeed() {
     return topEncoder.getVelocity();
   }
 
+  /**
+   * @brief 
+   */
+
   public double getBottomSpeed() {
     return bottomEncoder.getVelocity();
   }
+
+  /**
+   * @brief 
+   */
 
   public void setSetpoints(double setpoint) {
     topController.setSetpoint(setpoint);
     bottomController.setSetpoint(setpoint);
   }
 
+  /**
+   * @brief 
+   */
+
   public double getTopSetpoint() {
     return topController.getSetpoint();
   }
 
+  /**
+   * @brief 
+   */
+
   public double getBottomSetpoint() {
     return bottomController.getSetpoint();
   }
+
+  /**
+   * @brief 
+   */
   
   public void calculate() {
     double topSpeed = topController.calculate(getTopSpeed());

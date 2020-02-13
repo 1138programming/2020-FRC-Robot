@@ -96,11 +96,13 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Moves the base directly
-   * 
+   * @brief Moves the base directly
+   *  
    * @param leftSpeed   Speed to move the left side at
    * @param rightSpeed  Speed to move the right side at
    */
+
+  
   public void move(double leftSpeed, double rightSpeed) {
     if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftSpeed * KBaseMediumGear);
@@ -112,7 +114,7 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Sets the base shift to high, medium, or low
+   * @brief Sets the base shift to high, medium, or low
    * 
    * @param state State to set the base to
    */
@@ -128,7 +130,7 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Gets the base's state
+   * @brief Gets the base's state
    * 
    * @return State of the base
    */
@@ -137,7 +139,7 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Gets the encoder value of the left side
+   * @brief Gets the encoder value of the left side
    * 
    * @return  Left encoder value
    */
@@ -147,7 +149,7 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Gets the encoder value of the right side
+   * @brief Gets the encoder value of the right side
    * 
    * @return  Right encoder value
    */
@@ -157,7 +159,7 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Zeroes the encoders on both sides
+   * @brief Zeroes the encoders on both sides
    */
   public void zeroEncoders() {
     /*leftFront.getSensorCollection().setQuadraturePosition(0, 0);
@@ -179,7 +181,7 @@ public class Base extends SubsystemBase {
   //Getters
 
   /**
-   * Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
+   * @brief Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
    * 
    * @return  Speed in ticks per 100 ms
    */
@@ -188,7 +190,7 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Gets the speed of the left side
+   * @brief Gets the speed of the left side
    * 
    * @return Speed in ticks per 100 ms
    */
@@ -197,54 +199,115 @@ public class Base extends SubsystemBase {
   }
 
   /**
-   * Gets the speed of the right side
+   * @brief Gets the speed of the right side
    * 
    * @return Speed in ticks per 100 ms
    */
+
   public double getRightSpeed() {
     return (double)rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
   }
+  
+  /**
+   * @brief Gets the acceleration of the left side (as a double)
+   * 
+   * @return Acceleration in rotations per second squared
+   */
 
   public double getLeftAccel() {
     return leftAccel;
   }
 
+  /**
+   * @brief Gets the acceleration of the right side (as a double)
+   * 
+   * @return Acceleration in rotations per second squared
+   */
+
   public double getRightAccel() {
     return rightAccel;
   }
+
+  /**
+   * @brief Sets the targets for the linear profilers on both sides of the base
+   * 
+   * @param leftTarget The target for the left side, in rotations
+   * @param rightTarget The target for the right side, in rotations
+   */
 
   public void setTarget(double leftTarget, double rightTarget) {
     leftProfiler.setTarget(leftTarget);
     rightProfiler.setTarget(rightTarget);
   }
 
+  /**
+   * @brief Sets the targets for the linear profiler on both sides of the base relative to their current targets.
+   * 
+   * For example, if both targets are 5 rotations, then the profilers will try to rotate each side of the base by 5 additional rotations, regardless of what their current encoder count is.
+   * 
+   * @param leftTarget The relative target for the left side, in rotations
+   * @param rightTarget The relative target for the right side, in rotations
+   */
+
   public void setTargetRelative(double leftTarget, double rightTarget) {
     leftProfiler.setTargetRelative(leftTarget);
     rightProfiler.setTargetRelative(rightTarget);
   }
 
+  /**
+   * @brief Gets the target of the left profiler as a double
+   * 
+   * @return The left profiler’s target
+   */
+
   public double getLeftTarget() {
     return leftProfiler.getTarget();
   }
 
+  /**
+   * @brief Gets the target of the right profiler as a double
+   * 
+   * @return The right profiler’s target
+   */
+
   public double getRightTarget() {
     return rightProfiler.getTarget();
   }
+
+  /**
+   * @brief Sets the maximum velocity for both the left and right profilers on the base
+   * 
+   * @param maxVel The maximum velocity in rotations per second
+   */
 
   public void setMaxVel(double maxVel) {
     leftProfiler.setMaxVel(maxVel);
     rightProfiler.setMaxVel(maxVel);
   }
 
+  /**
+   * @brief Sets the maximum acceleration for both the left and right profilers on the base
+   * 
+   * @param maxAccel The maximum velocity in rotations per second
+   */
+
   public void setMaxAccel(double maxAccel) {
     leftProfiler.setMaxAccel(maxAccel);
     rightProfiler.setMaxAccel(maxAccel);
   }
 
+  /**
+   * @brief
+   */
+
   public void initLinearMovement() {
     leftProfiler.init(getLeftEncoder());
     rightProfiler.init(getRightEncoder());
   }
+
+  /**
+   * @brief
+   */
 
   public void calculate() {
     //double leftSpeed = leftProfiler.calculate(getLeftSpeed());
@@ -258,6 +321,10 @@ public class Base extends SubsystemBase {
 
     //move(leftSpeed, rightSpeed);
   }
+
+  /**
+   * @brief
+   */
 
   public boolean atTarget() {
     return leftProfiler.atTarget() && rightProfiler.atTarget();
