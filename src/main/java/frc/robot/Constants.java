@@ -31,7 +31,7 @@ public final class Constants {
 
     //wheel constants
     //Talons
-    public static final int KWheelTalon = 4;
+    public static final int KWheelVictor = 4;
     //Color Targets
     public static final Color KBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static final Color KGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -42,8 +42,8 @@ public final class Constants {
 
     //Storage constants 
     //Talons
-    public static final int KStage1Talon = 5;
-    public static final int KStage2Talon = 6;
+    public static final int KStage1Victor = 5;
+    public static final int KStage2Victor = 6;
     //Solenoids
     public static final int KStorageShifterSolenoid = 2;
     //Optical Sensors
@@ -58,16 +58,16 @@ public final class Constants {
     //Sparks
     public static final int KIndexerSpark = 7;
     //others
-    public static double KIndexerSpeed = 1;
+    public static double KIndexerSpeed = 0.3;
 
     //Intake Constants
     //Victors
-    public static final int KIntakeVictor = 8;
+    public static final int KIntakeSpark = 8;
     //Solenoids
     public static final int KLeftIntakeSolenoid = 3;
     public static final int KRightIntakeSolenoid = 4;
     //others
-    public static double KIntakeSpeed = 1;
+    public static double KIntakeSpeed = 0.5;
 
     //FlyWheel Constants
     //Sparks
@@ -92,4 +92,5 @@ public final class Constants {
     //Tilter Constant
     //Talons
     public static final int KTilterTalon = 13;
+    public static final double KTilterSpeed = 0.1;
 }

@@ -2,8 +2,8 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.KBallSensor1;
 import static frc.robot.Constants.KBallSensor2;
-import static frc.robot.Constants.KStage1Talon;
-import static frc.robot.Constants.KStage2Talon;
+import static frc.robot.Constants.KStage1Victor;
+import static frc.robot.Constants.KStage2Victor;
 import static frc.robot.Constants.KStorageShifterSolenoid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -38,8 +38,8 @@ public class Storage extends SubsystemBase {
 
   public Storage() {
     //Instantiate everything
-    stage1 = new VictorSPX(KStage1Talon);
-    stage2 = new VictorSPX(KStage2Talon);
+    stage1 = new VictorSPX(KStage1Victor);
+    stage2 = new VictorSPX(KStage2Victor);
     shifter = new Solenoid(KStorageShifterSolenoid);
     ballSensor1 = new DigitalInput(KBallSensor1);
     ballSensor2 = new DigitalInput(KBallSensor2);

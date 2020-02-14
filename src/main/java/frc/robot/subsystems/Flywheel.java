@@ -32,7 +32,8 @@ public class Flywheel extends SubsystemBase {
     topEncoder = flywheelTop.getEncoder();
     bottomEncoder = flywheelTop.getEncoder();
 
-    flywheelBottom.setInverted(true);
+    flywheelBottom.setInverted(false);
+    flywheelTop.setInverted(true);
 
     // Top TBH Controller
     topController = new TakeBackHalf(0.000001);

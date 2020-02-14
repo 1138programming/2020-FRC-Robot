@@ -11,12 +11,17 @@ import frc.robot.commands.Base.BaseShiftMedium;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Base.BaseLinearMovement;
 import frc.robot.commands.Flywheel.StopFlywheel;
+import frc.robot.commands.Indexer.IndexIn;
 import frc.robot.commands.Indexer.IndexStop;
+import frc.robot.commands.Intake.IntakeIn;
+import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
+import frc.robot.commands.Tilter.TiltUp;
+import frc.robot.commands.Tilter.TiltDown;
 import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -70,8 +75,8 @@ public class RobotContainer {
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
-    //Robot.tilter.setDefaultCommand(new TilterStop());
-    Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
+    Robot.tilter.setDefaultCommand(new TilterStop());
+    //Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
     Robot.wheel.setDefaultCommand(new WheelStop());
 
     // Controllers
@@ -99,6 +104,8 @@ public class RobotContainer {
 		xboxBtnLT = new JoystickButton(xbox, KXboxLeftTrigger);
     xboxBtnRT = new JoystickButton(xbox, KXboxRightTrigger);
 
+    SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
+    SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -119,6 +126,14 @@ public class RobotContainer {
 
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
     logitechBtnA.toggleWhenActive(spinUpFlywheel);
+
+    logitechBtnLB.whileHeld(new TiltUp());
+    logitechBtnLT.whileHeld(new TiltDown());
+
+    logitechBtnX.whileHeld(new IntakeIn());
+    logitechBtnB.whileHeld(new IntakeOut());
+
+    logitechBtnY.whileHeld(new IndexIn());
 
     //logitechBtnA.whenPressed(new SpinUpFlywheel(false));
     //logitechBtnB.whenPressed(new SpinUpFlywheel(true));

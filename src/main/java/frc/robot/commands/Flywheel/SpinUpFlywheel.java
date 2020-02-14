@@ -22,9 +22,10 @@ public class SpinUpFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
-    Robot.flywheel.setSetpoints(.5, .5);
-    Robot.flywheel.calculate();
+    //Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
+    //Robot.flywheel.setSetpoints(0.1, 0.1);
+    //Robot.flywheel.calculate();
+    Robot.flywheel.move(1, 1);
   }
 
   // Called once the command ends or is interrupted.
