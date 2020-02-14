@@ -14,6 +14,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Indexer extends SubsystemBase {
   private final CANSparkMax indexer;
 
+  /**
+   * @brief This is the Indexer
+   */
+
   public Indexer() {
     indexer = new CANSparkMax(KIndexerSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
   }

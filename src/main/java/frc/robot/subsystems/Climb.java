@@ -25,6 +25,10 @@ public class Climb extends SubsystemBase {
 
   private final PIDController climbPID;
   
+  /**
+   * @brief This is the Climb
+   */
+
   public Climb() {
     climbTalon = new TalonSRX(KClimbTalon);
     climbVictor = new VictorSPX(KClimbVictor);

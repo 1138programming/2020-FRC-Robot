@@ -36,6 +36,10 @@ public class Storage extends SubsystemBase {
   private double stage1Speed = 0; // Keeps track of the speed of stage 1
   private double stage2Speed = 0; // Keeps track of the speed of stage 2
 
+  /**
+   * @brief This is the Storage subsystem
+   */
+
   public Storage() {
     //Instantiate everything
     stage1 = new VictorSPX(KStage1Talon);
@@ -52,7 +56,7 @@ public class Storage extends SubsystemBase {
   }
 
   /**
-   * Moves the given conveyor belt(s) directly
+   * @brief Moves the given conveyor belt(s) directly
    * 
    * @param speed Speed to move the conveyor belt(s) at
    * @param stage The stage(s) of the storage we want to move
@@ -80,7 +84,7 @@ public class Storage extends SubsystemBase {
   }
 
   /**
-   * Moves both conveyor belts directly
+   * @brief Moves both conveyor belts directly
    * 
    * @param speed Speed to move the conveyor belts at
    */
@@ -89,7 +93,7 @@ public class Storage extends SubsystemBase {
   }
 
   /**
-   * Set the state of the dogshifter to engage/disengage stage 2
+   * @brief Set the state of the dogshifter to engage/disengage stage 2
    * 
    * @param state Change the state of the solenoid on the dogshifter
    */
@@ -99,7 +103,7 @@ public class Storage extends SubsystemBase {
   }
 
   /**
-   * Gets the state of the shifter
+   * @brief Gets the state of the shifter
    * 
    * @return  The shifter's state
    */
@@ -108,7 +112,7 @@ public class Storage extends SubsystemBase {
   }
 
   /**
-   * Tracks the number of balls in the storage
+   * @brief Tracks the number of balls in the storage
    */
   private void updateBallCount() {
     boolean ballSensor1State = ballSensor1.get();

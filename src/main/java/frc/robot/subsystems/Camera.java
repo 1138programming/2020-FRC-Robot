@@ -17,6 +17,10 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry pipeline = table.getEntry("pipeline"); // pipeline index
   NetworkTableEntry snapshot = table.getEntry("snapshot"); // Takes two snapshots per second when set to 1
 
+  /**
+   * @brief This is the Camera
+   */
+
   public Camera() {
   }
 

@@ -24,6 +24,10 @@ public class Flywheel extends SubsystemBase {
   private TakeBackHalf topController;
   private TakeBackHalf bottomController;
 
+  /**
+   * @brief This is the Flywheel
+   */
+
   public Flywheel() {
     flywheelTop = new CANSparkMax(KFlywheelTopSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
     flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);

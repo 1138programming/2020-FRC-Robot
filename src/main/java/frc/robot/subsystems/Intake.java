@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.SolenoidState;
 import frc.robot.enums.RobotState;
 
-
 public class Intake extends SubsystemBase {
 
   //Create victor
@@ -43,7 +42,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Moves the intake directly
+   * @brief Moves the intake directly
    * 
    * @param speed Speed to move the intake at
    */
@@ -52,7 +51,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Sets the position of the intake solenoid
+   * @brief Sets the position of the intake solenoid
    * 
    * @param state The state of the solenoids on the intake
    */
@@ -63,7 +62,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Gets the position of the intake
+   * @brief Gets the position of the intake
    * 
    * @return  State of the intake's solenoids
    */

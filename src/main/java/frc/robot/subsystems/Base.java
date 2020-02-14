@@ -40,6 +40,10 @@ public class Base extends SubsystemBase {
   private double leftAccel = 0;
   private double rightAccel = 0;
 
+  /**
+   * @brief This is the Base
+   */
+
   public Base() {
     //instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
