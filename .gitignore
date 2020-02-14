@@ -155,6 +155,7 @@ gradle-app.setting
 .project
 .settings/
 bin/
+documentation/
 imgui.ini
 
 
