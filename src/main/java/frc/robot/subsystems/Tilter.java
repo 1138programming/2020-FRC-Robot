@@ -15,6 +15,10 @@ public class Tilter extends SubsystemBase {
     private static final double gearRatio = 300;
     private static final double degreesPerTick = KDegreesPerRevolution / (ticksPerRev * gearRatio);
 
+    /**
+     * @brief This is the Tilter
+     */
+
     public Tilter() {
         tilterMotor = new CANSparkMax(KTilterSparkMax, CANSparkMaxLowLevel.MotorType.kBrushless); 
         tilterEncoder = new CANEncoder(tilterMotor);
@@ -28,41 +32,58 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
-     * Moves the tilter by a given speed
+     * @brief Moves the tilter by a given speed
      * 
      * @param speed The speed to move the tilter at
      */
+
     public void move(double speed) {
         tilterMotor.set(speed);
     }
 
     /**
-     * Sets the setpoint for the tiler PID
+     * @brief Sets the setpoint for the tiler PID
      * 
      * @param setpoint  The setpoint
      */
+
     public void setSetpoint(double setpoint) {
         tilterPID.setSetpoint(setpoint);
     }
 
     /**
-     * Gets the setpoint of the tilter PID
+     * @brief Gets the setpoint of the tilter PID
      * 
      * @return  The setpoint
      */
+
     public double getSetpoint() {
         return tilterPID.getSetpoint();
     }
+
+    /**
+     * @brief Gets the current angle of the Tilter
+     * 
+     * @return The angle of the tilter
+     */
 
     public double getTilterAngle() {
         return tilterEncoder.getPosition() * degreesPerTick; // Function that gets the encoder value from the motor object
         
     }
 
+    /**
+     * @brief Calculates the output of the tilterPID and moves the tilterMotor with it
+     */
+
     public void calculate() {
         move(tilterPID.calculate(getTilterAngle()));
     }
- 
+    
+    /**
+     * @brief
+     */
+
     public boolean atSetpoint() {
         return tilterPID.atSetpoint();
     }
