@@ -1,0 +1,180 @@
+\hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb}{}\section{frc.\+robot.\+subsystems.\+Climb Class Reference}
+\label{classfrc_1_1robot_1_1subsystems_1_1_climb}\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+Inheritance diagram for frc.\+robot.\+subsystems.\+Climb\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfrc_1_1robot_1_1subsystems_1_1_climb}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_aa5ae51a7c9edcddb2e79cec6020f23eb}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_aa5ae51a7c9edcddb2e79cec6020f23eb}} 
+\mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_aa5ae51a7c9edcddb2e79cec6020f23eb}{Climb}} ()
+\begin{DoxyCompactList}\small\item\em This is the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb}{Climb}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a431b7dd342443d2406c596370fb261d9}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a431b7dd342443d2406c596370fb261d9}} 
+void {\bfseries periodic} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a31e9316a6edd4b95b386d94edc3c418b}{move}} (double speed)
+\begin{DoxyCompactList}\small\item\em Moves the climb, taking limits into account. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a1870264c5010978b07ac1fdb25e7b08b}{set\+Ratchet\+State}} (\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} state)
+\begin{DoxyCompactList}\small\item\em Sets the state of the ratchet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a41e5bb97ae26d2fbfdae9506fefdfc3a}{get\+Ratchet\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets the state of the ratchet. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a1992333ef3c8ca85baa8499ef8a19c53}{get\+Climb\+Encoder}} ()
+\begin{DoxyCompactList}\small\item\em Gets the value of the climb encoder. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_ae377d7f0bd8e754506b47d62ebac8b6f}{set\+Setpoint}} (double setpoint)
+\begin{DoxyCompactList}\small\item\em Sets the setpoint for the climb\+P\+ID. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a6b0d9b0411f58d97711a9098d5d6f3c1}{get\+Setpoint}} ()
+\begin{DoxyCompactList}\small\item\em Gets the setpoint of the climb\+P\+ID. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a2cc8e00444752afdf9c871aa7adeb13a}{calculate}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the output of the climb\+P\+ID and moves the climb motor with it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a10f08bc6aeb694070ecfb97a81145fa5}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a10f08bc6aeb694070ecfb97a81145fa5}} 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} {\bfseries ratchet\+State} = Solenoid\+State.\+D\+E\+F\+A\+U\+LT
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_climb_a2e78533d2e31c4e8cb3e08eb751d3d6f}{move\+Without\+Limits}} (double speed)
+\begin{DoxyCompactList}\small\item\em Moves climb without taking limits into account. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_addb9984277fb2d2309dcdfa36d50b902}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_addb9984277fb2d2309dcdfa36d50b902}} 
+final Talon\+S\+RX {\bfseries climb\+Talon}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a63792942f9705476fcfc9e7f35f9974e}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a63792942f9705476fcfc9e7f35f9974e}} 
+final Victor\+S\+PX {\bfseries climb\+Victor}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_ab130529109ed07a2a394601aca70a195}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_ab130529109ed07a2a394601aca70a195}} 
+final Solenoid {\bfseries ratchet\+Solenoid}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a7d4674e151f5ea9b72b9a512143fc918}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a7d4674e151f5ea9b72b9a512143fc918}} 
+final Digital\+Input {\bfseries Top\+Limit}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a05182237b83c043c66075915e0bd2a80}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a05182237b83c043c66075915e0bd2a80}} 
+final Digital\+Input {\bfseries Bottom\+Limit}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_ab2fa50e18dcf95eaabf622e836f505e7}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_ab2fa50e18dcf95eaabf622e836f505e7}} 
+final P\+I\+D\+Controller {\bfseries climb\+P\+ID}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a2cc8e00444752afdf9c871aa7adeb13a}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a2cc8e00444752afdf9c871aa7adeb13a}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!calculate@{calculate}}
+\index{calculate@{calculate}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{calculate()}{calculate()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Climb.\+calculate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates the output of the climb\+P\+ID and moves the climb motor with it. 
+
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a1992333ef3c8ca85baa8499ef8a19c53}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a1992333ef3c8ca85baa8499ef8a19c53}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!getClimbEncoder@{getClimbEncoder}}
+\index{getClimbEncoder@{getClimbEncoder}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{getClimbEncoder()}{getClimbEncoder()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Climb.\+get\+Climb\+Encoder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the value of the climb encoder. 
+
+\begin{DoxyReturn}{Returns}
+The value of the climb encoder 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a41e5bb97ae26d2fbfdae9506fefdfc3a}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a41e5bb97ae26d2fbfdae9506fefdfc3a}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!getRatchetState@{getRatchetState}}
+\index{getRatchetState@{getRatchetState}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{getRatchetState()}{getRatchetState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} frc.\+robot.\+subsystems.\+Climb.\+get\+Ratchet\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the state of the ratchet. 
+
+\begin{DoxyReturn}{Returns}
+State of the pawl for the ratchet 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a6b0d9b0411f58d97711a9098d5d6f3c1}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a6b0d9b0411f58d97711a9098d5d6f3c1}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!getSetpoint@{getSetpoint}}
+\index{getSetpoint@{getSetpoint}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{getSetpoint()}{getSetpoint()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Climb.\+get\+Setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the setpoint of the climb\+P\+ID. 
+
+\begin{DoxyReturn}{Returns}
+The setpoint 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a31e9316a6edd4b95b386d94edc3c418b}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a31e9316a6edd4b95b386d94edc3c418b}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!move@{move}}
+\index{move@{move}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Climb.\+move (\begin{DoxyParamCaption}\item[{double}]{speed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves the climb, taking limits into account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & Speed to move the climb at \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a2e78533d2e31c4e8cb3e08eb751d3d6f}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a2e78533d2e31c4e8cb3e08eb751d3d6f}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!moveWithoutLimits@{moveWithoutLimits}}
+\index{moveWithoutLimits@{moveWithoutLimits}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{moveWithoutLimits()}{moveWithoutLimits()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Climb.\+move\+Without\+Limits (\begin{DoxyParamCaption}\item[{double}]{speed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Moves climb without taking limits into account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & Speed to move the climb at \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_a1870264c5010978b07ac1fdb25e7b08b}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_a1870264c5010978b07ac1fdb25e7b08b}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!setRatchetState@{setRatchetState}}
+\index{setRatchetState@{setRatchetState}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{setRatchetState()}{setRatchetState()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Climb.\+set\+Ratchet\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the state of the ratchet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & State of the pawl for the ratchet \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_climb_ae377d7f0bd8e754506b47d62ebac8b6f}\label{classfrc_1_1robot_1_1subsystems_1_1_climb_ae377d7f0bd8e754506b47d62ebac8b6f}} 
+\index{frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}!setSetpoint@{setSetpoint}}
+\index{setSetpoint@{setSetpoint}!frc.robot.subsystems.Climb@{frc.robot.subsystems.Climb}}
+\subsubsection{\texorpdfstring{setSetpoint()}{setSetpoint()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Climb.\+set\+Setpoint (\begin{DoxyParamCaption}\item[{double}]{setpoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the setpoint for the climb\+P\+ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & The setpoint \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/subsystems/Climb.\+java\end{DoxyCompactItemize}

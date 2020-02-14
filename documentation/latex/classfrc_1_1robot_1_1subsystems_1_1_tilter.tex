@@ -1,0 +1,116 @@
+\hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter}{}\section{frc.\+robot.\+subsystems.\+Tilter Class Reference}
+\label{classfrc_1_1robot_1_1subsystems_1_1_tilter}\index{frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}}
+Inheritance diagram for frc.\+robot.\+subsystems.\+Tilter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfrc_1_1robot_1_1subsystems_1_1_tilter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_ac100673eaa18ac096df558d73764e3c7}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_ac100673eaa18ac096df558d73764e3c7}} 
+\mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter_ac100673eaa18ac096df558d73764e3c7}{Tilter}} ()
+\begin{DoxyCompactList}\small\item\em This is the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter}{Tilter}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter_aff055a0f0a130556cd17d63ecdac2b55}{move}} (double speed)
+\begin{DoxyCompactList}\small\item\em Moves the tilter by a given speed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter_a70893e12c662ea63ee1ebf3be8704b5f}{set\+Setpoint}} (double setpoint)
+\begin{DoxyCompactList}\small\item\em Sets the setpoint for the tiler P\+ID. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter_a4dc4274fb03337dcb95357f4d06df005}{get\+Setpoint}} ()
+\begin{DoxyCompactList}\small\item\em Gets the setpoint of the tilter P\+ID. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter_a377eacbf4c90453791d61f76af3d68cf}{get\+Tilter\+Angle}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current angle of the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter}{Tilter}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_aaeae2a3c8c66df3699be87fbb0ede775}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_aaeae2a3c8c66df3699be87fbb0ede775}} 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter_aaeae2a3c8c66df3699be87fbb0ede775}{calculate}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the output of the tilter\+P\+ID and moves the tilter\+Motor with it. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a4eb4a632f4454239ff0768615f3614f9}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a4eb4a632f4454239ff0768615f3614f9}} 
+boolean {\bfseries at\+Setpoint} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a115a5162cbcbb8033dbb9f20c682ee5b}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a115a5162cbcbb8033dbb9f20c682ee5b}} 
+final C\+A\+N\+Spark\+Max {\bfseries tilter\+Motor}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a29558db27300dfeb5aad050e64f575f2}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a29558db27300dfeb5aad050e64f575f2}} 
+final C\+A\+N\+Encoder {\bfseries tilter\+Encoder}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a282a11b40e38b06adc8124af28323669}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a282a11b40e38b06adc8124af28323669}} 
+final P\+I\+D\+Controller {\bfseries tilter\+P\+ID}
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a2d5ebed49281172b69509c43ff64042d}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a2d5ebed49281172b69509c43ff64042d}} 
+static final double {\bfseries ticks\+Per\+Rev} = 2048
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a0ff9b9c5b0902c0ec4476699dfedac9e}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a0ff9b9c5b0902c0ec4476699dfedac9e}} 
+static final double {\bfseries gear\+Ratio} = 300
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a1b7589b1a6a1cafd0026fac7d16e586b}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a1b7589b1a6a1cafd0026fac7d16e586b}} 
+static final double {\bfseries degrees\+Per\+Tick} = K\+Degrees\+Per\+Revolution / (ticks\+Per\+Rev $\ast$ gear\+Ratio)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a4dc4274fb03337dcb95357f4d06df005}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a4dc4274fb03337dcb95357f4d06df005}} 
+\index{frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}!getSetpoint@{getSetpoint}}
+\index{getSetpoint@{getSetpoint}!frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}}
+\subsubsection{\texorpdfstring{getSetpoint()}{getSetpoint()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Tilter.\+get\+Setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the setpoint of the tilter P\+ID. 
+
+\begin{DoxyReturn}{Returns}
+The setpoint 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a377eacbf4c90453791d61f76af3d68cf}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a377eacbf4c90453791d61f76af3d68cf}} 
+\index{frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}!getTilterAngle@{getTilterAngle}}
+\index{getTilterAngle@{getTilterAngle}!frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}}
+\subsubsection{\texorpdfstring{getTilterAngle()}{getTilterAngle()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Tilter.\+get\+Tilter\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current angle of the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_tilter}{Tilter}}. 
+
+\begin{DoxyReturn}{Returns}
+The angle of the tilter 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_aff055a0f0a130556cd17d63ecdac2b55}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_aff055a0f0a130556cd17d63ecdac2b55}} 
+\index{frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}!move@{move}}
+\index{move@{move}!frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Tilter.\+move (\begin{DoxyParamCaption}\item[{double}]{speed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves the tilter by a given speed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & The speed to move the tilter at \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_tilter_a70893e12c662ea63ee1ebf3be8704b5f}\label{classfrc_1_1robot_1_1subsystems_1_1_tilter_a70893e12c662ea63ee1ebf3be8704b5f}} 
+\index{frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}!setSetpoint@{setSetpoint}}
+\index{setSetpoint@{setSetpoint}!frc.robot.subsystems.Tilter@{frc.robot.subsystems.Tilter}}
+\subsubsection{\texorpdfstring{setSetpoint()}{setSetpoint()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Tilter.\+set\+Setpoint (\begin{DoxyParamCaption}\item[{double}]{setpoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the setpoint for the tiler P\+ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & The setpoint \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/subsystems/Tilter.\+java\end{DoxyCompactItemize}

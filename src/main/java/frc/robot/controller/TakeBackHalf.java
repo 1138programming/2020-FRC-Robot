@@ -7,22 +7,31 @@ public class TakeBackHalf {
     private double m_H0 = 0;
     private double m_gain = 1;
     private double m_setpoint = 0;
-    private double m_tolerance = 0.05;
+    private double m_velocity_tolerance = 0.05;
+    private double m_accel_tolerance = 0.05;
     private double m_maxOutput = Double.POSITIVE_INFINITY;
     private double m_minOutput = Double.NEGATIVE_INFINITY;
     private double m_maxInput = Double.POSITIVE_INFINITY;
     private double m_minInput = Double.NEGATIVE_INFINITY;
     private double m_measurement = 0;
+    private double m_last_measurement = 0;
+    private double m_acceleration = 0;
     private int m_sign = 1;
     private int m_lastSign = 1;
     private double m_output = 0;
     private double m_lastOutput = 0;
+    private double m_period = 0.02;
 
     /**
      * Creates a TakeBackHalf controller.
      */
-    public TakeBackHalf(double gain) {
+    public TakeBackHalf(double gain, double period) {
         m_gain = gain;
+        m_period = period;
+    }
+
+    public TakeBackHalf(double gain) {
+        this(gain, 0.02);
     }
 
     public TakeBackHalf() {
@@ -75,21 +84,23 @@ public class TakeBackHalf {
     }
 
     /**
-     * Returns whether the measured value is within a certain tolerance of the setpoint
+     * Returns whether the measured value is within a certain velocity_tolerance of the setpoint
      * 
-     * @return  True if the measured value is within the tolerance, false otherwise
+     * @return  True if the measured value is within the velocity_tolerance, false otherwise
      */
     public boolean atSetpoint() {
-        return Math.abs(m_error) < m_tolerance;
+        return Math.abs(m_error) < m_velocity_tolerance && Math.abs(m_acceleration) < m_accel_tolerance;
     }
 
     /**
-     * Sets the tolerance for being considered at the setpoint
+     * Sets the velocity tolerance for being considered at the setpoint
      * 
-     * @param positionTolerance
+     * @param velocity_tolerance    The tolerance on the velocity to consider having reached the setpoint
+     * @param accel_tolerance       The tolerance on the acceleration to consider having reached the setpoint
      */
-    public void setTolerance(double tolerance) {
-        m_tolerance = tolerance;
+    public void setTolerance(double velocity_tolerance, double accel_tolerance) {
+        m_velocity_tolerance = velocity_tolerance;
+        m_accel_tolerance = accel_tolerance;
     }
 
     /**
@@ -145,6 +156,12 @@ public class TakeBackHalf {
 
         m_lastSign = m_sign;
         m_lastOutput = m_output;
+
+        // Get the acceleration
+        m_acceleration = (m_measurement - m_last_measurement) / m_period;
+
+        // Update the last measurement
+        m_last_measurement = m_measurement;
 
         return m_output;
     }

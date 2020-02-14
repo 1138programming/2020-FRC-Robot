@@ -1,0 +1,156 @@
+\hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang}{}\section{frc.\+robot.\+controller.\+Bang\+Bang Class Reference}
+\label{classfrc_1_1robot_1_1controller_1_1_bang_bang}\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a7461de01f9b1e5329584739591bdf7ae}{Bang\+Bang}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_aae64a4adfa43dc9caddc4e501cfbbcbf}{set\+Setpoint}} (double setpoint)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a2ec0f35d4dd199a6ec8003afb2c227da}{set\+Setpoint\+Relative}} (double setpoint)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a646bfc447daa1e708ad02810b5dcbb2a}{get\+Setpoint}} ()
+\item 
+boolean \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a58ac0677dcbaa8c8f8a609fa2f73867e}{at\+Setpoint}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a5fa0322cdabcf45f3a8f5bccdf0f9eff}{set\+Tolerance}} (double position\+Tolerance)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a5f5b51419c46afefe241d52b932fca17}{get\+Position\+Error}} ()
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_ad06053ea2c39254c323706af3ebd1d49}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_ad06053ea2c39254c323706af3ebd1d49}} 
+void {\bfseries set\+Input\+Range} (double min\+Input, double max\+Input)
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a6e79841291f9168ede7720941ebb4a6a}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a6e79841291f9168ede7720941ebb4a6a}} 
+void {\bfseries set\+Output\+Range} (double min\+Output, double max\+Output)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang_a02c8b64948151db1265400764f32267e}{calculate}} (double measurement)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_ae7135492ae168f875585fc6e5a87e6ba}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_ae7135492ae168f875585fc6e5a87e6ba}} 
+double {\bfseries m\+\_\+position\+Error} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a55f320805cf0761158e0e8b36ce9c5fe}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a55f320805cf0761158e0e8b36ce9c5fe}} 
+double {\bfseries m\+\_\+setpoint} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_affc0c07a42ea05147b9bdcfcd136dc3a}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_affc0c07a42ea05147b9bdcfcd136dc3a}} 
+double {\bfseries m\+\_\+position\+Tolerance} = 0.\+05
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a291486040626ecdb2063cc7f84e941f3}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a291486040626ecdb2063cc7f84e941f3}} 
+double {\bfseries m\+\_\+max\+Output} = Double.\+P\+O\+S\+I\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_aa24c877e404548cda808ae73d555ea6c}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_aa24c877e404548cda808ae73d555ea6c}} 
+double {\bfseries m\+\_\+min\+Output} = Double.\+N\+E\+G\+A\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a854ec7dfc4e827bfc475a6d75ae6b262}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a854ec7dfc4e827bfc475a6d75ae6b262}} 
+double {\bfseries m\+\_\+max\+Input} = Double.\+P\+O\+S\+I\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_aa057c05c7b5271d530c8efa95cc887d4}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_aa057c05c7b5271d530c8efa95cc887d4}} 
+double {\bfseries m\+\_\+min\+Input} = Double.\+N\+E\+G\+A\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_ad47917a60436cba5fc91fb508488790f}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_ad47917a60436cba5fc91fb508488790f}} 
+double {\bfseries m\+\_\+measurement} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a7461de01f9b1e5329584739591bdf7ae}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a7461de01f9b1e5329584739591bdf7ae}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!BangBang@{BangBang}}
+\index{BangBang@{BangBang}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{BangBang()}{BangBang()}}
+{\footnotesize\ttfamily frc.\+robot.\+controller.\+Bang\+Bang.\+Bang\+Bang (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Creates a \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_bang_bang}{Bang\+Bang}} controller. Outputs the maximum output if the error is positive Outputs the minimum output if the error is negative Outputs 0 if the error is within the acceptable tolerance 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a58ac0677dcbaa8c8f8a609fa2f73867e}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a58ac0677dcbaa8c8f8a609fa2f73867e}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!atSetpoint@{atSetpoint}}
+\index{atSetpoint@{atSetpoint}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{atSetpoint()}{atSetpoint()}}
+{\footnotesize\ttfamily boolean frc.\+robot.\+controller.\+Bang\+Bang.\+at\+Setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns whether the measured value is within a certain tolerance of the setpoint
+
+\begin{DoxyReturn}{Returns}
+True if the measured value is within the tolerance, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a02c8b64948151db1265400764f32267e}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a02c8b64948151db1265400764f32267e}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!calculate@{calculate}}
+\index{calculate@{calculate}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{calculate()}{calculate()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Bang\+Bang.\+calculate (\begin{DoxyParamCaption}\item[{double}]{measurement }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculates and returns the output of the controller.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & The sensor measurement to use as the controller\textquotesingle{}s input \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a5f5b51419c46afefe241d52b932fca17}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a5f5b51419c46afefe241d52b932fca17}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!getPositionError@{getPositionError}}
+\index{getPositionError@{getPositionError}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{getPositionError()}{getPositionError()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Bang\+Bang.\+get\+Position\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the error, the difference between the setpoint and the measured value
+
+\begin{DoxyReturn}{Returns}
+The error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a646bfc447daa1e708ad02810b5dcbb2a}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a646bfc447daa1e708ad02810b5dcbb2a}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!getSetpoint@{getSetpoint}}
+\index{getSetpoint@{getSetpoint}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{getSetpoint()}{getSetpoint()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Bang\+Bang.\+get\+Setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the setpoint of the controller
+
+\begin{DoxyReturn}{Returns}
+The setpoint of the controller 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_aae64a4adfa43dc9caddc4e501cfbbcbf}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_aae64a4adfa43dc9caddc4e501cfbbcbf}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!setSetpoint@{setSetpoint}}
+\index{setSetpoint@{setSetpoint}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{setSetpoint()}{setSetpoint()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Bang\+Bang.\+set\+Setpoint (\begin{DoxyParamCaption}\item[{double}]{setpoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the setpoint of the controller
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & The new setpoint \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a2ec0f35d4dd199a6ec8003afb2c227da}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a2ec0f35d4dd199a6ec8003afb2c227da}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!setSetpointRelative@{setSetpointRelative}}
+\index{setSetpointRelative@{setSetpointRelative}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{setSetpointRelative()}{setSetpointRelative()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Bang\+Bang.\+set\+Setpoint\+Relative (\begin{DoxyParamCaption}\item[{double}]{setpoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the setpoint of the controller relative to the current setpoint
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & The relative setpoint \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_bang_bang_a5fa0322cdabcf45f3a8f5bccdf0f9eff}\label{classfrc_1_1robot_1_1controller_1_1_bang_bang_a5fa0322cdabcf45f3a8f5bccdf0f9eff}} 
+\index{frc.robot.controller.BangBang@{frc.robot.controller.BangBang}!setTolerance@{setTolerance}}
+\index{setTolerance@{setTolerance}!frc.robot.controller.BangBang@{frc.robot.controller.BangBang}}
+\subsubsection{\texorpdfstring{setTolerance()}{setTolerance()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Bang\+Bang.\+set\+Tolerance (\begin{DoxyParamCaption}\item[{double}]{position\+Tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the tolerance for being considered at the setpoint
+
+
+\begin{DoxyParams}{Parameters}
+{\em position\+Tolerance} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/controller/Bang\+Bang.\+java\end{DoxyCompactItemize}

@@ -1,0 +1,208 @@
+\hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half}{}\section{frc.\+robot.\+controller.\+Take\+Back\+Half Class Reference}
+\label{classfrc_1_1robot_1_1controller_1_1_take_back_half}\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_aabeaf60031d2fe81d96d0ad0e8b9ea6d}{Take\+Back\+Half}} (double gain)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_ac08469c2b2a9dc61cbd197906cd2b4ce}{set\+Gain}} (double gain)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_acbaafdd8a1c416cab49e222677364a91}{get\+Gain}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a171ce016e6e4eb4484c884ee5a0d024a}{set\+Setpoint}} (double setpoint)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a9f18ef801fa35f3b5c161795c9ac51ea}{set\+Setpoint\+Relative}} (double setpoint)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a3a308ba222599bcd646b6080414dfc73}{get\+Setpoint}} ()
+\item 
+boolean \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a5ba31d17fb06ddf4d84654fba7cb71b8}{at\+Setpoint}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a87c76e85de87101019b6eaf187dbffe5}{set\+Tolerance}} (double tolerance)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a83f8b0c4e447e4d59f84bd8b9e6ac6d6}{get\+Error}} ()
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a60d1d6d0fc2892a9c5d519d2279a9346}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a60d1d6d0fc2892a9c5d519d2279a9346}} 
+double {\bfseries get\+H0} ()
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_abe2643dbfad710cf0c304a653b6845f2}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_abe2643dbfad710cf0c304a653b6845f2}} 
+void {\bfseries set\+Input\+Range} (double min\+Input, double max\+Input)
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a77cc71c9177702753fe30035bd0bc4b7}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a77cc71c9177702753fe30035bd0bc4b7}} 
+void {\bfseries set\+Output\+Range} (double min\+Output, double max\+Output)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half_a9efd4ffb736db38bb125fc80a5a72740}{calculate}} (double measurement)
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a873fc8c611d63768fe30676da6d12f7f}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a873fc8c611d63768fe30676da6d12f7f}} 
+void {\bfseries reset} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a7d8e899813fea42797eb5f46bd815c3a}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a7d8e899813fea42797eb5f46bd815c3a}} 
+double {\bfseries m\+\_\+error} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a062106d62a3b5e5beb48fdda712b9ba9}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a062106d62a3b5e5beb48fdda712b9ba9}} 
+double {\bfseries m\+\_\+\+H0} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_ac7e34ccc586d29778b91703e7971035d}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_ac7e34ccc586d29778b91703e7971035d}} 
+double {\bfseries m\+\_\+gain} = 1
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a17e835090031cb46733936153154adf8}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a17e835090031cb46733936153154adf8}} 
+double {\bfseries m\+\_\+setpoint} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_af673299e0f675ce38977a55f51027026}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_af673299e0f675ce38977a55f51027026}} 
+double {\bfseries m\+\_\+tolerance} = 0.\+05
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a87f22aca1b1a00ca0e791d3b0f728322}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a87f22aca1b1a00ca0e791d3b0f728322}} 
+double {\bfseries m\+\_\+max\+Output} = Double.\+P\+O\+S\+I\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a6a56ef94b0fa033cbf145639012efa11}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a6a56ef94b0fa033cbf145639012efa11}} 
+double {\bfseries m\+\_\+min\+Output} = Double.\+N\+E\+G\+A\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a4938afd18d500b8eeeeca2503362774a}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a4938afd18d500b8eeeeca2503362774a}} 
+double {\bfseries m\+\_\+max\+Input} = Double.\+P\+O\+S\+I\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_aafa545ed3a44cd3a742ab005b4c9b39d}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_aafa545ed3a44cd3a742ab005b4c9b39d}} 
+double {\bfseries m\+\_\+min\+Input} = Double.\+N\+E\+G\+A\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a6f3873996fb8995d625927eac74a10d8}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a6f3873996fb8995d625927eac74a10d8}} 
+double {\bfseries m\+\_\+measurement} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_aba6aaf22ff176d145f9a4a4dd6f62931}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_aba6aaf22ff176d145f9a4a4dd6f62931}} 
+int {\bfseries m\+\_\+sign} = 1
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_aeff52a9c0de3cebb8eaceab66182b7a4}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_aeff52a9c0de3cebb8eaceab66182b7a4}} 
+int {\bfseries m\+\_\+last\+Sign} = 1
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a4644b1788a1ab164072098c8da7cef54}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a4644b1788a1ab164072098c8da7cef54}} 
+double {\bfseries m\+\_\+output} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a2ec84c4167a5b759c3cc539e9d0e94d5}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a2ec84c4167a5b759c3cc539e9d0e94d5}} 
+double {\bfseries m\+\_\+last\+Output} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_aabeaf60031d2fe81d96d0ad0e8b9ea6d}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_aabeaf60031d2fe81d96d0ad0e8b9ea6d}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!TakeBackHalf@{TakeBackHalf}}
+\index{TakeBackHalf@{TakeBackHalf}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{TakeBackHalf()}{TakeBackHalf()}}
+{\footnotesize\ttfamily frc.\+robot.\+controller.\+Take\+Back\+Half.\+Take\+Back\+Half (\begin{DoxyParamCaption}\item[{double}]{gain }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Creates a \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_take_back_half}{Take\+Back\+Half}} controller. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a5ba31d17fb06ddf4d84654fba7cb71b8}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a5ba31d17fb06ddf4d84654fba7cb71b8}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!atSetpoint@{atSetpoint}}
+\index{atSetpoint@{atSetpoint}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{atSetpoint()}{atSetpoint()}}
+{\footnotesize\ttfamily boolean frc.\+robot.\+controller.\+Take\+Back\+Half.\+at\+Setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns whether the measured value is within a certain tolerance of the setpoint
+
+\begin{DoxyReturn}{Returns}
+True if the measured value is within the tolerance, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a9efd4ffb736db38bb125fc80a5a72740}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a9efd4ffb736db38bb125fc80a5a72740}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!calculate@{calculate}}
+\index{calculate@{calculate}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{calculate()}{calculate()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Take\+Back\+Half.\+calculate (\begin{DoxyParamCaption}\item[{double}]{measurement }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculates and returns the output of the controller.
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & The sensor measurement to use as the controller\textquotesingle{}s input \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a83f8b0c4e447e4d59f84bd8b9e6ac6d6}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a83f8b0c4e447e4d59f84bd8b9e6ac6d6}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!getError@{getError}}
+\index{getError@{getError}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{getError()}{getError()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Take\+Back\+Half.\+get\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the error, the difference between the setpoint and the measured value
+
+\begin{DoxyReturn}{Returns}
+The error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_acbaafdd8a1c416cab49e222677364a91}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_acbaafdd8a1c416cab49e222677364a91}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!getGain@{getGain}}
+\index{getGain@{getGain}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{getGain()}{getGain()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Take\+Back\+Half.\+get\+Gain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the gain of the controller
+
+\begin{DoxyReturn}{Returns}
+The gain of the controller 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a3a308ba222599bcd646b6080414dfc73}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a3a308ba222599bcd646b6080414dfc73}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!getSetpoint@{getSetpoint}}
+\index{getSetpoint@{getSetpoint}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{getSetpoint()}{getSetpoint()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Take\+Back\+Half.\+get\+Setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the setpoint of the controller
+
+\begin{DoxyReturn}{Returns}
+The setpoint of the controller 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_ac08469c2b2a9dc61cbd197906cd2b4ce}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_ac08469c2b2a9dc61cbd197906cd2b4ce}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!setGain@{setGain}}
+\index{setGain@{setGain}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{setGain()}{setGain()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Take\+Back\+Half.\+set\+Gain (\begin{DoxyParamCaption}\item[{double}]{gain }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the gain of the controller
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain} & The gain \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a171ce016e6e4eb4484c884ee5a0d024a}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a171ce016e6e4eb4484c884ee5a0d024a}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!setSetpoint@{setSetpoint}}
+\index{setSetpoint@{setSetpoint}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{setSetpoint()}{setSetpoint()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Take\+Back\+Half.\+set\+Setpoint (\begin{DoxyParamCaption}\item[{double}]{setpoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the setpoint of the controller
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & The new setpoint \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a9f18ef801fa35f3b5c161795c9ac51ea}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a9f18ef801fa35f3b5c161795c9ac51ea}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!setSetpointRelative@{setSetpointRelative}}
+\index{setSetpointRelative@{setSetpointRelative}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{setSetpointRelative()}{setSetpointRelative()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Take\+Back\+Half.\+set\+Setpoint\+Relative (\begin{DoxyParamCaption}\item[{double}]{setpoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the setpoint of the controller relative to the current setpoint
+
+
+\begin{DoxyParams}{Parameters}
+{\em setpoint} & The relative setpoint \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_take_back_half_a87c76e85de87101019b6eaf187dbffe5}\label{classfrc_1_1robot_1_1controller_1_1_take_back_half_a87c76e85de87101019b6eaf187dbffe5}} 
+\index{frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}!setTolerance@{setTolerance}}
+\index{setTolerance@{setTolerance}!frc.robot.controller.TakeBackHalf@{frc.robot.controller.TakeBackHalf}}
+\subsubsection{\texorpdfstring{setTolerance()}{setTolerance()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Take\+Back\+Half.\+set\+Tolerance (\begin{DoxyParamCaption}\item[{double}]{tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the tolerance for being considered at the setpoint
+
+
+\begin{DoxyParams}{Parameters}
+{\em position\+Tolerance} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/controller/Take\+Back\+Half.\+java\end{DoxyCompactItemize}

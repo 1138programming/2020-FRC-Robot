@@ -1,0 +1,130 @@
+\hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera}{}\section{frc.\+robot.\+subsystems.\+Camera Class Reference}
+\label{classfrc_1_1robot_1_1subsystems_1_1_camera}\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+Inheritance diagram for frc.\+robot.\+subsystems.\+Camera\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfrc_1_1robot_1_1subsystems_1_1_camera}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_a43daae6cc7955d1d010e960d9cb8c07c}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_a43daae6cc7955d1d010e960d9cb8c07c}} 
+\mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_a43daae6cc7955d1d010e960d9cb8c07c}{Camera}} ()
+\begin{DoxyCompactList}\small\item\em This is the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera}{Camera}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_a1d487538a84987b42881d036fad16106}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_a1d487538a84987b42881d036fad16106}} 
+void {\bfseries periodic} ()
+\item 
+boolean \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_ad8159ea1c074d6d13845abc44cd6eb02}{target\+Visible}} ()
+\begin{DoxyCompactList}\small\item\em Returns whether a valid target is in view of the Limelight. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_a09bb1ae0348f9a6bc018ce62169e188f}{get\+OffsetX}} ()
+\begin{DoxyCompactList}\small\item\em Returns the X offset in degrees from the crosshair to the target. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_a97f08ee461cdc433aae3a8d5a8b8388a}{get\+OffsetY}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Y offset in degrees from the crosshair to the target. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_ab0d35016896e190da03a38c1d8bdaac8}{get\+Area\+Of\+Target}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_a21264a7a789b2139797bf04bb7a15dbe}{set\+L\+E\+D\+Mode}} (double led)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_a3139edef938fb996933614b77b07768e}{set\+Cam\+Mode}} (double cam)
+\begin{DoxyCompactList}\small\item\em Sets \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera}{Camera}} mode of the Limelight. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera_abc908bea32787055889608bbc41d1783}{set\+Pipeline}} (double pipe)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_ab0d35016896e190da03a38c1d8bdaac8}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_ab0d35016896e190da03a38c1d8bdaac8}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!getAreaOfTarget@{getAreaOfTarget}}
+\index{getAreaOfTarget@{getAreaOfTarget}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{getAreaOfTarget()}{getAreaOfTarget()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Camera.\+get\+Area\+Of\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@breif Returns the percentage of the image the target area takes up
+
+\begin{DoxyReturn}{Returns}
+Percentage between 0 and 1 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_a09bb1ae0348f9a6bc018ce62169e188f}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_a09bb1ae0348f9a6bc018ce62169e188f}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!getOffsetX@{getOffsetX}}
+\index{getOffsetX@{getOffsetX}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{getOffsetX()}{getOffsetX()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Camera.\+get\+OffsetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the X offset in degrees from the crosshair to the target. 
+
+\begin{DoxyReturn}{Returns}
+Negative or positive degree offset 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_a97f08ee461cdc433aae3a8d5a8b8388a}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_a97f08ee461cdc433aae3a8d5a8b8388a}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!getOffsetY@{getOffsetY}}
+\index{getOffsetY@{getOffsetY}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{getOffsetY()}{getOffsetY()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Camera.\+get\+OffsetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the Y offset in degrees from the crosshair to the target. 
+
+\begin{DoxyReturn}{Returns}
+Negative or positive degree offset 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_a3139edef938fb996933614b77b07768e}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_a3139edef938fb996933614b77b07768e}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!setCamMode@{setCamMode}}
+\index{setCamMode@{setCamMode}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{setCamMode()}{setCamMode()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Camera.\+set\+Cam\+Mode (\begin{DoxyParamCaption}\item[{double}]{cam }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_camera}{Camera}} mode of the Limelight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cam} & 0 = vision processing, 1 = driver camera (exposure increased, no processing) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_a21264a7a789b2139797bf04bb7a15dbe}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_a21264a7a789b2139797bf04bb7a15dbe}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!setLEDMode@{setLEDMode}}
+\index{setLEDMode@{setLEDMode}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{setLEDMode()}{setLEDMode()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Camera.\+set\+L\+E\+D\+Mode (\begin{DoxyParamCaption}\item[{double}]{led }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@breif Sets L\+ED mode of the Limelight
+
+
+\begin{DoxyParams}{Parameters}
+{\em led} & 0 = pipeline\textquotesingle{}s, 1 = off, 2 = blink, 3 = on \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_abc908bea32787055889608bbc41d1783}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_abc908bea32787055889608bbc41d1783}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!setPipeline@{setPipeline}}
+\index{setPipeline@{setPipeline}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{setPipeline()}{setPipeline()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Camera.\+set\+Pipeline (\begin{DoxyParamCaption}\item[{double}]{pipe }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+@breif Sets pipeline index of the Limelight, 0-\/9
+
+
+\begin{DoxyParams}{Parameters}
+{\em pipe} & Index of pipeline between 0 and 9 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_camera_ad8159ea1c074d6d13845abc44cd6eb02}\label{classfrc_1_1robot_1_1subsystems_1_1_camera_ad8159ea1c074d6d13845abc44cd6eb02}} 
+\index{frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}!targetVisible@{targetVisible}}
+\index{targetVisible@{targetVisible}!frc.robot.subsystems.Camera@{frc.robot.subsystems.Camera}}
+\subsubsection{\texorpdfstring{targetVisible()}{targetVisible()}}
+{\footnotesize\ttfamily boolean frc.\+robot.\+subsystems.\+Camera.\+target\+Visible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns whether a valid target is in view of the Limelight. 
+
+\begin{DoxyReturn}{Returns}
+Whether the target is in view or not 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/subsystems/Camera.\+java\end{DoxyCompactItemize}

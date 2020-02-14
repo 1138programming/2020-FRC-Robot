@@ -1,0 +1,342 @@
+\hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base}{}\section{frc.\+robot.\+subsystems.\+Base Class Reference}
+\label{classfrc_1_1robot_1_1subsystems_1_1_base}\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+Inheritance diagram for frc.\+robot.\+subsystems.\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfrc_1_1robot_1_1subsystems_1_1_base}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ac20004b7dc16baa244dab512a5974843}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ac20004b7dc16baa244dab512a5974843}} 
+\mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_ac20004b7dc16baa244dab512a5974843}{Base}} ()
+\begin{DoxyCompactList}\small\item\em This is the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base}{Base}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a22ede64b3ec77a28a1ca7d8dfcd88ba9}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a22ede64b3ec77a28a1ca7d8dfcd88ba9}} 
+void {\bfseries periodic} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_aa41ac2660df6722e9d0c9e143c82fe81}{move}} (double left\+Speed, double right\+Speed)
+\begin{DoxyCompactList}\small\item\em Moves the base directly. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a4ec90478ab5deafb1910a2715e7a8860}{set\+Base\+State}} (\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_base_state}{Base\+State}} state)
+\begin{DoxyCompactList}\small\item\em Sets the base shift to high, medium, or low. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_base_state}{Base\+State}} \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_ac08c09ed7a53f8c5ac883c4b0fe5fbf4}{get\+Base\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets the base\textquotesingle{}s state. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a008f98f74ff02b06456cb913ae634bdc}{get\+Left\+Encoder}} ()
+\begin{DoxyCompactList}\small\item\em Gets the encoder value of the left side. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a86a18d2879f4d03144ff8f40a5fec8b3}{get\+Right\+Encoder}} ()
+\begin{DoxyCompactList}\small\item\em Gets the encoder value of the right side. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a3086df67c856d2135fdee1077cab1b50}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a3086df67c856d2135fdee1077cab1b50}} 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a3086df67c856d2135fdee1077cab1b50}{zero\+Encoders}} ()
+\begin{DoxyCompactList}\small\item\em Zeroes the encoders on both sides. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a7bbf51639ef6ea065c1ef065d1e9520b}{get\+Shift\+Speed}} ()
+\begin{DoxyCompactList}\small\item\em Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here\+: \href{https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28}{\texttt{ https\+://www.\+chiefdelphi.\+com/t/frc-\/95-\/the-\/grasshoppers-\/2020-\/build-\/thread/368912/28}}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_af8159ba0759e6c3c0056445d481223da}{get\+Left\+Speed}} ()
+\begin{DoxyCompactList}\small\item\em Gets the speed of the left side. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_aff145d6bf9d8854b3d4fe312b40344d8}{get\+Right\+Speed}} ()
+\begin{DoxyCompactList}\small\item\em Gets the speed of the right side. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a7d0b5e6419c7da9741f86807768f77fe}{get\+Left\+Accel}} ()
+\begin{DoxyCompactList}\small\item\em Gets the acceleration of the left side (as a double) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a914de01840db6b8984e6594ff194ae00}{get\+Right\+Accel}} ()
+\begin{DoxyCompactList}\small\item\em Gets the acceleration of the right side (as a double) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a6d1643d8fb0b7cf4fff02f46c0edbd42}{set\+Target}} (double left\+Target, double right\+Target)
+\begin{DoxyCompactList}\small\item\em Sets the targets for the linear profilers on both sides of the base. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_af59a0fae3d6c2c4150406fb02288d1a3}{set\+Target\+Relative}} (double left\+Target, double right\+Target)
+\begin{DoxyCompactList}\small\item\em Sets the targets for the linear profiler on both sides of the base relative to their current targets. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_aa2dadd553dfc8910c56d24900a52f91e}{get\+Left\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Gets the target of the left profiler as a double. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a4d560fe022c6baab267770a9e671ad7d}{get\+Right\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Gets the target of the right profiler as a double. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_ac9dd3bd7c9b68b3f2d2986e2f2dad632}{set\+Max\+Vel}} (double max\+Vel)
+\begin{DoxyCompactList}\small\item\em Sets the maximum velocity for both the left and right profilers on the base. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_base_a66397121d0fe18c2132a48163d35af63}{set\+Max\+Accel}} (double max\+Accel)
+\begin{DoxyCompactList}\small\item\em Sets the maximum acceleration for both the left and right profilers on the base. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a9612e8bb209ddeb9467f417a49c4721d}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a9612e8bb209ddeb9467f417a49c4721d}} 
+void {\bfseries init\+Linear\+Movement} ()
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a0d9d00318b7799694b077fc9b2b37581}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a0d9d00318b7799694b077fc9b2b37581}} 
+void {\bfseries calculate} ()
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_aad612a2c7d292d6128d4bca266c10cf8}\label{classfrc_1_1robot_1_1subsystems_1_1_base_aad612a2c7d292d6128d4bca266c10cf8}} 
+boolean {\bfseries at\+Target} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a3417c5ffefd87f73c5d30cef92a524bc}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a3417c5ffefd87f73c5d30cef92a524bc}} 
+final Talon\+FX {\bfseries left\+Front}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_af3bd8381460d4b73557317d398ab813f}\label{classfrc_1_1robot_1_1subsystems_1_1_base_af3bd8381460d4b73557317d398ab813f}} 
+final \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler}{Linear\+Profiler}} {\bfseries left\+Profiler}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a918afbb56757385ae0df25b3bdbc9d8c}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a918afbb56757385ae0df25b3bdbc9d8c}} 
+final Double\+Solenoid {\bfseries shifter}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ac7277063882c408d7a77a4b3849fee0e}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ac7277063882c408d7a77a4b3849fee0e}} 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_base_state}{Base\+State}} {\bfseries base\+State} = Base\+State.\+M\+E\+D\+I\+UM
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ae3b6f65adc18d89ebbab876da115be4f}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ae3b6f65adc18d89ebbab876da115be4f}} 
+double {\bfseries last\+Left\+Speed} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a3e2cb649c92a5f8c6c6c1f4d3d56edb2}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a3e2cb649c92a5f8c6c6c1f4d3d56edb2}} 
+double {\bfseries last\+Right\+Speed} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a08b16b0d76d7d609087761d0353a97b7}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a08b16b0d76d7d609087761d0353a97b7}} 
+double {\bfseries left\+Accel} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ae662aca8b5cfd16bf3626e1547c27918}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ae662aca8b5cfd16bf3626e1547c27918}} 
+double {\bfseries right\+Accel} = 0
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_abd90580cfbdb7a320a8724d0e90e4195}\label{classfrc_1_1robot_1_1subsystems_1_1_base_abd90580cfbdb7a320a8724d0e90e4195}} 
+static final int {\bfseries Ticks\+Per\+Rotation} = 2048
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a5b7c2fa864ece6512d10de93f3af4048}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a5b7c2fa864ece6512d10de93f3af4048}} 
+static final int {\bfseries Free\+Speed\+R\+PM} = 6380
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ad78ed1856c2233b438263c9e9dade0dc}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ad78ed1856c2233b438263c9e9dade0dc}} 
+static final int {\bfseries Free\+Speed} = (Free\+Speed\+R\+PM / 600) $\ast$ Ticks\+Per\+Rotation
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a340175600de15c03f88a6d360fdde144}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a340175600de15c03f88a6d360fdde144}} 
+static final double {\bfseries Low\+Gear} = (8.\+0 / 62.\+0) $\ast$ (24.\+0 / 32.\+0) $\ast$ (16.\+0 / 50.\+0)
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a3c564c2571a86e9a715e19183d4b2d29}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a3c564c2571a86e9a715e19183d4b2d29}} 
+static final double {\bfseries High\+Gear} = (8.\+0 / 62.\+0) $\ast$ (24.\+0 / 32.\+0) $\ast$ (36.\+0 / 30.\+0)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ac08c09ed7a53f8c5ac883c4b0fe5fbf4}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ac08c09ed7a53f8c5ac883c4b0fe5fbf4}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getBaseState@{getBaseState}}
+\index{getBaseState@{getBaseState}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getBaseState()}{getBaseState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_base_state}{Base\+State}} frc.\+robot.\+subsystems.\+Base.\+get\+Base\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the base\textquotesingle{}s state. 
+
+\begin{DoxyReturn}{Returns}
+State of the base 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a7d0b5e6419c7da9741f86807768f77fe}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a7d0b5e6419c7da9741f86807768f77fe}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getLeftAccel@{getLeftAccel}}
+\index{getLeftAccel@{getLeftAccel}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getLeftAccel()}{getLeftAccel()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Left\+Accel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the acceleration of the left side (as a double) 
+
+\begin{DoxyReturn}{Returns}
+Acceleration in rotations per second squared 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a008f98f74ff02b06456cb913ae634bdc}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a008f98f74ff02b06456cb913ae634bdc}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getLeftEncoder@{getLeftEncoder}}
+\index{getLeftEncoder@{getLeftEncoder}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getLeftEncoder()}{getLeftEncoder()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Left\+Encoder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the encoder value of the left side. 
+
+\begin{DoxyReturn}{Returns}
+Left encoder value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_af8159ba0759e6c3c0056445d481223da}\label{classfrc_1_1robot_1_1subsystems_1_1_base_af8159ba0759e6c3c0056445d481223da}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getLeftSpeed@{getLeftSpeed}}
+\index{getLeftSpeed@{getLeftSpeed}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getLeftSpeed()}{getLeftSpeed()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Left\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the speed of the left side. 
+
+\begin{DoxyReturn}{Returns}
+Speed in ticks per 100 ms 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_aa2dadd553dfc8910c56d24900a52f91e}\label{classfrc_1_1robot_1_1subsystems_1_1_base_aa2dadd553dfc8910c56d24900a52f91e}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getLeftTarget@{getLeftTarget}}
+\index{getLeftTarget@{getLeftTarget}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getLeftTarget()}{getLeftTarget()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Left\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the target of the left profiler as a double. 
+
+\begin{DoxyReturn}{Returns}
+The left profiler’s target 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a914de01840db6b8984e6594ff194ae00}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a914de01840db6b8984e6594ff194ae00}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getRightAccel@{getRightAccel}}
+\index{getRightAccel@{getRightAccel}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getRightAccel()}{getRightAccel()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Right\+Accel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the acceleration of the right side (as a double) 
+
+\begin{DoxyReturn}{Returns}
+Acceleration in rotations per second squared 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a86a18d2879f4d03144ff8f40a5fec8b3}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a86a18d2879f4d03144ff8f40a5fec8b3}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getRightEncoder@{getRightEncoder}}
+\index{getRightEncoder@{getRightEncoder}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getRightEncoder()}{getRightEncoder()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Right\+Encoder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the encoder value of the right side. 
+
+\begin{DoxyReturn}{Returns}
+Right encoder value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_aff145d6bf9d8854b3d4fe312b40344d8}\label{classfrc_1_1robot_1_1subsystems_1_1_base_aff145d6bf9d8854b3d4fe312b40344d8}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getRightSpeed@{getRightSpeed}}
+\index{getRightSpeed@{getRightSpeed}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getRightSpeed()}{getRightSpeed()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Right\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the speed of the right side. 
+
+\begin{DoxyReturn}{Returns}
+Speed in ticks per 100 ms 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a4d560fe022c6baab267770a9e671ad7d}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a4d560fe022c6baab267770a9e671ad7d}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getRightTarget@{getRightTarget}}
+\index{getRightTarget@{getRightTarget}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getRightTarget()}{getRightTarget()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Right\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the target of the right profiler as a double. 
+
+\begin{DoxyReturn}{Returns}
+The right profiler’s target 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a7bbf51639ef6ea065c1ef065d1e9520b}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a7bbf51639ef6ea065c1ef065d1e9520b}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!getShiftSpeed@{getShiftSpeed}}
+\index{getShiftSpeed@{getShiftSpeed}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{getShiftSpeed()}{getShiftSpeed()}}
+{\footnotesize\ttfamily double frc.\+robot.\+subsystems.\+Base.\+get\+Shift\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here\+: \href{https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28}{\texttt{ https\+://www.\+chiefdelphi.\+com/t/frc-\/95-\/the-\/grasshoppers-\/2020-\/build-\/thread/368912/28}}. 
+
+\begin{DoxyReturn}{Returns}
+Speed in ticks per 100 ms 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_aa41ac2660df6722e9d0c9e143c82fe81}\label{classfrc_1_1robot_1_1subsystems_1_1_base_aa41ac2660df6722e9d0c9e143c82fe81}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!move@{move}}
+\index{move@{move}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Base.\+move (\begin{DoxyParamCaption}\item[{double}]{left\+Speed,  }\item[{double}]{right\+Speed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves the base directly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left\+Speed} & Speed to move the left side at \\
+\hline
+{\em right\+Speed} & Speed to move the right side at \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a4ec90478ab5deafb1910a2715e7a8860}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a4ec90478ab5deafb1910a2715e7a8860}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!setBaseState@{setBaseState}}
+\index{setBaseState@{setBaseState}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{setBaseState()}{setBaseState()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Base.\+set\+Base\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_base_state}{Base\+State}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the base shift to high, medium, or low. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & State to set the base to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a66397121d0fe18c2132a48163d35af63}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a66397121d0fe18c2132a48163d35af63}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!setMaxAccel@{setMaxAccel}}
+\index{setMaxAccel@{setMaxAccel}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{setMaxAccel()}{setMaxAccel()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Base.\+set\+Max\+Accel (\begin{DoxyParamCaption}\item[{double}]{max\+Accel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the maximum acceleration for both the left and right profilers on the base. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Accel} & The maximum velocity in rotations per second \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_ac9dd3bd7c9b68b3f2d2986e2f2dad632}\label{classfrc_1_1robot_1_1subsystems_1_1_base_ac9dd3bd7c9b68b3f2d2986e2f2dad632}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!setMaxVel@{setMaxVel}}
+\index{setMaxVel@{setMaxVel}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{setMaxVel()}{setMaxVel()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Base.\+set\+Max\+Vel (\begin{DoxyParamCaption}\item[{double}]{max\+Vel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the maximum velocity for both the left and right profilers on the base. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Vel} & The maximum velocity in rotations per second \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_a6d1643d8fb0b7cf4fff02f46c0edbd42}\label{classfrc_1_1robot_1_1subsystems_1_1_base_a6d1643d8fb0b7cf4fff02f46c0edbd42}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!setTarget@{setTarget}}
+\index{setTarget@{setTarget}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{setTarget()}{setTarget()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Base.\+set\+Target (\begin{DoxyParamCaption}\item[{double}]{left\+Target,  }\item[{double}]{right\+Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the targets for the linear profilers on both sides of the base. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left\+Target} & The target for the left side, in rotations \\
+\hline
+{\em right\+Target} & The target for the right side, in rotations \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_base_af59a0fae3d6c2c4150406fb02288d1a3}\label{classfrc_1_1robot_1_1subsystems_1_1_base_af59a0fae3d6c2c4150406fb02288d1a3}} 
+\index{frc.robot.subsystems.Base@{frc.robot.subsystems.Base}!setTargetRelative@{setTargetRelative}}
+\index{setTargetRelative@{setTargetRelative}!frc.robot.subsystems.Base@{frc.robot.subsystems.Base}}
+\subsubsection{\texorpdfstring{setTargetRelative()}{setTargetRelative()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Base.\+set\+Target\+Relative (\begin{DoxyParamCaption}\item[{double}]{left\+Target,  }\item[{double}]{right\+Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the targets for the linear profiler on both sides of the base relative to their current targets. 
+
+For example, if both targets are 5 rotations, then the profilers will try to rotate each side of the base by 5 additional rotations, regardless of what their current encoder count is.
+
+
+\begin{DoxyParams}{Parameters}
+{\em left\+Target} & The relative target for the left side, in rotations \\
+\hline
+{\em right\+Target} & The relative target for the right side, in rotations \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/subsystems/Base.\+java\end{DoxyCompactItemize}

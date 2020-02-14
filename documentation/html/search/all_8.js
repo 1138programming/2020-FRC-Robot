@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['linearprofiler',['LinearProfiler',['../classfrc_1_1robot_1_1controller_1_1_linear_profiler.html',1,'frc.robot.controller.LinearProfiler'],['../classfrc_1_1robot_1_1controller_1_1_linear_profiler.html#a1e7aab755a295a55c3753e77f5b0bdcd',1,'frc.robot.controller.LinearProfiler.LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD, double period)'],['../classfrc_1_1robot_1_1controller_1_1_linear_profiler.html#a2e9710450fc8f85c4afdf3829cdc9b2f',1,'frc.robot.controller.LinearProfiler.LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD)'],['../classfrc_1_1robot_1_1controller_1_1_linear_profiler.html#a4e604d041cf77ca66a712ec3c71dc470',1,'frc.robot.controller.LinearProfiler.LinearProfiler(double maxVel, double maxAccel)'],['../classfrc_1_1robot_1_1controller_1_1_linear_profiler.html#aefed5cdaea96776a06cc5d20088bb2fc',1,'frc.robot.controller.LinearProfiler.LinearProfiler()']]]
+];

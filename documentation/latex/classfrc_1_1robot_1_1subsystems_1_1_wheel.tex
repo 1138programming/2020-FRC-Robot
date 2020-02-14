@@ -1,0 +1,126 @@
+\hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel}{}\section{frc.\+robot.\+subsystems.\+Wheel Class Reference}
+\label{classfrc_1_1robot_1_1subsystems_1_1_wheel}\index{frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}}
+Inheritance diagram for frc.\+robot.\+subsystems.\+Wheel\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfrc_1_1robot_1_1subsystems_1_1_wheel}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_wheel_aadbb9a7450a3784b988393b5a74f55f2}{Wheel}} ()
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_ac288181794bb15eccab8478e8de64629}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_ac288181794bb15eccab8478e8de64629}} 
+void {\bfseries periodic} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_wheel_afcc64ab79a1f9902f6270d699d01a4ef}{move}} (double speed)
+\begin{DoxyCompactList}\small\item\em Moves the wheel mechanism directly. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_wheel_aadef4c1c2a73fc8b4e656cb96987ebe7}{get\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Gets the color that the color sensor is detecting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_rotation_direction}{Rotation\+Direction}} \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_wheel_a6a27eea19185863babdb6edacf07024b}{get\+Rotation\+Direction}} (\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} Current, \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} Target)
+\begin{DoxyCompactList}\small\item\em Gets the direction in which the wheel mechanism needs to rotate to get to the target color. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_wheel_a0b2f59c04fb658942ff3c7d60a66d4d2}{get\+Target\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Gets the target color for the wheel from the F\+MS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_ab96fda6ef202c585b8ef527f736dff4e}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_ab96fda6ef202c585b8ef527f736dff4e}} 
+final Talon\+S\+RX {\bfseries wheel\+Motor}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_aa6f6bb3b16a45bbd56aa27757d161b6a}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_aa6f6bb3b16a45bbd56aa27757d161b6a}} 
+final I2\+C.\+Port {\bfseries i2c\+Port} = I2\+C.\+Port.\+k\+Onboard
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_af7b9889f44ce1d4ef65dca64cdb62acb}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_af7b9889f44ce1d4ef65dca64cdb62acb}} 
+final Color\+Sensor\+V3 {\bfseries m\+\_\+color\+Sensor} = new Color\+Sensor\+V3(i2c\+Port)
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_abf26b63c76921b3e75b33d7d55a2573c}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_abf26b63c76921b3e75b33d7d55a2573c}} 
+final Color\+Match {\bfseries m\+\_\+color\+Matcher} = new Color\+Match()
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_a1aff5fa24a3cf9282ffd3a9d30c66d06}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_a1aff5fa24a3cf9282ffd3a9d30c66d06}} 
+static String {\bfseries game\+Data}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_a3812ba5e512f0110fb3cff4f021a968c}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_a3812ba5e512f0110fb3cff4f021a968c}} 
+static \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} {\bfseries target\+Color}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_aadbb9a7450a3784b988393b5a74f55f2}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_aadbb9a7450a3784b988393b5a74f55f2}} 
+\index{frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}!Wheel@{Wheel}}
+\index{Wheel@{Wheel}!frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}}
+\subsubsection{\texorpdfstring{Wheel()}{Wheel()}}
+{\footnotesize\ttfamily frc.\+robot.\+subsystems.\+Wheel.\+Wheel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This is the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_wheel}{Wheel}} 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_aadef4c1c2a73fc8b4e656cb96987ebe7}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_aadef4c1c2a73fc8b4e656cb96987ebe7}} 
+\index{frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}!getColor@{getColor}}
+\index{getColor@{getColor}!frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}}
+\subsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} frc.\+robot.\+subsystems.\+Wheel.\+get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the color that the color sensor is detecting. 
+
+\begin{DoxyReturn}{Returns}
+The color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_a6a27eea19185863babdb6edacf07024b}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_a6a27eea19185863babdb6edacf07024b}} 
+\index{frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}!getRotationDirection@{getRotationDirection}}
+\index{getRotationDirection@{getRotationDirection}!frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}}
+\subsubsection{\texorpdfstring{getRotationDirection()}{getRotationDirection()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_rotation_direction}{Rotation\+Direction}} frc.\+robot.\+subsystems.\+Wheel.\+get\+Rotation\+Direction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}}}]{Current,  }\item[{\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}}}]{Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the direction in which the wheel mechanism needs to rotate to get to the target color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Current} & The current color the wheel is on \\
+\hline
+{\em Target} & The target color for the wheel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The direction to rotate 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_a0b2f59c04fb658942ff3c7d60a66d4d2}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_a0b2f59c04fb658942ff3c7d60a66d4d2}} 
+\index{frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}!getTargetColor@{getTargetColor}}
+\index{getTargetColor@{getTargetColor}!frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}}
+\subsubsection{\texorpdfstring{getTargetColor()}{getTargetColor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_color_label}{Color\+Label}} frc.\+robot.\+subsystems.\+Wheel.\+get\+Target\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the target color for the wheel from the F\+MS. 
+
+\begin{DoxyReturn}{Returns}
+The target color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_wheel_afcc64ab79a1f9902f6270d699d01a4ef}\label{classfrc_1_1robot_1_1subsystems_1_1_wheel_afcc64ab79a1f9902f6270d699d01a4ef}} 
+\index{frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}!move@{move}}
+\index{move@{move}!frc.robot.subsystems.Wheel@{frc.robot.subsystems.Wheel}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Wheel.\+move (\begin{DoxyParamCaption}\item[{double}]{speed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves the wheel mechanism directly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & Speed to move the wheel mechanism at \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/subsystems/Wheel.\+java\end{DoxyCompactItemize}

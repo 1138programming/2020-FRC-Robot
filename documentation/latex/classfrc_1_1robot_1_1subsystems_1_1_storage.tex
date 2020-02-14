@@ -1,0 +1,138 @@
+\hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage}{}\section{frc.\+robot.\+subsystems.\+Storage Class Reference}
+\label{classfrc_1_1robot_1_1subsystems_1_1_storage}\index{frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}}
+Inheritance diagram for frc.\+robot.\+subsystems.\+Storage\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfrc_1_1robot_1_1subsystems_1_1_storage}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a4d851dfa2229d5b714fc632fe8e3cce5}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a4d851dfa2229d5b714fc632fe8e3cce5}} 
+\mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage_a4d851dfa2229d5b714fc632fe8e3cce5}{Storage}} ()
+\begin{DoxyCompactList}\small\item\em This is the \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage}{Storage}} subsystem. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a63bd130d2723e82e946a294373a700b5}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a63bd130d2723e82e946a294373a700b5}} 
+void {\bfseries periodic} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage_a9efeea1d8a13c4a1df74aaf02c6ac466}{move}} (double speed, \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_storage_stage}{Storage\+Stage}} stage)
+\begin{DoxyCompactList}\small\item\em Moves the given conveyor belt(s) directly. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage_a8fc7f7a8fde529b740a07c606eff02f1}{move}} (double speed)
+\begin{DoxyCompactList}\small\item\em Moves both conveyor belts directly. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage_adb0d9bf991755392eac51b8b723b30e2}{set\+Shifter\+State}} (\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} state)
+\begin{DoxyCompactList}\small\item\em Set the state of the dogshifter to engage/disengage stage 2. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage_a61cb0ae0e4883d56dd40e226f0984a16}{get\+Shifter\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets the state of the shifter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a8143083be0eb218349ee2dc481e39b9f}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a8143083be0eb218349ee2dc481e39b9f}} 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1subsystems_1_1_storage_a8143083be0eb218349ee2dc481e39b9f}{update\+Ball\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Tracks the number of balls in the storage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a1d336f2d61b7472bbb8d590c77f6e66b}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a1d336f2d61b7472bbb8d590c77f6e66b}} 
+final Victor\+S\+PX {\bfseries stage1}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a4b8bbb74237cd1c90f5285cbebd86047}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a4b8bbb74237cd1c90f5285cbebd86047}} 
+final Victor\+S\+PX {\bfseries stage2}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a89858e41a488b7b4e4973817d9ea618b}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a89858e41a488b7b4e4973817d9ea618b}} 
+final Solenoid {\bfseries shifter}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a3649aff40d2058a0ed0eb8e3bbd9ed50}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a3649aff40d2058a0ed0eb8e3bbd9ed50}} 
+final Digital\+Input {\bfseries ball\+Sensor1}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_ab388628e9eff63f13f908e02ae7e0dff}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_ab388628e9eff63f13f908e02ae7e0dff}} 
+final Digital\+Input {\bfseries ball\+Sensor2}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a24f418210489169f4cf1a8073f8fb6c2}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a24f418210489169f4cf1a8073f8fb6c2}} 
+int {\bfseries ball\+Count} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a34f48281c32a147cf3ab79ffe83ed95c}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a34f48281c32a147cf3ab79ffe83ed95c}} 
+boolean {\bfseries is\+Intaking}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_ab458c1bfab3b67e006781b853fda4edb}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_ab458c1bfab3b67e006781b853fda4edb}} 
+\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} {\bfseries shifter\+State} = Solenoid\+State.\+D\+E\+F\+A\+U\+LT
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a932677c743e6fee5578a0f1b631fb31e}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a932677c743e6fee5578a0f1b631fb31e}} 
+boolean {\bfseries ball\+Sensor1\+Last\+State} = false
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a6f96c81842019845c05884adc4542c0b}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a6f96c81842019845c05884adc4542c0b}} 
+boolean {\bfseries ball\+Sensor2\+Last\+State} = false
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a85bba87da73ddd15c811b7e1e297afe3}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a85bba87da73ddd15c811b7e1e297afe3}} 
+double {\bfseries stage1\+Speed} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a6b4e935a71216d5fbb557ab819d7a891}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a6b4e935a71216d5fbb557ab819d7a891}} 
+double {\bfseries stage2\+Speed} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a61cb0ae0e4883d56dd40e226f0984a16}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a61cb0ae0e4883d56dd40e226f0984a16}} 
+\index{frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}!getShifterState@{getShifterState}}
+\index{getShifterState@{getShifterState}!frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}}
+\subsubsection{\texorpdfstring{getShifterState()}{getShifterState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}} frc.\+robot.\+subsystems.\+Storage.\+get\+Shifter\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the state of the shifter. 
+
+\begin{DoxyReturn}{Returns}
+The shifter\textquotesingle{}s state 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a9efeea1d8a13c4a1df74aaf02c6ac466}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a9efeea1d8a13c4a1df74aaf02c6ac466}} 
+\index{frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}!move@{move}}
+\index{move@{move}!frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}}
+\subsubsection{\texorpdfstring{move()}{move()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Storage.\+move (\begin{DoxyParamCaption}\item[{double}]{speed,  }\item[{\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_storage_stage}{Storage\+Stage}}}]{stage }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves the given conveyor belt(s) directly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & Speed to move the conveyor belt(s) at \\
+\hline
+{\em stage} & The stage(s) of the storage we want to move \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_a8fc7f7a8fde529b740a07c606eff02f1}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_a8fc7f7a8fde529b740a07c606eff02f1}} 
+\index{frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}!move@{move}}
+\index{move@{move}!frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}}
+\subsubsection{\texorpdfstring{move()}{move()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Storage.\+move (\begin{DoxyParamCaption}\item[{double}]{speed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves both conveyor belts directly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & Speed to move the conveyor belts at \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1subsystems_1_1_storage_adb0d9bf991755392eac51b8b723b30e2}\label{classfrc_1_1robot_1_1subsystems_1_1_storage_adb0d9bf991755392eac51b8b723b30e2}} 
+\index{frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}!setShifterState@{setShifterState}}
+\index{setShifterState@{setShifterState}!frc.robot.subsystems.Storage@{frc.robot.subsystems.Storage}}
+\subsubsection{\texorpdfstring{setShifterState()}{setShifterState()}}
+{\footnotesize\ttfamily void frc.\+robot.\+subsystems.\+Storage.\+set\+Shifter\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{enumfrc_1_1robot_1_1enums_1_1_solenoid_state}{Solenoid\+State}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the state of the dogshifter to engage/disengage stage 2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & Change the state of the solenoid on the dogshifter \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/subsystems/Storage.\+java\end{DoxyCompactItemize}

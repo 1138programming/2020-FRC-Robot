@@ -1,0 +1,371 @@
+\hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler}{}\section{frc.\+robot.\+controller.\+Linear\+Profiler Class Reference}
+\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler}\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a1e7aab755a295a55c3753e77f5b0bdcd}{Linear\+Profiler}} (double max\+Vel, double max\+Accel, double kP, double kI, double kD, double period)
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a2e9710450fc8f85c4afdf3829cdc9b2f}{Linear\+Profiler}} (double max\+Vel, double max\+Accel, double kP, double kI, double kD)
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a4e604d041cf77ca66a712ec3c71dc470}{Linear\+Profiler}} (double max\+Vel, double max\+Accel)
+\item 
+\mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aefed5cdaea96776a06cc5d20088bb2fc}{Linear\+Profiler}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a4c9134a6d34c837608dd45bbef48ef85}{set\+Max\+Vel}} (double max\+Vel)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae9d63223b6aae0d5d15a996ff31b6696}{set\+Max\+Accel}} (double max\+Accel)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab8a903a8ae6c3a3cf6f1f830c0bae628}{set\+Tolerance}} (double position\+Tolerance)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ad7b7203deb6b79d10de0f50c1822f68d}{set\+Tolerance}} (double position\+Tolerance, double velocity\+Tolerance)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a166c2d4dce639d17bff63776a54cd981}{set\+Target}} (double target\+Pos)
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_adc5f6e012d51900b577649e28782c68c}{set\+Target\+Relative}} (double target\+Pos)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae733ba3bc770615eb3b279552dbf2ec3}{get\+Target}} ()
+\item 
+P\+I\+D\+Controller \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0a836468baaa6205b3cd5242944e5e6a}{get\+P\+ID}} ()
+\item 
+void \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a566952c2ffea68f7a162df009ca930cb}{init}} (double measurement)
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aae4b5ac2aad7a19d4e632739b85ed93d}{calculate}} (double measurement)
+\item 
+boolean \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae81e47754ae53ca675d73b45fb1cf200}{at\+Target}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a71e277bb2b69e59aada090b08f951356}{get\+Target\+Pos}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8fcc148becac735bffb55e36cd84a245}{get\+Target\+Vel}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a6ec4d0e47566bf616433da403b19b52a}{get\+Target\+Accel}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8cca4cf7ff15dbe94743b0fdd144bde0}{get\+Pos}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a6dd5cb0cfb1335c0d156bd4a57ed3f92}{get\+Vel}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0bfafea6b9a9c4eb9d30f2c1214d86db}{get\+Accel}} ()
+\item 
+double \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab713bb7047183a7ef960afc396bcc6ce}{get\+Period}} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a017684cb9963abe88b7d8f72b82ca442}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a017684cb9963abe88b7d8f72b82ca442}} 
+P\+I\+D\+Controller {\bfseries pos\+P\+ID}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a839e27d10ed93d637f67e97a6686be94}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a839e27d10ed93d637f67e97a6686be94}} 
+double {\bfseries last\+Pos} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a08e33e51091f847d9a9144db7cddf388}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a08e33e51091f847d9a9144db7cddf388}} 
+double {\bfseries last\+Vel} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a74383a070d098b36df249cbc23ce54cd}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a74383a070d098b36df249cbc23ce54cd}} 
+double {\bfseries vel} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8965d299dcd9808b04b0afa8e83332ec}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8965d299dcd9808b04b0afa8e83332ec}} 
+double {\bfseries accel} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_add8a820ca58ffd729fcfac1fef9f35b6}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_add8a820ca58ffd729fcfac1fef9f35b6}} 
+double {\bfseries period} = 0.\+02
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a079adc58a5b43d273fb29be03656d56e}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a079adc58a5b43d273fb29be03656d56e}} 
+double {\bfseries measurement}
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8c5765e065d3f4727b6cd8161e3ed179}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8c5765e065d3f4727b6cd8161e3ed179}} 
+double {\bfseries max\+Accel} = Double.\+P\+O\+S\+I\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab3a655c6c09b212786823773767ae2bc}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab3a655c6c09b212786823773767ae2bc}} 
+double {\bfseries max\+Vel} = Double.\+N\+E\+G\+A\+T\+I\+V\+E\+\_\+\+I\+N\+F\+I\+N\+I\+TY
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8ef4a86d834679f40941de6fab80c856}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8ef4a86d834679f40941de6fab80c856}} 
+double {\bfseries t\+\_\+accel} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a54eace7dfa3ebe15ced832a4dc9fb41e}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a54eace7dfa3ebe15ced832a4dc9fb41e}} 
+double {\bfseries t\+\_\+vel} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a64241c3e90c4bd25cf060e584b02a848}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a64241c3e90c4bd25cf060e584b02a848}} 
+double {\bfseries t\+\_\+pos} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_af8dcfe3d9bf7b877e41561ec59f8b992}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_af8dcfe3d9bf7b877e41561ec59f8b992}} 
+double {\bfseries pid\+Setpoint} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a5ccb02eb878022d81dbabd7ca6e43db7}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a5ccb02eb878022d81dbabd7ca6e43db7}} 
+double {\bfseries initial\+Pos} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ad3b6c24d8a5a812ab402d0586f772dd4}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ad3b6c24d8a5a812ab402d0586f772dd4}} 
+double {\bfseries flat\+Point} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a266757a91118b8c8e93dc007239a582b}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a266757a91118b8c8e93dc007239a582b}} 
+double {\bfseries mid\+Point} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a2e8bc539cfc7d97094c0099005f82f1f}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a2e8bc539cfc7d97094c0099005f82f1f}} 
+double {\bfseries deccel\+Point} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_acee797010d7099ed6205e7c952f561aa}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_acee797010d7099ed6205e7c952f561aa}} 
+double {\bfseries target\+Pos} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a41edf8f4de5dbdf6693fbb19b2e6b587}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a41edf8f4de5dbdf6693fbb19b2e6b587}} 
+double {\bfseries distance} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8ad28d657cbc9beb42ee7937d37825d4}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8ad28d657cbc9beb42ee7937d37825d4}} 
+int {\bfseries dir} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a3e35c5a399e0978e8ec0da8adf8fdc2e}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a3e35c5a399e0978e8ec0da8adf8fdc2e}} 
+double {\bfseries kP} = 1
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0a11ccccfee899a94651d44853dcc571}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0a11ccccfee899a94651d44853dcc571}} 
+double {\bfseries kI} = 0
+\item 
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aea48ff704aa43af8295c441351c057ed}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aea48ff704aa43af8295c441351c057ed}} 
+double {\bfseries kD} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a1e7aab755a295a55c3753e77f5b0bdcd}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a1e7aab755a295a55c3753e77f5b0bdcd}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!LinearProfiler@{LinearProfiler}}
+\index{LinearProfiler@{LinearProfiler}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{LinearProfiler()}{LinearProfiler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily frc.\+robot.\+controller.\+Linear\+Profiler.\+Linear\+Profiler (\begin{DoxyParamCaption}\item[{double}]{max\+Vel,  }\item[{double}]{max\+Accel,  }\item[{double}]{kP,  }\item[{double}]{kI,  }\item[{double}]{kD,  }\item[{double}]{period }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Creates a \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler}{Linear\+Profiler}} with the given max velocity, max acceleration, P\+ID constants, and period
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Vel} & Maximum velocity \\
+\hline
+{\em max\+Accel} & Maximum acceleration \\
+\hline
+{\em kP} & P gain \\
+\hline
+{\em kI} & I gain \\
+\hline
+{\em kD} & D gain \\
+\hline
+{\em period} & Controller period \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a2e9710450fc8f85c4afdf3829cdc9b2f}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a2e9710450fc8f85c4afdf3829cdc9b2f}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!LinearProfiler@{LinearProfiler}}
+\index{LinearProfiler@{LinearProfiler}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{LinearProfiler()}{LinearProfiler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily frc.\+robot.\+controller.\+Linear\+Profiler.\+Linear\+Profiler (\begin{DoxyParamCaption}\item[{double}]{max\+Vel,  }\item[{double}]{max\+Accel,  }\item[{double}]{kP,  }\item[{double}]{kI,  }\item[{double}]{kD }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Creates a \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler}{Linear\+Profiler}} with the given max velocity, max acceleration, P\+ID constants. The default period is 0.\+02 seconds
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Vel} & Maximum velocity \\
+\hline
+{\em max\+Accel} & Maximum acceleration \\
+\hline
+{\em kP} & P gain \\
+\hline
+{\em kI} & I gain \\
+\hline
+{\em kD} & D gain \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a4e604d041cf77ca66a712ec3c71dc470}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a4e604d041cf77ca66a712ec3c71dc470}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!LinearProfiler@{LinearProfiler}}
+\index{LinearProfiler@{LinearProfiler}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{LinearProfiler()}{LinearProfiler()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily frc.\+robot.\+controller.\+Linear\+Profiler.\+Linear\+Profiler (\begin{DoxyParamCaption}\item[{double}]{max\+Vel,  }\item[{double}]{max\+Accel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Creates a \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler}{Linear\+Profiler}} with the given max velocity and max acceleration. The default P\+ID constants are 1, 0, and 0 respectively. The default period is 0.\+02 seconds
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Vel} & \\
+\hline
+{\em max\+Accel} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aefed5cdaea96776a06cc5d20088bb2fc}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aefed5cdaea96776a06cc5d20088bb2fc}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!LinearProfiler@{LinearProfiler}}
+\index{LinearProfiler@{LinearProfiler}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{LinearProfiler()}{LinearProfiler()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily frc.\+robot.\+controller.\+Linear\+Profiler.\+Linear\+Profiler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Creates a \mbox{\hyperlink{classfrc_1_1robot_1_1controller_1_1_linear_profiler}{Linear\+Profiler}}. The default max velocity and max acceleration are both positive infinity (this implies a profile which constantly accelerates until its reached half its target, then constantly deccelerates). The default P\+ID constants are 1, 0, and 0 respectively. The default period is 0.\+02 seconds 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae81e47754ae53ca675d73b45fb1cf200}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae81e47754ae53ca675d73b45fb1cf200}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!atTarget@{atTarget}}
+\index{atTarget@{atTarget}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{atTarget()}{atTarget()}}
+{\footnotesize\ttfamily boolean frc.\+robot.\+controller.\+Linear\+Profiler.\+at\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns true if the profile has completed and the position P\+ID has reached its setpoint
+
+\begin{DoxyReturn}{Returns}
+Whether the profile has reached its target 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aae4b5ac2aad7a19d4e632739b85ed93d}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_aae4b5ac2aad7a19d4e632739b85ed93d}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!calculate@{calculate}}
+\index{calculate@{calculate}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{calculate()}{calculate()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+calculate (\begin{DoxyParamCaption}\item[{double}]{measurement }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculates the P\+WM output given the current position measurement
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & The current position measurement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The position P\+ID\textquotesingle{}s P\+WM output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0bfafea6b9a9c4eb9d30f2c1214d86db}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0bfafea6b9a9c4eb9d30f2c1214d86db}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getAccel@{getAccel}}
+\index{getAccel@{getAccel}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getAccel()}{getAccel()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Accel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the measured acceleration \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab713bb7047183a7ef960afc396bcc6ce}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab713bb7047183a7ef960afc396bcc6ce}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getPeriod@{getPeriod}}
+\index{getPeriod@{getPeriod}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getPeriod()}{getPeriod()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Period (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the controller\textquotesingle{}s period \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0a836468baaa6205b3cd5242944e5e6a}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a0a836468baaa6205b3cd5242944e5e6a}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getPID@{getPID}}
+\index{getPID@{getPID}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getPID()}{getPID()}}
+{\footnotesize\ttfamily P\+I\+D\+Controller frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+P\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the position P\+ID object \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8cca4cf7ff15dbe94743b0fdd144bde0}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8cca4cf7ff15dbe94743b0fdd144bde0}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getPos@{getPos}}
+\index{getPos@{getPos}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getPos()}{getPos()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the measured position \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae733ba3bc770615eb3b279552dbf2ec3}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae733ba3bc770615eb3b279552dbf2ec3}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getTarget@{getTarget}}
+\index{getTarget@{getTarget}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getTarget()}{getTarget()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the profile\textquotesingle{}s target position \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a6ec4d0e47566bf616433da403b19b52a}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a6ec4d0e47566bf616433da403b19b52a}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getTargetAccel@{getTargetAccel}}
+\index{getTargetAccel@{getTargetAccel}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getTargetAccel()}{getTargetAccel()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Target\+Accel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the current target acceleration \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a71e277bb2b69e59aada090b08f951356}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a71e277bb2b69e59aada090b08f951356}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getTargetPos@{getTargetPos}}
+\index{getTargetPos@{getTargetPos}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getTargetPos()}{getTargetPos()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Target\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the current target position \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8fcc148becac735bffb55e36cd84a245}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a8fcc148becac735bffb55e36cd84a245}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getTargetVel@{getTargetVel}}
+\index{getTargetVel@{getTargetVel}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getTargetVel()}{getTargetVel()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Target\+Vel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the current target velocity \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a6dd5cb0cfb1335c0d156bd4a57ed3f92}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a6dd5cb0cfb1335c0d156bd4a57ed3f92}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!getVel@{getVel}}
+\index{getVel@{getVel}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{getVel()}{getVel()}}
+{\footnotesize\ttfamily double frc.\+robot.\+controller.\+Linear\+Profiler.\+get\+Vel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Gets the measured velocity \mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a566952c2ffea68f7a162df009ca930cb}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a566952c2ffea68f7a162df009ca930cb}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!init@{init}}
+\index{init@{init}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+init (\begin{DoxyParamCaption}\item[{double}]{measurement }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculates the midpoint, flat point, and deccel point for the profile Gives initial values to the target position, target velocity, target acceleration, and position P\+ID setpoint Resets position P\+ID
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & Initial position \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae9d63223b6aae0d5d15a996ff31b6696}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ae9d63223b6aae0d5d15a996ff31b6696}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!setMaxAccel@{setMaxAccel}}
+\index{setMaxAccel@{setMaxAccel}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{setMaxAccel()}{setMaxAccel()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+set\+Max\+Accel (\begin{DoxyParamCaption}\item[{double}]{max\+Accel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the maximum acceleration
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Accel} & The maximum acceleration \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a4c9134a6d34c837608dd45bbef48ef85}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a4c9134a6d34c837608dd45bbef48ef85}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!setMaxVel@{setMaxVel}}
+\index{setMaxVel@{setMaxVel}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{setMaxVel()}{setMaxVel()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+set\+Max\+Vel (\begin{DoxyParamCaption}\item[{double}]{max\+Vel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the maximum velocity
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Vel} & The maximum velocity \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a166c2d4dce639d17bff63776a54cd981}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_a166c2d4dce639d17bff63776a54cd981}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!setTarget@{setTarget}}
+\index{setTarget@{setTarget}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{setTarget()}{setTarget()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+set\+Target (\begin{DoxyParamCaption}\item[{double}]{target\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the profile\textquotesingle{}s target position
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Pos} & The target position \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_adc5f6e012d51900b577649e28782c68c}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_adc5f6e012d51900b577649e28782c68c}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!setTargetRelative@{setTargetRelative}}
+\index{setTargetRelative@{setTargetRelative}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{setTargetRelative()}{setTargetRelative()}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+set\+Target\+Relative (\begin{DoxyParamCaption}\item[{double}]{target\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the profile\textquotesingle{}s target position relative to its current position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Pos} & The relative target position \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab8a903a8ae6c3a3cf6f1f830c0bae628}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ab8a903a8ae6c3a3cf6f1f830c0bae628}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!setTolerance@{setTolerance}}
+\index{setTolerance@{setTolerance}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{setTolerance()}{setTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+set\+Tolerance (\begin{DoxyParamCaption}\item[{double}]{position\+Tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the position P\+ID\textquotesingle{}s position tolerance
+
+
+\begin{DoxyParams}{Parameters}
+{\em position\+Tolerance} & The position tolerance \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ad7b7203deb6b79d10de0f50c1822f68d}\label{classfrc_1_1robot_1_1controller_1_1_linear_profiler_ad7b7203deb6b79d10de0f50c1822f68d}} 
+\index{frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}!setTolerance@{setTolerance}}
+\index{setTolerance@{setTolerance}!frc.robot.controller.LinearProfiler@{frc.robot.controller.LinearProfiler}}
+\subsubsection{\texorpdfstring{setTolerance()}{setTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void frc.\+robot.\+controller.\+Linear\+Profiler.\+set\+Tolerance (\begin{DoxyParamCaption}\item[{double}]{position\+Tolerance,  }\item[{double}]{velocity\+Tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the position P\+ID\textquotesingle{}s position and velocity tolerances
+
+
+\begin{DoxyParams}{Parameters}
+{\em position\+Tolerance} & The position tolerance \\
+\hline
+{\em velocity\+Tolerance} & The velocity tolerance \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/frc/robot/controller/Linear\+Profiler.\+java\end{DoxyCompactItemize}

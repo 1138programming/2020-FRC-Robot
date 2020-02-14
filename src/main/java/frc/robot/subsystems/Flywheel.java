@@ -84,7 +84,19 @@ public class Flywheel extends SubsystemBase {
   public double getBottomSetpoint() {
     return bottomController.getSetpoint();
   }
+
+  public boolean atTopSetpoint() {
+    return topController.atSetpoint();
+  }
   
+  public boolean atBottomSetpoint() {
+    return bottomController.atSetpoint();
+  }
+
+  public boolean atSetpoints() {
+    return topController.atSetpoint() && bottomController.atSetpoint();
+  }
+
   public void calculate() {
     double topSpeed = topController.calculate(getTopSpeed());
     double bottomSpeed = bottomController.calculate(getBottomSpeed());
