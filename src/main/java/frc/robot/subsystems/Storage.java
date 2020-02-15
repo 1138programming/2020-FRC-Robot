@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.SolenoidState;
 import frc.robot.enums.StorageStage;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Storage extends SubsystemBase {
   //Create the talons
   private final VictorSPX stage1;
@@ -49,6 +51,10 @@ public class Storage extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     updateBallCount();
+    //prints ballCount to smartdashboard 
+    SmartDashboard.putNumber("BallCount", ballCount);
+    //prints Storage Stage 2 shifter state(0 and 1) to smartdashboard 
+    SmartDashboard.putNumber("StorageShifterState", shifterState.getValue());
   }
 
   /**
@@ -64,8 +70,11 @@ public class Storage extends SubsystemBase {
     }
 
     if (stage == StorageStage.STAGE2) {
-      stage2Speed = speed;
-      stage2.set(ControlMode.PercentOutput, speed);
+      // Make sure stage 2 is engaged before running the motor
+      if (shifterState == SolenoidState.ACTIVE) {
+        stage2Speed = speed;
+        stage2.set(ControlMode.PercentOutput, speed);
+      }
     }
 
     if (stage == StorageStage.BOTH) {
