@@ -30,7 +30,7 @@ public class MoveOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(KStorageSpeed, stage);
+    Robot.storage.move(-KStorageSpeed, stage);
   }
 
   // Called once the command ends or is interrupted.
