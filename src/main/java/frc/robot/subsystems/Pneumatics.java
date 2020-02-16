@@ -36,4 +36,8 @@ public class Pneumatics extends SubsystemBase {
   public boolean getCompressor() {
     return pneumaticsCompressor.enabled();
   }
+
+  public double getCurrent() {
+    return pneumaticsCompressor.getCompressorCurrent();
+  }
 }

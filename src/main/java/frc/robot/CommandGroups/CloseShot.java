@@ -21,16 +21,11 @@ public class CloseShot extends SequentialCommandGroup {
         addCommands(
             new SpinUpFlywheel(),
             //Limelight commands missing
-                parallel(
-                    new MoveIn(StorageStage.STAGE1),
-                    new EngageStage2(),
-                    new IndexIn()
-                )
+            parallel(
+                new EngageStage2(),
+                new MoveIn(StorageStage.BOTH),
+                new IndexIn()
+            )
         );
-        /*addSequential(Command SpinUpFlywheel());
-        //Limelight commands missing
-        addParallel(Command IndexIn());
-        addParallel(Command EngageStage2());
-        addSequential(Command MoveIn());*/
 	}
 }

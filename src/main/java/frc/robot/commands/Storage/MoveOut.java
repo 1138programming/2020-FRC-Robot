@@ -2,8 +2,10 @@ package frc.robot.commands.Storage;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import static frc.robot.Constants.*;
+import frc.robot.subsystems.Storage;
 import frc.robot.enums.StorageStage;
+
+import static frc.robot.Constants.*;
 
 public class MoveOut extends CommandBase {
 
@@ -28,7 +30,7 @@ public class MoveOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(KStorageSpeed, stage);
+    Robot.storage.move(-KStorageSpeed, stage);
   }
 
   // Called once the command ends or is interrupted.

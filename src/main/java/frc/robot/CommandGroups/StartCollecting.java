@@ -14,11 +14,10 @@ public class StartCollecting extends SequentialCommandGroup {
 	public StartCollecting() {
         addCommands(
             new IntakeDeploy(),
-            //Limelight commands missing
-                parallel(
-                    new IntakeIn(),
-                    new MoveIn(StorageStage.STAGE1)
-                )
+            parallel(
+                new IntakeIn(),
+                new MoveIn(StorageStage.STAGE1)
+            )
         );
 	}
 }

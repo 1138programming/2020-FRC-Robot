@@ -5,31 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Tilter;
+package frc.robot.commands.Climb;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Climb;
+import frc.robot.Robot;
 import static frc.robot.Constants.*;
 
-public class TiltWithJoysticks extends CommandBase {
+public class MoveClimbTo extends CommandBase {
+  private static double setpoint;
   /**
-   * Creates a new TiltWithJoysticks.
+   * Creates a new MoveClimbTo.
    */
-  public TiltWithJoysticks() {
-    addRequirements(Robot.tilter);
+  public MoveClimbTo(double setpoint) {
+    addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.climb.setSetpoint(setpoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = Robot.m_robotContainer.getLeftAxis();
-    Robot.tilter.move(speed);
+    Robot.climb.calculate();
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +41,6 @@ public class TiltWithJoysticks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

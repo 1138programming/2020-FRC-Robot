@@ -25,8 +25,10 @@ public class GoToColor extends CommandBase {
 
     if (spinDirection == RotationDirection.CLOCKWISE){
       speed = KWheelSpeed;
-    } else {
+    } else if (spinDirection == RotationDirection.COUNTERCLOCKWISE){
       speed = -KWheelSpeed;
+    } else {
+      speed = 0;
     }
   }
 

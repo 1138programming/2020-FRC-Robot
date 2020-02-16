@@ -5,31 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Tilter;
+package frc.robot.commands.Intake;
 
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Base;
+import frc.robot.enums.RobotState;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class TiltWithJoysticks extends CommandBase {
+public class EndCollecting extends CommandBase {
   /**
-   * Creates a new TiltWithJoysticks.
+   * Creates a new EndCollecting.
    */
-  public TiltWithJoysticks() {
-    addRequirements(Robot.tilter);
+  public EndCollecting() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.RobotState = RobotState.DEFAULT;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = Robot.m_robotContainer.getLeftAxis();
-    Robot.tilter.move(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +40,6 @@ public class TiltWithJoysticks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
