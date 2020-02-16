@@ -10,6 +10,8 @@ import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftMedium;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Base.BaseLinearMovement;
+import frc.robot.commands.Camera.MoveBaseToTarget;
+import frc.robot.commands.Camera.MoveTilterToTarget;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeStop;
@@ -119,6 +121,8 @@ public class RobotContainer {
     logitechBtnRT.whenPressed(new BaseShiftLow());
     logitechBtnRT.whenReleased(new BaseShiftMedium());
     logitechBtnLT.whenPressed(new BaseLinearMovement(100000, 100000));
+    logitechBtnA.whileHeld(new MoveBaseToTarget());
+    logitechBtnY.whileHeld(new MoveTilterToTarget());
   }
 
   public double getRightAxis() {

@@ -87,7 +87,14 @@ public final class Constants {
     public static final double KClimbSpeed = 1;
     
 
-    //Camera Constants (none at the moment)
+    //Camera Constants 
+    //PID
+    public static final double kP = 0.1;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+    //Height
+    public static final double h1 = 1.42;
+    public static final double h2 = 7.25;
 
     //Tilter Constant
     //Talons

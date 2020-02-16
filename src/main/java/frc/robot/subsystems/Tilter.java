@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilter extends SubsystemBase {
     private final CANSparkMax tilterMotor; 
@@ -25,6 +26,11 @@ public class Tilter extends SubsystemBase {
         tilterPID.setTolerance(1,.001); //possible position and velocity tolerance values
 
         tilterPID.reset();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("TilterEncoder", getTilterEncoder());
     }
 
     /**
@@ -57,6 +63,10 @@ public class Tilter extends SubsystemBase {
     public double getTilterAngle() {
         return tilterEncoder.getPosition() * degreesPerTick; // Function that gets the encoder value from the motor object
         
+    }
+
+    public double getTilterEncoder() {
+        return tilterEncoder.getPosition();
     }
 
     public void calculate() {
