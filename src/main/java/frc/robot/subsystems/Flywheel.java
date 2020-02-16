@@ -30,20 +30,25 @@ public class Flywheel extends SubsystemBase {
     flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     topEncoder = flywheelTop.getEncoder();
-    bottomEncoder = flywheelTop.getEncoder();
+    bottomEncoder = flywheelBottom.getEncoder();
 
     flywheelBottom.setInverted(false);
     flywheelTop.setInverted(true);
 
     // Top TBH Controller
-    topController = new TakeBackHalf(0.000001);
-    topController.setInputRange(-40000, 40000);
+    topController = new TakeBackHalf(0.00002);
+    topController.setInputRange(-6000, 6000);
     topController.setOutputRange(-1, 1);
+    topController.setTolerance(10, 500);
 
     // Bottom TBH Controller
-    bottomController = new TakeBackHalf(0.000001);
-    bottomController.setInputRange(-40000, 40000);
+    bottomController = new TakeBackHalf(0.00002);
+    bottomController.setInputRange(-6000, 6000);
     bottomController.setOutputRange(-1, 1);
+    bottomController.setTolerance(10, 500);
+
+    SmartDashboard.putNumber("Flywheel Top Gain", topController.getGain());
+    SmartDashboard.putNumber("Flywheel Bottom Gain", bottomController.getGain());
   }
 
   @Override
@@ -62,6 +67,9 @@ public class Flywheel extends SubsystemBase {
   public void move(double topSpeed, double bottomSpeed) {
     flywheelTop.set(topSpeed);
     flywheelBottom.set(bottomSpeed);
+
+    SmartDashboard.putNumber("Flywheel Top Voltage", topSpeed);
+    SmartDashboard.putNumber("Flywheel Bottom Voltage", bottomSpeed);
   }
 
   public double getTopSpeed() {
@@ -100,6 +108,20 @@ public class Flywheel extends SubsystemBase {
   public void calculate() {
     double topSpeed = topController.calculate(getTopSpeed());
     double bottomSpeed = bottomController.calculate(getBottomSpeed());
+
+    SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
+    SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
+    SmartDashboard.putNumber("Flywheel Top Accel Error", topController.getAccelError());
+    SmartDashboard.putNumber("Flywheel Bottom Accel Error", bottomController.getAccelError());
+
     move(topSpeed, bottomSpeed);
+  }
+
+  public void setGainTop(double gain) {
+    topController.setGain(gain);
+  }
+
+  public void setGainBottom(double gain) {
+    bottomController.setGain(gain);
   }
 }

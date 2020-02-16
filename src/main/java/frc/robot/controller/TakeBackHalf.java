@@ -112,6 +112,10 @@ public class TakeBackHalf {
         return m_error;
     }
 
+    public double getAccelError() {
+        return m_acceleration;
+    }
+
     public double getH0() {
         return m_H0;
     }

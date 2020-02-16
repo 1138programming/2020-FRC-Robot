@@ -18,6 +18,7 @@ import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
+import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Tilter.TiltUp;
@@ -122,7 +123,7 @@ public class RobotContainer {
     logitechBtnRB.whenReleased(new BaseShiftMedium());
     logitechBtnRT.whenPressed(new BaseShiftLow());
     logitechBtnRT.whenReleased(new BaseShiftMedium());
-    logitechBtnLT.whenPressed(new BaseLinearMovement(20, 20));
+    //logitechBtnLT.whenPressed(new BaseLinearMovement(20, 20));
 
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
     logitechBtnA.toggleWhenActive(spinUpFlywheel);
@@ -134,6 +135,9 @@ public class RobotContainer {
     logitechBtnB.whileHeld(new IntakeOut());
 
     logitechBtnY.whileHeld(new IndexIn());
+
+    logitechBtnX.whenPressed(new MoveTilterTo(450));
+    logitechBtnB.whenPressed(new MoveTilterTo(700));
 
     //logitechBtnA.whenPressed(new SpinUpFlywheel(false));
     //logitechBtnB.whenPressed(new SpinUpFlywheel(true));

@@ -11,18 +11,19 @@ public class PIDController {
     private double m_setpoint = 0;
     private double m_setpoint_tolerance = 0.05;
     private double m_velocity_tolerance = 0.05;
-    private double m_maxOutput = Double.POSITIVE_INFINITY;
-    private double m_minOutput = Double.NEGATIVE_INFINITY;
+    private double m_maxOutput = 1;
+    private double m_minOutput = -1;
     private double m_maxInput = Double.POSITIVE_INFINITY;
     private double m_minInput = Double.NEGATIVE_INFINITY;
+    private double m_output_deadband_upper = 0;
+    private double m_output_deadband_lower = 0;
+    private double m_output_deadband_tolerance = 0;
     private double m_measurement = 0;
     private double m_last_measurement = 0;
-    private double m_acceleration = 0;
-    private int m_sign = 1;
-    private int m_lastSign = 1;
+    private double m_velocity = 0;
+    private double m_integral = 0;
     private double m_output = 0;
-    private double m_lastOutput = 0;
-    private double m_period = 0.02;
+    private double m_period = 0.02; // Amount of time between each loop, in seconds
 
     /**
      * Creates a PIDController.
@@ -143,23 +144,23 @@ public class PIDController {
     }
 
     /**
-     * Returns whether the measured value is within a certain velocity_tolerance of the setpoint
+     * Returns whether the measured value is within a certain setpoint and velocity tolerance of the setpoint
      * 
      * @return  True if the measured value is within the velocity_tolerance, false otherwise
      */
     public boolean atSetpoint() {
-        return Math.abs(m_error) < m_setpoint_tolerance && Math.abs(m_acceleration) < m_velocity_tolerance;
+        return Math.abs(m_error) < m_setpoint_tolerance && Math.abs(m_velocity) < m_velocity_tolerance;
     }
 
     /**
      * Sets the velocity tolerance for being considered at the setpoint
      * 
-     * @param velocity_tolerance    The tolerance on the velocity to consider having reached the setpoint
-     * @param accel_tolerance       The tolerance on the acceleration to consider having reached the setpoint
+     * @param setpoint_tolerance    The tolerance on the velocity to consider having reached the setpoint
+     * @param velocity_tolerance       The tolerance on the acceleration to consider having reached the setpoint
      */
-    public void setTolerance(double velocity_tolerance, double accel_tolerance) {
-        m_setpoint_tolerance = velocity_tolerance;
-        m_velocity_tolerance = accel_tolerance;
+    public void setTolerance(double setpoint_tolerance, double velocity_tolerance) {
+        m_setpoint_tolerance = setpoint_tolerance;
+        m_velocity_tolerance = velocity_tolerance;
     }
 
     /**
@@ -171,8 +172,8 @@ public class PIDController {
         return m_error;
     }
 
-    public double getH0() {
-        return m_H0;
+    public double getVelocityError() {
+        return m_velocity;
     }
 
     public void setInputRange(double minInput, double maxInput) {
@@ -195,38 +196,62 @@ public class PIDController {
         }
     }
 
+    public void setOutputDeadband(double range, double tolerance) {
+        m_output_deadband_upper = range / 2;
+        m_output_deadband_lower = -range / 2;
+        m_output_deadband_tolerance = tolerance;
+    }
+
+    public void setOutputDeadband(double lower, double upper, double tolerance) {
+        if (lower > upper) {
+            m_output_deadband_lower = upper;
+            m_output_deadband_upper = lower;
+        } else {
+            m_output_deadband_lower = lower;
+            m_output_deadband_upper = upper;
+        }
+        m_output_deadband_tolerance = tolerance;
+    }
+
     /**
      * Calculates and returns the output of the controller.
      * 
      * @param measurement       The sensor measurement to use as the controller's input
      */
     public double calculate(double measurement) {
-        m_measurement = MathUtil.clamp(measurement, m_minInput, m_maxInput);
+        m_measurement = measurement;
         m_error = m_setpoint - m_measurement;
-        m_sign = m_error >= 0 ? 1 : -1;
+        m_integral += m_error * m_period;
+        m_velocity = (m_measurement - m_last_measurement) / m_period;
 
-        double output_h = MathUtil.clamp(m_gain * m_error + m_lastOutput, m_minOutput, m_maxOutput);
-        if (m_lastSign != m_sign) {
-            m_H0 = (output_h + m_H0) / 2;
-            m_output = m_H0;
-        } else {
-            m_output = output_h;
+        // Calculates output
+        m_output = (m_Kp * m_error) + (m_Ki * m_integral) + (m_Kd * m_velocity) + (m_Kf * m_setpoint);
+
+        // Enforces the deadband on the output
+        if (m_output < m_output_deadband_upper && m_output > m_output_deadband_lower) {
+            double upperDist = m_output_deadband_upper - m_output;
+            double lowerDist = m_output - m_output_deadband_lower;
+
+            // Makes sure the output is not within the tolerance on the middle of the deadband before changing it
+            if (upperDist - lowerDist > m_output_deadband_tolerance) {
+                if (upperDist < lowerDist) {
+                    m_output = m_output_deadband_upper;
+                } else {
+                    m_output = m_output_deadband_lower;
+                }
+            } else {
+                m_output = (m_output_deadband_upper - m_output_deadband_lower) / 2;
+            }
         }
 
-        m_lastSign = m_sign;
-        m_lastOutput = m_output;
+        m_output = MathUtil.clamp(m_output, m_minOutput, m_maxOutput);
 
-        // Get the acceleration
-        m_acceleration = (m_measurement - m_last_measurement) / m_period;
-
-        // Update the last measurement
         m_last_measurement = m_measurement;
-
         return m_output;
     }
 
     public void reset() {
-        m_lastSign = 1;
-        m_lastOutput = 0;
+        m_last_measurement = 0;
+        m_integral = 0;
     }
 }

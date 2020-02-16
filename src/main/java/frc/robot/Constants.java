@@ -58,7 +58,7 @@ public final class Constants {
     //Sparks
     public static final int KIndexerSpark = 7;
     //others
-    public static double KIndexerSpeed = 0.3;
+    public static double KIndexerSpeed = 1;
 
     //Intake Constants
     //Victors
@@ -92,5 +92,7 @@ public final class Constants {
     //Tilter Constant
     //Talons
     public static final int KTilterTalon = 13;
-    public static final double KTilterSpeed = 0.1;
+    public static final double KTilterSpeed = 0.5;
+    //Limit
+    public static final int KTilterBottomLimit = 4;
 }

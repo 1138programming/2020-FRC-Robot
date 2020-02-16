@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     base.zeroEncoders();
+    tilter.zeroEncoder();
   }
 
   /**

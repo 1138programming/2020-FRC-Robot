@@ -4,31 +4,50 @@ import com.revrobotics.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
-import edu.wpi.first.wpilibj.controller.PIDController;
+//import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Tilter extends SubsystemBase {
     private final TalonSRX tilterMotor;
+    
     //private final CANEncoder tilterEncoder;
     private final PIDController tilterPID;
     
-    private static final double ticksPerRev = 2048;
-    private static final double gearRatio = 300;
-    private static final double degreesPerTick = KDegreesPerRevolution / (ticksPerRev * gearRatio);
+    private static final double KTicksPerRev = 2048;
+    private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
+    private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
+    private static final double KDegreeOffset = 27;
+
+    private final DigitalInput tilterBottomLimit;
 
     public Tilter() {
         tilterMotor = new TalonSRX(KTilterTalon);
         tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 
-        //tilterEncoder = new CANEncoder(tilterMotor);
-        tilterPID = new PIDController(0.0001, 0, 0);
+        tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
+        //tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.PulseWidthEncodedPosition, 0, 0);
 
-        tilterPID.enableContinuousInput(0, 40);
-        tilterPID.disableContinuousInput();
-        tilterPID.setTolerance(1,.001); //possible position and velocity tolerance values
+        //tilterEncoder = new CANEncoder(tilterMotor);
+        tilterPID = new PIDController(0.0021, 0, 0.01);
+
+        //tilterPID.enableContinuousInput(0, 900);
+        //tilterPID.disableContinuousInput();
+        tilterPID.setInputRange(-100, 1000);
+        tilterPID.setOutputRange(-1, 1);
+        tilterPID.setOutputDeadband(0.3, 0.01);
+        tilterPID.setTolerance(5, 1); //possible position and velocity tolerance values
 
         tilterPID.reset();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Tilter Angle", getTilterAngle());
+        SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
     }
 
     /**
@@ -37,7 +56,18 @@ public class Tilter extends SubsystemBase {
      * @param speed The speed to move the tilter at
      */
     public void move(double speed) {
-        tilterMotor.set(ControlMode.PercentOutput, speed);
+        SmartDashboard.putNumber("Tilter Voltage", speed);
+        tilterMotor.set(ControlMode.PercentOutput, enforceLimits(speed));
+    }
+
+    public double enforceLimits(double speed) {
+        if (getBottomLimit()) {
+            zeroEncoder();
+            if (speed < 0) {
+                speed = 0;
+            }
+        }
+        return speed;
     }
 
     /**
@@ -58,16 +88,29 @@ public class Tilter extends SubsystemBase {
         return tilterPID.getSetpoint();
     }
 
+    public void zeroEncoder() { // The bounds right now are 0 to 900
+        tilterMotor.setSelectedSensorPosition(0);
+    }
+
     public double getTilterAngle() {
-        //return tilterEncoder.getPosition() * degreesPerTick; // Function that gets the encoder value from the motor object
-        return tilterMotor.getSelectedSensorPosition() * degreesPerTick;
+        //return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets the encoder value from the motor object
+        //return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
+        return tilterMotor.getSelectedSensorPosition();
     }
 
     public void calculate() {
         move(tilterPID.calculate(getTilterAngle()));
     }
+
+    public void reset() {
+        tilterPID.reset();
+    }
  
     public boolean atSetpoint() {
         return tilterPID.atSetpoint();
+    }
+
+    public boolean getBottomLimit() {
+        return !tilterBottomLimit.get();
     }
 }

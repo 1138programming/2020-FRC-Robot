@@ -28,20 +28,28 @@ public class SpinUpFlywheel extends CommandBase {
   public void initialize() {
     //SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
     //SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
+    Robot.flywheel.setGainTop(SmartDashboard.getNumber("Flywheel Top Gain", 0.0));
+    Robot.flywheel.setGainBottom(SmartDashboard.getNumber("Flywheel Bottom Gain", 0.0));
 
     timeRefTop = System.currentTimeMillis();
+    timeRefBottom = System.currentTimeMillis();
+
+    atTopSetpointLast = true;
+    atBottomSetpointLast = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     atTopSetpoint = Robot.flywheel.atTopSetpoint();
-    atBottomSetpoint = Robot.flywheel.atTopSetpoint();
+    atBottomSetpoint = Robot.flywheel.atBottomSetpoint();
 
     Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
-    //Robot.flywheel.setSetpoints(0.1, 0.1);
     Robot.flywheel.calculate();
-    //Robot.flywheel.move(1, 1);
+    //Robot.flywheel.move(0.05, 0.05);
+
+    SmartDashboard.putBoolean("Flywheel Top At Setpoint", atTopSetpoint);
+    SmartDashboard.putBoolean("Flywheel Bottom At Setpoint", atBottomSetpoint);
 
     if (!atTopSetpoint && atTopSetpointLast) {
       timeRefTop = System.currentTimeMillis();
