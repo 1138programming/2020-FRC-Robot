@@ -405,6 +405,9 @@ public class PIDController {
                     }
                 }
             }
+
+            // Clamp integral between the max and min integral
+            m_integral = MathUtil.clamp(m_integral, m_minIntegral, m_maxIntegral);
         } else {
             m_integral = 0;
         }

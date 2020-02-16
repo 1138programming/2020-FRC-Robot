@@ -8,8 +8,9 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 //import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
 import frc.robot.commands.Base.BaseShiftLow;
@@ -26,7 +27,8 @@ public class Base extends SubsystemBase {
   private final LinearProfiler leftProfiler, rightProfiler;
 
   //Creating the Solenoids
-  private final DoubleSolenoid shifter;
+  //private final DoubleSolenoid shifter;
+  private final Solenoid shifter;
 
   //Sets the default state to medium
   private BaseState baseState = BaseState.MEDIUM;
@@ -83,7 +85,8 @@ public class Base extends SubsystemBase {
     xOffController.setSetpoint(0);
 
     // Instantiating the solenoid
-    shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
+    //shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
+    shifter = new Solenoid(KBaseShifter);
   }
 
   @Override
@@ -142,11 +145,12 @@ public class Base extends SubsystemBase {
     baseState = state;
     
     if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
-      //shifter.set(true);
-      shifter.set(DoubleSolenoid.Value.kForward);
+      //shifter.set(DoubleSolenoid.Value.kForward);
+      shifter.set(true);
       rotationsPerTick = KRotationsPerTickHigh;
     } else {
-      shifter.set(DoubleSolenoid.Value.kReverse);
+      //shifter.set(DoubleSolenoid.Value.kReverse);
+      shifter.set(false);
       rotationsPerTick = KRotationsPerTickLow;
     }
   }
@@ -184,16 +188,6 @@ public class Base extends SubsystemBase {
    * Zeroes the encoders on both sides
    */
   public void zeroEncoders() {
-    /*leftFront.getSensorCollection().setQuadraturePosition(0, 0);
-    rightFront.getSensorCollection().setQuadraturePosition(0, 0);
-    leftBack.getSensorCollection().setQuadraturePosition(0, 0);
-    rightBack.getSensorCollection().setQuadraturePosition(0, 0);*/
-
-    /*leftFront.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    rightFront.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    leftBack.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    rightBack.getSensorCollection().setIntegratedSensorPosition(0, 0);*/
-
     leftFront.setSelectedSensorPosition(0);
     rightFront.setSelectedSensorPosition(0);
     leftBack.setSelectedSensorPosition(0);
@@ -201,16 +195,7 @@ public class Base extends SubsystemBase {
   }
 
   //Getters
-
-  /**
-   * Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
-   * 
-   * @return  Speed in ticks per 1 s
-   */
-  /*public double getShiftSpeed() {
-    return KFreeSpeed / (KRotationsPerTickHigh + KRotationsPerTickLow);
-  }*/
-
+  
   /**
    * Gets the speed of the left side
    * 
