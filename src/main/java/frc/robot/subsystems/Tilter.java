@@ -98,6 +98,10 @@ public class Tilter extends SubsystemBase {
         return tilterMotor.getSelectedSensorPosition();
     }
 
+    public double getTilterEncoder() {
+        return tilterEncoder.getPosition();
+    }
+
     public void calculate() {
         move(tilterPID.calculate(getTilterAngle()));
     }

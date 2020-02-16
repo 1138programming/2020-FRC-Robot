@@ -14,6 +14,8 @@ import frc.robot.enums.ColorLabel;
 import frc.robot.enums.RotationDirection;
 import static frc.robot.Constants.*;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class Wheel extends SubsystemBase {
   //Create the talons
   private final VictorSPX wheelMotor;
@@ -24,6 +26,8 @@ public class Wheel extends SubsystemBase {
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
   //code by Corey
+  private static String gameData;
+  private static ColorLabel targetColor;
 
   public Wheel() {
     //instantiate the talons
@@ -61,7 +65,7 @@ public class Wheel extends SubsystemBase {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     ColorLabel color;
     String colorString;
-
+    if(match.confidence > .95) {
     if (match.color == KBlueTarget) {
       color = ColorLabel.BLUE;
       colorString = "Blue";
@@ -78,6 +82,21 @@ public class Wheel extends SubsystemBase {
       color = ColorLabel.UNKNOWN;
       colorString = "Unknown";
     }
+  }
+  else {
+    color = ColorLabel.UNKNOWN;
+    if (match.color == KBlueTarget) {
+      colorString = "Blue";
+    } else if (match.color == KRedTarget) {
+      colorString = "Red";
+    } else if (match.color == KGreenTarget) {
+      colorString = "Green";
+    } else if (match.color == KYellowTarget) {
+      colorString = "Yellow";
+    } else {
+      colorString = "Unknown";
+    }  
+  }
 
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
@@ -139,6 +158,25 @@ public class Wheel extends SubsystemBase {
    * @return  The target color
    */
   public ColorLabel getTargetColor() {
-    return ColorLabel.BLUE;
+
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
+    if(gameData.length() > 0)
+    {
+        if(gameData.charAt(0) == 'B') {
+          targetColor = ColorLabel.BLUE;
+        }
+        if(gameData.charAt(0) == 'G') {
+          targetColor = ColorLabel.GREEN;
+        }
+        if(gameData.charAt(0) == 'R') {
+          targetColor = ColorLabel.RED;
+        }
+        if(gameData.charAt(0) == 'Y') {
+          targetColor = ColorLabel.YELLOW;
+        }
+    } else {
+      targetColor = ColorLabel.UNKNOWN;
+    }
+    return targetColor;
   }
 }

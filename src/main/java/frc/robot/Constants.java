@@ -35,10 +35,10 @@ public final class Constants {
     //Color Targets
     public static final Color KBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static final Color KGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    public static final Color KRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    public static final Color KRedTarget = ColorMatch.makeColor(0.438, 0.386, 0.175);
     public static final Color KYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     // Others
-    public static final double KWheelSpeed = 1;
+    public static final double KWheelSpeed = .25;
 
     //Storage constants 
     //Talons
@@ -87,7 +87,14 @@ public final class Constants {
     public static final double KClimbSpeed = 1;
     
 
-    //Camera Constants (none at the moment)
+    //Camera Constants 
+    //PID
+    public static final double kP = 0.1;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+    //Height
+    public static final double h1 = 1.42;
+    public static final double h2 = 7.25;
 
     //Tilter Constant
     //Talons

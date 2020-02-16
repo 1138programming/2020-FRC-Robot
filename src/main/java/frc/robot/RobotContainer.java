@@ -10,6 +10,8 @@ import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftMedium;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Base.BaseLinearMovement;
+import frc.robot.commands.Camera.MoveBaseToTarget;
+import frc.robot.commands.Camera.MoveTilterToTarget;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Indexer.IndexIn;
 import frc.robot.commands.Indexer.IndexStop;
@@ -19,6 +21,7 @@ import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Tilter.MoveTilterTo;
+import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Tilter.TiltUp;
@@ -119,6 +122,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    logitechBtnY.whenPressed(new GoToColor());
     logitechBtnRB.whenPressed(new BaseShiftHigh());
     logitechBtnRB.whenReleased(new BaseShiftMedium());
     logitechBtnRT.whenPressed(new BaseShiftLow());
@@ -137,10 +141,10 @@ public class RobotContainer {
     logitechBtnY.whileHeld(new IndexIn());
 
     logitechBtnX.whenPressed(new MoveTilterTo(450));
-    logitechBtnB.whenPressed(new MoveTilterTo(700));
+    //logitechBtnB.whenPressed(new MoveTilterTo(700));
 
-    //logitechBtnA.whenPressed(new SpinUpFlywheel(false));
-    //logitechBtnB.whenPressed(new SpinUpFlywheel(true));
+    logitechBtnB.whileHeld(new MoveBaseToTarget());
+    //logitechBtnY.whileHeld(new MoveTilterToTarget());
   }
 
   public double getRightAxis() {
