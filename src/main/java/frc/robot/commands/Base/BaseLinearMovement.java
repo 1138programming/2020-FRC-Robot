@@ -45,7 +45,7 @@ public class BaseLinearMovement extends CommandBase {
         }
 
         Robot.base.setMaxVel(maxVel);
-        Robot.base.setMaxVel(maxAccel);
+        Robot.base.setMaxAccel(maxAccel);
         Robot.base.initLinearMovement();
     }
 

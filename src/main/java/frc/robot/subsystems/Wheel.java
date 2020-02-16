@@ -1,19 +1,17 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.ColorLabel;
 import frc.robot.enums.RotationDirection;
-import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -33,7 +31,7 @@ public class Wheel extends SubsystemBase {
 
   public Wheel() {
     //instantiate the talons
-    wheelMotor = new VictorSPX(KWheelTalon);
+    wheelMotor = new VictorSPX(KWheelVictor);
 
     //set the colors of the matcher
     m_colorMatcher.addColorMatch(KBlueTarget);

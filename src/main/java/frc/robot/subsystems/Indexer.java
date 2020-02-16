@@ -16,6 +16,7 @@ public class Indexer extends SubsystemBase {
 
   public Indexer() {
     indexer = new CANSparkMax(KIndexerSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
+    indexer.setInverted(true);
   }
 
   @Override

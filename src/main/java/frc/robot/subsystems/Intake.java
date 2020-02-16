@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.KIntakeVictor;
+import static frc.robot.Constants.KIntakeSpark;
 import static frc.robot.Constants.KLeftIntakeSolenoid;
 import static frc.robot.Constants.KRightIntakeSolenoid;
 
@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
     // instantiate victor
-    intake = new CANSparkMax(KIntakeVictor, CANSparkMaxLowLevel.MotorType.kBrushless);
+    intake = new CANSparkMax(KIntakeSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     // instantiate solenoids
     leftSolenoid = new Solenoid(KLeftIntakeSolenoid); 

@@ -8,11 +8,15 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 //import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
+import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.controller.LinearProfiler;
+import frc.robot.controller.PIDController;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Base extends SubsystemBase {
@@ -23,22 +27,30 @@ public class Base extends SubsystemBase {
   private final LinearProfiler leftProfiler, rightProfiler;
 
   //Creating the Solenoids
-  private final DoubleSolenoid shifter;
+  //private final DoubleSolenoid shifter;
+  private final Solenoid shifter;
 
   //Sets the default state to medium
   private BaseState baseState = BaseState.MEDIUM;
+
+  // PIDController using Limelight x offset
+  private final PIDController xOffController;
   
   //Variables
-  private static final int TicksPerRotation = 2048; //conversion factor that we have to find
-  private static final int FreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
-  private static final int FreeSpeed = (FreeSpeedRPM / 600) * TicksPerRotation; // Free speed of the base in ticks per 100 ms
-  private static final double LowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
-  private static final double HighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
+  private static final int KTicksPerRotation = 2048; //conversion factor that we have to find
+  private static final int KFreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
+  private static final int KFreeSpeed = KFreeSpeedRPM / 60; // Free speed of the base in ticks per second
+  private static final double KLowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KHighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KRotationsPerTickLow = 1 / (KLowGear * KTicksPerRotation);
+  private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
+  private static final double KShiftSpeed = KFreeSpeed / ((KRotationsPerTickHigh + KRotationsPerTickLow) * KTicksPerRotation);
 
   private double lastLeftSpeed = 0;
   private double lastRightSpeed = 0;
   private double leftAccel = 0;
   private double rightAccel = 0;
+  private double rotationsPerTick = KRotationsPerTickHigh;
 
   public Base() {
     //instantiating the talons
@@ -60,13 +72,21 @@ public class Base extends SubsystemBase {
     zeroEncoders();
     
     // Set up profilers for both sides
-    leftProfiler = new LinearProfiler(2000, 1000, 0.0001, 0, 0, 0.2);
-    rightProfiler = new LinearProfiler(2000, 1000, 0.0001, 0, 0, 0.2);
+    leftProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
+    rightProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
     leftProfiler.setTolerance(50, 20);
     rightProfiler.setTolerance(50, 20);
 
+    // Set up PID controller
+    xOffController = new PIDController(0.01, 0, 0, 0, 0.02);
+    xOffController.setInputRange(-28, 28);
+    xOffController.setOutputRange(-1, 1);
+    xOffController.setTolerance(1, 0.001);
+    xOffController.setSetpoint(0);
+
     // Instantiating the solenoid
-    shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
+    //shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
+    shifter = new Solenoid(KBaseShifter);
   }
 
   @Override
@@ -93,6 +113,11 @@ public class Base extends SubsystemBase {
 
     lastLeftSpeed = leftSpeed;
     lastRightSpeed = rightSpeed;
+
+    /*if(getTicksToShiftAt() >= KShiftSpeed) {
+      setBaseState(BaseState.LOW);
+    }*/
+    autoShift();
   }
 
   /**
@@ -120,10 +145,13 @@ public class Base extends SubsystemBase {
     baseState = state;
     
     if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
-      //shifter.set(true);
-      shifter.set(DoubleSolenoid.Value.kForward);
+      //shifter.set(DoubleSolenoid.Value.kForward);
+      shifter.set(true);
+      rotationsPerTick = KRotationsPerTickHigh;
     } else {
-      shifter.set(DoubleSolenoid.Value.kReverse);
+      //shifter.set(DoubleSolenoid.Value.kReverse);
+      shifter.set(false);
+      rotationsPerTick = KRotationsPerTickLow;
     }
   }
 
@@ -142,7 +170,7 @@ public class Base extends SubsystemBase {
    * @return  Left encoder value
    */
   public double getLeftEncoder() {
-    return (double)leftFront.getSelectedSensorPosition();
+    return (double)leftFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
     //return (double)leftFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
@@ -152,7 +180,7 @@ public class Base extends SubsystemBase {
    * @return  Right encoder value
    */
   public double getRightEncoder() {
-    return (double)rightFront.getSelectedSensorPosition();
+    return (double)rightFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
     //return (double)rightFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
@@ -160,16 +188,6 @@ public class Base extends SubsystemBase {
    * Zeroes the encoders on both sides
    */
   public void zeroEncoders() {
-    /*leftFront.getSensorCollection().setQuadraturePosition(0, 0);
-    rightFront.getSensorCollection().setQuadraturePosition(0, 0);
-    leftBack.getSensorCollection().setQuadraturePosition(0, 0);
-    rightBack.getSensorCollection().setQuadraturePosition(0, 0);*/
-
-    /*leftFront.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    rightFront.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    leftBack.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    rightBack.getSensorCollection().setIntegratedSensorPosition(0, 0);*/
-
     leftFront.setSelectedSensorPosition(0);
     rightFront.setSelectedSensorPosition(0);
     leftBack.setSelectedSensorPosition(0);
@@ -177,23 +195,14 @@ public class Base extends SubsystemBase {
   }
 
   //Getters
-
-  /**
-   * Gets the speed at which we should shift from low gear to high gear. The relevant equation can be found here: https://www.chiefdelphi.com/t/frc-95-the-grasshoppers-2020-build-thread/368912/28
-   * 
-   * @return  Speed in ticks per 100 ms
-   */
-  public double getShiftSpeed() {
-    return FreeSpeed / (HighGear + LowGear);
-  }
-
+  
   /**
    * Gets the speed of the left side
    * 
    * @return Speed in ticks per 100 ms
    */
   public double getLeftSpeed() {
-    return (double)leftFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+    return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
   /**
@@ -202,7 +211,14 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
   public double getRightSpeed() {
-    return (double)rightFront.getSelectedSensorVelocity(); //selected sensor (in raw sensor units) per 100ms
+    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
+  }
+
+  private void autoShift() {
+    double maxVel = Math.max(getLeftSpeed(), getRightSpeed());
+    if (maxVel >= KShiftSpeed) {
+      setBaseState(BaseState.LOW);
+    }
   }
 
   public double getLeftAccel() {
@@ -247,16 +263,28 @@ public class Base extends SubsystemBase {
   }
 
   public void calculate() {
-    //double leftSpeed = leftProfiler.calculate(getLeftSpeed());
-    //double rightSpeed = rightProfiler.calculate(getRightSpeed());
+    double leftSpeed = leftProfiler.calculate(getLeftSpeed());
+    double rightSpeed = rightProfiler.calculate(getRightSpeed());
 
-    double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
-    double rightSpeed = rightProfiler.calculate(rightProfiler.getTargetPos());
+    //double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
+    //double rightSpeed = rightProfiler.calculate(rightProfiler.getTargetPos());
 
     SmartDashboard.putNumber("Base left voltage", leftSpeed);
     SmartDashboard.putNumber("Base right voltage", rightSpeed);
 
-    //move(leftSpeed, rightSpeed);
+    move(leftSpeed, rightSpeed);
+  }
+
+  public void calculateXOff() {
+    double output = xOffController.calculate(Robot.camera.getOffsetX());
+    SmartDashboard.putNumber("xOutput", output);
+
+    move(-output, output);
+  }
+
+  public void resetXOff() {
+    xOffController.reset();
+    xOffController.setSetpoint(0);
   }
 
   public boolean atTarget() {

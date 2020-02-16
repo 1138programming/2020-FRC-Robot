@@ -22,16 +22,17 @@ public final class Constants {
     public static final int KRightFrontTalon = 2;
     public static final int KRightBackTalon = 3;
     //Solenoids
-    public static final int KBaseShifterForwardChannel = 0;
-    public static final int KBaseShifterReverseChannel = 7;
+    //public static final int KBaseShifterForwardChannel = 0;
+    //public static final int KBaseShifterReverseChannel = 7;
+    public static final int KBaseShifter = 0;
     //others
     public static final double KBaseMediumGear = 0.5;
-    public static final double KBaseMaxVel = 5000;
-    public static final double KBaseMaxAccel = 200;
+    public static final double KBaseMaxVel = 5;
+    public static final double KBaseMaxAccel = 0.1;
 
     //wheel constants
     //Talons
-    public static final int KWheelTalon = 4;
+    public static final int KWheelVictor = 4;
     //Color Targets
     public static final Color KBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static final Color KGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -42,13 +43,13 @@ public final class Constants {
 
     //Storage constants 
     //Talons
-    public static final int KStage1Talon = 5;
-    public static final int KStage2Talon = 6;
+    public static final int KStage1Victor = 5;
+    public static final int KStage2Victor = 6;
     //Solenoids
     public static final int KStorageShifterSolenoid = 2;
     //Optical Sensors
     public static final int KBallSensor1 = 0; 
-    public static final int KBallSensor2 = 1; 
+    public static final int KBallSensor2 = 1;
     //others
     public static double KStorageSpeed = 1;
 
@@ -62,12 +63,12 @@ public final class Constants {
 
     //Intake Constants
     //Victors
-    public static final int KIntakeVictor = 8;
+    public static final int KIntakeSpark = 8;
     //Solenoids
     public static final int KLeftIntakeSolenoid = 3;
     public static final int KRightIntakeSolenoid = 4;
     //others
-    public static double KIntakeSpeed = 1;
+    public static double KIntakeSpeed = 0.5;
 
     //FlyWheel Constants
     //Sparks
@@ -87,10 +88,19 @@ public final class Constants {
     public static final double KClimbSpeed = 1;
     
 
-    //Camera Constants (none at the moment)
+    //Camera Constants 
+    //PID
+    //public static final double kP = 0.001;
+    //public static final double kI = 0.0;
+    //public static final double kD = 0.0;
+    //Height
+    public static final double h1 = 1.42;
+    public static final double h2 = 7.25;
 
     //Tilter Constant
     //Talons
-    public static final int KTilterTalon = 13; 
-    public static final int KTilterSparkMax = 14; 
+    public static final int KTilterTalon = 13;
+    public static final double KTilterSpeed = 0.5;
+    //Limit
+    public static final int KTilterBottomLimit = 4;
 }

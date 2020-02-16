@@ -155,6 +155,8 @@ gradle-app.setting
 .project
 .settings/
 bin/
+documentation/
+shuffleboard/*.json
 imgui.ini
 
 

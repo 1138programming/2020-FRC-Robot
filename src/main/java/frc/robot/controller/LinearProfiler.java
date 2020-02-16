@@ -17,7 +17,7 @@ public class LinearProfiler {
     private double measurement; // Current position measurement
 
     private double maxAccel = Double.POSITIVE_INFINITY; // Maximum acceleration of the profile
-    private double maxVel = Double.NEGATIVE_INFINITY; // Maximum velocity of the profile
+    private double maxVel = Double.POSITIVE_INFINITY; // Maximum velocity of the profile
 
     private double t_accel = 0; // Current target acceleration
     private double t_vel = 0; // Current target velocity

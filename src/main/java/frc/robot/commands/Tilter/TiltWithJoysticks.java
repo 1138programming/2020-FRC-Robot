@@ -14,7 +14,7 @@ import static frc.robot.Constants.*;
 
 public class TiltWithJoysticks extends CommandBase {
   /**
-   * Creates a new MoveWithJoysticks.
+   * Creates a new TiltWithJoysticks.
    */
   public TiltWithJoysticks() {
     addRequirements(Robot.tilter);
@@ -40,6 +40,6 @@ public class TiltWithJoysticks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

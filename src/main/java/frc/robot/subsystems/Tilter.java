@@ -1,30 +1,62 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.*;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
+//import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Tilter extends SubsystemBase {
-    private final CANSparkMax tilterMotor; 
-    private final CANEncoder tilterEncoder;
+    private final TalonSRX tilterMotor;
+    
+    //private final CANEncoder tilterEncoder;
     private final PIDController tilterPID;
     
-    private static final double ticksPerRev = 2048; 
-    private static final double gearRatio = 300;
-    private static final double degreesPerTick = KDegreesPerRevolution / (ticksPerRev * gearRatio);
+    private static final double KTicksPerRev = 2048;
+    private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
+    private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
+    private static final double KDegreeOffset = 27;
+
+    private final DigitalInput tilterBottomLimit;
+
+    private final PIDController yOffController;
 
     public Tilter() {
-        tilterMotor = new CANSparkMax(KTilterSparkMax, CANSparkMaxLowLevel.MotorType.kBrushless); 
-        tilterEncoder = new CANEncoder(tilterMotor);
-        tilterPID = new PIDController(0.0001, 0, 0);
+        tilterMotor = new TalonSRX(KTilterTalon);
+        tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 
-        tilterPID.enableContinuousInput(0, 40);
-        tilterPID.disableContinuousInput();
-        tilterPID.setTolerance(1,.001); //possible position and velocity tolerance values
+        tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
+        //tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.PulseWidthEncodedPosition, 0, 0);
+
+        //tilterEncoder = new CANEncoder(tilterMotor);
+        tilterPID = new PIDController(0.0021, 0, 0.01);
+
+        //tilterPID.enableContinuousInput(0, 900);
+        //tilterPID.disableContinuousInput();
+        tilterPID.setInputRange(-100, 1000);
+        tilterPID.setOutputRange(-1, 1);
+        tilterPID.setOutputDeadband(0.3, 0.01);
+        tilterPID.setTolerance(5, 1); //possible position and velocity tolerance values
 
         tilterPID.reset();
+
+        yOffController = new PIDController(0.023, 0, 0, 0, 0.02);
+        yOffController.setInputRange(-28, 28);
+        yOffController.setOutputRange(-1, 1);
+        yOffController.setTolerance(1, 0.001);
+        yOffController.setSetpoint(0);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Tilter Angle", getTilterAngle());
+        SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
     }
 
     /**
@@ -33,7 +65,18 @@ public class Tilter extends SubsystemBase {
      * @param speed The speed to move the tilter at
      */
     public void move(double speed) {
-        tilterMotor.set(speed);
+        SmartDashboard.putNumber("Tilter Voltage", speed);
+        tilterMotor.set(ControlMode.PercentOutput, enforceLimits(speed));
+    }
+
+    public double enforceLimits(double speed) {
+        if (getBottomLimit()) {
+            zeroEncoder();
+            if (speed < 0) {
+                speed = 0;
+            }
+        }
+        return speed;
     }
 
     /**
@@ -54,16 +97,40 @@ public class Tilter extends SubsystemBase {
         return tilterPID.getSetpoint();
     }
 
+    public void zeroEncoder() { // The bounds right now are 0 to 900
+        tilterMotor.setSelectedSensorPosition(0);
+    }
+
     public double getTilterAngle() {
-        return tilterEncoder.getPosition() * degreesPerTick; // Function that gets the encoder value from the motor object
-        
+        //return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets the encoder value from the motor object
+        //return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
+        return tilterMotor.getSelectedSensorPosition();
     }
 
     public void calculate() {
         move(tilterPID.calculate(getTilterAngle()));
     }
+
+    public void calculateYOff() {
+        double output = yOffController.calculate(Robot.camera.getOffsetY());
+        SmartDashboard.putNumber("yOutput", output);
+        move(-output);
+    }
+
+    public void reset() {
+        tilterPID.reset();
+    }
+
+    public void resetYOff() {
+        yOffController.reset();
+        yOffController.setSetpoint(0);
+    }
  
     public boolean atSetpoint() {
         return tilterPID.atSetpoint();
+    }
+
+    public boolean getBottomLimit() {
+        return !tilterBottomLimit.get();
     }
 }

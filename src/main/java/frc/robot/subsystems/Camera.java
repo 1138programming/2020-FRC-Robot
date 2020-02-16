@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.*;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
@@ -16,16 +18,17 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry camMode = table.getEntry("camMode");
   NetworkTableEntry pipeline = table.getEntry("pipeline"); // pipeline index
   NetworkTableEntry snapshot = table.getEntry("snapshot"); // Takes two snapshots per second when set to 1
+  public static double i, x, y, area;
 
   public Camera() {
   }
 
   @Override
   public void periodic() {
-    double i = tv.getDouble(0.0); 
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
+    i = tv.getDouble(0.0); 
+    x = tx.getDouble(0.0);
+    y = ty.getDouble(0.0);
+    area = ta.getDouble(0.0);
 
     SmartDashboard.putNumber("IsLimelightTarget", i);
     SmartDashboard.putNumber("LimelightX", x);
@@ -39,7 +42,7 @@ public class Camera extends SubsystemBase {
    * @return  Whether the target is in view or not
    */
   public boolean targetVisible() {
-    if (tv.getDouble(0.0) == 1.0) {
+    if (i == 1.0) {
       return true;
     }
     else {
@@ -53,7 +56,7 @@ public class Camera extends SubsystemBase {
    * @return  Negative or positive degree offset
    */
   public double getOffsetX() {
-    return tx.getDouble(0.0);
+    return x;
   }
 
   /**
@@ -62,7 +65,7 @@ public class Camera extends SubsystemBase {
    * @return  Negative or positive degree offset
    */
   public double getOffsetY() {
-    return ty.getDouble(0.0);
+    return y;
   }
 
   /**
@@ -71,7 +74,7 @@ public class Camera extends SubsystemBase {
    * @return  Percentage between 0 and 1
    */
   public double getAreaOfTarget() {
-    return ta.getDouble(0.0);
+    return area;
   }
 
   /**
@@ -99,5 +102,19 @@ public class Camera extends SubsystemBase {
    */
   public void setPipeline(double pipe) {
     pipeline.setNumber(pipe);
+  }
+  
+  /**
+   * Returns the distance the camera is from the target
+   * 
+   * @return Distance in feet(ft.)
+   */
+  public double getDistance() {
+    double a1 = 8.9;
+    double angle1 = Math.toRadians(a1);
+    double angle2 = Math.toRadians(y);
+    double tangent = Math.tan(angle1+angle2);
+    double distance = (h2-h1)/tangent;
+    return distance;
   }
 }
