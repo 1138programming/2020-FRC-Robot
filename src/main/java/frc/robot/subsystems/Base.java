@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.controller.LinearProfiler;
+import frc.robot.controller.PIDController;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Base extends SubsystemBase {
@@ -28,6 +30,9 @@ public class Base extends SubsystemBase {
 
   //Sets the default state to medium
   private BaseState baseState = BaseState.MEDIUM;
+
+  // PIDController using Limelight x offset
+  private final PIDController xOffController;
   
   //Variables
   private static final int KTicksPerRotation = 2048; //conversion factor that we have to find
@@ -69,6 +74,13 @@ public class Base extends SubsystemBase {
     rightProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
     leftProfiler.setTolerance(50, 20);
     rightProfiler.setTolerance(50, 20);
+
+    // Set up PID controller
+    xOffController = new PIDController(0.01, 0, 0, 0, 0.02);
+    xOffController.setInputRange(-28, 28);
+    xOffController.setOutputRange(-1, 1);
+    xOffController.setTolerance(1, 0.001);
+    xOffController.setSetpoint(0);
 
     // Instantiating the solenoid
     shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
@@ -276,6 +288,18 @@ public class Base extends SubsystemBase {
     SmartDashboard.putNumber("Base right voltage", rightSpeed);
 
     move(leftSpeed, rightSpeed);
+  }
+
+  public void calculateXOff() {
+    double output = xOffController.calculate(Robot.camera.getOffsetX());
+    SmartDashboard.putNumber("xOutput", output);
+
+    move(-output, output);
+  }
+
+  public void resetXOff() {
+    xOffController.reset();
+    xOffController.setSetpoint(0);
   }
 
   public boolean atTarget() {

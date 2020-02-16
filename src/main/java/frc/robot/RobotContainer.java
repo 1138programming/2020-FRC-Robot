@@ -136,7 +136,7 @@ public class RobotContainer {
     logitechBtnLT.whileHeld(new TiltDown());
 
     logitechBtnX.whileHeld(new IntakeIn());
-    logitechBtnB.whileHeld(new IntakeOut());
+    //logitechBtnB.whileHeld(new IntakeOut());
 
     logitechBtnY.whileHeld(new IndexIn());
 
@@ -144,7 +144,7 @@ public class RobotContainer {
     //logitechBtnB.whenPressed(new MoveTilterTo(700));
 
     logitechBtnB.whileHeld(new MoveBaseToTarget());
-    //logitechBtnY.whileHeld(new MoveTilterToTarget());
+    logitechBtnB.whileHeld(new MoveTilterToTarget());
   }
 
   public double getRightAxis() {

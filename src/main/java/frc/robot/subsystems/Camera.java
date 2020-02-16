@@ -103,30 +103,7 @@ public class Camera extends SubsystemBase {
   public void setPipeline(double pipe) {
     pipeline.setNumber(pipe);
   }
-
-  /**
-   * Returns the X offset output needed for adjusting the base to find the target
-   * 
-   * @return 
-   */
-  public double getXOutput() {
-    double currentX = x;
-    double xError = 0.0-currentX;
-    double xOutput = kP*xError+kI+kD;
-    return xOutput;
-  }
-
-  /**
-   * Returns the Y offset output needed for adjusting the angler to find the target
-   * 
-   * @return 
-   */
-  public double getYOutput() {
-    double currentY = y;
-    double yError = 0.0-currentY;
-    double yOutput = kP*yError+kI+kD;
-    return yOutput;
-  }
+  
   /**
    * Returns the distance the camera is from the target
    * 

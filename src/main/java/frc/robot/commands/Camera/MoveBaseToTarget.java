@@ -8,10 +8,10 @@ import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MoveBaseToTarget extends CommandBase {
-
   public MoveBaseToTarget() {
       addRequirements(Robot.base);
-      addRequirements(Robot.camera);
+      // We probably don't need with the camera, although we should probably check with Pauline
+      //addRequirements(Robot.camera);
   }
 
   // Called when the command is initially scheduled.
@@ -22,18 +22,7 @@ public class MoveBaseToTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double output = Robot.camera.getXOutput();
-    if(-0.1 < output && 0.1 > output) {
-      Robot.base.move(0.0, 0.0);
-    }
-    else if(-0.1 < output && 0.1 < output) {
-      Robot.base.move(-0.2, 0.2);      
-    }
-    else if(-0.1 > output && 0.1 > output) {
-      Robot.base.move(0.2, -0.2);
-    }
-
-    SmartDashboard.putNumber("xOutPut", output);
+    Robot.base.calculateXOff();
   }
 
   // Called once the command ends or is interrupted.

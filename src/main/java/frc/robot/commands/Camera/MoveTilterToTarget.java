@@ -11,7 +11,7 @@ public class MoveTilterToTarget extends CommandBase {
 
   public MoveTilterToTarget() {
       addRequirements(Robot.tilter);
-      addRequirements(Robot.camera);
+      //addRequirements(Robot.camera);
   }
 
   // Called when the command is initially scheduled.
@@ -22,18 +22,7 @@ public class MoveTilterToTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double output = Robot.camera.getYOutput();
-    if(-0.1 < output && 0.1 > output) {
-      Robot.tilter.move(0.0);
-    }
-    else if(-0.1 < output && 0.1 < output) {
-      Robot.tilter.move(-0.2);      
-    }
-    else if(-0.1 > output && 0.1 > output) {
-      Robot.tilter.move(0.2);
-    }
-
-    SmartDashboard.putNumber("yOutPut", output);
+    Robot.tilter.calculateYOff();
   }
 
   // Called once the command ends or is interrupted.

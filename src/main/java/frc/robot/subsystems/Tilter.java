@@ -9,6 +9,7 @@ import frc.robot.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Tilter extends SubsystemBase {
@@ -23,6 +24,8 @@ public class Tilter extends SubsystemBase {
     private static final double KDegreeOffset = 27;
 
     private final DigitalInput tilterBottomLimit;
+
+    private final PIDController yOffController;
 
     public Tilter() {
         tilterMotor = new TalonSRX(KTilterTalon);
@@ -42,6 +45,12 @@ public class Tilter extends SubsystemBase {
         tilterPID.setTolerance(5, 1); //possible position and velocity tolerance values
 
         tilterPID.reset();
+
+        yOffController = new PIDController(0.023, 0, 0, 0, 0.02);
+        yOffController.setInputRange(-28, 28);
+        yOffController.setOutputRange(-1, 1);
+        yOffController.setTolerance(1, 0.001);
+        yOffController.setSetpoint(0);
     }
 
     @Override
@@ -98,16 +107,23 @@ public class Tilter extends SubsystemBase {
         return tilterMotor.getSelectedSensorPosition();
     }
 
-    public double getTilterEncoder() {
-        return tilterEncoder.getPosition();
-    }
-
     public void calculate() {
         move(tilterPID.calculate(getTilterAngle()));
     }
 
+    public void calculateYOff() {
+        double output = yOffController.calculate(Robot.camera.getOffsetY());
+        SmartDashboard.putNumber("yOutput", output);
+        move(-output);
+    }
+
     public void reset() {
         tilterPID.reset();
+    }
+
+    public void resetYOff() {
+        yOffController.reset();
+        yOffController.setSetpoint(0);
     }
  
     public boolean atSetpoint() {
