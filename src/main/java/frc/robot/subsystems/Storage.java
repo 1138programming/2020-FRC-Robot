@@ -97,7 +97,7 @@ public class Storage extends SubsystemBase {
    * 
    * @param speed Speed to move the conveyor belts at
    */
-  public void move(double speed) {
+  public void moveStupid(double speed) {
     move(speed, StorageStage.BOTH);
   }
 
@@ -155,5 +155,21 @@ public class Storage extends SubsystemBase {
 
     ballSensor1LastState = ballSensor1State;
     ballSensor2LastState = ballSensor2State;
+  }
+
+  public boolean getBallSensor1() {
+    return ballSensor1.get();
+  }
+
+  public boolean getBallSensor2() {
+    return ballSensor2.get();
+  }
+
+  public boolean getBallSensor1LastState() {
+    return ballSensor1LastState;
+  }
+
+  public boolean getBallSensor2LastState() {
+    return ballSensor2LastState;
   }
 }
