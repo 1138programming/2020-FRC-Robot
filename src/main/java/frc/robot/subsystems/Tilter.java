@@ -54,7 +54,8 @@ public class Tilter extends SubsystemBase {
         yOffController.setInputRange(-28, 28);
         yOffController.setOutputRange(-1, 1);
         yOffController.setTolerance(1, 0.001);
-        yOffController.setSetpoint(0);
+
+        yOffController.resetYOff();
     }
 
     @Override
