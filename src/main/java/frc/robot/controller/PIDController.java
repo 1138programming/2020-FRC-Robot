@@ -79,21 +79,14 @@ public class PIDController {
     /**
      * @brief Upper bound for the output deadband
      * 
-     * If the controller's output is above the middle of the deadband, then the output is set to this upper value
+     * If the controller's output is greater than 0, the deadband is added to it. If the controller's output is less than 0, the deadband is subtracted from it
      */
-    private double m_outputDeadbandUpper = 0;
-
-    /**
-     * @brief Lower bound for the output deadband
-     * 
-     * If the controller's output is below the middle of the deadband, then the output is set to this lower value
-     */
-    private double m_outputDeadbandLower = 0;
+    private double m_outputDeadband = 0;
 
     /**
      * @brief Tolerance on the middle of the deadband
      * 
-     * If the controller is within the given tolerance of the center of the deadband, the output is set to the value of the center
+     * If the controller is within the given tolerance of zero, the output is set to zero
      */
     private double m_outputDeadbandTolerance = 0;
 
@@ -120,7 +113,7 @@ public class PIDController {
     /**
      * @brief LinkedList to cache past errors in
      */
-    private LinkedList<Double> m_errorCache = new LinkedList<Double>();
+    private LinkedList<Double> m_errorCache;
 
     /**
      * @brief The type of integral to use
@@ -160,6 +153,9 @@ public class PIDController {
         m_Kd = Ki;
         m_Kf = Kf;
         m_period = period;
+
+        m_errorCache = new LinkedList<Double>();
+        m_errorCache.addFirst(0.0);
     }
 
     public PIDController(double Kp, double Ki, double Kd, double Kf) {
@@ -332,20 +328,8 @@ public class PIDController {
         }
     }
 
-    public void setOutputDeadband(double range, double tolerance) {
-        m_outputDeadbandUpper = range / 2;
-        m_outputDeadbandLower = -range / 2;
-        m_outputDeadbandTolerance = tolerance;
-    }
-
-    public void setOutputDeadband(double lower, double upper, double tolerance) {
-        if (lower > upper) {
-            m_outputDeadbandLower = upper;
-            m_outputDeadbandUpper = lower;
-        } else {
-            m_outputDeadbandLower = lower;
-            m_outputDeadbandUpper = upper;
-        }
+    public void setOutputDeadband(double deadband, double tolerance) {
+        m_outputDeadband = deadband;
         m_outputDeadbandTolerance = tolerance;
     }
 
@@ -415,23 +399,15 @@ public class PIDController {
         // Calculates output
         m_output = (m_Kp * m_error) + (m_Ki * m_integral * m_period) + (m_Kd * m_velocityError) + (m_Kf * m_setpoint);
 
-        // Enforces the deadband on the output
-        if (m_output < m_outputDeadbandUpper && m_output > m_outputDeadbandLower) {
-            // Computes the distance from the output to each of the deadband's bounds
-            double upperDist = m_outputDeadbandUpper - m_output;
-            double lowerDist = m_output - m_outputDeadbandLower;
-
-            // Makes sure the output is not within the tolerance on the middle of the deadband before changing it
-            if (upperDist - lowerDist > m_outputDeadbandTolerance) {
-                // Sets the output to whichever bound it is closest to
-                if (upperDist < lowerDist) {
-                    m_output = m_outputDeadbandUpper;
-                } else {
-                    m_output = m_outputDeadbandLower;
-                }
-            } else { // If the output is within the tolerance, it is set to the average of the upper and lower deadband bounds
-                m_output = (m_outputDeadbandUpper - m_outputDeadbandLower) / 2;
+        // Add the deadband to the controller output, or if it is within the tolerance, set the output to 0
+        if (Math.abs(m_output) > m_outputDeadbandTolerance) {
+            if (m_output > 0) {
+                m_output += m_outputDeadband;
+            } else {
+                m_output -= m_outputDeadband;
             }
+        } else {
+            m_output = 0;
         }
 
         // Clamps output between the maximum and minimum output the controller can return
@@ -443,5 +419,6 @@ public class PIDController {
     public void reset() {
         m_integral = 0;
         m_errorCache.clear();
+        m_errorCache.addFirst(0.0);
     }
 }

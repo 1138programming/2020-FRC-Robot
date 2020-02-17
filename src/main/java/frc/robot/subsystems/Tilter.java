@@ -41,7 +41,7 @@ public class Tilter extends SubsystemBase {
         //tilterPID.disableContinuousInput();
         tilterPID.setInputRange(-100, 1000);
         tilterPID.setOutputRange(-1, 1);
-        tilterPID.setOutputDeadband(0.3, 0.01);
+        tilterPID.setOutputDeadband(0.15, 0.01);
         tilterPID.setTolerance(5, 1); //possible position and velocity tolerance values
 
         tilterPID.reset();
