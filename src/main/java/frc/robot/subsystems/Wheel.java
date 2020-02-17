@@ -29,6 +29,10 @@ public class Wheel extends SubsystemBase {
   private static String gameData;
   private static ColorLabel targetColor;
 
+  /**
+   * This is the Wheel
+   */
+
   public Wheel() {
     //instantiate the talons
     wheelMotor = new VictorSPX(KWheelVictor);
@@ -46,7 +50,7 @@ public class Wheel extends SubsystemBase {
   }
 
   /**
-   * Moves the wheel mechanism directly
+   * @brief Moves the wheel mechanism directly
    * 
    * @param speed Speed to move the wheel mechanism at
    */
@@ -55,7 +59,7 @@ public class Wheel extends SubsystemBase {
   }
 
   /**
-   * Gets the color that the color sensor is detecting
+   * @brief Gets the color that the color sensor is detecting
    * 
    * @return  The color
    */
@@ -109,7 +113,7 @@ public class Wheel extends SubsystemBase {
   }
 
   /**
-   * Gets the direction in which the wheel mechanism needs to rotate to get to the target color
+   * @brief Gets the direction in which the wheel mechanism needs to rotate to get to the target color
    * 
    * @param Current The current color the wheel is on
    * @param Target  The target color for the wheel
@@ -153,7 +157,7 @@ public class Wheel extends SubsystemBase {
   }
 
   /**
-   * Gets the target color for the wheel from the FMS
+   * @brief Gets the target color for the wheel from the FMS
    * 
    * @return  The target color
    */

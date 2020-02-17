@@ -27,6 +27,10 @@ public class Tilter extends SubsystemBase {
 
     private final PIDController yOffController;
 
+    /**
+     * @brief This is the Tilter
+     */
+
     public Tilter() {
         tilterMotor = new TalonSRX(KTilterTalon);
         tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
@@ -60,10 +64,11 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
-     * Moves the tilter by a given speed
+     * @brief Moves the tilter by a given speed
      * 
      * @param speed The speed to move the tilter at
      */
+
     public void move(double speed) {
         SmartDashboard.putNumber("Tilter Voltage", speed);
         tilterMotor.set(ControlMode.PercentOutput, enforceLimits(speed));
@@ -80,19 +85,21 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
-     * Sets the setpoint for the tiler PID
+     * @brief Sets the setpoint for the tiler PID
      * 
      * @param setpoint  The setpoint
      */
+
     public void setSetpoint(double setpoint) {
         tilterPID.setSetpoint(setpoint);
     }
 
     /**
-     * Gets the setpoint of the tilter PID
+     * @brief Gets the setpoint of the tilter PID
      * 
      * @return  The setpoint
      */
+
     public double getSetpoint() {
         return tilterPID.getSetpoint();
     }
@@ -104,6 +111,10 @@ public class Tilter extends SubsystemBase {
     public double getEncoderValue() {
         return tilterMotor.getSelectedSensorPosition();
     }
+
+    /**
+     * @brief Calculates the output of the tilterPID and moves the tilterMotor with it
+     */
 
     public void calculate() {
         move(tilterPID.calculate(getEncoderValue()));
@@ -123,7 +134,11 @@ public class Tilter extends SubsystemBase {
         yOffController.reset();
         yOffController.setSetpoint(0);
     }
- 
+    
+    /**
+     * @brief
+     */
+
     public boolean atSetpoint() {
         return tilterPID.atSetpoint();
     }

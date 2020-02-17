@@ -25,6 +25,10 @@ public class Flywheel extends SubsystemBase {
   private TakeBackHalf topController;
   private TakeBackHalf bottomController;
 
+  /**
+   * @brief This is the Flywheel
+   */
+
   public Flywheel() {
     flywheelTop = new CANSparkMax(KFlywheelTopSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
     flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -59,7 +63,7 @@ public class Flywheel extends SubsystemBase {
   }
   
   /**
-   * Moves the flywheel directly
+   * @brief Moves the flywheel directly
    * 
    * @param topSpeed    Speed to move the top wheel at
    * @param bottomSpeed Speed to move the bottom wheel at
@@ -72,9 +76,17 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Bottom Voltage", bottomSpeed);
   }
 
+  /**
+   * @brief 
+   */
+
   public double getTopSpeed() {
     return topEncoder.getVelocity();
   }
+
+  /**
+   * @brief 
+   */
 
   public double getBottomSpeed() {
     return bottomEncoder.getVelocity();
@@ -85,9 +97,17 @@ public class Flywheel extends SubsystemBase {
     bottomController.setSetpoint(bottomSetpoint);
   }
 
+  /**
+   * @brief 
+   */
+
   public double getTopSetpoint() {
     return topController.getSetpoint();
   }
+
+  /**
+   * @brief 
+   */
 
   public double getBottomSetpoint() {
     return bottomController.getSetpoint();
@@ -96,7 +116,10 @@ public class Flywheel extends SubsystemBase {
   public boolean atTopSetpoint() {
     return topController.atSetpoint();
   }
-  
+
+  /**
+   * @brief 
+   */
   public boolean atBottomSetpoint() {
     return bottomController.atSetpoint();
   }

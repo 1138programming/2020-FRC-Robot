@@ -20,6 +20,10 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry snapshot = table.getEntry("snapshot"); // Takes two snapshots per second when set to 1
   public static double i, x, y, area;
 
+  /**
+   * @brief This is the Camera
+   */
+
   public Camera() {
   }
 
@@ -37,7 +41,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Returns whether a valid target is in view of the Limelight
+   * @brief Returns whether a valid target is in view of the Limelight
    * 
    * @return  Whether the target is in view or not
    */
@@ -51,7 +55,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Returns the X offset in degrees from the crosshair to the target
+   * @brief Returns the X offset in degrees from the crosshair to the target
    * 
    * @return  Negative or positive degree offset
    */
@@ -60,7 +64,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Returns the Y offset in degrees from the crosshair to the target
+   * @brief Returns the Y offset in degrees from the crosshair to the target
    * 
    * @return  Negative or positive degree offset
    */
@@ -69,7 +73,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Returns the percentage of the image the target area takes up
+   * @breif Returns the percentage of the image the target area takes up
    * 
    * @return  Percentage between 0 and 1
    */
@@ -78,7 +82,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Sets LED mode of the Limelight
+   * @breif Sets LED mode of the Limelight
    * 
    * @param led 0 = pipeline's, 1 = off, 2 = blink, 3 = on
    */
@@ -87,7 +91,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Sets Camera mode of the Limelight
+   * @brief Sets Camera mode of the Limelight
    * 
    * @param cam 0 = vision processing, 1 = driver camera (exposure increased, no processing)
    */
@@ -96,7 +100,7 @@ public class Camera extends SubsystemBase {
   }
 
   /**
-   * Sets pipeline index of the Limelight, 0-9
+   * @breif Sets pipeline index of the Limelight, 0-9
    * 
    * @param pipe  Index of pipeline between 0 and 9
    */

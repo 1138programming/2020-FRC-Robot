@@ -6,6 +6,10 @@ import edu.wpi.first.wpilibj.Compressor;
 public class Pneumatics extends SubsystemBase {
   private Compressor pneumaticsCompressor;
 
+  /**
+   * @brief This is the Pneumatics Subsystem
+   */
+
 	public Pneumatics() {
 		pneumaticsCompressor = new Compressor(0);
 	}
@@ -16,7 +20,7 @@ public class Pneumatics extends SubsystemBase {
   }
 
   /**
-   * Sets the copmressor to either on or off
+   * @brief Sets the copmressor to either on or off
    * 
    * @param on  True means turn on the compressor, fake means turn it off
    */
@@ -29,13 +33,19 @@ public class Pneumatics extends SubsystemBase {
   }
 
   /**
-   * Gets the compressor's state
+   * @brief Gets the compressor's state
    * 
    * @return  True means on, false means off
    */
   public boolean getCompressor() {
     return pneumaticsCompressor.enabled();
   }
+
+  /**
+   * @brief Gets the compressor's current
+   * 
+   * @return The current in amps
+   */
 
   public double getCurrent() {
     return pneumaticsCompressor.getCompressorCurrent();
