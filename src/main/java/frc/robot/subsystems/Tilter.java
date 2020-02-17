@@ -101,14 +101,12 @@ public class Tilter extends SubsystemBase {
         tilterMotor.setSelectedSensorPosition(0);
     }
 
-    public double getTilterAngle() {
-        //return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets the encoder value from the motor object
-        //return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
+    public double getEncoderValue() {
         return tilterMotor.getSelectedSensorPosition();
     }
 
     public void calculate() {
-        move(tilterPID.calculate(getTilterAngle()));
+        move(tilterPID.calculate(getEncoderValue()));
     }
 
     public void calculateYOff() {
@@ -132,5 +130,78 @@ public class Tilter extends SubsystemBase {
 
     public boolean getBottomLimit() {
         return !tilterBottomLimit.get();
+    }
+
+    /**
+     * @brief Solves for angles on the tilter mechanism
+     * 
+     * Calculates the remaining angle in a mechanism made up of 4 linkages. 
+     * Given the lengths of the linkages and an angle, it solves for the angle of the opposite linkage. 
+     * The linkages are arranged in clockwise order: A, B, C, D. 
+     * See this graph for more information: https://www.desmos.com/calculator/ehqwghlllg 
+     * 
+     * @param A         Length of linkage A
+     * @param B         Length of linkage B
+     * @param C         Length of linkage C
+     * @param D_x       X component of linkage D. Right is positive
+     * @param D_y       Y component of linkage D. Up is positive
+     * @param thetaA    Angle of linkage A above the horizontal
+     * 
+     * @return          Angle of linkage C above the horizontal
+     */
+    private double solveForAngle(double A, double B, double C, double D_x, double D_y, double thetaA) {
+        double A_x = A * Math.cos(thetaA);
+        double A_y = A * Math.sin(thetaA);
+        double K_1 = D_x - A_x;
+        double K_2 = D_y - A_y;
+        double K_3 = 0.5 * ((B * B) - (K_1 * K_1) - (K_2 * K_2) - (C * C));
+        double K_4 = K_3 / K_2;
+        double K_5 = -K_1 / K_2;
+        double K_6 = 1 + (K_5 * K_5);
+        double K_7 = 2 * K_4 * K_5;
+        double K_8 = (K_4 * K_4) - (C * C);
+        double C_x = (-K_7 + Math.sqrt((K_7 * K_7) - (4 * K_6 * K_8))) / (2 * K_6);
+        return Math.acos(C_x / C);
+    }
+
+    /**
+     * @brief Gets the angle of the linkage being directly controlled by the tilter motor
+     * 
+     * @return  The angle of the linkage
+     */
+    private double getLinkageAngle() {
+        return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
+    }
+
+    /**
+     * @brief Computes the angle that the tilter is tilting the flywheel at above the horizontal
+     * 
+     * @return  The angle
+     */
+    public double getTilterAngle() {
+        //return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets the encoder value from the motor object
+        return toTilterAngle(getLinkageAngle());   
+    }
+
+    /**
+     * @brief Converts an angle of the tilter to an angle of the tilter's linkage
+     * 
+     * @param flywheelAngle Angle of the tilter
+     * @return              Angle of the tilter linkage
+     */
+    private double toLinkageAngle(double flywheelAngle) {
+        double thetaC = solveForAngle(4.757, 4.5, 4, 7.75, -2, (flywheelAngle - 90) * Math.PI / 180);
+        return (thetaC * 180 / Math.PI);
+    }
+
+    /**
+     * @brief Converts an angle of the tilter's linkage to the angle of the flywheel
+     * 
+     * @param tilterAngle   Angle of the tilter linkage
+     * @return              Angle of the tilter
+     */
+    private double toTilterAngle(double tilterAngle) {
+        double thetaC = solveForAngle(4, 4.5, 4.757, 7.75, 2, tilterAngle * Math.PI / 180);
+        return (thetaC * 180 / Math.PI) - 90;
     }
 }
