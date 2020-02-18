@@ -27,10 +27,17 @@ public class Tilter extends SubsystemBase {
 
     private final PIDController yOffController;
 
+    // Constants for converting between linkage and tilter angles
+    private final double KLinkageALength = 4;
+    private final double KLinkageBLength = 4.5;
+    private final double KLinkageCLength = 4.757;
+    private final double KLinkageDX = 7.75;
+    private final double KLinkageDY = 2;
+    private final double KParallelCorrection = 3.013;
+
     /**
      * @brief This is the Tilter
      */
-
     public Tilter() {
         tilterMotor = new TalonSRX(KTilterTalon);
         tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
@@ -197,7 +204,7 @@ public class Tilter extends SubsystemBase {
      */
     public double getTilterAngle() {
         //return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets the encoder value from the motor object
-        return toTilterAngle(getLinkageAngle());   
+        return toTilterAngle(getLinkageAngle());
     }
 
     /**
@@ -207,7 +214,7 @@ public class Tilter extends SubsystemBase {
      * @return              Angle of the tilter linkage
      */
     private double toLinkageAngle(double flywheelAngle) {
-        double thetaC = solveForAngle(4.757, 4.5, 4, 7.75, -2, (flywheelAngle - 90) * Math.PI / 180);
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (flywheelAngle + 90 - KParallelCorrection) * Math.PI / 180);
         return (thetaC * 180 / Math.PI);
     }
 
@@ -218,8 +225,8 @@ public class Tilter extends SubsystemBase {
      * @return              Angle of the tilter
      */
     private double toTilterAngle(double tilterAngle) {
-        double thetaC = solveForAngle(4, 4.5, 4.757, 7.75, 2, tilterAngle * Math.PI / 180);
-        return (thetaC * 180 / Math.PI) - 90;
+        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, tilterAngle * Math.PI / 180);
+        return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
     }
 
     // public double getLimelightHeight(double tilterAngle) {
