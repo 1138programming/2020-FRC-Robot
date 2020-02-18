@@ -129,8 +129,7 @@ public class RobotContainer {
     logitechBtnRT.whenReleased(new BaseShiftMedium());
     //logitechBtnLT.whenPressed(new BaseLinearMovement(20, 20));
 
-    SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
-    logitechBtnA.toggleWhenActive(spinUpFlywheel);
+    logitechBtnA.toggleWhenActive(new SpinUpFlywheel());
 
     logitechBtnLB.whileHeld(new TiltUp());
     logitechBtnLT.whileHeld(new TiltDown());

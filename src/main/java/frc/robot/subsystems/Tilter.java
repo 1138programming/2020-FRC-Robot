@@ -221,4 +221,14 @@ public class Tilter extends SubsystemBase {
         double thetaC = solveForAngle(4, 4.5, 4.757, 7.75, 2, tilterAngle * Math.PI / 180);
         return (thetaC * 180 / Math.PI) - 90;
     }
+
+    // public double getLimelightHeight(double tilterAngle) {
+    //     double AngleT = toTilterAngle(tilterAngle);
+    //     double AngleLc = 48.21521752;
+    //     double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
+    //     double RadianA = Math.toRadians(AngleA);
+    //     double Height1 = Math.sin(RadianA) * 7.879;
+    //     double distance = Height1 + 19.1255;
+    // }
+    //Alex's unfinished code
 }
