@@ -18,17 +18,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
 import frc.robot.controller.TakeBackHalf;
+import frc.robot.controller.PIDController;
 
 public class Flywheel extends SubsystemBase {
   private final CANSparkMax flywheelTop, flywheelBottom;
   private final CANEncoder topEncoder, bottomEncoder;
-  private TakeBackHalf topController;
-  private TakeBackHalf bottomController;
+  //private TakeBackHalf topController;
+  //private TakeBackHalf bottomController;
+  private PIDController topController;
+  private PIDController bottomController;
+
+  private double topSpeed = 0, bottomSpeed = 0;
 
   /**
    * @brief This is the Flywheel
    */
-
   public Flywheel() {
     flywheelTop = new CANSparkMax(KFlywheelTopSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
     flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -40,19 +44,31 @@ public class Flywheel extends SubsystemBase {
     flywheelTop.setInverted(true);
 
     // Top TBH Controller
-    topController = new TakeBackHalf(0.00002);
+    //topController = new TakeBackHalf(0.00002);
+    topController = new PIDController(0, 0, 0, 0.00017, 0.02);
     topController.setInputRange(-6000, 6000);
     topController.setOutputRange(-1, 1);
-    topController.setTolerance(10, 500);
+    //topController.setTolerance(10, 500);
 
     // Bottom TBH Controller
-    bottomController = new TakeBackHalf(0.00002);
+    //bottomController = new TakeBackHalf(0.00002);
+    bottomController = new PIDController(0, 0, 0, 0.00017, 0.02);
     bottomController.setInputRange(-6000, 6000);
     bottomController.setOutputRange(-1, 1);
-    bottomController.setTolerance(10, 500);
+    //bottomController.setTolerance(10, 500);
 
-    SmartDashboard.putNumber("Flywheel Top Gain", topController.getGain());
-    SmartDashboard.putNumber("Flywheel Bottom Gain", bottomController.getGain());
+    //SmartDashboard.putNumber("Flywheel Top Gain", topController.getGain());
+    //SmartDashboard.putNumber("Flywheel Bottom Gain", bottomController.getGain());
+    SmartDashboard.putNumber("Flywheel Top Setpoint", 0.0);
+    SmartDashboard.putNumber("Flywheel Bottom Setpoint", 0.0);
+    SmartDashboard.putNumber("Flywheel Top P", topController.getP());
+    SmartDashboard.putNumber("Flywheel Top I", topController.getI());
+    SmartDashboard.putNumber("Flywheel Top D", topController.getD());
+    SmartDashboard.putNumber("Flywheel Top F", topController.getF());
+    SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
+    SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
+    SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
+    SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
   }
 
   @Override
@@ -60,6 +76,10 @@ public class Flywheel extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Flywheel Top Velocity", getTopSpeed());
     SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomSpeed());
+    SmartDashboard.putNumber("Flywheel Top PWM", topSpeed);
+    SmartDashboard.putNumber("Flywheel Bottom PWM", bottomSpeed);
+    SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
+    SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
   }
   
   /**
@@ -69,11 +89,11 @@ public class Flywheel extends SubsystemBase {
    * @param bottomSpeed Speed to move the bottom wheel at
    */
   public void move(double topSpeed, double bottomSpeed) {
+    this.topSpeed = topSpeed;
+    this.bottomSpeed = bottomSpeed;
+
     flywheelTop.set(topSpeed);
     flywheelBottom.set(bottomSpeed);
-
-    SmartDashboard.putNumber("Flywheel Top Voltage", topSpeed);
-    SmartDashboard.putNumber("Flywheel Bottom Voltage", bottomSpeed);
   }
 
   /**
@@ -129,22 +149,25 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void calculate() {
-    double topSpeed = topController.calculate(getTopSpeed());
-    double bottomSpeed = bottomController.calculate(getBottomSpeed());
-
-    SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
-    SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
-    SmartDashboard.putNumber("Flywheel Top Accel Error", topController.getAccelError());
-    SmartDashboard.putNumber("Flywheel Bottom Accel Error", bottomController.getAccelError());
-
-    move(topSpeed, bottomSpeed);
+    move(topController.calculate(getTopSpeed()), bottomController.calculate(getBottomSpeed()));
   }
 
-  public void setGainTop(double gain) {
-    topController.setGain(gain);
+  public void reset() {
+    topController.reset();
+    bottomController.reset();
   }
 
-  public void setGainBottom(double gain) {
-    bottomController.setGain(gain);
+  public void setTopConstants(double Kp, double Ki, double Kd, double Kf) {
+    topController.setP(Kp);
+    topController.setI(Ki);
+    topController.setD(Kd);
+    topController.setF(Kf);
+  }
+
+  public void setBottomConstants(double Kp, double Ki, double Kd, double Kf) {
+    bottomController.setP(Kp);
+    bottomController.setI(Ki);
+    bottomController.setD(Kd);
+    bottomController.setF(Kf);
   }
 }

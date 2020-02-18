@@ -298,6 +298,10 @@ public class PIDController {
         return m_velocityError;
     }
 
+    public double getErrorIntegral() {
+        return m_integral;
+    }
+
     public void setInputRange(double minInput, double maxInput) {
         if (minInput > maxInput) {
             m_minInput = maxInput;
@@ -369,25 +373,24 @@ public class PIDController {
         // Computes the velocity error
         m_velocityError = (m_error - m_errorCache.getFirst()) / m_period;
 
-        // Handles growing and maintaining the past error cache and integral
-        if (m_integralType != IntegralType.NONE) {
-            if (!m_integralZone || Math.abs(m_error) <= m_integralZoneRange) { // Only adds the error to the integral if there is no integral zone or if the error is within the integral zone
-                // Adds current error to integral
-                m_integral += m_error;
+        // Store current error and remove previous errors
+        m_errorCache.addFirst(m_error);
+        double oldestError = 0;
+        // Checks if the error cache has exceeded the specified length
+        if (m_errorCache.size() > m_integralWindow) {
+            oldestError = m_errorCache.removeLast();
+        }
 
-                // Adds current error to past error cache
-                m_errorCache.addFirst(m_error);
+        // Handles maintaining the integral
+        if (m_integralType != IntegralType.NONE && (!m_integralZone || Math.abs(m_error) <= m_integralZoneRange)) {
+            // This code only runs if IntegralType is not none, and there is no integral zone or if the error is within the integral zone
 
-                // Checks if the error cache has exceeded the specified length
-                if (m_errorCache.size() > m_integralWindow) {
-                    // Removes the oldest error from the error cache
-                    double oldestError = m_errorCache.removeLast();
+            // Adds current error to integral
+            m_integral += m_error;
 
-                    // If the integral type is WINDOW, remove the oldest error from the integral
-                    if (m_integralType == IntegralType.WINDOW) {
-                        m_integral -= oldestError;
-                    }
-                }
+            // If the integral type is WINDOW, remove the oldest error from the integral
+            if (m_integralType == IntegralType.WINDOW) {
+                m_integral -= oldestError;
             }
 
             // Clamp integral between the max and min integral

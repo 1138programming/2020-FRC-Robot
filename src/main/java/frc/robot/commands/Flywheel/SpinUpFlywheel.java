@@ -28,8 +28,6 @@ public class SpinUpFlywheel extends CommandBase {
   public void initialize() {
     //SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
     //SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
-    Robot.flywheel.setGainTop(SmartDashboard.getNumber("Flywheel Top Gain", 0.0));
-    Robot.flywheel.setGainBottom(SmartDashboard.getNumber("Flywheel Bottom Gain", 0.0));
 
     timeRefTop = System.currentTimeMillis();
     timeRefBottom = System.currentTimeMillis();
@@ -43,6 +41,20 @@ public class SpinUpFlywheel extends CommandBase {
   public void execute() {
     atTopSetpoint = Robot.flywheel.atTopSetpoint();
     atBottomSetpoint = Robot.flywheel.atBottomSetpoint();
+
+    Robot.flywheel.setTopConstants(
+      SmartDashboard.getNumber("Flywheel Top P", 0.0),
+      SmartDashboard.getNumber("Flywheel Top I", 0.0),
+      SmartDashboard.getNumber("Flywheel Top D", 0.0),
+      SmartDashboard.getNumber("Flywheel Top F", 0.0)
+    );
+
+    Robot.flywheel.setBottomConstants(
+      SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
+      SmartDashboard.getNumber("Flywheel Bottom I", 0.0),
+      SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
+      SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
+    );
 
     Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
     Robot.flywheel.calculate();
