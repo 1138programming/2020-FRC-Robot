@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Constants.*;
 import frc.robot.enums.StorageStage;
 import frc.robot.enums.RobotState;
+import frc.robot.CommandGroups.MoveBallIn;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class StorageStop extends CommandBase {
 
@@ -23,6 +25,10 @@ public class StorageStop extends CommandBase {
   public void execute() {
     if (Robot.RobotState == RobotState.COLLECTING){
       Robot.storage.move(KStorageSpeed, StorageStage.STAGE1);
+      if (Robot.storage.getBallSensor1() && !Robot.storage.getBallSensor1LastState()) {
+        MoveBallIn moveBallIn = new MoveBallIn();
+        CommandScheduler.getInstance().schedule(moveBallIn);
+      }
     }
     if (Robot.RobotState == RobotState.SHOOTING){
       Robot.storage.move(KStorageSpeed, StorageStage.BOTH);
