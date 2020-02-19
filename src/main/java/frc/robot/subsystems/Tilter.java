@@ -233,33 +233,22 @@ public class Tilter extends SubsystemBase {
         return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
     }
 
-    private double givenFunction(double x, double vel, double xDist, double yDist) {
-        double p1 = (Math.pow(vel, 2) * Math.cos(x) * Math.sin(x));
-        double p2 = (Math.pow(vel, 4) * Math.pow(Math.cos(x), 2) * Math.pow(Math.sin(x), 2));
-        double p3 = (2 * 9.8 * yDist * Math.pow(vel, 2) * Math.pow(Math.cos(x), 2));
-        return (((p1 - Math.sqrt(p2 - p3)) / 9.8) - xDist);
-    }
-    
-    private double df(double x, double vel, double xDist, double yDist) {
-        double h = 0.0000001;
-        return (givenFunction(x + h, vel, xDist, yDist) - givenFunction(x, vel, xDist, yDist)) / h;
-    }
+    private double idealTilterAngle(double vel, double xDist, double yDist) {
+        double g = 9.8; // Gravity in meters per second squared
+        double velSq = vel * vel; // Velocity squared
+        double rad = Math.sqrt((velSq * velSq) - (g * ((2 * velSq * yDist) + (g * xDist * xDist)))); // Radical
 
-    private double findIdealAngle(double vel, double xDist, double yDist) {
-        double tolerance = .000000001; // Stop if you're close enough
-        int max_count = 200; 
-        double x = 0;
+        double theta1 = Math.atan((velSq + rad) / (g * xDist)); // First possible angle
+        double theta2 = Math.atan((velSq - rad) / (g * xDist)); // Second possible angle
 
-        for(int count = 1; ((Math.abs(givenFunction(x, vel, xDist, yDist)) > tolerance) && (count < max_count)); count ++)  {
-            x= x - givenFunction(x, vel, xDist, yDist)/df(x, vel, xDist, yDist);  //Newtons method.
-            // System.out.println("Step: "+count+" x:"+x+" Value:"+givenFunction(x, vel, xDist, yDist));
-        }     
-        if( Math.abs(givenFunction(x, vel, xDist, yDist)) <= tolerance) {
-            return x;
+        // If one angle is NaN, returns the other angle. Otherwise, returns the lower angle
+        if (Double.isNaN(theta1)) {
+            return theta2;
+        } else if (Double.isNaN(theta2)) {
+            return theta1;
         } else {
-            return Double.NaN;
+            return theta1 < theta2 ? theta1 : theta2;
         }
-    }   
     }
 
     // public double getLimelightHeight(double tilterAngle) {
