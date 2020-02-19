@@ -1,6 +1,7 @@
 package frc.robot.controller;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.controller.PIDController;
+import frc.robot.enums.IntegralType;
 
 public class LinearProfiler {
     private PIDController posPID; // Internal position PID
@@ -33,9 +34,13 @@ public class LinearProfiler {
 
     private int dir = 0; // Indicates whether the profile is backwards or forwards, i.e. whether the target position is smaller or greater than the initial position
 
-    private double kP = 1; // P gain for the position PID
-    private double kI = 0; // I gain for the position PID
-    private double kD = 0; // D gain for the position PID
+    //private double kP = 1; // P gain for the position PID
+    //private double kI = 0; // I gain for the position PID
+    //private double kD = 0; // D gain for the position PID
+    private double kFv = 0; // Feedforward velocity gain
+    private double kFa = 0; // Feedforward acceleration gain
+
+    private double output = 0;
 
     /**
      * Creates a LinearProfiler with the given max velocity, max acceleration, PID constants, and period
@@ -45,21 +50,39 @@ public class LinearProfiler {
      * @param kP        P gain
      * @param kI        I gain
      * @param kD        D gain
+     * @param kF        F gain
      * @param period    Controller period
      */
-    public LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD, double period) {
+    public LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD, double kFv, double kFa, double period) {
         this.maxVel = maxVel;
         this.maxAccel = maxAccel;
-        this.kP = kP;
-        this.kI = kI;
-        this.kD = kD;
+        //this.kP = kP;
+        //this.kI = kI;
+        //this.kD = kD;
+        this.kFv = kFv;
+        this.kFa = kFa;
         this.period = period;
       
-        posPID = new PIDController(kP, kI, kD, period);
+        posPID = new PIDController(kP, kI, kD, 0, period);
     }
 
     /**
-     * Creates a LinearProfiler with the given max velocity, max acceleration, PID constants. 
+     * Creates a LinearProfiler with the given max velocity, max acceleration, PID constants, and feedforward gains.
+     * The default period is 0.02 seconds
+     * 
+     * @param maxVel    Maximum velocity
+     * @param maxAccel  Maximum acceleration
+     * @param kP        P gain
+     * @param kI        I gain
+     * @param kD        D gain
+     */
+    public LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD, double kFv, double kFa) {
+        this(maxVel, maxAccel, kP, kI, kD, kFv, kFa, 0.02);
+    }
+
+    /**
+     * Creates a LinearProfiler with the given max velocity, max acceleration, and PID constants.
+     * The default feedforward gains are 0.
      * The default period is 0.02 seconds
      * 
      * @param maxVel    Maximum velocity
@@ -69,12 +92,13 @@ public class LinearProfiler {
      * @param kD        D gain
      */
     public LinearProfiler(double maxVel, double maxAccel, double kP, double kI, double kD) {
-        this(maxVel, maxAccel, kP, kI, kD, 0.02);
+        this(maxVel, maxAccel, kP, kI, kD, 0, 0);
     }
 
     /**
      * Creates a LinearProfiler with the given max velocity and max acceleration. 
      * The default PID constants are 1, 0, and 0 respectively.
+     * The default feedforward gains are 0.
      * The default period is 0.02 seconds
      * 
      * @param maxVel
@@ -85,12 +109,13 @@ public class LinearProfiler {
     }
 
     /**
-     * Creates a LinearProfiler.
-     * The default max velocity and max acceleration are both positive infinity (this implies a profile which constantly accelerates until its reached half its target, then constantly deccelerates).
+     * Creates a LinearProfiler with the given max acceleration.
+     * The default max velocity is positive infinity (this implies a profile which constantly accelerates until its reached half its target, then constantly deccelerates).
      * The default PID constants are 1, 0, and 0 respectively.
+     * The default feedforward gains are 0.
      * The default period is 0.02 seconds
      */
-    public LinearProfiler() {
+    public LinearProfiler(double maxAccel) {
         this(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
     }
 
@@ -114,13 +139,62 @@ public class LinearProfiler {
         this.maxAccel = maxAccel;
     }
 
-    /**
-     * Sets the position PID's position tolerance
-     * 
-     * @param positionTolerance The position tolerance
-     */
-    public void setTolerance(double positionTolerance) {
-        posPID.setTolerance(positionTolerance);
+    public void setConstraints(double maxVel, double maxAccel) {
+        this.maxVel = maxVel;
+        this.maxAccel = maxAccel;
+    }
+
+    public void setP(double kP) {
+        posPID.setP(kP);
+    }
+
+    public void setI(double kI) {
+        posPID.setI(kI);
+    }
+
+    public void setD(double kD) {
+        posPID.setD(kD);
+    }
+
+    public void setGains(double kP, double kI, double kD, double kFv, double kFa) {
+        setP(kP);
+        setI(kP);
+        setD(kP);
+        this.kFv = kFv;
+        this.kFa = kFa;
+    }
+
+    public void setGains(double kP, double kI, double kD) {
+        setGains(kP, kI, kD, kFv, kFa);
+    }
+
+    public void setVelocityFeedforward(double kFv) {
+        this.kFv = kFv;
+    }
+
+    public void setAccelFeedforward(double kFa) {
+        this.kFa = kFa;
+    }
+
+    public void setFeedforwardGains(double kFv, double kFa) {
+        this.kFv = kFv;
+        this.kFa = kFa;
+    }
+
+    public void setInputRange(double minInput, double maxInput) {
+        posPID.setInputRange(minInput, maxInput);
+    }
+
+    public void setOutputRange(double minOutput, double maxOutput) {
+        posPID.setOutputRange(minOutput, maxOutput);
+    }
+
+    public void configIntegral(IntegralType integralType, boolean integralZone) {
+        posPID.configIntegral(integralType, integralZone);
+    }
+
+    public void setIntegralZoneRange(double integralZoneRange) {
+        posPID.setIntegralZoneRange(integralZoneRange);
     }
 
     /**
@@ -153,11 +227,33 @@ public class LinearProfiler {
         this.targetPos = measurement + targetPos;
     }
 
+    // Getters
+
     /**
      * Gets the profile's target position
      */
     public double getTarget() {
         return targetPos;
+    }
+
+    public double getP() {
+        return posPID.getP();
+    }
+
+    public double getI() {
+        return posPID.getI();
+    }
+
+    public double getD() {
+        return posPID.getD();
+    }
+
+    public double getVelocityFeedforward() {
+        return kFv;
+    }
+
+    public double getAccelFeedforward() {
+        return kFv;
     }
 
     // PID Functions
@@ -180,10 +276,14 @@ public class LinearProfiler {
      */
     public void init(double measurement) {
         this.measurement = measurement;
+
+        // Record initial position
         initialPos = measurement;
-        distance = Math.abs(targetPos - initialPos);
-        midPoint = distance / 2;
-        flatPoint = (0.5 * maxVel * maxVel / maxAccel); // Derived using the 3 amigos
+
+        // Calculate some variables about the profile
+        distance = Math.abs(targetPos - initialPos); // Total distance traveled
+        midPoint = distance / 2; // Midpoint of the profile
+        flatPoint = (0.5 * maxVel * maxVel / maxAccel); // Derived using the 3 amigos. Point where acceleration should stop
       
         // Gets the direction of the profile and sets the initial target acceleration
         if (initialPos < targetPos) {
@@ -194,7 +294,7 @@ public class LinearProfiler {
           t_accel = -maxAccel;
         }
       
-        // Figures out whether the velocity profile will be a trapezoid or a triangle
+        // Figures out whether the velocity profile will be a trapezoid or a triangle and sets the deccel point accordingly
         if (midPoint > flatPoint) {
             // A trapezoid means the profile reaches its maximum velocity. It accelerates to the maximum velocity, then starts deccelerating at the deccel point until it reaches the target position
             deccelPoint = distance - flatPoint;
@@ -204,11 +304,13 @@ public class LinearProfiler {
             deccelPoint = midPoint;
         }
       
-        t_pos = 0;
-        pidSetpoint = initialPos;
-        posPID.setSetpoint(pidSetpoint);
-        posPID.reset();
+        // Initialize target position and position PID
+        t_pos = 0; // Target position relative to the initial position
+        pidSetpoint = initialPos; // Absolute position
+        posPID.setSetpoint(pidSetpoint); // Set absolute setpoint
+        posPID.reset(); // Reset PID
       
+        // Initialize state variables
         vel = 0;
         accel = 0;
         lastPos = initialPos;
@@ -223,15 +325,10 @@ public class LinearProfiler {
      */
     public double calculate(double measurement) {
         this.measurement = measurement;
-        //std::uint32_t time = pros::millis();
       
-        //dt = int(time - lastTime);
-        //vel = (double)(getSensorValue() - lastPos) / dt;
+        // Actual velocity and acceleration values
         vel = (measurement - lastPos) / period; // Calcultes the actual velocity
-        //accel = (vel - lastVel) / dt;
         accel = (vel - lastVel) / period; // Calculates the actual acceleration
-      
-        //lastTime = time;
 
         // Updates previous values
         lastPos = measurement;
@@ -245,7 +342,6 @@ public class LinearProfiler {
         } else {
           t_accel = -maxAccel;
         }
-        //t_vel += t_accel * dt;
         t_vel += t_accel * period; // Updates the target velocity
 
         // Clamps the target velocity to between its maximum and minimum values, and makes sure the target acceleration doesn't overshoot
@@ -256,12 +352,16 @@ public class LinearProfiler {
           t_vel = 0;
           t_accel = 0;
         }
-        //t_pos += t_vel * dt;
         t_pos += t_vel * period; // Updates the target position
       
+        // Calculate the PID setpoint using the target position and the initial position
         pidSetpoint = dir * t_pos + initialPos; // Corrects the target position for the profile's direction and starting position to get the position PID setpoint
-        //posPID.setSetpoint(pidSetpoint); // Sets the position PID's setpoint
-        return posPID.calculate(measurement, pidSetpoint); // Returns the calculated PWM value
+        
+        // Sets the position PID's setpoint
+        posPID.setSetpoint(pidSetpoint);
+        output = posPID.calculate(measurement) + (kFv * t_vel * dir) + (kFa * t_accel * dir);
+
+        return output; // Returns the calculated PWM value
     }
 
     /**
@@ -289,14 +389,14 @@ public class LinearProfiler {
      * Gets the current target velocity
      */
     public double getTargetVel() {
-        return t_vel;
+        return t_vel * dir;
     }
 
     /**
      * Gets the current target acceleration
      */
     public double getTargetAccel() {
-        return t_accel;
+        return t_accel * dir;
     }
 
     /**
@@ -319,15 +419,4 @@ public class LinearProfiler {
     public double getAccel() {
         return accel;
     }
-
-    /**
-     * Gets the controller's period
-     */
-    public double getPeriod() {
-        return posPID.getPeriod();
-    }
-
-    /*public int getDeltaTime() {
-        return dt;
-    }*/
 };

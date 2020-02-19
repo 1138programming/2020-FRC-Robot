@@ -202,6 +202,17 @@ public class PIDController {
         m_Kf = Kf;
     }
 
+    public void setGains(double Kp, double Ki, double Kd, double Kf) {
+        m_Kp = Kp;
+        m_Ki = Ki;
+        m_Kd = Kd;
+        m_Kf = Kf;
+    }
+
+    public void setGains(double Kp, double Ki, double Kd) {
+        setGains(Kp, Ki, Kd, m_Kf);
+    }
+
     /**
      * Get the proportional term of the controller
      * 
