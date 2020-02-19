@@ -19,6 +19,7 @@ import static frc.robot.Constants.*;
 
 import frc.robot.controller.TakeBackHalf;
 import frc.robot.controller.PIDController;
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 
 public class Flywheel extends SubsystemBase {
   private final CANSparkMax flywheelTop, flywheelBottom;
@@ -27,6 +28,8 @@ public class Flywheel extends SubsystemBase {
   //private TakeBackHalf bottomController;
   private PIDController topController;
   private PIDController bottomController;
+  private SlewRateLimiter topLimiter;
+  private SlewRateLimiter bottomLimiter;
 
   private double topSpeed = 0, bottomSpeed = 0;
 
@@ -45,17 +48,20 @@ public class Flywheel extends SubsystemBase {
 
     // Top TBH Controller
     //topController = new TakeBackHalf(0.00002);
-    topController = new PIDController(0, 0, 0, 0.00017, 0.02);
-    topController.setInputRange(-6000, 6000);
+    topController = new PIDController(0.0003, 0, 0, 0.000185, 0.02);
+    topController.setInputRange(-5500, 5500);
     topController.setOutputRange(-1, 1);
     //topController.setTolerance(10, 500);
 
     // Bottom TBH Controller
     //bottomController = new TakeBackHalf(0.00002);
-    bottomController = new PIDController(0, 0, 0, 0.00017, 0.02);
-    bottomController.setInputRange(-6000, 6000);
+    bottomController = new PIDController(0, 0, 0, 0.000193, 0.02);
+    bottomController.setInputRange(-10000, 10000);
     bottomController.setOutputRange(-1, 1);
     //bottomController.setTolerance(10, 500);
+
+    topLimiter = new SlewRateLimiter(1);
+    bottomLimiter = new SlewRateLimiter(1);
 
     //SmartDashboard.putNumber("Flywheel Top Gain", topController.getGain());
     //SmartDashboard.putNumber("Flywheel Bottom Gain", bottomController.getGain());
@@ -149,12 +155,14 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void calculate() {
-    move(topController.calculate(getTopSpeed()), bottomController.calculate(getBottomSpeed()));
+    move(topLimiter.calculate(topController.calculate(getTopSpeed())), bottomLimiter.calculate(bottomController.calculate(getBottomSpeed())));
   }
 
   public void reset() {
     topController.reset();
     bottomController.reset();
+    topLimiter.reset(0);
+    bottomLimiter.reset(0);
   }
 
   public void setTopConstants(double Kp, double Ki, double Kd, double Kf) {

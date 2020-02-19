@@ -21,11 +21,11 @@ public class IntakeStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Robot.RobotState == RobotState.COLLECTING){
+    /*if (Robot.RobotState == RobotState.COLLECTING){
       Robot.intake.move(KIntakeSpeed);
-    }else {
+    } else {
       Robot.intake.move(0);
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

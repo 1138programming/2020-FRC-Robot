@@ -18,21 +18,21 @@ import frc.robot.enums.StorageStage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Storage extends SubsystemBase {
-  //Create the talons
+  // Create the talons
   private final VictorSPX stage1;
   private final VictorSPX stage2;
 
-  //Create the solenoid
+  // Create the solenoid
   private final Solenoid shifter;
 
-  //Create the sensors
+  // Create the sensors
   private final DigitalInput ballSensor1;
   private final DigitalInput ballSensor2;
 
-  //Variables, enums, etc.
+  // Variables, enums, etc.
   private int ballCount = 0;
   private boolean isIntaking;
-  private SolenoidState shifterState = SolenoidState.DEFAULT;
+  private SolenoidState shifterState = SolenoidState.ACTIVE;
   private boolean ballSensor1LastState = false; // Keeps track of the last state of the 1st ball sensor
   private boolean ballSensor2LastState = false; // Keeps track of the last state of the 2nd ball sensor
   private double stage1Speed = 0; // Keeps track of the speed of stage 1
@@ -43,7 +43,7 @@ public class Storage extends SubsystemBase {
    */
 
   public Storage() {
-    //Instantiate everything
+    // Instantiate everything
     stage1 = new VictorSPX(KStage1Victor);
     stage2 = new VictorSPX(KStage2Victor);
     shifter = new Solenoid(KStorageShifterSolenoid);
@@ -55,10 +55,11 @@ public class Storage extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     updateBallCount();
-    //prints ballCount to smartdashboard 
+    // prints ballCount to smartdashboard
     SmartDashboard.putNumber("BallCount", ballCount);
-    //prints Storage Stage 2 shifter state(0 and 1) to smartdashboard 
+    // prints Storage Stage 2 shifter state(0 and 1) to smartdashboard
     SmartDashboard.putNumber("StorageShifterState", shifterState.getValue());
+    SmartDashboard.putBoolean("ball sensor 1", getBallSensor1());
   }
 
   /**
@@ -71,24 +72,15 @@ public class Storage extends SubsystemBase {
     if (stage == StorageStage.STAGE1) {
       stage1Speed = speed;
       stage1.set(ControlMode.PercentOutput, speed);
-    }
-
-    if (stage == StorageStage.STAGE2) {
-      // Make sure stage 2 is engaged before running the motor
-      if (shifterState == SolenoidState.ACTIVE) {
-        stage2Speed = speed;
-        stage2.set(ControlMode.PercentOutput, speed);
-      }
-    }
-
-    if (stage == StorageStage.BOTH) {
+    } else if (stage == StorageStage.STAGE2) {
+      stage2Speed = speed;
+      stage2.set(ControlMode.PercentOutput, speed);
+    } else if (stage == StorageStage.BOTH) {
       stage1Speed = speed;
       stage1.set(ControlMode.PercentOutput, speed);
-      // Make sure stage 2 is engaged before running the motor
-      if (shifterState == SolenoidState.ACTIVE) {
-        stage2Speed = speed;
-        stage2.set(ControlMode.PercentOutput, speed);
-      }
+
+      stage2Speed = speed;
+      stage2.set(ControlMode.PercentOutput, speed);
     }
   }
 
@@ -97,7 +89,7 @@ public class Storage extends SubsystemBase {
    * 
    * @param speed Speed to move the conveyor belts at
    */
-  public void moveStupid(double speed) {
+  public void move(double speed) {
     move(speed, StorageStage.BOTH);
   }
 
@@ -106,7 +98,7 @@ public class Storage extends SubsystemBase {
    * 
    * @param state Change the state of the solenoid on the dogshifter
    */
-  public void setShifterState(SolenoidState state){
+  public void setShifterState(SolenoidState state) {
     shifterState = state;
     shifter.set(state == SolenoidState.ACTIVE);
   }
@@ -114,7 +106,7 @@ public class Storage extends SubsystemBase {
   /**
    * @brief Gets the state of the shifter
    * 
-   * @return  The shifter's state
+   * @return The shifter's state
    */
   public SolenoidState getShifterState() {
     return shifterState;
@@ -131,7 +123,7 @@ public class Storage extends SubsystemBase {
     if (stage1Speed > 0) {
       // Counts ball as in on the rising edge
       if (ballSensor1State && !ballSensor1LastState) {
-          ballCount++;
+        ballCount++;
       }
     } else {
       // Counts ball as out on the falling edge

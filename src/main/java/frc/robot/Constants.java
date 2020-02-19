@@ -57,7 +57,7 @@ public final class Constants {
 
     //Indexer constants
     //Sparks
-    public static final int KIndexerSpark = 7;
+    public static final int KIndexerSpark = 10;
     //others
     public static double KIndexerSpeed = 1;
 
@@ -73,7 +73,7 @@ public final class Constants {
     //FlyWheel Constants
     //Sparks
     public static final int KFlywheelTopSpark = 9;
-    public static final int KFlywheelBottomSpark = 10;
+    public static final int KFlywheelBottomSpark = 7;
 
     //Climb Constants
     //Talons+Victors
