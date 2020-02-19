@@ -103,6 +103,10 @@ public class Tilter extends SubsystemBase {
         tilterPID.setSetpoint(setpoint);
     }
 
+    public void setIdealSetpoint(double vel, double xDist, double yDist) {
+        tilterPID.setSetpoint(toLinkageAngle(findIdealAngle(vel, xDist, yDist)));
+    }
+
     /**
      * @brief Gets the setpoint of the tilter PID
      * 
@@ -213,8 +217,8 @@ public class Tilter extends SubsystemBase {
      * @param flywheelAngle Angle of the tilter
      * @return              Angle of the tilter linkage
      */
-    private double toLinkageAngle(double flywheelAngle) {
-        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (flywheelAngle + 90 - KParallelCorrection) * Math.PI / 180);
+    private double toLinkageAngle(double tilterAngle) {
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
         return (thetaC * 180 / Math.PI);
     }
 
@@ -224,9 +228,38 @@ public class Tilter extends SubsystemBase {
      * @param tilterAngle   Angle of the tilter linkage
      * @return              Angle of the tilter
      */
-    private double toTilterAngle(double tilterAngle) {
-        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, tilterAngle * Math.PI / 180);
+    private double toTilterAngle(double linkageAngle) {
+        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, linkageAngle * Math.PI / 180);
         return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
+    }
+
+    private double givenFunction(double x, double vel, double xDist, double yDist) {
+        double p1 = (Math.pow(vel, 2) * Math.cos(x) * Math.sin(x));
+        double p2 = (Math.pow(vel, 4) * Math.pow(Math.cos(x), 2) * Math.pow(Math.sin(x), 2));
+        double p3 = (2 * 9.8 * yDist * Math.pow(vel, 2) * Math.pow(Math.cos(x), 2));
+        return (((p1 - Math.sqrt(p2 - p3)) / 9.8) - xDist);
+    }
+    
+    private double df(double x, double vel, double xDist, double yDist) {
+        double h = 0.0000001;
+        return (givenFunction(x + h, vel, xDist, yDist) - givenFunction(x, vel, xDist, yDist)) / h;
+    }
+
+    private double findIdealAngle(double vel, double xDist, double yDist) {
+        double tolerance = .000000001; // Stop if you're close enough
+        int max_count = 200; 
+        double x = 0;
+
+        for(int count = 1; ((Math.abs(givenFunction(x, vel, xDist, yDist)) > tolerance) && (count < max_count)); count ++)  {
+            x= x - givenFunction(x, vel, xDist, yDist)/df(x, vel, xDist, yDist);  //Newtons method.
+            // System.out.println("Step: "+count+" x:"+x+" Value:"+givenFunction(x, vel, xDist, yDist));
+        }     
+        if( Math.abs(givenFunction(x, vel, xDist, yDist)) <= tolerance) {
+            return x;
+        } else {
+            return Double.NaN;
+        }
+    }   
     }
 
     // public double getLimelightHeight(double tilterAngle) {
