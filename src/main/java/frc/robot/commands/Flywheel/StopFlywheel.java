@@ -21,7 +21,7 @@ public class StopFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Robot.RobotState == RobotState.SHOOTING){
+    if (Robot.RobotState == RobotState.SHOOTING) {
       Robot.flywheel.move(0.8, 1.0);
     }else {
       Robot.flywheel.move(0.0, 0.0);

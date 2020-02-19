@@ -34,10 +34,10 @@ public class Camera extends SubsystemBase {
     y = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
-    SmartDashboard.putNumber("IsLimelightTarget", i);
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
+    //SmartDashboard.putNumber("IsLimelightTarget", i);
+    //SmartDashboard.putNumber("LimelightX", x);
+    //SmartDashboard.putNumber("LimelightY", y);
+    //SmartDashboard.putNumber("LimelightArea", area);
   }
 
   /**

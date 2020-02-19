@@ -22,7 +22,7 @@ public class CompressorControl extends CommandBase {
   
   @Override
   public void execute() {
-    /*if (Robot.pneumatics.getCurrent() > 9.0){
+    /*if (Robot.pneumatics.getCurrent() > 9.0) {
       Robot.pneumatics.setCompressor(false);
     }
     else {

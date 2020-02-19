@@ -7,17 +7,17 @@ import frc.robot.enums.StorageStage;
 
 import static frc.robot.Constants.*;
 
-public class MoveIn extends CommandBase {
+public class StorageIn extends CommandBase {
   private StorageStage stage;
 
-  public MoveIn(StorageStage stage) {
+  public StorageIn(StorageStage stage) {
     this.stage = stage;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.storage);
   }
 
-  public MoveIn() {
+  public StorageIn() {
     this(StorageStage.BOTH);
   }
 
@@ -29,7 +29,7 @@ public class MoveIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(KStorageSpeed, stage);
+    Robot.storage.move(KStoragePWM, stage);
   }
 
   // Called once the command ends or is interrupted.

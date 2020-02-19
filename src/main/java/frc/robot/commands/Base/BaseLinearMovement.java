@@ -46,26 +46,24 @@ public class BaseLinearMovement extends CommandBase {
 
         Robot.base.setMaxVel(maxVel);
         Robot.base.setMaxAccel(maxAccel);
-        Robot.base.initLinearMovement();
+        Robot.base.initProfile();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        SmartDashboard.putBoolean("base linear movement", true);
-        Robot.base.calculate();
+        Robot.base.calculateProfile();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("base linear movement", false);
         Robot.base.zeroEncoders();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Robot.base.atTarget();
+        return Robot.base.atProfileTarget();
     }
 }

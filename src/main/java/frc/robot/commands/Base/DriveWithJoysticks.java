@@ -20,14 +20,10 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = Robot.m_robotContainer.getLeftAxis();
-    double rightSpeed = Robot.m_robotContainer.getRightAxis();
-
-    SmartDashboard.putNumber("Left axis", leftSpeed);
-    SmartDashboard.putNumber("Right axis", rightSpeed);
-    //Robot.base.zeroEncoders();
+    double leftPWM = Robot.m_robotContainer.getLeftAxis();
+    double rightPWM = Robot.m_robotContainer.getRightAxis();
     
-    Robot.base.move(leftSpeed, rightSpeed);
+    Robot.base.move(leftPWM, rightPWM);
   }
 
   // Called once the command ends or is interrupted.

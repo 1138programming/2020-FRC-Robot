@@ -31,12 +31,11 @@ public class Storage extends SubsystemBase {
 
   // Variables, enums, etc.
   private int ballCount = 0;
-  private boolean isIntaking;
   private SolenoidState shifterState = SolenoidState.ACTIVE;
   private boolean ballSensor1LastState = false; // Keeps track of the last state of the 1st ball sensor
   private boolean ballSensor2LastState = false; // Keeps track of the last state of the 2nd ball sensor
-  private double stage1Speed = 0; // Keeps track of the speed of stage 1
-  private double stage2Speed = 0; // Keeps track of the speed of stage 2
+  private double stage1PWM = 0; // Keeps track of the speed of stage 1
+  private double stage2PWM = 0; // Keeps track of the speed of stage 2
 
   /**
    * @brief This is the Storage subsystem
@@ -55,42 +54,39 @@ public class Storage extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     updateBallCount();
-    // prints ballCount to smartdashboard
-    SmartDashboard.putNumber("BallCount", ballCount);
-    // prints Storage Stage 2 shifter state(0 and 1) to smartdashboard
-    SmartDashboard.putNumber("StorageShifterState", shifterState.getValue());
-    SmartDashboard.putBoolean("ball sensor 1", getBallSensor1());
+
+    SmartDashboard.putNumber("Storage BallCount", ballCount);
+    SmartDashboard.putBoolean("Storage Ball Sensor 1", getBallSensor1());
   }
 
   /**
    * @brief Moves the given conveyor belt(s) directly
    * 
-   * @param speed Speed to move the conveyor belt(s) at
+   * @param PWM Speed to move the conveyor belt(s) at
    * @param stage The stage(s) of the storage we want to move
    */
-  public void move(double speed, StorageStage stage) {
+  public void move(double PWM, StorageStage stage) {
     if (stage == StorageStage.STAGE1) {
-      stage1Speed = speed;
-      stage1.set(ControlMode.PercentOutput, speed);
+      stage1PWM = PWM;
+      stage1.set(ControlMode.PercentOutput, PWM);
     } else if (stage == StorageStage.STAGE2) {
-      stage2Speed = speed;
-      stage2.set(ControlMode.PercentOutput, speed);
+      stage2PWM = PWM;
+      stage2.set(ControlMode.PercentOutput, PWM);
     } else if (stage == StorageStage.BOTH) {
-      stage1Speed = speed;
-      stage1.set(ControlMode.PercentOutput, speed);
-
-      stage2Speed = speed;
-      stage2.set(ControlMode.PercentOutput, speed);
+      stage1PWM = PWM;
+      stage2PWM = PWM;
+      stage1.set(ControlMode.PercentOutput, PWM);
+      stage2.set(ControlMode.PercentOutput, PWM);
     }
   }
 
   /**
    * @brief Moves both conveyor belts directly
    * 
-   * @param speed Speed to move the conveyor belts at
+   * @param PWM Speed to move the conveyor belts at
    */
-  public void move(double speed) {
-    move(speed, StorageStage.BOTH);
+  public void move(double PWM) {
+    move(PWM, StorageStage.BOTH);
   }
 
   /**
@@ -120,7 +116,7 @@ public class Storage extends SubsystemBase {
     boolean ballSensor2State = ballSensor2.get();
 
     // Handles counting balls entering/exiting from the first stage
-    if (stage1Speed > 0) {
+    if (stage1PWM > 0) {
       // Counts ball as in on the rising edge
       if (ballSensor1State && !ballSensor1LastState) {
         ballCount++;
@@ -133,7 +129,7 @@ public class Storage extends SubsystemBase {
     }
 
     // Handles counting balls entering/exiting from the second stage
-    if (stage2Speed > 0) {
+    if (stage2PWM > 0) {
       // Counts ball as out on the falling edge
       if (!ballSensor2State && ballSensor2LastState) {
         ballCount--;

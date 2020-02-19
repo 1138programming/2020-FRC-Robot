@@ -28,8 +28,8 @@ public class TiltWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = Robot.m_robotContainer.getLeftAxis();
-    Robot.tilter.move(speed);
+    double PWM = Robot.m_robotContainer.getLeftAxis();
+    Robot.tilter.move(PWM);
   }
 
   // Called once the command ends or is interrupted.

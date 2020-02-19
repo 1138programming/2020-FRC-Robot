@@ -53,20 +53,20 @@ public class Climb extends SubsystemBase {
   /**
    * @brief Moves climb without taking limits into account
    * 
-   * @param speed Speed to move the climb at
+   * @param PWM Speed to move the climb at
    */
-  private void moveWithoutLimits(double speed) {
-    climbTalon.set(ControlMode.PercentOutput, speed);
+  private void moveWithoutLimits(double PWM) {
+    climbTalon.set(ControlMode.PercentOutput, PWM);
   }
 
   /**
    * @brief Moves the climb, taking limits into account
    * 
-   * @param speed Speed to move the climb at
+   * @param PWM Speed to move the climb at
    */
-  public void move(double speed) {
-    if (TopLimit.get() == false && BottomLimit.get() == false){      //limit logic in move, removed so we have a consistent move function and leave it to the methods
-      moveWithoutLimits(speed);
+  public void move(double PWM) {
+    if (TopLimit.get() == false && BottomLimit.get() == false) {      //limit logic in move, removed so we have a consistent move function and leave it to the methods
+      moveWithoutLimits(PWM);
     }
   }
 
@@ -95,7 +95,7 @@ public class Climb extends SubsystemBase {
    * @return The value of the climb encoder
    */
 
-  public double getClimbEncoder(){
+  public double getClimbEncoder() {
     return climbTalon.getSelectedSensorPosition();
   }
 
@@ -115,7 +115,7 @@ public class Climb extends SubsystemBase {
    * @return The setpoint
    */
 
-  public double getSetpoint(){
+  public double getSetpoint() {
     return climbPID.getSetpoint();
   }
 
@@ -124,7 +124,7 @@ public class Climb extends SubsystemBase {
    * 
    */
 
-  public void calculate(){
+  public void calculate() {
     move(climbPID.calculate(getClimbEncoder()));
   }
 }

@@ -5,19 +5,17 @@ import static frc.robot.Constants.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-
-//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-//import edu.wpi.first.wpilibj.Solenoid;
-//import edu.wpi.first.wpilibj.DoubleSolenoid;
-//import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.BaseState;
-import frc.robot.commands.Base.BaseShiftLow;
+
 import frc.robot.controller.LinearProfiler;
 import frc.robot.controller.PIDController;
+import edu.wpi.first.wpilibj.SlewRateLimiter;
+
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class Base extends SubsystemBase {
   //Creating the Talons
@@ -25,6 +23,8 @@ public class Base extends SubsystemBase {
 
   //Linear profiler for both sides of the base
   private final LinearProfiler leftProfiler, rightProfiler;
+
+  private final SlewRateLimiter leftLimiter, rightLimiter;
 
   //Creating the Solenoids
   //private final DoubleSolenoid shifter;
@@ -46,23 +46,26 @@ public class Base extends SubsystemBase {
   private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
   private static final double KShiftSpeed = KFreeSpeed / ((KRotationsPerTickHigh + KRotationsPerTickLow) * KTicksPerRotation);
 
-  private double lastLeftSpeed = 0;
-  private double lastRightSpeed = 0;
+  private double lastLeftVel = 0;
+  private double lastRightVel = 0;
   private double leftAccel = 0;
   private double rightAccel = 0;
   private double rotationsPerTick = KRotationsPerTickHigh;
+
+  private double leftPWM, rightPWM;
 
   /**
    * @brief This is the Base
    */
 
   public Base() {
-    //instantiating the talons
+    // Instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
     leftBack = new TalonFX(KLeftBackTalon);
     rightFront = new TalonFX(KRightFrontTalon);
     rightBack = new TalonFX(KRightBackTalon);
 
+    // Inverting the necessary talons
     rightFront.setInverted(true);
     rightBack.setInverted(true);
 
@@ -70,10 +73,9 @@ public class Base extends SubsystemBase {
     leftBack.follow(leftFront);
     rightBack.follow(rightFront);
 
+    // Configure sensors
     leftBack.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
     rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
-
-    zeroEncoders();
     
     // Set up profilers for both sides
     leftProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0, 0, 0.02);
@@ -81,64 +83,70 @@ public class Base extends SubsystemBase {
     leftProfiler.setTolerance(50, 20);
     rightProfiler.setTolerance(50, 20);
 
-    // Set up PID controller
+    // Set up PID controller to work with the Limelight x offset
     xOffController = new PIDController(0.01, 0, 0, 0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
     xOffController.setSetpoint(0);
 
+    // Set up slew rate limiters
+    leftLimiter = new SlewRateLimiter(1);
+    rightLimiter = new SlewRateLimiter(1);
+
     // Instantiating the solenoid
-    //shifter = new DoubleSolenoid(KBaseShifterForwardChannel, KBaseShifterReverseChannel);
     shifter = new Solenoid(KBaseShifter);
   }
 
   @Override
   public void periodic() {
-    double leftSpeed = getLeftSpeed();
-    double rightSpeed = getRightSpeed();
+    double leftVel = getLeftVel();
+    double rightVel = getRightVel();
 
-    leftAccel = (leftSpeed - lastLeftSpeed) * 5;
-    rightAccel = (rightSpeed - lastRightSpeed) * 5;
+    leftAccel = (leftVel - lastLeftVel) * 5;
+    rightAccel = (rightVel - lastRightVel) * 5;
 
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Base left target position", leftProfiler.getTargetPos());
-    SmartDashboard.putNumber("Base right target position", rightProfiler.getTargetPos());
-    SmartDashboard.putNumber("Base left position", getLeftEncoder());
-    SmartDashboard.putNumber("Base right position", getRightEncoder());
-    SmartDashboard.putNumber("Base left target velocity", leftProfiler.getTargetVel());
-    SmartDashboard.putNumber("Base right target velocity", rightProfiler.getTargetVel());
-    SmartDashboard.putNumber("Base left velocity", getLeftSpeed());
-    SmartDashboard.putNumber("Base right velocity", getRightSpeed());
-    SmartDashboard.putNumber("Base left target accel", leftProfiler.getTargetAccel());
-    SmartDashboard.putNumber("Base right target accel", rightProfiler.getTargetAccel());
-    SmartDashboard.putNumber("Base left accel", getLeftAccel());
-    SmartDashboard.putNumber("Base right accel", getRightAccel());
+    SmartDashboard.putNumber("Base Left Target Pos", leftProfiler.getTargetPos());
+    SmartDashboard.putNumber("Base Right Target Pos", rightProfiler.getTargetPos());
+    SmartDashboard.putNumber("Base Left Pos", getLeftEncoder());
+    SmartDashboard.putNumber("Base Right Pos", getRightEncoder());
+    SmartDashboard.putNumber("Base Left Target Vel", leftProfiler.getTargetVel());
+    SmartDashboard.putNumber("Base Right Target Vel", rightProfiler.getTargetVel());
+    SmartDashboard.putNumber("Base Left Vel", getLeftVel());
+    SmartDashboard.putNumber("Base Right Vel", getRightVel());
+    SmartDashboard.putNumber("Base Left Target Accel", leftProfiler.getTargetAccel());
+    SmartDashboard.putNumber("Base Right Target Accel", rightProfiler.getTargetAccel());
+    SmartDashboard.putNumber("Base Left Accel", getLeftAccel());
+    SmartDashboard.putNumber("Base Right Accel", getRightAccel());
+    SmartDashboard.putNumber("Base Left PWM", leftPWM);
+    SmartDashboard.putNumber("Base Right PWM", rightPWM);
 
-    lastLeftSpeed = leftSpeed;
-    lastRightSpeed = rightSpeed;
+    lastLeftVel = leftVel;
+    lastRightVel = rightVel;
 
-    /*if(getTicksToShiftAt() >= KShiftSpeed) {
-      setBaseState(BaseState.LOW);
-    }*/
     autoShift();
   }
 
   /**
    * @brief Moves the base directly
    *  
-   * @param leftSpeed   Speed to move the left side at
-   * @param rightSpeed  Speed to move the right side at
+   * @param leftPWM   Speed to move the left side at
+   * @param rightPWM  Speed to move the right side at
    */
+  public void move(double leftPWM, double rightPWM) {
+    leftPWM = leftLimiter.calculate(leftPWM);
+    rightPWM = leftLimiter.calculate(rightPWM);
 
-  
-  public void move(double leftSpeed, double rightSpeed) {
+    this.leftPWM = leftPWM;
+    this.rightPWM = rightPWM;
+
     if (baseState == BaseState.MEDIUM) {
-      leftFront.set(ControlMode.PercentOutput, leftSpeed * KBaseMediumGear);
-      rightFront.set(ControlMode.PercentOutput, rightSpeed * KBaseMediumGear);
+      leftFront.set(ControlMode.PercentOutput, leftPWM * KBaseMediumGear);
+      rightFront.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
     } else {
-      leftFront.set(ControlMode.PercentOutput, leftSpeed);
-      rightFront.set(ControlMode.PercentOutput, rightSpeed);
+      leftFront.set(ControlMode.PercentOutput, leftPWM);
+      rightFront.set(ControlMode.PercentOutput, rightPWM);
     }
   }
 
@@ -173,21 +181,19 @@ public class Base extends SubsystemBase {
   /**
    * @brief Gets the encoder value of the left side
    * 
-   * @return  Left encoder value
+   * @return  Left encoder value in rotations
    */
   public double getLeftEncoder() {
     return (double)leftFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
-    //return (double)leftFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
   /**
    * @brief Gets the encoder value of the right side
    * 
-   * @return  Right encoder value
+   * @return  Right encoder value in rotations
    */
   public double getRightEncoder() {
     return (double)rightFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
-    //return (double)rightFront.getSensorCollection().getIntegratedSensorPosition();
   }
 
   /**
@@ -207,7 +213,7 @@ public class Base extends SubsystemBase {
    * 
    * @return Speed in ticks per 100 ms
    */
-  public double getLeftSpeed() {
+  public double getLeftVel() {
     return (double)leftFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
@@ -217,12 +223,12 @@ public class Base extends SubsystemBase {
    * @return Speed in ticks per 100 ms
    */
 
-  public double getRightSpeed() {
+  public double getRightVel() {
     return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
   private void autoShift() {
-    double maxVel = Math.max(getLeftSpeed(), getRightSpeed());
+    double maxVel = Math.max(getLeftVel(), getRightVel());
     if (maxVel >= KShiftSpeed) {
       setBaseState(BaseState.LOW);
     }
@@ -320,7 +326,7 @@ public class Base extends SubsystemBase {
    * @brief
    */
 
-  public void initLinearMovement() {
+  public void initProfile() {
     leftProfiler.init(getLeftEncoder());
     rightProfiler.init(getRightEncoder());
   }
@@ -328,18 +334,24 @@ public class Base extends SubsystemBase {
   /**
    * @brief
    */
-
-  public void calculate() {
-    double leftSpeed = leftProfiler.calculate(getLeftSpeed());
-    double rightSpeed = rightProfiler.calculate(getRightSpeed());
+  public void calculateProfile() {
+    double leftSpeed = leftProfiler.calculate(getLeftVel());
+    double rightVel = rightProfiler.calculate(getRightVel());
 
     //double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
-    //double rightSpeed = rightProfiler.calculate(rightProfiler.getTargetPos());
+    //double rightVel = rightProfiler.calculate(rightProfiler.getTargetPos());
 
     SmartDashboard.putNumber("Base left voltage", leftSpeed);
-    SmartDashboard.putNumber("Base right voltage", rightSpeed);
+    SmartDashboard.putNumber("Base right voltage", rightVel);
 
-    move(leftSpeed, rightSpeed);
+    move(leftSpeed, rightVel);
+  }
+
+  /**
+   * @brief
+   */
+  public boolean atProfileTarget() {
+    return leftProfiler.atTarget() && rightProfiler.atTarget();
   }
 
   public void calculateXOff() {
@@ -349,16 +361,12 @@ public class Base extends SubsystemBase {
     move(-output, output);
   }
 
+  public boolean atTargetXOff() {
+    return xOffController.atSetpoint();
+  }
+
   public void resetXOff() {
     xOffController.reset();
     xOffController.setSetpoint(0);
-  }
-
-  /**
-   * @brief
-   */
-
-  public boolean atTarget() {
-    return leftProfiler.atTarget() && rightProfiler.atTarget();
   }
 }

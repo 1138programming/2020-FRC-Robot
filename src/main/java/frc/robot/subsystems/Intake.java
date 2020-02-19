@@ -44,10 +44,10 @@ public class Intake extends SubsystemBase {
   /**
    * @brief Moves the intake directly
    * 
-   * @param speed Speed to move the intake at
+   * @param PWM Speed to move the intake at
    */
-  public void move(double speed){
-    intake.set(speed);
+  public void move(double PWM) {
+    intake.set(PWM);
   }
 
   /**

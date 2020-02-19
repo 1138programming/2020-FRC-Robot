@@ -39,7 +39,7 @@ public final class Constants {
     public static final Color KRedTarget = ColorMatch.makeColor(0.438, 0.386, 0.175);
     public static final Color KYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     // Others
-    public static final double KWheelSpeed = .25;
+    public static final double KWheelPWM = 0.25;
 
     //Storage constants 
     //Talons
@@ -51,7 +51,7 @@ public final class Constants {
     public static final int KBallSensor1 = 0; 
     public static final int KBallSensor2 = 1;
     //others
-    public static double KStorageSpeed = 1;
+    public static double KStoragePWM = 1;
 
     //Pneumatics Contsants(none at the moment)
 
@@ -59,7 +59,7 @@ public final class Constants {
     //Sparks
     public static final int KIndexerSpark = 10;
     //others
-    public static double KIndexerSpeed = 1;
+    public static double KIndexerPWM = 1;
 
     //Intake Constants
     //Victors
@@ -68,7 +68,7 @@ public final class Constants {
     public static final int KLeftIntakeSolenoid = 3;
     public static final int KRightIntakeSolenoid = 4;
     //others
-    public static double KIntakeSpeed = 0.5;
+    public static double KIntakePWM = 0.5;
 
     //FlyWheel Constants
     //Sparks
@@ -85,14 +85,11 @@ public final class Constants {
     public static final int KTopLimit = 2; 
     public static final int KBottomLimit = 3; 
     //others
-    public static final double KClimbSpeed = 1;
+    public static final double KClimbPWM = 1;
     
 
     //Camera Constants 
     //PID
-    //public static final double kP = 0.001;
-    //public static final double kI = 0.0;
-    //public static final double kD = 0.0;
     //Height
     public static final double h1 = 1.42;
     public static final double h2 = 7.25;
@@ -100,7 +97,7 @@ public final class Constants {
     //Tilter Constant
     //Talons
     public static final int KTilterTalon = 13;
-    public static final double KTilterSpeed = 0.5;
+    public static final double KTilterPWM = 0.5;
     //Limit
     public static final int KTilterBottomLimit = 4;
 }

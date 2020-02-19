@@ -2,36 +2,23 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 
-import frc.robot.commands.Flywheel.SpinUpFlywheel;
-import frc.robot.commands.Flywheel.StopFlywheel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
-import frc.robot.controller.TakeBackHalf;
 import frc.robot.controller.PIDController;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 
 public class Flywheel extends SubsystemBase {
   private final CANSparkMax flywheelTop, flywheelBottom;
   private final CANEncoder topEncoder, bottomEncoder;
-  //private TakeBackHalf topController;
-  //private TakeBackHalf bottomController;
-  private PIDController topController;
-  private PIDController bottomController;
-  private SlewRateLimiter topLimiter;
-  private SlewRateLimiter bottomLimiter;
+  private PIDController topController, bottomController;
+  private SlewRateLimiter topLimiter, bottomLimiter;
 
-  private double topSpeed = 0, bottomSpeed = 0;
+  private double topPWM = 0, bottomPWM = 0;
 
   /**
    * @brief This is the Flywheel
@@ -63,8 +50,6 @@ public class Flywheel extends SubsystemBase {
     topLimiter = new SlewRateLimiter(1);
     bottomLimiter = new SlewRateLimiter(1);
 
-    //SmartDashboard.putNumber("Flywheel Top Gain", topController.getGain());
-    //SmartDashboard.putNumber("Flywheel Bottom Gain", bottomController.getGain());
     SmartDashboard.putNumber("Flywheel Top Setpoint", 0.0);
     SmartDashboard.putNumber("Flywheel Bottom Setpoint", 0.0);
     SmartDashboard.putNumber("Flywheel Top P", topController.getP());
@@ -80,10 +65,10 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Flywheel Top Velocity", getTopSpeed());
-    SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomSpeed());
-    SmartDashboard.putNumber("Flywheel Top PWM", topSpeed);
-    SmartDashboard.putNumber("Flywheel Bottom PWM", bottomSpeed);
+    SmartDashboard.putNumber("Flywheel Top Velocity", getTopVel());
+    SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomVel());
+    SmartDashboard.putNumber("Flywheel Top PWM", topPWM);
+    SmartDashboard.putNumber("Flywheel Bottom PWM", bottomPWM);
     SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
     SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
   }
@@ -91,30 +76,33 @@ public class Flywheel extends SubsystemBase {
   /**
    * @brief Moves the flywheel directly
    * 
-   * @param topSpeed    Speed to move the top wheel at
-   * @param bottomSpeed Speed to move the bottom wheel at
+   * Includes a slew rate limiter
+   * 
+   * @param topPWM    Speed to move the top wheel at
+   * @param bottomPWM Speed to move the bottom wheel at
    */
-  public void move(double topSpeed, double bottomSpeed) {
-    this.topSpeed = topSpeed;
-    this.bottomSpeed = bottomSpeed;
+  public void move(double topPWM, double bottomPWM) {
+    topPWM = topLimiter.calculate(topPWM);
+    bottomPWM = bottomLimiter.calculate(bottomPWM);
 
-    flywheelTop.set(topSpeed);
-    flywheelBottom.set(bottomSpeed);
+    this.topPWM = topPWM;
+    this.bottomPWM = bottomPWM;
+
+    flywheelTop.set(topPWM);
+    flywheelBottom.set(bottomPWM);
   }
 
   /**
    * @brief 
    */
-
-  public double getTopSpeed() {
+  public double getTopVel() {
     return topEncoder.getVelocity();
   }
 
   /**
    * @brief 
    */
-
-  public double getBottomSpeed() {
+  public double getBottomVel() {
     return bottomEncoder.getVelocity();
   }
 
@@ -126,7 +114,6 @@ public class Flywheel extends SubsystemBase {
   /**
    * @brief 
    */
-
   public double getTopSetpoint() {
     return topController.getSetpoint();
   }
@@ -134,7 +121,6 @@ public class Flywheel extends SubsystemBase {
   /**
    * @brief 
    */
-
   public double getBottomSetpoint() {
     return bottomController.getSetpoint();
   }
@@ -155,14 +141,12 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void calculate() {
-    move(topLimiter.calculate(topController.calculate(getTopSpeed())), bottomLimiter.calculate(bottomController.calculate(getBottomSpeed())));
+    move(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
   }
 
   public void reset() {
     topController.reset();
     bottomController.reset();
-    topLimiter.reset(0);
-    bottomLimiter.reset(0);
   }
 
   public void setTopConstants(double Kp, double Ki, double Kd, double Kf) {

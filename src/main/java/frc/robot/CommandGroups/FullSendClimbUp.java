@@ -8,7 +8,7 @@ import frc.robot.commands.Climb.ClimbUp;
 
 
 public class FullSendClimbUp extends SequentialCommandGroup {
-  public FullSendClimbUp(){
+  public FullSendClimbUp() {
     addCommands(
       new ClimbUp()
     );

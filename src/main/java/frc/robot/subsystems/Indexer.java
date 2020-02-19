@@ -31,9 +31,9 @@ public class Indexer extends SubsystemBase {
   /**
    * @brief Moves the indexer
    * 
-   * @param speed Speed to move the indexer at
+   * @param PWM Speed to move the indexer at
    */
-  public void move(double speed) {
-    indexer.set(speed);
+  public void move(double PWM) {
+    indexer.set(PWM);
   }
 }

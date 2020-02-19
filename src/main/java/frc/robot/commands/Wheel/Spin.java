@@ -25,8 +25,8 @@ public class Spin extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.wheel.move(KWheelSpeed);
-    if (lastColor != Robot.wheel.getColor() && Robot.wheel.getColor() == initialColor){
+    Robot.wheel.move(KWheelPWM);
+    if (lastColor != Robot.wheel.getColor() && Robot.wheel.getColor() == initialColor) {
       halfSpins++;
     }
     lastColor = Robot.wheel.getColor();

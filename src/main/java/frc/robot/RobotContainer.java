@@ -22,8 +22,8 @@ import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Intake.StartCollecting;
 import frc.robot.commands.Intake.EndCollecting;
 import frc.robot.commands.Storage.StorageStop;
-import frc.robot.commands.Storage.MoveIn;
-import frc.robot.commands.Storage.MoveOut;
+import frc.robot.commands.Storage.StorageIn;
+import frc.robot.commands.Storage.StorageOut;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Wheel.GoToColor;
@@ -115,9 +115,6 @@ public class RobotContainer {
 		xboxBtnLT = new JoystickButton(xbox, KXboxLeftTrigger);
     xboxBtnRT = new JoystickButton(xbox, KXboxRightTrigger);
 
-    SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
-    SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
-
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -160,7 +157,6 @@ public class RobotContainer {
 
   public double getRightAxis() {
     final double Y = logitech.getRawAxis(KRightYAxis);
-    //SmartDashboard.putNumber("Here's a thingy!", Y);
     if (Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else
@@ -169,7 +165,6 @@ public class RobotContainer {
 
   public double getLeftAxis() {
     final double Y = logitech.getRawAxis(KLeftYAxis);
-    //SmartDashboard.putNumber("Here's a left thingy!", Y);
     if(Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else 

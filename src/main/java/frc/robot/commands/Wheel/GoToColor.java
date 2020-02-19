@@ -8,7 +8,7 @@ import frc.robot.enums.RotationDirection;
 import static frc.robot.Constants.*;
 
 public class GoToColor extends CommandBase {
-  private double speed; 
+  private double PWM; 
   private ColorLabel targetColor;
   private ColorLabel currentColor;
 
@@ -19,29 +19,26 @@ public class GoToColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putString("working", "yes");
-    speed = 0;
+    PWM = 0;
     targetColor = Robot.wheel.getTargetColor();
     currentColor = Robot.wheel.getColor();
     RotationDirection spinDirection = Robot.wheel.getRotationDirection(currentColor, targetColor);
 
     if (spinDirection == RotationDirection.CLOCKWISE) {
-      speed = -KWheelSpeed;
+      PWM = -KWheelPWM;
     } 
     else if (spinDirection == RotationDirection.COUNTERCLOCKWISE) {
-      speed = KWheelSpeed;
+      PWM = KWheelPWM;
     }
     else {
-      speed = 0;
+      PWM = 0;
     }
-    
-    SmartDashboard.putNumber("speed",speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.wheel.move(speed);
+    Robot.wheel.move(PWM);
     currentColor = Robot.wheel.getColor();
   }
 
@@ -54,6 +51,6 @@ public class GoToColor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return currentColor == targetColor || speed == 0;
+    return currentColor == targetColor || PWM == 0;
   }
 }

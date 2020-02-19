@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Tilter extends SubsystemBase {
     private final TalonSRX tilterMotor;
-    
-    //private final CANEncoder tilterEncoder;
+
+    // private final CANEncoder tilterEncoder;
     private final PIDController tilterPID;
-    
+
     private static final double KTicksPerRev = 2048;
     private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
@@ -35,25 +35,24 @@ public class Tilter extends SubsystemBase {
     private final double KLinkageDY = 2;
     private final double KParallelCorrection = 3.013;
 
+    private double PWM;
+
     /**
      * @brief This is the Tilter
      */
     public Tilter() {
         tilterMotor = new TalonSRX(KTilterTalon);
         tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
-
-        tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
         //tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.PulseWidthEncodedPosition, 0, 0);
 
-        //tilterEncoder = new CANEncoder(tilterMotor);
+        tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
+
         tilterPID = new PIDController(0.0021, 0, 0.01);
 
-        //tilterPID.enableContinuousInput(0, 900);
-        //tilterPID.disableContinuousInput();
         tilterPID.setInputRange(-100, 1000);
         tilterPID.setOutputRange(-1, 1);
         tilterPID.setOutputDeadband(0.15, 0.01);
-        tilterPID.setTolerance(5, 1); //possible position and velocity tolerance values
+        tilterPID.setTolerance(5, 1); // possible position and velocity tolerance values
 
         tilterPID.reset();
 
@@ -69,34 +68,35 @@ public class Tilter extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Tilter Angle", getTilterAngle());
+        SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
     }
 
     /**
      * @brief Moves the tilter by a given speed
      * 
-     * @param speed The speed to move the tilter at
+     * @param PWM The speed to move the tilter at
      */
 
-    public void move(double speed) {
-        SmartDashboard.putNumber("Tilter Voltage", speed);
-        tilterMotor.set(ControlMode.PercentOutput, enforceLimits(speed));
+    public void move(double PWM) {
+        this.PWM = PWM;
+        tilterMotor.set(ControlMode.PercentOutput, enforceLimits(PWM));
     }
 
-    public double enforceLimits(double speed) {
+    public double enforceLimits(double PWM) {
         if (getBottomLimit()) {
             zeroEncoder();
-            if (speed < 0) {
-                speed = 0;
+            if (PWM < 0) {
+                PWM = 0;
             }
         }
-        return speed;
+        return PWM;
     }
 
     /**
      * @brief Sets the setpoint for the tiler PID
      * 
-     * @param setpoint  The setpoint
+     * @param setpoint The setpoint
      */
 
     public void setSetpoint(double setpoint) {
@@ -104,13 +104,13 @@ public class Tilter extends SubsystemBase {
     }
 
     public void setIdealSetpoint(double vel, double xDist, double yDist) {
-        tilterPID.setSetpoint(toLinkageAngle(findIdealAngle(vel, xDist, yDist)));
+        tilterPID.setSetpoint(toLinkageAngle(idealTilterAngle(vel, xDist, yDist)));
     }
 
     /**
      * @brief Gets the setpoint of the tilter PID
      * 
-     * @return  The setpoint
+     * @return The setpoint
      */
 
     public double getSetpoint() {
@@ -126,7 +126,8 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
-     * @brief Calculates the output of the tilterPID and moves the tilterMotor with it
+     * @brief Calculates the output of the tilterPID and moves the tilterMotor with
+     *        it
      */
 
     public void calculate() {
@@ -147,7 +148,7 @@ public class Tilter extends SubsystemBase {
         yOffController.reset();
         yOffController.setSetpoint(0);
     }
-    
+
     /**
      * @brief
      */
@@ -163,19 +164,20 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief Solves for angles on the tilter mechanism
      * 
-     * Calculates the remaining angle in a mechanism made up of 4 linkages. 
-     * Given the lengths of the linkages and an angle, it solves for the angle of the opposite linkage. 
-     * The linkages are arranged in clockwise order: A, B, C, D. 
-     * See this graph for more information: https://www.desmos.com/calculator/ehqwghlllg 
+     *        Calculates the remaining angle in a mechanism made up of 4 linkages.
+     *        Given the lengths of the linkages and an angle, it solves for the
+     *        angle of the opposite linkage. The linkages are arranged in clockwise
+     *        order: A, B, C, D. See this graph for more information:
+     *        https://www.desmos.com/calculator/ehqwghlllg
      * 
-     * @param A         Length of linkage A
-     * @param B         Length of linkage B
-     * @param C         Length of linkage C
-     * @param D_x       X component of linkage D. Right is positive
-     * @param D_y       Y component of linkage D. Up is positive
-     * @param thetaA    Angle of linkage A above the horizontal
+     * @param A      Length of linkage A
+     * @param B      Length of linkage B
+     * @param C      Length of linkage C
+     * @param D_x    X component of linkage D. Right is positive
+     * @param D_y    Y component of linkage D. Up is positive
+     * @param thetaA Angle of linkage A above the horizontal
      * 
-     * @return          Angle of linkage C above the horizontal
+     * @return Angle of linkage C above the horizontal
      */
     private double solveForAngle(double A, double B, double C, double D_x, double D_y, double thetaA) {
         double A_x = A * Math.cos(thetaA);
@@ -193,21 +195,24 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
-     * @brief Gets the angle of the linkage being directly controlled by the tilter motor
+     * @brief Gets the angle of the linkage being directly controlled by the tilter
+     *        motor
      * 
-     * @return  The angle of the linkage
+     * @return The angle of the linkage
      */
     private double getLinkageAngle() {
         return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
     }
 
     /**
-     * @brief Computes the angle that the tilter is tilting the flywheel at above the horizontal
+     * @brief Computes the angle that the tilter is tilting the flywheel at above
+     *        the horizontal
      * 
-     * @return  The angle
+     * @return The angle
      */
     public double getTilterAngle() {
-        //return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets the encoder value from the motor object
+        // return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets
+        // the encoder value from the motor object
         return toTilterAngle(getLinkageAngle());
     }
 
@@ -215,21 +220,23 @@ public class Tilter extends SubsystemBase {
      * @brief Converts an angle of the tilter to an angle of the tilter's linkage
      * 
      * @param flywheelAngle Angle of the tilter
-     * @return              Angle of the tilter linkage
+     * @return Angle of the tilter linkage
      */
     private double toLinkageAngle(double tilterAngle) {
-        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY,
+                (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
         return (thetaC * 180 / Math.PI);
     }
 
     /**
      * @brief Converts an angle of the tilter's linkage to the angle of the flywheel
      * 
-     * @param tilterAngle   Angle of the tilter linkage
-     * @return              Angle of the tilter
+     * @param tilterAngle Angle of the tilter linkage
+     * @return Angle of the tilter
      */
     private double toTilterAngle(double linkageAngle) {
-        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, linkageAngle * Math.PI / 180);
+        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY,
+                linkageAngle * Math.PI / 180);
         return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
     }
 
@@ -241,7 +248,8 @@ public class Tilter extends SubsystemBase {
         double theta1 = Math.atan((velSq + rad) / (g * xDist)); // First possible angle
         double theta2 = Math.atan((velSq - rad) / (g * xDist)); // Second possible angle
 
-        // If one angle is NaN, returns the other angle. Otherwise, returns the lower angle
+        // If one angle is NaN, returns the other angle. Otherwise, returns the lower
+        // angle
         if (Double.isNaN(theta1)) {
             return theta2;
         } else if (Double.isNaN(theta2)) {
@@ -252,12 +260,12 @@ public class Tilter extends SubsystemBase {
     }
 
     // public double getLimelightHeight(double tilterAngle) {
-    //     double AngleT = toTilterAngle(tilterAngle);
-    //     double AngleLc = 48.21521752;
-    //     double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
-    //     double RadianA = Math.toRadians(AngleA);
-    //     double Height1 = Math.sin(RadianA) * 7.879;
-    //     double distance = Height1 + 19.1255;
+    // double AngleT = toTilterAngle(tilterAngle);
+    // double AngleLc = 48.21521752;
+    // double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
+    // double RadianA = Math.toRadians(AngleA);
+    // double Height1 = Math.sin(RadianA) * 7.879;
+    // double distance = Height1 + 19.1255;
     // }
-    //Alex's unfinished code 
+    // Alex's unfinished code
 }

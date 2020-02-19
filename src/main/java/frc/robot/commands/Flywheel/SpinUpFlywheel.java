@@ -26,21 +26,18 @@ public class SpinUpFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //SmartDashboard.putNumber("Flywheel Setpoint Top", 0.0);
-    //SmartDashboard.putNumber("Flywheel Setpoint Bottom", 0.0);
-
-    timeRefTop = System.currentTimeMillis();
+    /*timeRefTop = System.currentTimeMillis();
     timeRefBottom = System.currentTimeMillis();
 
     atTopSetpointLast = true;
-    atBottomSetpointLast = true;
+    atBottomSetpointLast = true;*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    atTopSetpoint = Robot.flywheel.atTopSetpoint();
-    atBottomSetpoint = Robot.flywheel.atBottomSetpoint();
+    //atTopSetpoint = Robot.flywheel.atTopSetpoint();
+    //atBottomSetpoint = Robot.flywheel.atBottomSetpoint();
 
     Robot.flywheel.setTopConstants(
       SmartDashboard.getNumber("Flywheel Top P", 0.0),
@@ -56,14 +53,15 @@ public class SpinUpFlywheel extends CommandBase {
       SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
     );
 
-    Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0), SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0));
+    double topSetpoint = SmartDashboard.getNumber("Flywheel Setpoint Top", 0.0);
+    double bottomSetpoint = SmartDashboard.getNumber("Flywheel Setpoint Bottom", 0.0);
+    Robot.flywheel.setSetpoints(topSetpoint, bottomSetpoint);
     Robot.flywheel.calculate();
-    //Robot.flywheel.move(0.05, 0.05);
 
-    SmartDashboard.putBoolean("Flywheel Top At Setpoint", atTopSetpoint);
-    SmartDashboard.putBoolean("Flywheel Bottom At Setpoint", atBottomSetpoint);
+    //SmartDashboard.putBoolean("Flywheel Top At Setpoint", atTopSetpoint);
+    //SmartDashboard.putBoolean("Flywheel Bottom At Setpoint", atBottomSetpoint);
 
-    if (!atTopSetpoint && atTopSetpointLast) {
+    /*if (!atTopSetpoint && atTopSetpointLast) {
       timeRefTop = System.currentTimeMillis();
     }
     if (atTopSetpoint && !atTopSetpointLast) {
@@ -81,13 +79,13 @@ public class SpinUpFlywheel extends CommandBase {
       if (pTime > timeTolerance) {
         timeBottom = pTime;
       }
-    }
+    }*/
 
-    SmartDashboard.putNumber("Flywheel top re-spin time", timeTop);
-    SmartDashboard.putNumber("Flywheel bottom re-spin time", timeBottom);
+    //SmartDashboard.putNumber("Flywheel Top Re-Spin Time", timeTop);
+    //SmartDashboard.putNumber("Flywheel Bottom Re-Spin Time", timeBottom);
 
-    atTopSetpointLast = atTopSetpoint;
-    atBottomSetpointLast = atBottomSetpoint;
+    //atTopSetpointLast = atTopSetpoint;
+    //atBottomSetpointLast = atBottomSetpoint;
   }
 
   // Called once the command ends or is interrupted.

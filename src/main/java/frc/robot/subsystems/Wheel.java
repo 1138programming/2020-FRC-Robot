@@ -52,10 +52,10 @@ public class Wheel extends SubsystemBase {
   /**
    * @brief Moves the wheel mechanism directly
    * 
-   * @param speed Speed to move the wheel mechanism at
+   * @param PWM Speed to move the wheel mechanism at
    */
-  public void move(double speed) {
-    wheelMotor.set(ControlMode.PercentOutput, speed);
+  public void move(double PWM) {
+    wheelMotor.set(ControlMode.PercentOutput, PWM);
   }
 
   /**
@@ -63,7 +63,7 @@ public class Wheel extends SubsystemBase {
    * 
    * @return  The color
    */
-  public ColorLabel getColor(){
+  public ColorLabel getColor() {
     Color detectedColor = m_colorSensor.getColor();
     double IR = m_colorSensor.getIR();
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
@@ -102,12 +102,12 @@ public class Wheel extends SubsystemBase {
     }  
   }
 
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putNumber("IR", IR);
+    //SmartDashboard.putNumber("Red", detectedColor.red);
+    //SmartDashboard.putNumber("Green", detectedColor.green);
+    //SmartDashboard.putNumber("Blue", detectedColor.blue);
+    //SmartDashboard.putNumber("Confidence", match.confidence);
+    //SmartDashboard.putString("Detected Color", colorString);
+    //SmartDashboard.putNumber("IR", IR);
 
     return color;
   }

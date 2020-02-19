@@ -10,8 +10,8 @@ import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Indexer.IndexIn;
 import frc.robot.commands.Indexer.IndexOut;
 import frc.robot.commands.Storage.StorageStop;
-import frc.robot.commands.Storage.MoveIn;
-import frc.robot.commands.Storage.MoveOut;
+import frc.robot.commands.Storage.StorageIn;
+import frc.robot.commands.Storage.StorageOut;
 import frc.robot.commands.Storage.EngageStage2;
 import frc.robot.commands.Storage.DisengageStage2;
 import frc.robot.commands.Camera.MoveBaseToTarget;
@@ -28,7 +28,7 @@ public class CloseShot extends SequentialCommandGroup {
             ),
             parallel(
                 new EngageStage2(),
-                new MoveIn(StorageStage.BOTH),
+                new StorageIn(StorageStage.BOTH),
                 new IndexIn()
             )
         );
