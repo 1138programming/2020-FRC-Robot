@@ -28,7 +28,8 @@ public class MoveTilterTo extends CommandBase {
   @Override
   public void initialize() {
     Robot.tilter.reset();
-    Robot.tilter.setSetpoint(setpoint);
+    // Robot.tilter.setSetpoint(setpoint);
+    Robot.tilter.setIdealSetpoint(13.75, Robot.camera.getDistance(), 2.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

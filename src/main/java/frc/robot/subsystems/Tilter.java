@@ -103,6 +103,10 @@ public class Tilter extends SubsystemBase {
         tilterPID.setSetpoint(setpoint);
     }
 
+    public void setIdealSetpoint(double vel, double xDist, double yDist) {
+        tilterPID.setSetpoint(toLinkageAngle(findIdealAngle(vel, xDist, yDist)));
+    }
+
     /**
      * @brief Gets the setpoint of the tilter PID
      * 
@@ -213,8 +217,8 @@ public class Tilter extends SubsystemBase {
      * @param flywheelAngle Angle of the tilter
      * @return              Angle of the tilter linkage
      */
-    private double toLinkageAngle(double flywheelAngle) {
-        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (flywheelAngle + 90 - KParallelCorrection) * Math.PI / 180);
+    private double toLinkageAngle(double tilterAngle) {
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
         return (thetaC * 180 / Math.PI);
     }
 
@@ -224,9 +228,27 @@ public class Tilter extends SubsystemBase {
      * @param tilterAngle   Angle of the tilter linkage
      * @return              Angle of the tilter
      */
-    private double toTilterAngle(double tilterAngle) {
-        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, tilterAngle * Math.PI / 180);
+    private double toTilterAngle(double linkageAngle) {
+        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, linkageAngle * Math.PI / 180);
         return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
+    }
+
+    private double idealTilterAngle(double vel, double xDist, double yDist) {
+        double g = 9.8; // Gravity in meters per second squared
+        double velSq = vel * vel; // Velocity squared
+        double rad = Math.sqrt((velSq * velSq) - (g * ((2 * velSq * yDist) + (g * xDist * xDist)))); // Radical
+
+        double theta1 = Math.atan((velSq + rad) / (g * xDist)); // First possible angle
+        double theta2 = Math.atan((velSq - rad) / (g * xDist)); // Second possible angle
+
+        // If one angle is NaN, returns the other angle. Otherwise, returns the lower angle
+        if (Double.isNaN(theta1)) {
+            return theta2;
+        } else if (Double.isNaN(theta2)) {
+            return theta1;
+        } else {
+            return theta1 < theta2 ? theta1 : theta2;
+        }
     }
 
     // public double getLimelightHeight(double tilterAngle) {

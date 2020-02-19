@@ -27,8 +27,7 @@ public class StorageStop extends CommandBase {
     if (Robot.RobotState == RobotState.COLLECTING) {
       Robot.storage.move(KStorageSpeed, StorageStage.STAGE1);
       if (Robot.storage.getBallSensor1() && !Robot.storage.getBallSensor1LastState()) {
-        MoveBallIn moveBallIn = new MoveBallIn();
-        CommandScheduler.getInstance().schedule(moveBallIn);
+        CommandScheduler.getInstance().schedule(new MoveBallIn());
       }
     } else if (Robot.RobotState == RobotState.SHOOTING){
       Robot.storage.move(KStorageSpeed, StorageStage.BOTH);
