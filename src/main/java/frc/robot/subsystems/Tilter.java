@@ -131,7 +131,8 @@ public class Tilter extends SubsystemBase {
      */
 
     public void calculate() {
-        move(tilterPID.calculate(getEncoderValue()));
+        //move(tilterPID.calculate(getEncoderValue()));
+        move(tilterPID.calculate(getTilterAngle()));
     }
 
     public void calculateYOff() {
@@ -241,7 +242,7 @@ public class Tilter extends SubsystemBase {
     }
 
     private double idealTilterAngle(double vel, double xDist, double yDist) {
-        double g = 9.8; // Gravity in meters per second squared
+        double g = 32.2; // Gravity in meters per second squared
         double velSq = vel * vel; // Velocity squared
         double rad = Math.sqrt((velSq * velSq) - (g * ((2 * velSq * yDist) + (g * xDist * xDist)))); // Radical
 
