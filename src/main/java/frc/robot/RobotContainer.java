@@ -36,7 +36,7 @@ import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import frc.robot.commands.Climb.ClimbUp;
 import frc.robot.commands.Climb.ClimbDown;
-import frc.robot.enums.StorageState;
+import frc.robot.enums.StorageStage;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

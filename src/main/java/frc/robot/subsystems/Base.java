@@ -76,8 +76,8 @@ public class Base extends SubsystemBase {
     zeroEncoders();
     
     // Set up profilers for both sides
-    leftProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
-    rightProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0.02);
+    leftProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0, 0, 0.02);
+    rightProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0, 0, 0.02);
     leftProfiler.setTolerance(50, 20);
     rightProfiler.setTolerance(50, 20);
 
