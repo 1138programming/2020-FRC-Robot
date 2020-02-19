@@ -9,7 +9,7 @@ import frc.robot.commands.Camera.MoveTilterToTarget;
 
 public class LimelightPosition extends SequentialCommandGroup {
   public LimelightPosition() {
-    addCommads(
+    addCommands(
       new SpinUpFlywheel(),
       parallel (
         new MoveBaseToTarget(), 
