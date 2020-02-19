@@ -14,7 +14,7 @@ import frc.robot.commands.Storage.MoveIn;
 import frc.robot.commands.Storage.MoveOut;
 import frc.robot.commands.Storage.EngageStage2;
 import frc.robot.commands.Storage.DisengageStage2;
-import frc.robot.commands.Base.MoveBaseToTarget;
+import frc.robot.commands.Camera.MoveBaseToTarget;
 import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.enums.StorageStage;
 
