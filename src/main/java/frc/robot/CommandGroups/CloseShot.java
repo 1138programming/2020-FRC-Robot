@@ -14,13 +14,18 @@ import frc.robot.commands.Storage.MoveIn;
 import frc.robot.commands.Storage.MoveOut;
 import frc.robot.commands.Storage.EngageStage2;
 import frc.robot.commands.Storage.DisengageStage2;
+import frc.robot.commands.Base.MoveBaseToTarget;
+import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.enums.StorageStage;
 
 public class CloseShot extends SequentialCommandGroup {
 	public CloseShot() {
         addCommands(
-            new SpinUpFlywheel(),
-            //Limelight commands missing
+            parallel(
+                new SpinUpFlywheel(),
+                new MoveBaseToTarget(),
+                new MoveTilterTo(1) // TODO: Change Value
+            ),
             parallel(
                 new EngageStage2(),
                 new MoveIn(StorageStage.BOTH),
