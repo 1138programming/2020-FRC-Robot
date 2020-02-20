@@ -6,6 +6,8 @@ import static frc.robot.Constants.KRightIntakeSolenoid;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANEncoder;
+import frc.robot.controller.PIDController;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,9 +15,13 @@ import frc.robot.enums.SolenoidState;
 import frc.robot.enums.RobotState;
 
 public class Intake extends SubsystemBase {
+  // Intake PID
+  private PIDController intakeController;
 
   //Create victor
   private final CANSparkMax intake;
+
+  private final CANEncoder intakeEncoder;
 
   // Create solenoids
   private Solenoid leftSolenoid;
@@ -38,6 +44,10 @@ public class Intake extends SubsystemBase {
     // This protects against wrong configurations if the robot reboots during a match
     intake.burnFlash();
 
+    intakeEncoder = intake.getEncoder();
+
+    intakeController = new PIDController(0, 0, 0, 0.0001, 0.02);
+
     // instantiate solenoids
     leftSolenoid = new Solenoid(KLeftIntakeSolenoid); 
     rightSolenoid = new Solenoid(KRightIntakeSolenoid);
@@ -55,6 +65,29 @@ public class Intake extends SubsystemBase {
    */
   public void move(double PWM) {
     intake.set(PWM);
+  }
+
+  public double getIntakeVel() {
+    return intakeEncoder.getVelocity();
+  }
+
+  public void setSetpoint(double topSetpoint) {
+    intakeController.setSetpoint(topSetpoint);
+  }
+
+  public void calculate() {
+    move(intakeController.calculate(getIntakeVel()));
+  }
+
+  public void reset() {
+    intakeController.reset();
+  }
+
+  public void setConstants(double Kp, double Ki, double Kd, double Kf) {
+    intakeController.setP(Kp);
+    intakeController.setI(Ki);
+    intakeController.setD(Kd);
+    intakeController.setF(Kf);
   }
 
   /**
