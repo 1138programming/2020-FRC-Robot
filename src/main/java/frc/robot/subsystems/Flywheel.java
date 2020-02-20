@@ -24,32 +24,40 @@ public class Flywheel extends SubsystemBase {
    * @brief This is the Flywheel
    */
   public Flywheel() {
+    // Create SparkMax objects
     flywheelTop = new CANSparkMax(KFlywheelTopSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
     flywheelBottom = new CANSparkMax(KFlywheelBottomSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
+    // Configure spark. Factory defaults are restored, so every necessary configuration is included here
+    flywheelTop.restoreFactoryDefaults();
+    flywheelBottom.restoreFactoryDefaults();
+    flywheelTop.setInverted(true);
+    flywheelBottom.setInverted(false);
+
+    // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
+    // This protects against wrong configurations if the robot reboots during a match
+    flywheelTop.burnFlash();
+    flywheelBottom.burnFlash();
+
+    // Get encoder objects from each spark
     topEncoder = flywheelTop.getEncoder();
     bottomEncoder = flywheelBottom.getEncoder();
 
-    flywheelBottom.setInverted(false);
-    flywheelTop.setInverted(true);
-
     // Top TBH Controller
-    //topController = new TakeBackHalf(0.00002);
     topController = new PIDController(0.0003, 0, 0, 0.000185, 0.02);
     topController.setInputRange(-5500, 5500);
     topController.setOutputRange(-1, 1);
-    //topController.setTolerance(10, 500);
 
     // Bottom TBH Controller
-    //bottomController = new TakeBackHalf(0.00002);
     bottomController = new PIDController(0, 0, 0, 0.000193, 0.02);
     bottomController.setInputRange(-10000, 10000);
     bottomController.setOutputRange(-1, 1);
-    //bottomController.setTolerance(10, 500);
 
+    // Slew rate limits to prevent the motor PWM values from changing too fast
     topLimiter = new SlewRateLimiter(1);
     bottomLimiter = new SlewRateLimiter(1);
 
+    // Initialize SmartDashboard fields that we are getting numbers from
     SmartDashboard.putNumber("Flywheel Top Setpoint", 0.0);
     SmartDashboard.putNumber("Flywheel Bottom Setpoint", 0.0);
     SmartDashboard.putNumber("Flywheel Top P", topController.getP());
@@ -64,7 +72,7 @@ public class Flywheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Print flywheel values
     SmartDashboard.putNumber("Flywheel Top Velocity", getTopVel());
     SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomVel());
     SmartDashboard.putNumber("Flywheel Top PWM", topPWM);

@@ -29,8 +29,7 @@ public class MoveTilterTo extends CommandBase {
   @Override
   public void initialize() {
     Robot.tilter.reset();
-    Robot.tilter.setSetpoint(SmartDashboard.getNumber("Tilter Target Angle", 0.0));
-    //Robot.tilter.setIdealSetpoint(13.75, Robot.camera.getDistance(), 2.5);
+    Robot.tilter.setSetpoint(SmartDashboard.getNumber("Tilter Target Linkage Angle", 0.0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

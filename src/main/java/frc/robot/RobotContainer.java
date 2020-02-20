@@ -132,12 +132,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //logitechBtnY.whenPressed(new GoToColor());
-    logitechBtnRB.whenPressed(new BaseShiftHigh());
-    logitechBtnRB.whenReleased(new BaseShiftMedium());
-    logitechBtnRT.whenPressed(new BaseShiftLow());
-    logitechBtnRT.whenReleased(new BaseShiftMedium());
-    //logitechBtnLT.whenPressed(new BaseLinearMovement(20, 20));
+    logitechBtnRB.whenPressed(new BaseShiftHigh()); // Final
+    logitechBtnRB.whenReleased(new BaseShiftMedium()); // Final
+    logitechBtnRT.whenPressed(new BaseShiftLow()); // Final
+    logitechBtnRT.whenReleased(new BaseShiftMedium()); // Final
 
     logitechBtnA.toggleWhenActive(new SpinUpFlywheel());
 
@@ -149,9 +147,7 @@ public class RobotContainer {
     logitechBtnX.whenPressed(new ToggleCollecting());
     logitechBtnB.whenPressed(new EndCollecting());
     logitechBtnB.whileHeld(new StorageOut(StorageStage.BOTH));
-    //logitechBtnB.whileHeld(new IndexOut());
-    // logitechBtnB.whileHeld(new MoveIn(StorageStage.STAGE1));
-    // logitechBtnX.whileHeld(new MoveIn(StorageStage.STAGE2));
+    logitechBtnB.whileHeld(new IndexOut());
    
 
     logitechBtnY.whileHeld(new IndexIn());

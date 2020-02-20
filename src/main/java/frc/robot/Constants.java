@@ -4,7 +4,7 @@ import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 
 public final class Constants {
-//Motors
+// Motors IDs
     //Base
     public static final int KLeftFrontTalon = 0;
     public static final int KLeftBackTalon = 1;
@@ -28,7 +28,7 @@ public final class Constants {
     //Tilter
     public static final int KTilterTalon = 13;
 
-//Solenoids
+// Solenoid Channels
     //Base
     public static final int KBaseShifter = 0;
     //IDK where port 1 went
@@ -40,7 +40,7 @@ public final class Constants {
     //Climb
     public static final int KClimbRatchetSolenoid = 5;
 
-//Sensors
+// Sensors Ports
     //Storage
     public static final int KBallSensor1 = 0; 
     public static final int KBallSensor2 = 1;
@@ -50,7 +50,7 @@ public final class Constants {
     //Tilter
     public static final int KTilterBottomLimit = 4;
 
-//Speeds
+// Default PWM values
     public static final double KClimbPWM = 1;
     public static double KIndexerPWM = 1;
     public static double KIntakePWM = 0.5;
@@ -59,7 +59,7 @@ public final class Constants {
     public static final double KWheelPWM = 0.25;
 
 //Other constants
-    //Conversion
+    //Global Conversion Factors
     public static final int KDegreesPerRevolution = 360;
     //Base
     public static final double KBaseMediumGear = 0.5;

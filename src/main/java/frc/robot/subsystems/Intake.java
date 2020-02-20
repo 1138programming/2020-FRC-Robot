@@ -31,6 +31,13 @@ public class Intake extends SubsystemBase {
     // instantiate victor
     intake = new CANSparkMax(KIntakeSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
+    // Configure spark. Factory defaults are restored, so every necessary configuration is included here
+    intake.restoreFactoryDefaults();
+
+    // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
+    // This protects against wrong configurations if the robot reboots during a match
+    intake.burnFlash();
+
     // instantiate solenoids
     leftSolenoid = new Solenoid(KLeftIntakeSolenoid); 
     rightSolenoid = new Solenoid(KRightIntakeSolenoid);

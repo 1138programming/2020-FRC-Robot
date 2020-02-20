@@ -64,14 +64,14 @@ public class Tilter extends SubsystemBase {
         yOffController.reset();
         yOffController.setSetpoint(0);
 
-        SmartDashboard.putNumber("Tilter Target Angle", 0.0);
+        SmartDashboard.putNumber("Tilter Target Linkage Angle", 0.0);
     }
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Tilter Encoder", getEncoder());
         SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
         SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
-        SmartDashboard.putNumber("Tilter Encoder", getEncoderValue());
         SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
     }
@@ -79,14 +79,19 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief Moves the tilter by a given speed
      * 
-     * @param PWM The speed to move the tilter at
+     * @param PWM   The PWM value to move the tilter at
      */
-
     public void move(double PWM) {
         this.PWM = PWM;
         tilterMotor.set(ControlMode.PercentOutput, enforceLimits(PWM));
     }
 
+    /**
+     * @brief Takes a PWM value and returns another that takes limits into account
+     * 
+     * @param PWM   The PWM value to modify
+     * @return      The modified PWM value
+     */
     public double enforceLimits(double PWM) {
         if (getBottomLimit()) {
             zeroEncoder();
@@ -98,11 +103,44 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
+     * @brief Reset encoder value to 0
+     */
+    public void zeroEncoder() { // The bounds right now are 0 to 900
+        tilterMotor.setSelectedSensorPosition(0);
+    }
+
+    /**
+     * @brief Get the raw encoder value
+     * 
+     * @return  The encoder value
+     */
+    public double getEncoder() {
+        return tilterMotor.getSelectedSensorPosition();
+    }
+
+    /**
+     * @brief Gets the angle of the linkage being directly controlled by the tilter motor
+     * 
+     * @return The angle of the linkage
+     */
+    private double getLinkageAngle() {
+        return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
+    }
+
+    /**
+     * @brief Computes the angle that the tilter is tilting the flywheel at above the horizontal
+     * 
+     * @return The angle
+     */
+    public double getTilterAngle() {
+        return toTilterAngle(getLinkageAngle());
+    }
+
+    /**
      * @brief Sets the setpoint for the tiler PID
      * 
      * @param setpoint The setpoint
      */
-
     public void setSetpoint(double setpoint) {
         tilterPID.setSetpoint(setpoint);
     }
@@ -116,24 +154,13 @@ public class Tilter extends SubsystemBase {
      * 
      * @return The setpoint
      */
-
     public double getSetpoint() {
         return tilterPID.getSetpoint();
     }
 
-    public void zeroEncoder() { // The bounds right now are 0 to 900
-        tilterMotor.setSelectedSensorPosition(0);
-    }
-
-    public double getEncoderValue() {
-        return tilterMotor.getSelectedSensorPosition();
-    }
-
     /**
-     * @brief Calculates the output of the tilterPID and moves the tilterMotor with
-     *        it
+     * @brief Calculates the output of the tilterPID and moves the tilterMotor with it
      */
-
     public void calculate() {
         move(tilterPID.calculate(getLinkageAngle()));
         //move(tilterPID.calculate(getEncoderValue()));
@@ -157,7 +184,6 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief
      */
-
     public boolean atSetpoint() {
         return tilterPID.atSetpoint();
     }
@@ -169,11 +195,11 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief Solves for angles on the tilter mechanism
      * 
-     *        Calculates the remaining angle in a mechanism made up of 4 linkages.
-     *        Given the lengths of the linkages and an angle, it solves for the
-     *        angle of the opposite linkage. The linkages are arranged in clockwise
-     *        order: A, B, C, D. See this graph for more information:
-     *        https://www.desmos.com/calculator/ehqwghlllg
+     * Calculates the remaining angle in a mechanism made up of 4 linkages.
+     * Given the lengths of the linkages and an angle, it solves for the
+     * angle of the opposite linkage. The linkages are arranged in clockwise
+     * order: A, B, C, D. See this graph for more information:
+     * https://www.desmos.com/calculator/ehqwghlllg
      * 
      * @param A      Length of linkage A
      * @param B      Length of linkage B
@@ -197,28 +223,6 @@ public class Tilter extends SubsystemBase {
         double K_8 = (K_4 * K_4) - (C * C);
         double C_x = (-K_7 + Math.sqrt((K_7 * K_7) - (4 * K_6 * K_8))) / (2 * K_6);
         return Math.acos(C_x / C);
-    }
-
-    /**
-     * @brief Gets the angle of the linkage being directly controlled by the tilter
-     *        motor
-     * 
-     * @return The angle of the linkage
-     */
-    private double getLinkageAngle() {
-        return tilterMotor.getSelectedSensorPosition() * KDegreesPerTick + KDegreeOffset;
-    }
-
-    /**
-     * @brief Computes the angle that the tilter is tilting the flywheel at above
-     *        the horizontal
-     * 
-     * @return The angle
-     */
-    public double getTilterAngle() {
-        // return tilterEncoder.getPosition() * KDegreesPerTick; // Function that gets
-        // the encoder value from the motor object
-        return toTilterAngle(getLinkageAngle());
     }
 
     /**
@@ -265,12 +269,12 @@ public class Tilter extends SubsystemBase {
     }
 
     // public double getLimelightHeight(double tilterAngle) {
-    // double AngleT = toTilterAngle(tilterAngle);
-    // double AngleLc = 48.21521752;
-    // double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
-    // double RadianA = Math.toRadians(AngleA);
-    // double Height1 = Math.sin(RadianA) * 7.879;
-    // double distance = Height1 + 19.1255;
+        // double AngleT = toTilterAngle(tilterAngle);
+        // double AngleLc = 48.21521752;
+        // double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
+        // double RadianA = Math.toRadians(AngleA);
+        // double Height1 = Math.sin(RadianA) * 7.879;
+        // double distance = Height1 + 19.1255;
     // }
     // Alex's unfinished code
 }

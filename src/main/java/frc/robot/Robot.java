@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
     base.zeroEncoders();
     tilter.zeroEncoder();
     storage.setBallCount(0);

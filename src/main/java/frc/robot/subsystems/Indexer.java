@@ -20,7 +20,14 @@ public class Indexer extends SubsystemBase {
 
   public Indexer() {
     indexer = new CANSparkMax(KIndexerSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+    // Configure spark. Factory defaults are restored, so every necessary configuration is included here
+    indexer.restoreFactoryDefaults();
     indexer.setInverted(true);
+
+    // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
+    // This protects against wrong configurations if the robot reboots during a match
+    indexer.burnFlash();
   }
 
   @Override
