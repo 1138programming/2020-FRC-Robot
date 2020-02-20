@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Flywheel;
+package frc.robot.commands.RobotState;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Flywheel;
@@ -13,18 +13,18 @@ import frc.robot.enums.RobotState;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class StartShooting extends CommandBase {
+public class EndShooting extends CommandBase {
   /**
-   * Creates a new StartShooting.
+   * Creates a new EndShooting.
    */
-  public StartShooting() {
+  public EndShooting() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.RobotState = RobotState.SHOOTING;
+    Robot.robotState = RobotState.DEFAULT;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

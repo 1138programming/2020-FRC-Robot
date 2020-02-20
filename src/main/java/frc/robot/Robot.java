@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
 
   public static final RobotContainer m_robotContainer = new RobotContainer();
 
-  public static RobotState RobotState;
+  public static RobotState robotState;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.

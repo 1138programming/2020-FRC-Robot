@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands.RobotState;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Base;
@@ -13,18 +13,23 @@ import frc.robot.enums.RobotState;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class StartCollecting extends CommandBase {
+public class ToggleCollecting extends CommandBase {
   /**
    * Creates a new StartCollecting.
    */
-  public StartCollecting() {
+  public ToggleCollecting() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.RobotState = RobotState.COLLECTING;
+    // If in collecting state, switch to default
+    if (Robot.robotState == RobotState.COLLECTING) {
+        Robot.robotState = RobotState.DEFAULT;
+    } else { // Otherwise, switch to collecting
+        Robot.robotState = RobotState.COLLECTING;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

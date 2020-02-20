@@ -23,8 +23,8 @@ import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeStop;
-import frc.robot.commands.Intake.StartCollecting;
-import frc.robot.commands.Intake.EndCollecting;
+import frc.robot.commands.RobotState.ToggleCollecting;
+import frc.robot.commands.RobotState.EndCollecting;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
@@ -37,7 +37,8 @@ import frc.robot.commands.Tilter.TiltUp;
 import frc.robot.commands.Tilter.TiltDown;
 import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
-import frc.robot.commands.Flywheel.StartShooting;
+import frc.robot.commands.RobotState.StartShooting;
+import frc.robot.commands.RobotState.EndShooting;
 import frc.robot.enums.StorageStage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -145,7 +146,7 @@ public class RobotContainer {
 
     //logitechBtnX.whileHeld(new IntakeIn());
     //logitechBtnB.whileHeld(new IntakeOut());
-    logitechBtnX.whenPressed(new StartCollecting());
+    logitechBtnX.whenPressed(new ToggleCollecting());
     logitechBtnB.whenPressed(new EndCollecting());
     logitechBtnB.whileHeld(new StorageOut(StorageStage.BOTH));
     //logitechBtnB.whileHeld(new IndexOut());

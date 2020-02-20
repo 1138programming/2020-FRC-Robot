@@ -18,6 +18,7 @@ import frc.robot.enums.StorageStage;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpiutil.math.MathUtil;
 
 public class Storage extends SubsystemBase {
   // Create the talons
@@ -149,6 +150,19 @@ public class Storage extends SubsystemBase {
       }
     }
 
+    // Hard code known states where the storage has 4 or 5 balls
+    if (ballSensor2State) {
+      if (ballSensor1State) {
+        ballCount = 5;
+      } else {
+        ballCount = 4;
+      }
+    }
+
+    // Clamp ballCount to be between 0 and 5, inclusive
+    ballCount = MathUtil.clamp(ballCount, 0, 5);
+
+    // Update ball sensor last states
     ballSensor1LastState = ballSensor1State;
     ballSensor2LastState = ballSensor2State;
   }
@@ -167,13 +181,5 @@ public class Storage extends SubsystemBase {
 
   public boolean getBallSensor2() {
     return ballSensor2.get();
-  }
-
-  public boolean getBallSensor1LastState() {
-    return ballSensor1LastState;
-  }
-
-  public boolean getBallSensor2LastState() {
-    return ballSensor2LastState;
   }
 }

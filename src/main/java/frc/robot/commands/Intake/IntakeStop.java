@@ -21,7 +21,7 @@ public class IntakeStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Robot.RobotState == RobotState.COLLECTING) {
+    if (Robot.robotState == RobotState.COLLECTING) {
       Robot.intake.move(KIntakePWM);
     } else {
       Robot.intake.move(0);
