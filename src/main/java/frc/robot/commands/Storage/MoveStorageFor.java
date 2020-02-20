@@ -10,19 +10,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
 public class MoveStorageFor extends CommandBase {
+  private double PWM;
   private StorageStage stage;
+  private long duration;
   private long startTime;
-  private long length;
 
-  public MoveStorageFor(StorageStage stage, double length) {
+  public MoveStorageFor(double PWM, StorageStage stage, long duration) {
+    this.PWM = PWM;
     this.stage = stage;
+    this.duration = duration;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.storage);
   }
 
-  public MoveStorageFor(double length) {
-    this(StorageStage.BOTH, length);
+  public MoveStorageFor(StorageStage stage, long duration) {
+    this(KStoragePWM, stage, duration);
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +37,7 @@ public class MoveStorageFor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.storage.move(KStoragePWM, stage);
+    Robot.storage.move(PWM, stage);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +48,6 @@ public class MoveStorageFor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (System.currentTimeMillis() - startTime) > length;
+    return (System.currentTimeMillis() - startTime) > duration;
   }
 }

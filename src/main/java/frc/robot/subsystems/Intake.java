@@ -79,6 +79,10 @@ public class Intake extends SubsystemBase {
     move(intakeController.calculate(getIntakeVel()));
   }
 
+  public boolean atSetpoint() {
+    return intakeController.atSetpoint();
+  }
+
   public void reset() {
     intakeController.reset();
   }
