@@ -96,7 +96,7 @@ public final class Constants {
     public static final int KTopLimit = 2; 
     public static final int KBottomLimit = 3; 
     //others
-    public static final double KClimbPWM = 1;
+    public static final double KClimbPWM = 0.2;
     
 
 

@@ -38,7 +38,7 @@ public class Climb extends SubsystemBase {
     climbPID = new PIDController(0.0001, 0, 0);
 
     climbTalon.setInverted(false);
-    climbVictor.setInverted(true);
+    climbVictor.setInverted(false);
 
     climbVictor.follow(climbTalon);
 
@@ -55,7 +55,7 @@ public class Climb extends SubsystemBase {
    * 
    * @param PWM Speed to move the climb at
    */
-  private void moveWithoutLimits(double PWM) {
+  public void moveWithoutLimits(double PWM) { //CHANGE BACK TO PRIVATE
     climbTalon.set(ControlMode.PercentOutput, PWM);
   }
 

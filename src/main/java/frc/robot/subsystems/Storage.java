@@ -8,12 +8,14 @@ import static frc.robot.Constants.KStorageShifterSolenoid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.SolenoidState;
 import frc.robot.enums.StorageStage;
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -37,6 +39,8 @@ public class Storage extends SubsystemBase {
   private double stage1PWM = 0; // Keeps track of the speed of stage 1
   private double stage2PWM = 0; // Keeps track of the speed of stage 2
 
+  private SlewRateLimiter stage2Limiter;
+
   /**
    * @brief This is the Storage subsystem
    */
@@ -48,6 +52,10 @@ public class Storage extends SubsystemBase {
     shifter = new Solenoid(KStorageShifterSolenoid);
     ballSensor1 = new DigitalInput(KBallSensor1);
     ballSensor2 = new DigitalInput(KBallSensor2);
+
+    stage2.setNeutralMode(NeutralMode.Brake);
+
+    stage2Limiter = new SlewRateLimiter(3);
   }
 
   @Override
@@ -70,13 +78,13 @@ public class Storage extends SubsystemBase {
       stage1PWM = PWM;
       stage1.set(ControlMode.PercentOutput, PWM);
     } else if (stage == StorageStage.STAGE2) {
-      stage2PWM = PWM;
-      stage2.set(ControlMode.PercentOutput, PWM);
+      stage2PWM = stage2Limiter.calculate(PWM);
+      stage2.set(ControlMode.PercentOutput, stage2PWM);
     } else if (stage == StorageStage.BOTH) {
       stage1PWM = PWM;
-      stage2PWM = PWM;
+      stage2PWM = stage2Limiter.calculate(PWM);
       stage1.set(ControlMode.PercentOutput, PWM);
-      stage2.set(ControlMode.PercentOutput, PWM);
+      stage2.set(ControlMode.PercentOutput, stage2PWM);
     }
   }
 
@@ -143,6 +151,14 @@ public class Storage extends SubsystemBase {
 
     ballSensor1LastState = ballSensor1State;
     ballSensor2LastState = ballSensor2State;
+  }
+
+  public int getBallCount() {
+    return ballCount;
+  }
+
+  public void setBallCount(int ballCount) {
+    this.ballCount = ballCount;
   }
 
   public boolean getBallSensor1() {

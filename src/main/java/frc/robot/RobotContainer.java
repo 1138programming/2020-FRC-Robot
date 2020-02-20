@@ -13,8 +13,12 @@ import frc.robot.CommandGroups.CloseShot;
 import frc.robot.commands.Base.BaseLinearMovement;
 import frc.robot.commands.Camera.MoveBaseToTarget;
 import frc.robot.commands.Camera.MoveTilterToTarget;
+import frc.robot.commands.Climb.ClimbUp;
+import frc.robot.commands.Climb.ClimbDown;
+import frc.robot.commands.Climb.ClimbStop;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Indexer.IndexIn;
+import frc.robot.commands.Indexer.IndexOut;
 import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
@@ -53,7 +57,7 @@ public class RobotContainer {
   public static final int KLogitechLeftBumper = 5; 
   public static final int KLogitechRightBumper = 6;
   public static final int KLogitechLeftTrigger = 7;
-  public static final int KLogitechRightTrigger = 8; 
+  public static final int KLogitechRightTrigger = 8;
 
   private static final int KLeftYAxis = 1;
   private static final int KRightYAxis = 3;
@@ -81,6 +85,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Set default commands
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
+    Robot.climb.setDefaultCommand(new ClimbStop());
     Robot.flywheel.setDefaultCommand(new StopFlywheel());
     Robot.indexer.setDefaultCommand(new IndexStop());
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
@@ -142,17 +147,23 @@ public class RobotContainer {
     //logitechBtnB.whileHeld(new IntakeOut());
     logitechBtnX.whenPressed(new StartCollecting());
     logitechBtnB.whenPressed(new EndCollecting());
+    logitechBtnB.whileHeld(new StorageOut(StorageStage.BOTH));
+    //logitechBtnB.whileHeld(new IndexOut());
     // logitechBtnB.whileHeld(new MoveIn(StorageStage.STAGE1));
     // logitechBtnX.whileHeld(new MoveIn(StorageStage.STAGE2));
    
 
     logitechBtnY.whileHeld(new IndexIn());
+    logitechBtnY.whileHeld(new StorageIn(StorageStage.BOTH));
 
     //logitechBtnX.whenPressed(new MoveTilterTo(450));
     //logitechBtnB.whenPressed(new MoveTilterTo(700));
 
     //logitechBtnB.whileHeld(new MoveBaseToTarget());
     //logitechBtnB.whileHeld(new MoveTilterToTarget());
+
+    xboxBtnRB.whileHeld(new ClimbUp());
+    xboxBtnLB.whileHeld(new ClimbDown());
   }
 
   public double getRightAxis() {

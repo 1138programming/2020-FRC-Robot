@@ -21,7 +21,7 @@ public class Tilter extends SubsystemBase {
     private static final double KTicksPerRev = 2048;
     private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
-    private static final double KDegreeOffset = 27;
+    private static final double KDegreeOffset = 90 - 54;
 
     private final DigitalInput tilterBottomLimit;
 
@@ -63,11 +63,15 @@ public class Tilter extends SubsystemBase {
 
         yOffController.reset();
         yOffController.setSetpoint(0);
+
+        SmartDashboard.putNumber("Tilter Target Angle", 0.0);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Tilter Angle", getTilterAngle());
+        SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
+        SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
+        SmartDashboard.putNumber("Tilter Encoder", getEncoderValue());
         SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
     }
@@ -131,7 +135,7 @@ public class Tilter extends SubsystemBase {
      */
 
     public void calculate() {
-        move(tilterPID.calculate(getEncoderValue()));
+        move(tilterPID.calculate(getLinkageAngle()));
     }
 
     public void calculateYOff() {
