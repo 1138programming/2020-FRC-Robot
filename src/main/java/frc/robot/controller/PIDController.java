@@ -310,7 +310,7 @@ public class PIDController {
     }
 
     public double getErrorIntegral() {
-        return m_integral;
+        return m_integral * m_period;
     }
 
     public void setInputRange(double minInput, double maxInput) {

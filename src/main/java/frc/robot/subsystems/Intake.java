@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
   // Intake PID
   private PIDController intakeController;
 
-  //Create victor
+  // Create victor
   private final CANSparkMax intake;
 
   private final CANEncoder intakeEncoder;
@@ -27,9 +27,9 @@ public class Intake extends SubsystemBase {
   private Solenoid leftSolenoid;
   private Solenoid rightSolenoid;
 
-  //Variables, enums, etc
+  // Variables, enums, etc
   public SolenoidState intakePosition = SolenoidState.DEFAULT;
-  
+
   /**
    * @brief This is the Intake
    */
@@ -37,11 +37,14 @@ public class Intake extends SubsystemBase {
     // instantiate victor
     intake = new CANSparkMax(KIntakeSpark, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    // Configure spark. Factory defaults are restored, so every necessary configuration is included here
+    // Configure spark. Factory defaults are restored, so every necessary
+    // configuration is included here
     intake.restoreFactoryDefaults();
 
-    // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
-    // This protects against wrong configurations if the robot reboots during a match
+    // Burn configurations to flash memory. This is where the sparks get configured
+    // upon being rebooted.
+    // This protects against wrong configurations if the robot reboots during a
+    // match
     intake.burnFlash();
 
     intakeEncoder = intake.getEncoder();
@@ -49,7 +52,7 @@ public class Intake extends SubsystemBase {
     intakeController = new PIDController(0, 0, 0, 0.0001, 0.02);
 
     // instantiate solenoids
-    leftSolenoid = new Solenoid(KLeftIntakeSolenoid); 
+    leftSolenoid = new Solenoid(KLeftIntakeSolenoid);
     rightSolenoid = new Solenoid(KRightIntakeSolenoid);
   }
 
@@ -112,7 +115,7 @@ public class Intake extends SubsystemBase {
   /**
    * @brief Gets the position of the intake
    * 
-   * @return  State of the intake's solenoids
+   * @return State of the intake's solenoids
    */
   public SolenoidState getIntakePosition() {
     return intakePosition;
