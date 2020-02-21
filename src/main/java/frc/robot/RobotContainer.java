@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.CommandGroups.LimelightPosition;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftMedium;
@@ -23,6 +24,8 @@ import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeStop;
+import frc.robot.commands.Intake.IntakeDeploy;
+import frc.robot.commands.Intake.IntakeRetract;
 import frc.robot.commands.RobotState.ToggleCollecting;
 import frc.robot.commands.RobotState.EndCollecting;
 import frc.robot.commands.Storage.StorageStop;
@@ -132,35 +135,27 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    logitechBtnRB.whenPressed(new BaseShiftHigh()); // Final
-    logitechBtnRB.whenReleased(new BaseShiftMedium()); // Final
-    logitechBtnRT.whenPressed(new BaseShiftLow()); // Final
-    logitechBtnRT.whenReleased(new BaseShiftMedium()); // Final
+    //Logitech
+    logitechBtnRB.whenPressed(new BaseShiftHigh());
+    logitechBtnRB.whenReleased(new BaseShiftMedium());
+    logitechBtnRT.whenPressed(new BaseShiftLow());
+    logitechBtnRT.whenReleased(new BaseShiftMedium());
 
-    logitechBtnA.toggleWhenActive(new SpinUpFlywheel());
+    logitechBtnLB.whileHeld(new ClimbUp());
+    logitechBtnLT.whileHeld(new ClimbDown());
 
-    logitechBtnLB.whileHeld(new TiltUp());
-    logitechBtnLT.whileHeld(new TiltDown());
+    logitechBtnLT.whenPressed(new LimelightPosition());
+    //Xbox
+    //Test Xbox
+    xboxBtnB.whenPressed(new SpinUpFlywheel());
 
-    //logitechBtnX.whileHeld(new IntakeIn());
-    //logitechBtnB.whileHeld(new IntakeOut());
-    logitechBtnX.whenPressed(new ToggleCollecting());
-    logitechBtnB.whenPressed(new EndCollecting());
-    logitechBtnB.whileHeld(new StorageOut(StorageStage.BOTH));
-    logitechBtnB.whileHeld(new IndexOut());
-   
+    xboxBtnLT.whileHeld(new StorageIn());
+    xboxBtnLB.whileHeld(new StorageOut());
 
-    logitechBtnY.whileHeld(new IndexIn());
-    logitechBtnY.whileHeld(new StorageIn(StorageStage.BOTH));
-
-    //logitechBtnX.whenPressed(new MoveTilterTo(450));
-    //logitechBtnB.whenPressed(new MoveTilterTo(700));
-
-    //logitechBtnB.whileHeld(new MoveBaseToTarget());
-    //logitechBtnB.whileHeld(new MoveTilterToTarget());
-
-    xboxBtnRB.whileHeld(new ClimbUp());
-    xboxBtnLB.whileHeld(new ClimbDown());
+    xboxBtnRB.whileHeld(new IntakeIn());
+    xboxBtnRT.whileHeld(new IntakeOut());
+    xboxBtnX.whenPressed(new IntakeDeploy());
+    xboxBtnY.whenPressed(new IntakeRetract());
   }
 
   public double getRightAxis() {

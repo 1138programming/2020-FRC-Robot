@@ -268,13 +268,14 @@ public class Tilter extends SubsystemBase {
         }
     }
 
-    // public double getLimelightHeight(double tilterAngle) {
-        // double AngleT = toTilterAngle(tilterAngle);
-        // double AngleLc = 48.21521752;
-        // double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
-        // double RadianA = Math.toRadians(AngleA);
-        // double Height1 = Math.sin(RadianA) * 7.879;
-        // double distance = Height1 + 19.1255;
-    // }
-    // Alex's unfinished code
+    public double getLimelightHeight(double tilterAngle) {
+        double AngleT = toTilterAngle(tilterAngle);
+        double AngleLc = 48.21521752;
+        double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
+        double RadianA = Math.toRadians(AngleA);
+        double Height1 = Math.sin(RadianA) * 7.879;
+        double h1 = Height1 + 19.1255;
+
+        return h1;
+    }
 }
