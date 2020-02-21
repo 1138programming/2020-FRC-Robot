@@ -1,8 +1,7 @@
 package frc.robot.commands.Flywheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot; 
-import frc.robot.subsystems.Flywheel;
+import frc.robot.Robot;
 import frc.robot.enums.RobotState;
 import static frc.robot.Constants.*;
 
