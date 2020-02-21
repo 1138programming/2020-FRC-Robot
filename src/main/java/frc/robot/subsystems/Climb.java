@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.controller.PIDController;
 
 public class Climb extends SubsystemBase {
 
@@ -35,7 +35,7 @@ public class Climb extends SubsystemBase {
     TopLimit = new DigitalInput(KTopLimit);
     BottomLimit = new DigitalInput(KBottomLimit);
 
-    climbPID = new PIDController(0.0001, 0, 0);
+    climbPID = new PIDController(0.0001, 0, 0, 0, 0.02);
 
     climbTalon.setInverted(false);
     climbVictor.setInverted(false);
@@ -65,7 +65,7 @@ public class Climb extends SubsystemBase {
    * @param PWM Speed to move the climb at
    */
   public void move(double PWM) {
-    if (TopLimit.get() == false && BottomLimit.get() == false) {      //limit logic in move, removed so we have a consistent move function and leave it to the methods
+    if (TopLimit.get() == false && BottomLimit.get() == false) { //limit logic in move, removed so we have a consistent move function and leave it to the methods
       moveWithoutLimits(PWM);
     }
   }

@@ -9,9 +9,7 @@ package frc.robot.commands.Tilter;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import static frc.robot.Constants.*;
 
 public class MoveTilterTo extends CommandBase {
   double setpoint;

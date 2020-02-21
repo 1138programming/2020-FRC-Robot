@@ -1,15 +1,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import static frc.robot.Constants.*;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Indexer extends SubsystemBase {
   private final CANSparkMax indexer;
