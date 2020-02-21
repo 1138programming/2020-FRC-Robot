@@ -17,7 +17,7 @@ public class CompressorControl extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.pneumatics.setCompressor(false);
+    Robot.pneumatics.setCompressor(true);
   }
   
   @Override

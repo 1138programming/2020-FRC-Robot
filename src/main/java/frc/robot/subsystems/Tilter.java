@@ -21,7 +21,7 @@ public class Tilter extends SubsystemBase {
     private static final double KTicksPerRev = 2048;
     private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
-    private static final double KDegreeOffset = 90 - 54;
+    private static final double KDegreeOffset = 90 - 54; // Flywheel offset is 36
 
     private final DigitalInput tilterBottomLimit;
 
@@ -232,8 +232,7 @@ public class Tilter extends SubsystemBase {
      * @return Angle of the tilter linkage
      */
     private double toLinkageAngle(double tilterAngle) {
-        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY,
-                (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
         return (thetaC * 180 / Math.PI);
     }
 
@@ -244,8 +243,7 @@ public class Tilter extends SubsystemBase {
      * @return Angle of the tilter
      */
     private double toTilterAngle(double linkageAngle) {
-        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY,
-                linkageAngle * Math.PI / 180);
+        double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, linkageAngle * Math.PI / 180);
         return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
     }
 

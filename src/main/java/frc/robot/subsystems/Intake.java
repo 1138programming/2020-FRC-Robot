@@ -64,7 +64,11 @@ public class Intake extends SubsystemBase {
    * @param PWM Speed to move the intake at
    */
   public void move(double PWM) {
-    intake.set(PWM);
+    if (intakePosition == SolenoidState.ACTIVE) {
+      intake.set(PWM);
+    } else {
+      intake.set(0);
+    }
   }
 
   public double getIntakeVel() {

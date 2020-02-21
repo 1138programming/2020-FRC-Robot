@@ -16,10 +16,10 @@ public final class Constants {
     public static final int KStage1Victor = 5;
     public static final int KStage2Victor = 6;
     //Flywheel
-    public static final int KFlywheelTopSpark = 9;
-    public static final int KFlywheelBottomSpark = 7;
+    public static final int KFlywheelTopSpark = 7;
+    public static final int KFlywheelBottomSpark = 8;
     //Intake
-    public static final int KIntakeSpark = 8;
+    public static final int KIntakeSpark = 9;
     //Indexer
     public static final int KIndexerSpark = 10;
     //Climb
