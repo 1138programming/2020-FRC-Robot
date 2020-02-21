@@ -136,6 +136,10 @@ public class Tilter extends SubsystemBase {
         return toTilterAngle(getLinkageAngle());
     }
 
+    public double getLimelightHeight() {
+        return LimelightHeight(getTilterAngle());
+    }
+
     /**
      * @brief Sets the setpoint for the tiler PID
      * 
@@ -268,7 +272,7 @@ public class Tilter extends SubsystemBase {
         }
     }
 
-    public double getLimelightHeight(double tilterAngle) {
+    public double LimelightHeight(double tilterAngle) {
         double AngleT = toTilterAngle(tilterAngle);
         double AngleLc = 48.21521752;
         double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);

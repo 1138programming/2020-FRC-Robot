@@ -18,12 +18,10 @@ import frc.robot.commands.Camera.MoveBaseToTarget;
 import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.enums.StorageStage;
 
-public class CloseShot extends SequentialCommandGroup {
-	public CloseShot() {
+public class FeedShot extends SequentialCommandGroup {
+	public FeedShot() {
         addCommands(
             parallel(
-                new SpinUpFlywheel(),
-                new MoveBaseToTarget(),
                 new MoveTilterTo(1) // TODO: Change Value
             ),
             parallel(

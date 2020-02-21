@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.Tilter;
+import frc.robot.Robot;
+import java.lang.*;
 
 public class Camera extends SubsystemBase {
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -38,6 +41,7 @@ public class Camera extends SubsystemBase {
     //SmartDashboard.putNumber("LimelightX", x);
     //SmartDashboard.putNumber("LimelightY", y);
     //SmartDashboard.putNumber("LimelightArea", area);
+    SmartDashboard.putNumber("Distance", getDistance());
   }
 
   /**
@@ -114,11 +118,15 @@ public class Camera extends SubsystemBase {
    * @return Distance in feet(ft.)
    */
   public double getDistance() {
-    double a1 = 8.9;
-    double angle1 = Math.toRadians(a1);
-    double angle2 = Math.toRadians(y);
-    double tangent = Math.tan(angle1+angle2);
-    double distance = (h2-h1)/tangent;
+    double h1 = Robot.tilter.getLimelightHeight()/12;
+    double h2 = 91/12;
+    double a1 = Math.toRadians(Robot.tilter.getTilterAngle());
+    double a2 = Math.toRadians(y);
+
+    double tHeight = h2 - h1;
+    double tangent = Math.tan(a1 + a2);
+
+    double distance = tHeight / tangent;
     return distance;
   }
 }

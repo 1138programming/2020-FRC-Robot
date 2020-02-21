@@ -6,44 +6,36 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.CommandGroups.LimelightPosition;
+import frc.robot.CommandGroups.FeedShot;
+import frc.robot.CommandGroups.StoreFive;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Base.BaseShiftHigh;
-import frc.robot.commands.Base.BaseShiftMedium;
 import frc.robot.commands.Base.BaseShiftLow;
-import frc.robot.CommandGroups.CloseShot;
-import frc.robot.commands.Base.BaseLinearMovement;
-import frc.robot.commands.Camera.MoveBaseToTarget;
-import frc.robot.commands.Camera.MoveTilterToTarget;
-import frc.robot.commands.Climb.ClimbUp;
+import frc.robot.commands.Base.BaseShiftMedium;
+import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Climb.ClimbDown;
 import frc.robot.commands.Climb.ClimbStop;
+import frc.robot.commands.Climb.ClimbUp;
+import frc.robot.commands.Climb.ClimbWithJoysticks;
 import frc.robot.commands.Flywheel.StopFlywheel;
-import frc.robot.commands.Indexer.IndexIn;
-import frc.robot.commands.Indexer.IndexOut;
+import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import frc.robot.commands.Indexer.IndexStop;
+import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
-import frc.robot.commands.Intake.IntakeStop;
-import frc.robot.commands.Intake.IntakeDeploy;
 import frc.robot.commands.Intake.IntakeRetract;
-import frc.robot.commands.RobotState.ToggleCollecting;
+import frc.robot.commands.Intake.IntakeDeploy;
+import frc.robot.commands.Micellaneous.ResetAll;
+import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.RobotState.EndCollecting;
+import frc.robot.commands.RobotState.StartCollecting;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
-import frc.robot.commands.Wheel.WheelStop;
-import frc.robot.commands.Tilter.MoveTilterTo;
-import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
-import frc.robot.commands.Tilter.TiltUp;
-import frc.robot.commands.Tilter.TiltDown;
-import frc.robot.commands.Pneumatics.CompressorControl;
-import frc.robot.commands.Flywheel.SpinUpFlywheel;
-import frc.robot.commands.RobotState.StartShooting;
-import frc.robot.commands.RobotState.EndShooting;
-import frc.robot.enums.StorageStage;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Wheel.WheelStop;
+import frc.robot.commands.Wheel.GoToColor;
 
 public class RobotContainer {
   // Controller Constants
@@ -73,6 +65,7 @@ public class RobotContainer {
   public static final int KXboxButtonY = 4; 
   public static final int KXboxLeftBumper = 5; 
   public static final int KXboxRightBumper = 6; 
+  public static final int KXboxSelectButton = 7; 
   public static final int KXboxStartButton = 8; 
   public static final int KXboxLeftTrigger = 9; 
   public static final int KXboxRightTrigger = 10; 
@@ -81,7 +74,7 @@ public class RobotContainer {
   public static Joystick logitech;
   public static XboxController xbox; 
   public JoystickButton logitechBtnX, logitechBtnA, logitechBtnB, logitechBtnY, logitechBtnLB, logitechBtnRB, logitechBtnLT, logitechBtnRT; //Logitech Button
-  public JoystickButton xboxBtnA, xboxBtnB, xboxBtnX, xboxBtnY, xboxBtnLB, xboxBtnRB, xboxBtnStrt, xboxBtnLT, xboxBtnRT;
+  public JoystickButton xboxBtnA, xboxBtnB, xboxBtnX, xboxBtnY, xboxBtnLB, xboxBtnRB, xboxBtnStrt, xboxBtnSelect, xboxBtnLT, xboxBtnRT;
   
   /**
    * The container for the robot.  Contains default commands, OI devices, and commands.
@@ -89,14 +82,14 @@ public class RobotContainer {
   public RobotContainer() {
     // Set default commands
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
-    Robot.climb.setDefaultCommand(new ClimbStop());
+    Robot.climb.setDefaultCommand(new ClimbWithJoysticks());
     Robot.flywheel.setDefaultCommand(new StopFlywheel());
     Robot.indexer.setDefaultCommand(new IndexStop());
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
-    Robot.tilter.setDefaultCommand(new TilterStop());
-    //Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
+    Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
+    //Robot.tilter.setDefaultCommand(new TilterStop());
     Robot.wheel.setDefaultCommand(new WheelStop());
 
     // Controllers
@@ -119,7 +112,8 @@ public class RobotContainer {
 		xboxBtnX = new JoystickButton(xbox, KXboxButtonX);
 		xboxBtnY = new JoystickButton(xbox, KXboxButtonY);
 		xboxBtnLB = new JoystickButton(xbox, KXboxLeftBumper);
-		xboxBtnRB = new JoystickButton(xbox, KXboxRightBumper);
+    xboxBtnRB = new JoystickButton(xbox, KXboxRightBumper);
+    xboxBtnSelect = new JoystickButton(xbox, KXboxSelectButton);
 		xboxBtnStrt = new JoystickButton(xbox, KXboxStartButton);
 		xboxBtnLT = new JoystickButton(xbox, KXboxLeftTrigger);
     xboxBtnRT = new JoystickButton(xbox, KXboxRightTrigger);
@@ -144,8 +138,26 @@ public class RobotContainer {
     logitechBtnLB.whileHeld(new ClimbUp());
     logitechBtnLT.whileHeld(new ClimbDown());
 
-    logitechBtnLT.whenPressed(new LimelightPosition());
+    logitechBtnA.whenPressed(new LimelightPosition());
+
+    logitechBtnB.whenPressed(new GoToColor());
+
     //Xbox
+    
+    if(logitechBtnA.get()) {
+      xboxBtnB.whileHeld(new FeedShot());
+    }
+
+    xboxBtnStrt.whenPressed(new SpinUpFlywheel());
+    xboxBtnStrt.whileHeld(new FeedShot());
+
+    xboxBtnSelect.whenPressed(new ResetAll());
+
+    xboxBtnX.whenPressed(new IntakeDeploy());
+    xboxBtnY.whenPressed(new IntakeRetract());
+
+    xboxBtnRB.whileHeld(new StoreFive());
+    
     //Test Xbox
     xboxBtnB.whenPressed(new SpinUpFlywheel());
 
@@ -172,6 +184,22 @@ public class RobotContainer {
       return -Y;
     else 
       return 0; 
+  }
+
+  public double getXboxLeftAxis() {
+    final double Y = xbox.getRawAxis(KLeftYAxis);
+    if(Y > KDeadZone || Y < -KDeadZone)
+      return -Y;
+    else 
+      return 0;
+  }
+
+  public double getXboxRightAxis() {
+    final double Y = logitech.getRawAxis(KRightYAxis);
+    if (Y > KDeadZone || Y < -KDeadZone)
+      return -Y;
+    else
+      return 0;
   }
 
   /**
