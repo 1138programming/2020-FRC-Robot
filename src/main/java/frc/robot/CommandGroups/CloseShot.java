@@ -27,9 +27,7 @@ public class CloseShot extends SequentialCommandGroup {
                 new MoveTilterTo(1) // TODO: Change Value
             ),
             parallel(
-                new EngageStage2(),
-                new StorageIn(StorageStage.BOTH),
-                new IndexIn()
+                new Shoot()
             )
         );
 	}

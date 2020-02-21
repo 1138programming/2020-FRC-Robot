@@ -12,16 +12,13 @@ import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.EngageStage2;
 import frc.robot.enums.StorageStage;
 
-public class TrenchShot extends SequentialCommandGroup {
-  public TrenchShot() {
+public class Shoot extends SequentialCommandGroup {
+  public Shoot() {
     addCommands(
       parallel(
-        new SpinUpFlywheel(),
-        new MoveBaseToTarget(),
-        new MoveTilterTo(1) // TODO: Change Value
-      ),
-      parallel(
-        new Shoot()
+        new IndexIn(),
+        new EngageStage2(),
+        new StorageIn(StorageStage.BOTH)
       )
     );
   }
