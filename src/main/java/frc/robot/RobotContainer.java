@@ -170,9 +170,10 @@ public class RobotContainer {
 
     //collecter down and collector run should be two separate
     xboxBtnX.toggleWhenActive(toggleIntakePosition);
-    xboxBtnX.whenActive(toggleCollecting);
+    xboxBtnY.whenActive(toggleCollecting);
 
     xboxBtnRB.whileHeld(storageOut);
+    xboxBtnRB.whileHeld(intakeOut);
     xboxBtnLB.whileHeld(intakeOut);
     
     xboxBtnSelect.cancelWhenPressed(baseShiftHigh); 
