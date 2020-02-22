@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 //import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.controller.PIDController;
+import frc.robot.enums.IntegralType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
@@ -18,10 +19,10 @@ public class Tilter extends SubsystemBase {
     // private final CANEncoder tilterEncoder;
     private final PIDController tilterPID;
 
-    private static final double KTicksPerRev = 2048;
+    private static final double KTicksPerRev = 4096;
     private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
-    private static final double KDegreeOffset = 90 - 54; // Flywheel offset is 36
+    private static final double KDegreeOffset = 75.37; // Flywheel offset is 36
 
     private final DigitalInput tilterBottomLimit;
 
@@ -47,12 +48,14 @@ public class Tilter extends SubsystemBase {
 
         tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
 
-        tilterPID = new PIDController(0.0021, 0, 0.01);
+        tilterPID = new PIDController(0.0045, 0.002, 0);
 
         tilterPID.setInputRange(-100, 1000);
         tilterPID.setOutputRange(-1, 1);
         tilterPID.setOutputDeadband(0.15, 0.01);
-        tilterPID.setTolerance(5, 1); // possible position and velocity tolerance values
+        tilterPID.setTolerance(0.5, 1); // possible position and velocity tolerance values
+        tilterPID.configIntegral(IntegralType.DEFAULT, true);
+        tilterPID.setIntegralZoneRange(5);
 
         tilterPID.reset();
 
@@ -65,6 +68,9 @@ public class Tilter extends SubsystemBase {
         yOffController.setSetpoint(0);
 
         SmartDashboard.putNumber("Tilter Target Linkage Angle", 0.0);
+        SmartDashboard.putNumber("Tilter P", tilterPID.getP());
+        SmartDashboard.putNumber("Tilter I", tilterPID.getI());
+        SmartDashboard.putNumber("Tilter D", tilterPID.getD());
     }
 
     @Override
@@ -74,6 +80,8 @@ public class Tilter extends SubsystemBase {
         SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
         SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
+        SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
+        //SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle());
     }
 
     /**
@@ -188,6 +196,10 @@ public class Tilter extends SubsystemBase {
         return tilterPID.atSetpoint();
     }
 
+    public void setConstants(double kP, double kI, double kD) {
+        tilterPID.setGains(kP, kI, kD);
+    }
+
     public boolean getBottomLimit() {
         return !tilterBottomLimit.get();
     }
@@ -266,14 +278,18 @@ public class Tilter extends SubsystemBase {
         }
     }
 
-    public double getLimelightHeight(double tilterAngle) {
-        double AngleT = toTilterAngle(tilterAngle);
+    public double getLimelightHeight() {
+        double AngleT = getTilterAngle();
         double AngleLc = 48.21521752;
         double AngleA = 90 - (90 - AngleLc) - (90 - AngleT);
         double RadianA = Math.toRadians(AngleA);
         double Height1 = Math.sin(RadianA) * 7.879;
-        double h1 = Height1 + 19.1255;
+        double h1 = Height1 + 20.1255;
 
         return h1;
+    }
+
+    public double getLimelightAngle() {
+        return getTilterAngle() - 10;
     }
 }

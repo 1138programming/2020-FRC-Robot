@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Robot;
 
 public class Camera extends SubsystemBase {
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -19,6 +20,8 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry pipeline = table.getEntry("pipeline"); // pipeline index
   NetworkTableEntry snapshot = table.getEntry("snapshot"); // Takes two snapshots per second when set to 1
   public static double i, x, y, area;
+
+  private static final double KCrosshairOffset = -17; // Degrees from center of the Limelight viewport
 
   /**
    * @brief This is the Camera
@@ -38,6 +41,7 @@ public class Camera extends SubsystemBase {
     //SmartDashboard.putNumber("LimelightX", x);
     //SmartDashboard.putNumber("LimelightY", y);
     //SmartDashboard.putNumber("LimelightArea", area);
+    SmartDashboard.putNumber("Distance to Target", getDistance());
   }
 
   /**
@@ -114,11 +118,15 @@ public class Camera extends SubsystemBase {
    * @return Distance in feet(ft.)
    */
   public double getDistance() {
-    double a1 = 8.9;
-    double angle1 = Math.toRadians(a1);
-    double angle2 = Math.toRadians(y);
-    double tangent = Math.tan(angle1+angle2);
-    double distance = (h2-h1)/tangent;
+    double h1 = Robot.tilter.getLimelightHeight() / 12;
+    double h2 = 91 / 12;
+    double a1 = Math.toRadians(Robot.tilter.getLimelightAngle());
+    double a2 = Math.toRadians(y + KCrosshairOffset);
+
+    double tHeight = h2 - h1;
+    double tangent = Math.tan(a1 + a2);
+
+    double distance = tHeight / tangent;
     return distance;
   }
 }

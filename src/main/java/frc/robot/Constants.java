@@ -33,10 +33,10 @@ public final class Constants {
     public static final int KBaseShifter = 0;
     //IDK where port 1 went
     //Storage
-    public static final int KStorageShifterSolenoid = 2;
+    public static final int KStorageShifterSolenoid = 7;
     //Intake
-    public static final int KLeftIntakeSolenoid = 3;
-    public static final int KRightIntakeSolenoid = 4;
+    public static final int KLeftIntakeSolenoid = 1;
+    public static final int KRightIntakeSolenoid = 6;
     //Climb
     public static final int KClimbRatchetSolenoid = 5;
 
