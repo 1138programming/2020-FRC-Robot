@@ -162,17 +162,18 @@ public class RobotContainer {
     //Xbox
     
     //logitechBtnA.whenActive(xboxBtnB.whileHeld(new FeedShot()));
-    logitechBtnA.and(xboxBtnB).whileActiveOnce(feedShot);
+    logitechBtnA.and(xboxBtnB).whileActiveContinuous(feedShot);
 
-    xboxBtnStrt.toggleWhenActive(spinUpFlywheel);
+    xboxBtnStrt.toggleWhenActive(feedShot);
 
     //xboxBtnSelect.whenPressed(new ResetAll());
 
+    //collecter down and collector run should be two separate
     xboxBtnX.toggleWhenActive(toggleSolenoidCollector);
     xboxBtnX.whenActive(toggleCollecting);
 
     xboxBtnRB.whileHeld(storageOut);
-    xboxBtnLT.whileHeld(intakeOut);
+    xboxBtnLB.whileHeld(intakeOut);
     
     xboxBtnSelect.cancelWhenPressed(baseShiftHigh); 
     xboxBtnSelect.cancelWhenPressed(baseShiftLow); 
