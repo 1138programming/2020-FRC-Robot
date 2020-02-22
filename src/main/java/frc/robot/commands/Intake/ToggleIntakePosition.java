@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.RobotState;
+package frc.robot.commands.Intake;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Base;
@@ -13,22 +13,23 @@ import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ToggleSolenoidCollector extends CommandBase {
+public class ToggleIntakePosition extends CommandBase {
   /**
    * Creates a new StartCollecting.
    */
-  public ToggleSolenoidCollector() {
+  public ToggleIntakePosition() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // If in collecting state, switch to default
-    if (Robot.solenoidState == SolenoidState.ACTIVE) {
-        Robot.solenoidState = SolenoidState.DEFAULT;
+    if (Robot.intake.getIntakePosition() == SolenoidState.DEFAULT) {
+        Robot.intake.setIntakePosition(SolenoidState.ACTIVE);
     } else { // Otherwise, switch to collecting
-        Robot.solenoidState = SolenoidState.ACTIVE;
+      Robot.intake.setIntakePosition(SolenoidState.DEFAULT);
     }
   }
 

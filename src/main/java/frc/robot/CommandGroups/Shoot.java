@@ -17,7 +17,6 @@ public class Shoot extends SequentialCommandGroup {
     addCommands(
       parallel(
         new IndexIn(),
-        new EngageStage2(),
         new StorageIn(StorageStage.BOTH)
       )
     );

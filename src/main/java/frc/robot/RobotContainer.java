@@ -27,7 +27,7 @@ import frc.robot.commands.Intake.IntakeDeploy;
 import frc.robot.commands.Micellaneous.ResetAll;
 import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.RobotState.ToggleCollecting;
-import frc.robot.commands.RobotState.ToggleSolenoidCollector;
+import frc.robot.commands.Intake.ToggleIntakePosition;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
@@ -141,7 +141,7 @@ public class RobotContainer {
     GoToColor goToColor = new GoToColor();
     FeedShot feedShot = new FeedShot();
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
-    ToggleSolenoidCollector toggleSolenoidCollector = new ToggleSolenoidCollector();
+    ToggleIntakePosition toggleIntakePosition = new ToggleIntakePosition();
     ToggleCollecting toggleCollecting = new ToggleCollecting();
     StorageOut storageOut = new StorageOut(StorageStage.BOTH);
     IntakeOut intakeOut = new IntakeOut();
@@ -169,7 +169,7 @@ public class RobotContainer {
     //xboxBtnSelect.whenPressed(new ResetAll());
 
     //collecter down and collector run should be two separate
-    xboxBtnX.toggleWhenActive(toggleSolenoidCollector);
+    xboxBtnX.toggleWhenActive(toggleIntakePosition);
     xboxBtnX.whenActive(toggleCollecting);
 
     xboxBtnRB.whileHeld(storageOut);
@@ -183,7 +183,7 @@ public class RobotContainer {
     xboxBtnSelect.cancelWhenPressed(goToColor);
     xboxBtnSelect.cancelWhenPressed(feedShot);
     xboxBtnSelect.cancelWhenPressed(spinUpFlywheel);
-    xboxBtnSelect.cancelWhenPressed(toggleSolenoidCollector);
+    xboxBtnSelect.cancelWhenPressed(toggleIntakePosition);
     xboxBtnSelect.cancelWhenPressed(toggleCollecting);
     xboxBtnSelect.cancelWhenPressed(storageOut);
     xboxBtnSelect.cancelWhenPressed(intakeOut);

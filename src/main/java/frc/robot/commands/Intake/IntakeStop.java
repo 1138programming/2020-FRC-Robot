@@ -23,13 +23,13 @@ public class IntakeStop extends CommandBase {
   public void execute() {
     if (Robot.robotState == RobotState.COLLECTING && Robot.storage.getBallCount() < 5) {
       if (Robot.intake.getIntakePosition() == SolenoidState.DEFAULT) {
-        Robot.intake.setIntakePosition(SolenoidState.ACTIVE);
+        //Robot.intake.setIntakePosition(SolenoidState.ACTIVE);
         Robot.intake.move(0);
       } else {
         Robot.intake.move(KIntakePWM);
       }
     } else {
-      Robot.intake.setIntakePosition(SolenoidState.DEFAULT);
+      //Robot.intake.setIntakePosition(SolenoidState.DEFAULT);
       Robot.intake.move(0);
     }
   }
