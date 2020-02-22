@@ -44,9 +44,6 @@ public class StorageStop extends CommandBase {
           Robot.storage.move(KStoragePWM, StorageStage.STAGE1);
         }
       }
-    } else if (Robot.robotState == RobotState.SHOOTING) {
-      //Robot.storage.move(KStoragePWM, StorageStage.BOTH);
-      Robot.storage.move(0, StorageStage.BOTH);
     } else {
       Robot.storage.move(0, StorageStage.BOTH);
     }

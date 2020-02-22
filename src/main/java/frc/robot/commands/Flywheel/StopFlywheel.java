@@ -15,14 +15,15 @@ public class StopFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.flywheel.setSetpoints(2800, 3500);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (Robot.robotState == RobotState.SHOOTING) {
-      Robot.flywheel.move(0.8, 1.0);
-    }else {
+      Robot.flywheel.calculate();
+    } else {
       Robot.flywheel.move(0.0, 0.0);
     }
   }
