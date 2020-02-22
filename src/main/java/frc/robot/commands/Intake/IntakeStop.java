@@ -29,6 +29,7 @@ public class IntakeStop extends CommandBase {
         Robot.intake.move(KIntakePWM);
       }
     } else {
+      Robot.intake.setIntakePosition(SolenoidState.DEFAULT);
       Robot.intake.move(0);
     }
   }

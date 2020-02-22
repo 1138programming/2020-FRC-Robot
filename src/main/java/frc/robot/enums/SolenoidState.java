@@ -1,7 +1,7 @@
 package frc.robot.enums;
 
 public enum SolenoidState {
-    DEFAULT(0), ACTIVE(1);
+    DEFAULT(1), ACTIVE(0);
 
     private final int value;
     private SolenoidState(int value) {

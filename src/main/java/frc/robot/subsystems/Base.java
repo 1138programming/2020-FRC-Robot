@@ -11,6 +11,7 @@ import frc.robot.enums.BaseState;
 
 import frc.robot.controller.LinearProfiler;
 import frc.robot.controller.PIDController;
+import frc.robot.enums.IntegralType;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 
 import frc.robot.Robot;
@@ -84,11 +85,13 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.01, 0, 0, 0, 0.02);
+    xOffController = new PIDController(0.01, 0.015, 0.002, 0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
     xOffController.setSetpoint(0);
+    xOffController.configIntegral(IntegralType.DEFAULT, true);
+    xOffController.setIntegralZoneRange(10);
 
     // Set up slew rate limiters
     leftLimiter = new SlewRateLimiter(1);
@@ -96,6 +99,10 @@ public class Base extends SubsystemBase {
 
     // Instantiating the solenoid
     shifter = new Solenoid(KBaseShifter);
+
+    SmartDashboard.putNumber("Base XOff P", xOffController.getP());
+    SmartDashboard.putNumber("Base XOff I", xOffController.getI());
+    SmartDashboard.putNumber("Base XOff D", xOffController.getD());
   }
 
   @Override
@@ -136,7 +143,7 @@ public class Base extends SubsystemBase {
    */
   public void move(double leftPWM, double rightPWM) {
     leftPWM = leftLimiter.calculate(leftPWM);
-    rightPWM = leftLimiter.calculate(rightPWM);
+    rightPWM = rightLimiter.calculate(rightPWM);
 
     this.leftPWM = leftPWM;
     this.rightPWM = rightPWM;
@@ -368,5 +375,9 @@ public class Base extends SubsystemBase {
   public void resetXOff() {
     xOffController.reset();
     xOffController.setSetpoint(0);
+  }
+
+  public void setXOffConstants(double kP, double kI, double kD) {
+    xOffController.setGains(kP, kI, kD);
   }
 }

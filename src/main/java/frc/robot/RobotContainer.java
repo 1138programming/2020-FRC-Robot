@@ -29,8 +29,9 @@ import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
 import frc.robot.commands.Wheel.WheelStop;
-import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Wheel.GoToColor;
+import frc.robot.commands.Tilter.MoveTilterTo;
+import frc.robot.commands.Tilter.MoveTilterToIdealAngle;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Tilter.TiltUp;
@@ -141,13 +142,14 @@ public class RobotContainer {
 
     logitechBtnLB.whileHeld(new TiltUp());
     logitechBtnLT.whileHeld(new TiltDown());
+    logitechBtnB.whenPressed(new MoveTilterTo(0));
 
     //logitechBtnX.whileHeld(new IntakeIn());
     //logitechBtnB.whileHeld(new IntakeOut());
     logitechBtnX.whenPressed(new ToggleCollecting());
-    logitechBtnB.whenPressed(new EndCollecting());
-    logitechBtnB.whileHeld(new StorageOut(StorageStage.BOTH));
-    logitechBtnB.whileHeld(new IndexOut());
+    //logitechBtnB.whenPressed(new EndCollecting());
+    //logitechBtnB.whileHeld(new StorageOut(StorageStage.BOTH));
+    //logitechBtnB.whileHeld(new IndexOut());
    
 
     logitechBtnY.whileHeld(new IndexIn());
@@ -156,7 +158,8 @@ public class RobotContainer {
     //logitechBtnX.whenPressed(new MoveTilterTo(450));
     //logitechBtnB.whenPressed(new MoveTilterTo(700));
 
-    //logitechBtnB.whileHeld(new MoveBaseToTarget());
+    logitechBtnB.whileHeld(new MoveBaseToTarget());
+    logitechBtnB.whileHeld(new MoveTilterToIdealAngle());
     //logitechBtnB.whileHeld(new MoveTilterToTarget());
 
     xboxBtnRB.whileHeld(new ClimbUp());
