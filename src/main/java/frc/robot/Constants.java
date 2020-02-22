@@ -66,8 +66,6 @@ public final class Constants {
     public static final double KBaseMaxVel = 5;
     public static final double KBaseMaxAccel = 0.1;
     //Camera
-    public static final double h1 = 1.42;
-    public static final double h2 = 7.25;
     //Wheel
     public static final Color KBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     public static final Color KGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);

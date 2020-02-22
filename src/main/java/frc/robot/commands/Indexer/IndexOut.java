@@ -12,7 +12,7 @@ public class IndexOut extends CommandBase {
     addRequirements(Robot.indexer);
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially sAcheduled.
   @Override
   public void initialize() {
   }

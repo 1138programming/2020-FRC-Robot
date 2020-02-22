@@ -5,32 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climb;
+package frc.robot.commands.RobotState;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climb;
 import frc.robot.Robot;
+import frc.robot.subsystems.Base;
+import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ClimbWithJoysticks extends CommandBase {
+public class ToggleSolenoidCollector extends CommandBase {
   /**
-   * Creates a new LiftWithJoysticks.
-   */ 
-  public ClimbWithJoysticks() {
+   * Creates a new StartCollecting.
+   */
+  public ToggleSolenoidCollector() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // If in collecting state, switch to default
+    if (Robot.solenoidState == SolenoidState.ACTIVE) {
+        Robot.solenoidState = SolenoidState.DEFAULT;
+    } else { // Otherwise, switch to collecting
+        Robot.solenoidState = SolenoidState.ACTIVE;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double PWM = Robot.m_robotContainer.getXboxRightAxis();
-    Robot.climb.move(PWM);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +45,6 @@ public class ClimbWithJoysticks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
