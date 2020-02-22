@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.CommandGroups.LimelightPosition;
-import frc.robot.CommandGroups.FeedShot;
+import frc.robot.CommandGroups.OutTake;
 import frc.robot.CommandGroups.StoreFive;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Base.BaseShiftHigh;
@@ -27,8 +27,8 @@ import frc.robot.commands.Intake.IntakeRetract;
 import frc.robot.commands.Intake.IntakeDeploy;
 import frc.robot.commands.Micellaneous.ResetAll;
 import frc.robot.commands.Pneumatics.CompressorControl;
-import frc.robot.commands.RobotState.EndCollecting;
-import frc.robot.commands.RobotState.StartCollecting;
+import frc.robot.commands.RobotState.ToggleCollecting;
+import frc.robot.commands.RobotState.ToggleSolenoidCollector;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
@@ -138,36 +138,34 @@ public class RobotContainer {
     logitechBtnLB.whileHeld(new ClimbUp());
     logitechBtnLT.whileHeld(new ClimbDown());
 
-    logitechBtnA.whenPressed(new LimelightPosition());
+    logitechBtnA.toggleWhenActive(new LimelightPosition());
 
     logitechBtnB.whenPressed(new GoToColor());
 
     //Xbox
     
-    if(logitechBtnA.get()) {
-      xboxBtnB.whileHeld(new FeedShot());
-    }
+    logitechBtnA.whenActive(xboxBtnB.whileHeld(new FeedShot()));
 
-    xboxBtnStrt.whenPressed(new SpinUpFlywheel());
-    xboxBtnStrt.whileHeld(new FeedShot());
+    xboxBtnStrt.toggleWhenActive(new SpinUpFlywheel());
 
     xboxBtnSelect.whenPressed(new ResetAll());
 
-    xboxBtnX.whenPressed(new IntakeDeploy());
-    xboxBtnY.whenPressed(new IntakeRetract());
+    xboxBtnX.toggleWhenActive(new ToggleSolenoidCollector());
+    xboxBtnY.toggleWhenActive(new ToggleCollecting());
 
-    xboxBtnRB.whileHeld(new StoreFive());
+    xboxBtnRB.whileHeld(new OutTake());
+    xboxBtnLT.whileHeld(new IntakeOut());
     
     //Test Xbox
-    xboxBtnB.whenPressed(new SpinUpFlywheel());
+    //xboxBtnB.toggleWhenActive(new SpinUpFlywheel());
 
-    xboxBtnLT.whileHeld(new StorageIn());
-    xboxBtnLB.whileHeld(new StorageOut());
+    //xboxBtnLT.whileHeld(new StorageIn());
+    //xboxBtnLB.whileHeld(new StorageOut());
 
-    xboxBtnRB.whileHeld(new IntakeIn());
-    xboxBtnRT.whileHeld(new IntakeOut());
-    xboxBtnX.whenPressed(new IntakeDeploy());
-    xboxBtnY.whenPressed(new IntakeRetract());
+    //xboxBtnRB.whileHeld(new IntakeIn());
+    //xboxBtnRT.whileHeld(new IntakeOut());
+    //xboxBtnX.whenPressed(new IntakeDeploy());
+    //xboxBtnY.whenPressed(new IntakeRetract());
   }
 
   public double getRightAxis() {
