@@ -24,7 +24,6 @@ public class ResetAll extends CommandBase {
     addRequirements(Robot.storage);
     addRequirements(Robot.tilter);
     addRequirements(Robot.wheel);
-    addRequirements(Robot.pneumatics);
   }
 
   // Called when the command is initially sAcheduled.
@@ -42,7 +41,6 @@ public class ResetAll extends CommandBase {
       Robot.storage.move(0);
       Robot.tilter.move(0);
       Robot.wheel.move(0);
-      Robot.pneumatics.setCompressor(false);
   }
 
   // Called once the command ends or is interrupted.

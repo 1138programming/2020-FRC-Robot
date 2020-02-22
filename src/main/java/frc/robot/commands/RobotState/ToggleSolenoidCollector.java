@@ -13,11 +13,11 @@ import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ToggleCollecting extends CommandBase {
+public class ToggleSolenoidCollector extends CommandBase {
   /**
    * Creates a new StartCollecting.
    */
-  public ToggleCollecting() {
+  public ToggleSolenoidCollector() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,9 +26,9 @@ public class ToggleCollecting extends CommandBase {
   public void initialize() {
     // If in collecting state, switch to default
     if (Robot.solenoidState == SolenoidState.ACTIVE) {
-        Robot.robotState = RobotState.DEFAULT;
+        Robot.solenoidState = SolenoidState.DEFAULT;
     } else { // Otherwise, switch to collecting
-        Robot.robotState = RobotState.ACTIVE;
+        Robot.solenoidState = SolenoidState.ACTIVE;
     }
   }
 

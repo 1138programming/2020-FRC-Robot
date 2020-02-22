@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.CommandGroups.LimelightPosition;
-import frc.robot.CommandGroups.OutTake;
-import frc.robot.CommandGroups.StoreFive;
+import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftLow;
@@ -36,6 +35,7 @@ import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
+import frc.robot.enums.StorageStage;
 
 public class RobotContainer {
   // Controller Constants
@@ -129,33 +129,59 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    BaseShiftHigh baseShiftHigh = new BaseShiftHigh();
+    BaseShiftLow baseShiftLow = new BaseShiftLow();
+    ClimbUp climbUp = new ClimbUp();
+    ClimbDown climbDown = new ClimbDown();
+    LimelightPosition limelightPosition = new LimelightPosition();
+    GoToColor goToColor = new GoToColor();
+    FeedShot feedShot = new FeedShot();
+    SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
+    ToggleSolenoidCollector toggleSolenoidCollector = new ToggleSolenoidCollector();
+    ToggleCollecting toggleCollecting = new ToggleCollecting();
+    StorageOut storageOut = new StorageOut(StorageStage.BOTH);
+    IntakeOut intakeOut = new IntakeOut();
+
     //Logitech
-    logitechBtnRB.whenPressed(new BaseShiftHigh());
+    logitechBtnRB.whenPressed(baseShiftHigh);
     logitechBtnRB.whenReleased(new BaseShiftMedium());
-    logitechBtnRT.whenPressed(new BaseShiftLow());
+    logitechBtnRT.whenPressed(baseShiftLow);
     logitechBtnRT.whenReleased(new BaseShiftMedium());
 
-    logitechBtnLB.whileHeld(new ClimbUp());
-    logitechBtnLT.whileHeld(new ClimbDown());
+    logitechBtnLB.whileHeld(climbUp);
+    logitechBtnLT.whileHeld(climbDown);
 
-    logitechBtnA.toggleWhenActive(new LimelightPosition());
+    logitechBtnA.whileHeld(limelightPosition);
 
-    logitechBtnB.whenPressed(new GoToColor());
+    logitechBtnB.whenPressed(goToColor);
 
     //Xbox
     
-    logitechBtnA.whenActive(xboxBtnB.whileHeld(new FeedShot()));
+    //logitechBtnA.whenActive(xboxBtnB.whileHeld(new FeedShot()));
+    logitechBtnA.and(xboxBtnB).whileHeld(feedShot);
 
-    xboxBtnStrt.toggleWhenActive(new SpinUpFlywheel());
+    xboxBtnStrt.toggleWhenActive(spinUpFlywheel);
 
-    xboxBtnSelect.whenPressed(new ResetAll());
+    //xboxBtnSelect.whenPressed(new ResetAll());
 
-    xboxBtnX.toggleWhenActive(new ToggleSolenoidCollector());
-    xboxBtnY.toggleWhenActive(new ToggleCollecting());
+    xboxBtnX.toggleWhenActive(toggleSolenoidCollector);
+    xboxBtnX.whenActive(toggleCollecting);
 
-    xboxBtnRB.whileHeld(new OutTake());
-    xboxBtnLT.whileHeld(new IntakeOut());
+    xboxBtnRB.whileHeld(storageOut);
+    xboxBtnLT.whileHeld(intakeOut);
     
+    xboxBtnSelect.cancelWhenPressed(baseShiftHigh); 
+    xboxBtnSelect.cancelWhenPressed(baseShiftLow); 
+    xboxBtnSelect.cancelWhenPressed(climbDown);
+    xboxBtnSelect.cancelWhenPressed(climbUp);
+    xboxBtnSelect.cancelWhenPressed(limelightPosition);
+    xboxBtnSelect.cancelWhenPressed(goToColor);
+    xboxBtnSelect.cancelWhenPressed(feedShot);
+    xboxBtnSelect.cancelWhenPressed(spinUpFlywheel);
+    xboxBtnSelect.cancelWhenPressed(toggleSolenoidCollector);
+    xboxBtnSelect.cancelWhenPressed(toggleCollecting);
+    xboxBtnSelect.cancelWhenPressed(storageOut);
+    xboxBtnSelect.cancelWhenPressed(intakeOut);
     //Test Xbox
     //xboxBtnB.toggleWhenActive(new SpinUpFlywheel());
 
