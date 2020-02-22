@@ -118,7 +118,7 @@ public class Camera extends SubsystemBase {
    * @return Distance in feet(ft.)
    */
   public double getDistance() {
-    double h1 = Robot.tilter.getLimelightHeight() / 12;
+    double h1 = Robot.tilter.getLimelightHeight();
     double h2 = 91 / 12;
     double a1 = Math.toRadians(Robot.tilter.getLimelightAngle());
     double a2 = Math.toRadians(y + KCrosshairOffset);

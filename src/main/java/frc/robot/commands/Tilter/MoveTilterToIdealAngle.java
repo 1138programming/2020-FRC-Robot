@@ -2,9 +2,9 @@ package frc.robot.commands.Tilter;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MoveTilterToIdealAngle extends CommandBase {
-
   /**
    * Creates a new MoveTilterTo.
    */
@@ -16,7 +16,7 @@ public class MoveTilterToIdealAngle extends CommandBase {
   @Override
   public void initialize() {
     Robot.tilter.reset();
-    Robot.tilter.setIdealSetpoint(45.11, Robot.camera.getDistance(), 8.1875);
+    Robot.tilter.setIdealSetpoint(SmartDashboard.getNumber("Ball Initial Vel", 0.0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

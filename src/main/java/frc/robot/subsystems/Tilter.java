@@ -35,6 +35,8 @@ public class Tilter extends SubsystemBase {
     private final double KLinkageDX = 7.75;
     private final double KLinkageDY = 2;
     private final double KParallelCorrection = 3.013;
+    private final double KLimelightMountOffset = 10; // Offset from flywheel
+    private final double KTargetHeight = 8.1875; // Height of the goal off the ground in feet
 
     private double PWM;
 
@@ -71,6 +73,7 @@ public class Tilter extends SubsystemBase {
         SmartDashboard.putNumber("Tilter P", tilterPID.getP());
         SmartDashboard.putNumber("Tilter I", tilterPID.getI());
         SmartDashboard.putNumber("Tilter D", tilterPID.getD());
+        SmartDashboard.putNumber("Ball Initial Vel", 45.11);
     }
 
     @Override
@@ -78,6 +81,7 @@ public class Tilter extends SubsystemBase {
         SmartDashboard.putNumber("Tilter Encoder", getEncoder());
         SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
         SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
+        SmartDashboard.putNumber("Flywheel to Linkage", toLinkageAngle(getTilterAngle())); // Should give the same result as getLinkageAngle
         SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
         SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
@@ -138,6 +142,8 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief Computes the angle that the tilter is tilting the flywheel at above the horizontal
      * 
+     * Bounds on the tilter angle in degrees: [33, 59]
+     * 
      * @return The angle
      */
     public double getTilterAngle() {
@@ -153,8 +159,12 @@ public class Tilter extends SubsystemBase {
         tilterPID.setSetpoint(setpoint);
     }
 
-    public void setIdealSetpoint(double vel, double xDist, double yDist) {
-        tilterPID.setSetpoint(toLinkageAngle(idealTilterAngle(vel, xDist, yDist)));
+    /**
+     * @param vel   Output velocity of the ball in feet per second
+     * @param xDist Horizonatal distance to the goal in feet
+     */
+    public void setIdealSetpoint(double vel) {
+        tilterPID.setSetpoint(toLinkageAngle(idealTilterAngle(vel)));
     }
 
     /**
@@ -259,7 +269,9 @@ public class Tilter extends SubsystemBase {
         return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
     }
 
-    private double idealTilterAngle(double vel, double xDist, double yDist) {
+    private double idealTilterAngle(double vel) {
+        double xDist = Robot.camera.getDistance();
+        double yDist = KTargetHeight - getLimelightHeight();
         double g = 32.2; // Gravity in meters per second squared
         double velSq = vel * vel; // Velocity squared
         double rad = Math.sqrt((velSq * velSq) - (g * ((2 * velSq * yDist) + (g * xDist * xDist)))); // Radical
@@ -286,10 +298,10 @@ public class Tilter extends SubsystemBase {
         double Height1 = Math.sin(RadianA) * 7.879;
         double h1 = Height1 + 20.1255;
 
-        return h1;
+        return h1 / 12; // Convert to feet
     }
 
     public double getLimelightAngle() {
-        return getTilterAngle() - 10;
+        return getTilterAngle() - KLimelightMountOffset;
     }
 }
