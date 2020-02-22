@@ -37,8 +37,8 @@ public class LinearProfiler {
     //private double kP = 1; // P gain for the position PID
     //private double kI = 0; // I gain for the position PID
     //private double kD = 0; // D gain for the position PID
-    private double kFV = 0; // Feedforward velocity gain
-    private double kFA = 0; // Feedforward acceleration gain
+    private double kFv = 0; // Feedforward velocity gain
+    private double kFa = 0; // Feedforward acceleration gain
 
     private double output = 0;
 
@@ -59,8 +59,8 @@ public class LinearProfiler {
         //this.kP = kP;
         //this.kI = kI;
         //this.kD = kD;
-        this.kFV = kFv;
-        this.kFA = kFa;
+        this.kFv = kFv;
+        this.kFa = kFa;
         this.period = period;
       
         posPID = new PIDController(kP, kI, kD, 0, period);
@@ -116,7 +116,7 @@ public class LinearProfiler {
      * The default period is 0.02 seconds
      */
     public LinearProfiler(double maxAccel) {
-        this(Double.POSITIVE_INFINITY, maxAccel);
+        this(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
     }
 
     // Functions to set constants
@@ -156,28 +156,29 @@ public class LinearProfiler {
         posPID.setD(kD);
     }
 
-    public void setVelocityFeedforward(double kFV) {
-        this.kFV = kFV;
-    }
-
-    public void setAccelFeedforward(double kFA) {
-        this.kFA = kFA;
-    }
-
-    public void setFeedforwardGains(double kFV, double kFA) {
-        this.kFV = kFV;
-        this.kFA = kFA;
-    }
-
-    public void setGains(double kP, double kI, double kD, double kFV, double kFA) {
+    public void setGains(double kP, double kI, double kD, double kFv, double kFa) {
         setP(kP);
         setI(kP);
         setD(kP);
-        setFeedforwardGains(kFV, kFA);
+        this.kFv = kFv;
+        this.kFa = kFa;
     }
 
     public void setGains(double kP, double kI, double kD) {
-        setGains(kP, kI, kD, kFV, kFA);
+        setGains(kP, kI, kD, kFv, kFa);
+    }
+
+    public void setVelocityFeedforward(double kFv) {
+        this.kFv = kFv;
+    }
+
+    public void setAccelFeedforward(double kFa) {
+        this.kFa = kFa;
+    }
+
+    public void setFeedforwardGains(double kFv, double kFa) {
+        this.kFv = kFv;
+        this.kFa = kFa;
     }
 
     public void setInputRange(double minInput, double maxInput) {
@@ -248,11 +249,11 @@ public class LinearProfiler {
     }
 
     public double getVelocityFeedforward() {
-        return kFV;
+        return kFv;
     }
 
     public double getAccelFeedforward() {
-        return kFV;
+        return kFv;
     }
 
     // PID Functions
@@ -358,7 +359,7 @@ public class LinearProfiler {
         
         // Sets the position PID's setpoint
         posPID.setSetpoint(pidSetpoint);
-        output = posPID.calculate(measurement) + (kFV * t_vel * dir) + (kFA * t_accel * dir);
+        output = posPID.calculate(measurement) + (kFv * t_vel * dir) + (kFa * t_accel * dir);
 
         return output; // Returns the calculated PWM value
     }
