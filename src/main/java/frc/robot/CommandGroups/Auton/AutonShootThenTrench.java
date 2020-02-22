@@ -7,7 +7,7 @@ import frc.robot.Robot;
 public class AutonShootThenTrench extends SequentialCommandGroup {
 	public AutonShootThenTrench() {
         addCommands(
-
+            
         );
     }
 }
