@@ -73,23 +73,23 @@ public class Storage extends SubsystemBase {
    */
   public void move(double PWM, StorageStage stage) {
     if (stage == StorageStage.STAGE1) {
-      stage1PWM = PWM;
-      stage1.set(ControlMode.PercentOutput, PWM);
+      moveStage1(PWM);
     } else if (stage == StorageStage.STAGE2) {
-      if (PWM != 0) {
-        stage2Limiter.reset(PWM);
-      }
-      stage2PWM = stage2Limiter.calculate(PWM);
-      stage2.set(ControlMode.PercentOutput, stage2PWM);
+      moveStage2(PWM);
     } else if (stage == StorageStage.BOTH) {
-      stage1PWM = PWM;
-      if (PWM != 0) {
-        stage2Limiter.reset(PWM);
-      }
-      stage2PWM = stage2Limiter.calculate(PWM);
-      stage1.set(ControlMode.PercentOutput, PWM);
-      stage2.set(ControlMode.PercentOutput, stage2PWM);
+      moveStage1(PWM);
+      moveStage2(PWM);
     }
+  }
+
+  private void moveStage1(double PWM) {
+    stage1PWM = PWM;
+    stage1.set(ControlMode.PercentOutput, PWM);
+  }
+
+  private void moveStage2(double PWM) {
+    stage2PWM = PWM;
+    stage2.set(ControlMode.PercentOutput, stage2PWM);
   }
 
   /**
@@ -99,6 +99,20 @@ public class Storage extends SubsystemBase {
    */
   public void move(double PWM) {
     move(PWM, StorageStage.BOTH);
+  }
+
+  /**
+   * @brief Stages a ball in stage 2
+   * 
+   * Slews the input to stage 2 only when the PWM signal being sent is equal to 0
+   * 
+   * @param PWM Speed to stage the ball at
+   */
+  public void stageBall(double PWM) {
+    if (PWM != 0) {
+      stage2Limiter.reset(PWM);
+    }
+    moveStage2(stage2Limiter.calculate(PWM));
   }
 
   /**

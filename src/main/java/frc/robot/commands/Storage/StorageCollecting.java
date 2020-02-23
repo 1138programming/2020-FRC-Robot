@@ -29,9 +29,9 @@ public class StorageCollecting extends CommandBase {
 
         // If ball sensor 1 is detecting a ball, run stage 2, otherwise stop it
         if (ballSensor1State) {
-            Robot.storage.move(KStoragePWM, StorageStage.BOTH);
+            Robot.storage.stageBall(KStoragePWM);
         } else {
-            Robot.storage.move(0, StorageStage.STAGE2);
+            Robot.storage.stageBall(0);
         }
     } else { 
         // Run stage1 when ball sensor 1 does not detect a ball
