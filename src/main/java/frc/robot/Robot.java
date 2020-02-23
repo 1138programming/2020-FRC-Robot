@@ -109,6 +109,7 @@ public class Robot extends TimedRobot {
     base.zeroEncoders();
     tilter.zeroEncoder();
     storage.setBallCount(0);
+    robotState = RobotState.DEFAULT;
   }
 
   /**

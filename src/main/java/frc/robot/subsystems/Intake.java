@@ -4,6 +4,8 @@ import static frc.robot.Constants.KIntakeSpark;
 import static frc.robot.Constants.KLeftIntakeSolenoid;
 import static frc.robot.Constants.KRightIntakeSolenoid;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANEncoder;
@@ -39,7 +41,7 @@ public class Intake extends SubsystemBase {
 
     // Configure spark. Factory defaults are restored, so every necessary configuration is included here
     intake.restoreFactoryDefaults();
-
+    intake.setSmartCurrentLimit(40, 40, 3000);
     // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
     // This protects against wrong configurations if the robot reboots during a match
     intake.burnFlash();
@@ -56,6 +58,8 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("intake position", getIntakePosition().getValue());
+    SmartDashboard.putNumber("Intake Current", intake.getOutputCurrent());
   }
 
   /**

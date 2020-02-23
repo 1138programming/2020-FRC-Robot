@@ -41,6 +41,6 @@ public class MoveIntakeFor extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (System.currentTimeMillis() - startTime) > duration;
+        return (duration != 0) && (System.currentTimeMillis() - startTime) > duration;
     }
 }

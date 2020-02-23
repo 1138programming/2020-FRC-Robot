@@ -1,10 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.KBallSensor1;
-import static frc.robot.Constants.KBallSensor2;
-import static frc.robot.Constants.KStage1Victor;
-import static frc.robot.Constants.KStage2Victor;
-import static frc.robot.Constants.KStorageShifterSolenoid;
+import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -56,7 +52,7 @@ public class Storage extends SubsystemBase {
 
     stage2.setNeutralMode(NeutralMode.Brake);
 
-    stage2Limiter = new SlewRateLimiter(3);
+    stage2Limiter = new SlewRateLimiter(1.95);
   }
 
   @Override
@@ -80,10 +76,16 @@ public class Storage extends SubsystemBase {
       stage1PWM = PWM;
       stage1.set(ControlMode.PercentOutput, PWM);
     } else if (stage == StorageStage.STAGE2) {
+      if (PWM != 0) {
+        stage2Limiter.reset(PWM);
+      }
       stage2PWM = stage2Limiter.calculate(PWM);
       stage2.set(ControlMode.PercentOutput, stage2PWM);
     } else if (stage == StorageStage.BOTH) {
       stage1PWM = PWM;
+      if (PWM != 0) {
+        stage2Limiter.reset(PWM);
+      }
       stage2PWM = stage2Limiter.calculate(PWM);
       stage1.set(ControlMode.PercentOutput, PWM);
       stage2.set(ControlMode.PercentOutput, stage2PWM);
@@ -126,7 +128,7 @@ public class Storage extends SubsystemBase {
     boolean ballSensor2State = ballSensor2.get();
 
     // Handles counting balls entering/exiting from the first stage
-    if (stage1PWM > 0) {
+    /*if (stage1PWM > 0) {
       // Counts ball as in on the rising edge
       if (ballSensor1State && !ballSensor1LastState) {
         ballCount++;
@@ -149,8 +151,8 @@ public class Storage extends SubsystemBase {
       if (ballSensor2State && !ballSensor2LastState) {
         ballCount++;
       }
-    }
-
+    }*/
+    
     // Hard code known states where the storage has 4 or 5 balls
     if (ballSensor2State) {
       if (ballSensor1State) {
@@ -158,6 +160,8 @@ public class Storage extends SubsystemBase {
       } else {
         ballCount = 4;
       }
+    } else {
+      ballCount = 0;
     }
 
     // Clamp ballCount to be between 0 and 5, inclusive

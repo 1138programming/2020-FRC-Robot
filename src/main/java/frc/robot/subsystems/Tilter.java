@@ -85,7 +85,8 @@ public class Tilter extends SubsystemBase {
         SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
         SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
-        //SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle());
+        SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle(45.11));
+        SmartDashboard.putNumber("Tilter Ideal Linkage Angle", toLinkageAngle(idealTilterAngle(45.11)));
     }
 
     /**
@@ -254,8 +255,11 @@ public class Tilter extends SubsystemBase {
      * @return Angle of the tilter linkage
      */
     private double toLinkageAngle(double tilterAngle) {
-        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, (tilterAngle + 90 - KParallelCorrection) * Math.PI / 180);
-        return (thetaC * 180 / Math.PI);
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, Math.toRadians(tilterAngle + KParallelCorrection));
+        thetaC = thetaC * 180 / Math.PI;
+        SmartDashboard.putNumber("toLinkageAngle output", thetaC);
+        SmartDashboard.putNumber("toLinkageAngle input", tilterAngle);
+        return thetaC;
     }
 
     /**
@@ -276,8 +280,8 @@ public class Tilter extends SubsystemBase {
         double velSq = vel * vel; // Velocity squared
         double rad = Math.sqrt((velSq * velSq) - (g * ((2 * velSq * yDist) + (g * xDist * xDist)))); // Radical
 
-        double theta1 = Math.atan((velSq + rad) / (g * xDist)); // First possible angle
-        double theta2 = Math.atan((velSq - rad) / (g * xDist)); // Second possible angle
+        double theta1 = Math.toDegrees(Math.atan((velSq + rad) / (g * xDist))); // First possible angle
+        double theta2 = Math.toDegrees(Math.atan((velSq - rad) / (g * xDist))); // Second possible angle
 
         // If one angle is NaN, returns the other angle. Otherwise, returns the lower
         // angle

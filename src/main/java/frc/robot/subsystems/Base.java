@@ -85,7 +85,7 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.01, 0.015, 0.002, 0, 0.02);
+    xOffController = new PIDController(0.01, 0.01, 0.002, 0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
@@ -94,8 +94,8 @@ public class Base extends SubsystemBase {
     xOffController.setIntegralZoneRange(10);
 
     // Set up slew rate limiters
-    leftLimiter = new SlewRateLimiter(1);
-    rightLimiter = new SlewRateLimiter(1);
+    leftLimiter = new SlewRateLimiter(5);
+    rightLimiter = new SlewRateLimiter(5);
 
     // Instantiating the solenoid
     shifter = new Solenoid(KBaseShifter);

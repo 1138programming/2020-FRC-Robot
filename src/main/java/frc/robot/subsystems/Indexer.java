@@ -19,6 +19,7 @@ public class Indexer extends SubsystemBase {
     // Configure spark. Factory defaults are restored, so every necessary configuration is included here
     indexer.restoreFactoryDefaults();
     indexer.setInverted(true);
+    indexer.setSmartCurrentLimit(40, 40, 3000);
 
     // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
     // This protects against wrong configurations if the robot reboots during a match

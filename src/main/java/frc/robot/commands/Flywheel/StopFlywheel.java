@@ -3,6 +3,7 @@ package frc.robot.commands.Flywheel;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.enums.RobotState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
 public class StopFlywheel extends CommandBase {
@@ -15,7 +16,8 @@ public class StopFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.flywheel.setSetpoints(2800, 3500);
+    //Robot.flywheel.setSetpoints(2800, 3000);
+    Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0), SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
