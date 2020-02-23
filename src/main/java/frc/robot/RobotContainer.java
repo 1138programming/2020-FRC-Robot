@@ -22,6 +22,7 @@ import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import frc.robot.commands.Indexer.IndexOut;
 import frc.robot.commands.Indexer.IndexStop;
+import frc.robot.commands.Indexer.MoveIndexerFor;
 import frc.robot.commands.Intake.IntakeStop;
 import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
@@ -39,6 +40,7 @@ import frc.robot.commands.RobotState.ToggleShooting;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
+import frc.robot.commands.Storage.MoveStorageFor;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Tilter.MoveTilterTo;
@@ -191,14 +193,17 @@ public class RobotContainer {
 
     xboxBtnStrt.whenPressed(feedShot);
     xboxBtnStrt.negate().cancelWhenActive(feedShot);
-    xboxBtnStrt.whenPressed(startShooting);
-    xboxBtnStrt.whenReleased(endShooting);
+    xboxBtnA.whenPressed(startShooting);
+    xboxBtnA.whenReleased(endShooting);
 
     //xboxBtnSelect.whenPressed(new ResetAll());
 
     //collecter down and collector run should be two separate
     xboxBtnX.toggleWhenActive(toggleIntakePosition);
-    xboxBtnY.whenActive(toggleCollecting);
+    xboxBtnY.whenPressed(startCollecting);
+    xboxBtnY.whenReleased(new MoveStorageFor(-.5, StorageStage.BOTH, 200));
+    xboxBtnY.whenReleased(new MoveIndexerFor(-.5, 200));
+    xboxBtnY.whenReleased(endCollecting);
     //xboxBtnY.whenPressed(startCollecting);
     //xboxBtnY.whenReleased(endCollecting);
 

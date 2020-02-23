@@ -24,7 +24,7 @@ public class MoveStorageFor extends CommandBase {
   }
 
   public MoveStorageFor(StorageStage stage, long duration) {
-    this(KStoragePWM, stage, duration);
+    this(.5, stage, duration);
   }
 
   // Called when the command is initially scheduled.

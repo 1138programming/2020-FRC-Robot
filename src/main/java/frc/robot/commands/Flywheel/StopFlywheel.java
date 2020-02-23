@@ -16,8 +16,8 @@ public class StopFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //Robot.flywheel.setSetpoints(2800, 3000);
-    Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0), SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0));
+    Robot.flywheel.setSetpoints(2700, 2900);
+    // Robot.flywheel.setSetpoints(SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0), SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
