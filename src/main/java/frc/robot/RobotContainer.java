@@ -29,6 +29,7 @@ import frc.robot.commands.Intake.IntakeOut;
 import frc.robot.commands.Intake.IntakeRetract;
 import frc.robot.commands.Intake.IntakeDeploy;
 import frc.robot.commands.Micellaneous.ResetAll;
+import frc.robot.commands.Micellaneous.CancelAll;
 import frc.robot.commands.Pneumatics.CompressorControl;
 import frc.robot.commands.RobotState.StartCollecting;
 import frc.robot.commands.RobotState.EndCollecting;
@@ -216,18 +217,7 @@ public class RobotContainer {
     tilterManualUp.whenActive(tiltUp);
     tilterManualDown.whenActive(tiltDown);
 
-    xboxBtnSelect.cancelWhenPressed(baseShiftHigh); 
-    xboxBtnSelect.cancelWhenPressed(baseShiftLow); 
-    xboxBtnSelect.cancelWhenPressed(climbDown);
-    xboxBtnSelect.cancelWhenPressed(climbUp);
-    xboxBtnSelect.cancelWhenPressed(limelightPosition);
-    xboxBtnSelect.cancelWhenPressed(goToColor);
-    xboxBtnSelect.cancelWhenPressed(feedShot);
-    xboxBtnSelect.cancelWhenPressed(spinUpFlywheel);
-    xboxBtnSelect.cancelWhenPressed(toggleIntakePosition);
-    xboxBtnSelect.cancelWhenPressed(toggleCollecting);
-    xboxBtnSelect.cancelWhenPressed(storageOut);
-    xboxBtnSelect.cancelWhenPressed(intakeOut);
+    xboxBtnSelect.whenPressed(new CancelAll()); 
   }
 
   public double getRightAxis() {
