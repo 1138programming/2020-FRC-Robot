@@ -14,7 +14,6 @@ import frc.robot.controller.PIDController;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.SolenoidState;
-import frc.robot.enums.RobotState;
 
 public class Intake extends SubsystemBase {
   // Intake PID

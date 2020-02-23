@@ -14,7 +14,6 @@ import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.Tilter;
 import frc.robot.subsystems.Pneumatics;
 
-import frc.robot.enums.RobotState;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -36,8 +35,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   public static final RobotContainer m_robotContainer = new RobotContainer();
-
-  public static RobotState robotState;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -109,7 +106,6 @@ public class Robot extends TimedRobot {
     base.zeroEncoders();
     tilter.zeroEncoder();
     storage.setBallCount(0);
-    robotState = RobotState.DEFAULT;
   }
 
   /**

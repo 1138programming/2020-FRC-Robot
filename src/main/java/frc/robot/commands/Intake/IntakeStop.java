@@ -2,7 +2,6 @@ package frc.robot.commands.Intake;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.enums.RobotState;
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
 
@@ -21,17 +20,7 @@ public class IntakeStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Robot.robotState == RobotState.COLLECTING) {
-      // if (Robot.intake.getIntakePosition() == SolenoidState.DEFAULT) {
-      //   //Robot.intake.setIntakePosition(SolenoidState.ACTIVE);
-      //   Robot.intake.move(0);
-      // } else {
-        Robot.intake.move(KIntakePWM);
-      // }
-    } else {
-      //Robot.intake.setIntakePosition(SolenoidState.DEFAULT);
-      Robot.intake.move(0);
-    }
+    Robot.intake.move(0);
   }
 
   // Called once the command ends or is interrupted.

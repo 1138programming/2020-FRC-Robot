@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.CommandGroups.LimelightPosition;
+import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Base.BaseShiftHigh;
@@ -31,13 +31,7 @@ import frc.robot.commands.Intake.IntakeDeploy;
 import frc.robot.commands.Micellaneous.ResetAll;
 import frc.robot.commands.Micellaneous.CancelAll;
 import frc.robot.commands.Pneumatics.CompressorControl;
-import frc.robot.commands.RobotState.StartCollecting;
-import frc.robot.commands.RobotState.EndCollecting;
-import frc.robot.commands.RobotState.ToggleCollecting;
 import frc.robot.commands.Intake.ToggleIntakePosition;
-import frc.robot.commands.RobotState.StartShooting;
-import frc.robot.commands.RobotState.EndShooting;
-import frc.robot.commands.RobotState.ToggleShooting;
 import frc.robot.commands.Storage.StorageStop;
 import frc.robot.commands.Storage.StorageIn;
 import frc.robot.commands.Storage.StorageOut;
@@ -52,6 +46,8 @@ import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
+import frc.robot.CommandGroups.Collecting;
+import frc.robot.CommandGroups.EjectBalls;
 import frc.robot.enums.StorageStage;
 
 public class RobotContainer {
@@ -91,7 +87,7 @@ public class RobotContainer {
   public static XboxController xbox; 
   public JoystickButton logitechBtnX, logitechBtnA, logitechBtnB, logitechBtnY, logitechBtnLB, logitechBtnRB, logitechBtnLT, logitechBtnRT; //Logitech Button
   public JoystickButton xboxBtnA, xboxBtnB, xboxBtnX, xboxBtnY, xboxBtnLB, xboxBtnRB, xboxBtnStrt, xboxBtnSelect, xboxBtnLT, xboxBtnRT;
-  public Trigger tilterManualUp, tilterManualDown;
+  public Trigger xboxLeftJoystick;
 
   /**
    * The container for the robot.  Contains default commands, OI devices, and commands.
@@ -135,10 +131,8 @@ public class RobotContainer {
 		xboxBtnLT = new JoystickButton(xbox, KXboxLeftTrigger);
     xboxBtnRT = new JoystickButton(xbox, KXboxRightTrigger);
 
-    BooleanSupplier xboxLeftUp = () -> {return getXboxLeftAxis() > 0;};
-    BooleanSupplier xboxLeftDown = () -> {return getXboxLeftAxis() < 0;};
-    tilterManualUp = new Trigger(xboxLeftUp);
-    tilterManualDown = new Trigger(xboxLeftDown);
+    BooleanSupplier xboxLeftSup = () -> {return getXboxLeftAxis() != 0;};
+    xboxLeftJoystick = new Trigger(xboxLeftSup);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -151,72 +145,62 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    BaseShiftHigh baseShiftHigh = new BaseShiftHigh();
-    BaseShiftLow baseShiftLow = new BaseShiftLow();
-    ClimbUp climbUp = new ClimbUp();
-    ClimbDown climbDown = new ClimbDown();
-    LimelightPosition limelightPosition = new LimelightPosition();
+    // Commands whose isFinished is false
+    PositionWithLimelight positionWithLimelight = new PositionWithLimelight();
     GoToColor goToColor = new GoToColor();
+    Collecting collecting = new Collecting();
     FeedShot feedShot = new FeedShot();
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
-    ToggleIntakePosition toggleIntakePosition = new ToggleIntakePosition();
-    StartCollecting startCollecting = new StartCollecting();
-    EndCollecting endCollecting = new EndCollecting();
-    ToggleCollecting toggleCollecting = new ToggleCollecting();
-    StartShooting startShooting = new StartShooting();
-    EndShooting endShooting = new EndShooting();
-    ToggleShooting toggleShooting = new ToggleShooting();
-    StorageOut storageOut = new StorageOut(StorageStage.BOTH);
-    IntakeOut intakeOut = new IntakeOut();
-    IndexOut indexOut = new IndexOut();
-    TiltUp tiltUp = new TiltUp();
-    TiltDown tiltDown = new TiltDown();
+    TiltWithJoysticks tiltWithJoysticks = new TiltWithJoysticks();
 
-    //Logitech
-    logitechBtnRB.whenPressed(baseShiftHigh);
+    // Logitech
+    // Shift high on press and medium on release
+    logitechBtnRB.whenPressed(new BaseShiftHigh());
     logitechBtnRB.whenReleased(new BaseShiftMedium());
-    logitechBtnRT.whenPressed(baseShiftLow);
+
+    // Shift low on press and medium on release
+    logitechBtnRT.whenPressed(new BaseShiftLow());
     logitechBtnRT.whenReleased(new BaseShiftMedium());
 
-    logitechBtnLB.whileHeld(climbUp);
-    logitechBtnLT.whileHeld(climbDown);
+    // Climb up
+    logitechBtnLB.whileHeld(new ClimbUp());
 
-    logitechBtnA.whileHeld(limelightPosition);
+    // Climb down
+    logitechBtnLT.whileHeld(new ClimbDown());
 
+    // Position with limelight and start flywheel
+    logitechBtnA.whileHeld(positionWithLimelight);
+    logitechBtnA.whenPressed(spinUpFlywheel);
+
+    // Use wheel mechanism to go to color
     logitechBtnB.whenPressed(goToColor);
 
-    //Xbox
+    // Xbox
+    // Manual feed shot control for Gio
+    xboxBtnB.whileActiveOnce(feedShot);
+
+    // Actively start/stop flywheel
+    xboxBtnA.whileActiveOnce(spinUpFlywheel);
+
+    // Toggle collector position
+    xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
+
+    // Collecting button. When released, move all balls out for a bit
+    xboxBtnY.whileActiveOnce(collecting);
+    xboxBtnY.whenReleased(new MoveStorageFor(-0.5, StorageStage.BOTH, 200));
+    xboxBtnY.whenReleased(new MoveIndexerFor(-0.5, 200));
+
+    // Eject balls
+    xboxBtnRB.whileHeld(new EjectBalls());
+    xboxBtnRB.cancelWhenPressed(collecting);
+
+    // Intake out
+    xboxBtnLB.whileHeld(new IntakeOut());
     
-    //logitechBtnA.whenActive(xboxBtnB.whileHeld(new FeedShot()));
-    logitechBtnA.and(xboxBtnB).whileActiveContinuous(feedShot);
-    logitechBtnA.whenPressed(startShooting);
-    logitechBtnA.whenReleased(endShooting);
+    // Manual override for moving the tilter with the joystick
+    xboxLeftJoystick.whileActiveOnce(tiltWithJoysticks);
 
-    xboxBtnStrt.whenPressed(feedShot);
-    xboxBtnStrt.negate().cancelWhenActive(feedShot);
-    xboxBtnA.whenPressed(startShooting);
-    xboxBtnA.whenReleased(endShooting);
-
-    //xboxBtnSelect.whenPressed(new ResetAll());
-
-    //collecter down and collector run should be two separate
-    xboxBtnX.toggleWhenActive(toggleIntakePosition);
-    xboxBtnY.whenPressed(startCollecting);
-    xboxBtnY.whenReleased(new MoveStorageFor(-.5, StorageStage.BOTH, 200));
-    xboxBtnY.whenReleased(new MoveIndexerFor(-.5, 200));
-    xboxBtnY.whenReleased(endCollecting);
-    //xboxBtnY.whenPressed(startCollecting);
-    //xboxBtnY.whenReleased(endCollecting);
-
-    xboxBtnRB.whileHeld(storageOut);
-    xboxBtnRB.whileHeld(intakeOut);
-    xboxBtnRB.whileHeld(indexOut);
-    xboxBtnRB.whenPressed(endCollecting);
-    xboxBtnLB.whileHeld(intakeOut);
-    
-    tilterManualUp.whenActive(tiltUp);
-    tilterManualDown.whenActive(tiltDown);
-
+    // Cancel all currently running commands, going back to default commands
     xboxBtnSelect.whenPressed(new CancelAll()); 
   }
 
