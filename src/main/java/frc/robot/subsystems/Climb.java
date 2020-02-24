@@ -37,8 +37,8 @@ public class Climb extends SubsystemBase {
 
     climbPID = new PIDController(0.0001, 0, 0, 0, 0.02);
 
-    climbTalon.setInverted(false);
-    climbVictor.setInverted(false);
+    climbTalon.setInverted(true);
+    climbVictor.setInverted(true);
 
     climbVictor.follow(climbTalon);
 

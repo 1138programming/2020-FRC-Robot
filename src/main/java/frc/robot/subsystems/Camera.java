@@ -23,7 +23,7 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry snapshot = table.getEntry("snapshot"); // Takes two snapshots per second when set to 1
   public static double i, x, y, area;
 
-  private static final double KCrosshairOffset = -17; // Degrees from center of the Limelight viewport
+  private static final double KCrosshairOffset = 0; // Degrees from center of the Limelight viewport, used to be -17
 
   /**
    * @brief This is the Camera
@@ -44,6 +44,7 @@ public class Camera extends SubsystemBase {
     //SmartDashboard.putNumber("LimelightY", y);
     //SmartDashboard.putNumber("LimelightArea", area);
     SmartDashboard.putNumber("Distance to Target", getDistance());
+    SmartDashboard.putNumber("Pipeline", pipeline.getDouble(0.0));
   }
 
   /**
@@ -110,7 +111,7 @@ public class Camera extends SubsystemBase {
    * 
    * @param pipe  Index of pipeline between 0 and 9
    */
-  public void setPipeline(double pipe) {
+  public void setPipeline(int pipe) {
     pipeline.setNumber(pipe);
   }
   

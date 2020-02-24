@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
 import frc.robot.controller.PIDController;
+import frc.robot.enums.IntegralType;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 
 public class Flywheel extends SubsystemBase {
@@ -44,14 +45,18 @@ public class Flywheel extends SubsystemBase {
     bottomEncoder = flywheelBottom.getEncoder();
 
     // Top TBH Controller
-    topController = new PIDController(0.0003, 0, 0, 0.000185, 0.02);
+    topController = new PIDController(0.0003, 0.0005, 0.000193, 0.000185, 0.02);
     topController.setInputRange(-5500, 5500);
     topController.setOutputRange(-1, 1);
+    topController.configIntegral(IntegralType.DEFAULT, true);
+    topController.setIntegralZoneRange(50);
 
     // Bottom TBH Controller
-    bottomController = new PIDController(0, 0, 0, 0.000193, 0.02);
+    bottomController = new PIDController(0.0003, 0.0005, 0.000035, 0.000193, 0.02);
     bottomController.setInputRange(-10000, 10000);
     bottomController.setOutputRange(-1, 1);
+    bottomController.configIntegral(IntegralType.DEFAULT, true);
+    bottomController.setIntegralZoneRange(50);
 
     // Slew rate limits to prevent the motor PWM values from changing too fast
     topLimiter = new SlewRateLimiter(1);

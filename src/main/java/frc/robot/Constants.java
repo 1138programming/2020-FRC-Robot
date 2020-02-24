@@ -53,7 +53,7 @@ public final class Constants {
 // Default PWM values
     public static final double KClimbPWM = 1;
     public static double KIndexerPWM = 1;
-    public static double KIntakePWM = 0.75;
+    public static double KIntakePWM = 1;
     public static double KStoragePWM = 1;
     public static final double KTilterPWM = 0.5;
     public static final double KWheelPWM = 0.5;

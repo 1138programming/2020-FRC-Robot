@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
+import frc.robot.commands.Camera.SwitchPipelineToDefault;
 import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Base.BaseShiftMedium;
@@ -96,13 +97,14 @@ public class RobotContainer {
     // Set default commands
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
     Robot.climb.setDefaultCommand(new ClimbStop());
+    Robot.camera.setDefaultCommand(new SwitchPipelineToDefault());
     Robot.flywheel.setDefaultCommand(new StopFlywheel());
     Robot.indexer.setDefaultCommand(new IndexStop());
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
     Robot.intake.setDefaultCommand(new IntakeStop());
     Robot.storage.setDefaultCommand(new StorageStop());
-    Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
-    //Robot.tilter.setDefaultCommand(new TilterStop());
+    //Robot.tilter.setDefaultCommand(new TiltWithJoysticks());
+    Robot.tilter.setDefaultCommand(new TilterStop());
     Robot.wheel.setDefaultCommand(new WheelStop());
 
     // Controllers
@@ -180,7 +182,7 @@ public class RobotContainer {
     xboxBtnB.whileActiveOnce(feedShot);
 
     // Actively start/stop flywheel
-    xboxBtnA.whileActiveOnce(spinUpFlywheel);
+    xboxBtnA.toggleWhenActive(spinUpFlywheel);
 
     // Toggle collector position
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
