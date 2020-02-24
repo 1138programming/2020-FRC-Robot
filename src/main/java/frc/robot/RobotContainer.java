@@ -49,6 +49,7 @@ import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.CommandGroups.Collecting;
 import frc.robot.CommandGroups.EjectBalls;
+import frc.robot.CommandGroups.MoveOutEverythingALittleBit;
 import frc.robot.enums.StorageStage;
 
 public class RobotContainer {
@@ -189,8 +190,7 @@ public class RobotContainer {
 
     // Collecting button. When released, move all balls out for a bit
     xboxBtnY.whileActiveOnce(collecting);
-    xboxBtnY.whenReleased(new MoveStorageFor(-0.5, StorageStage.BOTH, 200));
-    xboxBtnY.whenReleased(new MoveIndexerFor(-0.5, 200));
+    xboxBtnY.whenReleased(new MoveOutEverythingALittleBit());
 
     // Eject balls
     xboxBtnRB.whileHeld(new EjectBalls());

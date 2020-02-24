@@ -13,7 +13,7 @@ public class PositionWithLimelight extends SequentialCommandGroup {
     addCommands(
       new SwitchPipelineToTargeting(),
       parallel (
-        //new MoveBaseToTarget(),
+        new MoveBaseToTarget()
         //new MoveTilterToIdealAngle()
       )
     );

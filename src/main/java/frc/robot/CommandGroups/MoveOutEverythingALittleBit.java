@@ -10,12 +10,12 @@ public class MoveOutEverythingALittleBit extends SequentialCommandGroup {
   public MoveOutEverythingALittleBit() {
     addCommands(
         parallel(
-            new MoveStorageFor(-0.5, StorageStage.BOTH, 200),
-            new MoveIndexerFor(-0.5, 200)
+          new MoveStorageFor(-0.5, StorageStage.BOTH, 200),
+          new MoveIndexerFor(-0.5, 200)
         ),
         parallel(
-            new MoveStorageFor(-0.5, StorageStage.STAGE2, 500),
-            new MoveIndexerFor(-0.5, 500)
+          new MoveStorageFor(-0.5, StorageStage.STAGE2, 300),
+          new MoveIndexerFor(-0.5, 300)
         )
     );
   }

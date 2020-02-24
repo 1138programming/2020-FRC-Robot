@@ -63,8 +63,8 @@ public class Flywheel extends SubsystemBase {
     bottomLimiter = new SlewRateLimiter(1);
 
     // Initialize SmartDashboard fields that we are getting numbers from
-    SmartDashboard.putNumber("Flywheel Top Setpoint", 2800.0);
-    SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3000.0);
+    SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
+    SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
     SmartDashboard.putNumber("Flywheel Top P", topController.getP());
     SmartDashboard.putNumber("Flywheel Top I", topController.getI());
     SmartDashboard.putNumber("Flywheel Top D", topController.getD());

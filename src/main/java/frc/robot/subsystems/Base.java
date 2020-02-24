@@ -58,7 +58,6 @@ public class Base extends SubsystemBase {
   /**
    * @brief This is the Base
    */
-
   public Base() {
     // Instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
@@ -85,17 +84,17 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.01, 0.01, 0.002, 0, 0.02);
+    xOffController = new PIDController(0.018, 0.003, 0.001, 0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
     xOffController.setSetpoint(0);
     xOffController.configIntegral(IntegralType.DEFAULT, true);
-    xOffController.setIntegralZoneRange(10);
+    xOffController.setIntegralZoneRange(5);
 
     // Set up slew rate limiters
-    leftLimiter = new SlewRateLimiter(5);
-    rightLimiter = new SlewRateLimiter(5);
+    leftLimiter = new SlewRateLimiter(6);
+    rightLimiter = new SlewRateLimiter(6);
 
     // Instantiating the solenoid
     shifter = new Solenoid(KBaseShifter);

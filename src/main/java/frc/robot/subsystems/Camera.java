@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.LinearFilter;
 import frc.robot.subsystems.Tilter;
 import frc.robot.Robot;
 import java.lang.*;
@@ -22,6 +23,7 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry pipeline = table.getEntry("pipeline"); // pipeline index
   NetworkTableEntry snapshot = table.getEntry("snapshot"); // Takes two snapshots per second when set to 1
   public static double i, x, y, area;
+  private LinearFilter xSmoother, ySmoother;
 
   private static final double KCrosshairOffset = 0; // Degrees from center of the Limelight viewport, used to be -17
 
@@ -30,18 +32,22 @@ public class Camera extends SubsystemBase {
    */
 
   public Camera() {
+    xSmoother = LinearFilter.singlePoleIIR(0.01, 0.02);
+    ySmoother = LinearFilter.singlePoleIIR(0.01, 0.02);
   }
 
   @Override
   public void periodic() {
     i = tv.getDouble(0.0); 
+    //x = xSmoother.calculate(tx.getDouble(0.0));
     x = tx.getDouble(0.0);
+    //y = ySmoother.calculate(ty.getDouble(0.0));
     y = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
     //SmartDashboard.putNumber("IsLimelightTarget", i);
-    //SmartDashboard.putNumber("LimelightX", x);
-    //SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
     //SmartDashboard.putNumber("LimelightArea", area);
     SmartDashboard.putNumber("Distance to Target", getDistance());
     SmartDashboard.putNumber("Pipeline", pipeline.getDouble(0.0));

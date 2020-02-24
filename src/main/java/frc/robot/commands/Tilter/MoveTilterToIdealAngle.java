@@ -16,7 +16,8 @@ public class MoveTilterToIdealAngle extends CommandBase {
   @Override
   public void initialize() {
     Robot.tilter.reset();
-    Robot.tilter.setIdealSetpoint(SmartDashboard.getNumber("Ball Initial Vel", 0.0));
+    //Robot.tilter.setIdealSetpoint(SmartDashboard.getNumber("Ball Initial Vel", 0.0));
+    Robot.tilter.setIdealSetpoint(43.48);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
