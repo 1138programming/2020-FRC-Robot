@@ -51,6 +51,9 @@ import frc.robot.CommandGroups.Collecting;
 import frc.robot.CommandGroups.EjectBalls;
 import frc.robot.CommandGroups.MoveOutEverythingALittleBit;
 import frc.robot.enums.StorageStage;
+import frc.robot.commands.Micellaneous.Conditional;
+import frc.robot.Robot;
+import java.util.function.BooleanSupplier;
 
 public class RobotContainer {
   // Controller Constants
@@ -190,7 +193,8 @@ public class RobotContainer {
 
     // Collecting button. When released, move all balls out for a bit
     xboxBtnY.whileActiveOnce(collecting);
-    xboxBtnY.whenReleased(new MoveOutEverythingALittleBit());
+    BooleanSupplier lessThanFive = () -> {return Robot.storage.getBallCount() < 5;};
+    xboxBtnY.whenReleased(new MoveOutEverythingALittleBit().raceWith(new Conditional(lessThanFive)));
 
     // Eject balls
     xboxBtnRB.whileHeld(new EjectBalls());
