@@ -143,7 +143,7 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief Computes the angle that the tilter is tilting the flywheel at above the horizontal
      * 
-     * Bounds on the tilter angle in degrees: [33, 59]
+     * Bounds on the tilter angle in degrees: [32, 61.5]
      * 
      * @return The angle
      */
@@ -154,10 +154,19 @@ public class Tilter extends SubsystemBase {
     /**
      * @brief Sets the setpoint for the tiler PID
      * 
-     * @param setpoint The setpoint
+     * @param setpoint The target linkage angle
      */
     public void setSetpoint(double setpoint) {
         tilterPID.setSetpoint(setpoint);
+    }
+
+    /**
+     * @brief Sets the setpoint for the tilter PID
+     * 
+     * @param setpoint The target flywheel angle
+     */
+    public void setTilterSetpoint(double setpoint) {
+        setSetpoint(toLinkageAngle(setpoint));
     }
 
     /**
@@ -165,7 +174,7 @@ public class Tilter extends SubsystemBase {
      * @param xDist Horizonatal distance to the goal in feet
      */
     public void setIdealSetpoint(double vel) {
-        tilterPID.setSetpoint(toLinkageAngle(idealTilterAngle(vel)));
+        setTilterSetpoint(idealTilterAngle(vel));
     }
 
     /**

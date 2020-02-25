@@ -1,16 +1,16 @@
-package frc.robot.commands.Camera;
+package frc.robot.commands.Base;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Camera;
 import frc.robot.Robot;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MoveTilterToTarget extends CommandBase {
-
-  public MoveTilterToTarget() {
-      addRequirements(Robot.tilter);
+public class MoveBaseToCrosshair extends CommandBase {
+  public MoveBaseToCrosshair() {
+      addRequirements(Robot.base);
+      // We probably don't need with the camera, although we should probably check with Pauline
       //addRequirements(Robot.camera);
   }
 
@@ -22,7 +22,13 @@ public class MoveTilterToTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.tilter.calculateYOff();
+    Robot.base.setXOffConstants(
+      SmartDashboard.getNumber("Base XOff P", 0.0),
+      SmartDashboard.getNumber("Base XOff I", 0.0),
+      SmartDashboard.getNumber("Base XOff D", 0.0)
+    );
+
+    Robot.base.calculateXOff();
   }
 
   // Called once the command ends or is interrupted.
@@ -33,6 +39,6 @@ public class MoveTilterToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return Robot.base.atTargetXOff();
   }
 }
