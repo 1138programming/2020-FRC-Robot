@@ -167,7 +167,9 @@ public class Tilter extends SubsystemBase {
      * @param setpoint The target flywheel angle
      */
     public void setTilterSetpoint(double setpoint) {
-        setSetpoint(toLinkageAngle(setpoint));
+        double linkageAngle = toLinkageAngle(setpoint);
+        SmartDashboard.putNumber("Table Angle Conversion", linkageAngle);
+        setSetpoint(linkageAngle);
     }
 
     /**

@@ -13,6 +13,7 @@ public class DriveWithJoysticks extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //SmartDashboard.putNumber("Base Turn Speed", 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -20,6 +21,8 @@ public class DriveWithJoysticks extends CommandBase {
   public void execute() {
     double leftPWM = Robot.m_robotContainer.getLeftAxis();
     double rightPWM = Robot.m_robotContainer.getRightAxis();
+    //double leftPWM = SmartDashboard.getNumber("Base Turn Speed", 0.0);
+    //double rightPWM = -SmartDashboard.getNumber("Base Turn Speed", 0.0);
     
     Robot.base.move(leftPWM, rightPWM);
   }

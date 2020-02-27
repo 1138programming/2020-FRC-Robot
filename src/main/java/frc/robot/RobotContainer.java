@@ -44,6 +44,7 @@ import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Tilter.MoveTilterToIdealAngle;
+import frc.robot.commands.Tilter.MoveTilterFromTable;
 import frc.robot.commands.Tilter.TiltUp;
 import frc.robot.commands.Tilter.TiltDown;
 import frc.robot.commands.Tilter.TilterStop;
@@ -162,6 +163,7 @@ public class RobotContainer {
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
     SpinUpFromTable spinUpFromTable = new SpinUpFromTable();
     TiltWithJoysticks tiltWithJoysticks = new TiltWithJoysticks();
+    MoveTilterFromTable moveTilterFromTable = new MoveTilterFromTable();
 
     // Logitech
     // Shift high on press and medium on release
@@ -194,6 +196,7 @@ public class RobotContainer {
     // Actively start/stop flywheel
     //xboxBtnA.toggleWhenActive(spinUpFlywheel);
     xboxBtnA.toggleWhenActive(spinUpFromTable);
+    xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
     // Toggle collector position
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());

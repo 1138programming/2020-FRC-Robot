@@ -88,9 +88,10 @@ public class Base extends SubsystemBase {
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
-    xOffController.setSetpoint(0);
+    xOffController.setOutputDeadband(0.05, 0.02);
     xOffController.configIntegral(IntegralType.DEFAULT, true);
     xOffController.setIntegralZoneRange(5);
+    xOffController.setSetpoint(0);
 
     // Set up slew rate limiters
     leftLimiter = new SlewRateLimiter(6);
