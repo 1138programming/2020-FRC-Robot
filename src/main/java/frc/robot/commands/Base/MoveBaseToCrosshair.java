@@ -1,4 +1,4 @@
-package frc.robot.commands.Camera;
+package frc.robot.commands.Base;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Base;
@@ -7,8 +7,8 @@ import frc.robot.Robot;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MoveBaseToTarget extends CommandBase {
-  public MoveBaseToTarget() {
+public class MoveBaseToCrosshair extends CommandBase {
+  public MoveBaseToCrosshair() {
       addRequirements(Robot.base);
       // We probably don't need with the camera, although we should probably check with Pauline
       //addRequirements(Robot.camera);
@@ -17,6 +17,7 @@ public class MoveBaseToTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putBoolean("Base Aligned", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +35,7 @@ public class MoveBaseToTarget extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("Base Aligned", true);
   }
 
   // Returns true when the command should end.

@@ -63,6 +63,7 @@ public class Storage extends SubsystemBase {
     SmartDashboard.putNumber("Storage BallCount", ballCount);
     SmartDashboard.putBoolean("Storage Ball Sensor 1", getBallSensor1());
     SmartDashboard.putBoolean("Storage Ball Sensor 2", getBallSensor2());
+    SmartDashboard.putBoolean("Storage Full", (ballCount == 5));
   }
 
   /**

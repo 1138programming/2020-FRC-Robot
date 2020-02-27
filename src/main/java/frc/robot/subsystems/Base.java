@@ -102,6 +102,7 @@ public class Base extends SubsystemBase {
     SmartDashboard.putNumber("Base XOff P", xOffController.getP());
     SmartDashboard.putNumber("Base XOff I", xOffController.getI());
     SmartDashboard.putNumber("Base XOff D", xOffController.getD());
+    SmartDashboard.putBoolean("Base Aligned", false);
   }
 
   @Override

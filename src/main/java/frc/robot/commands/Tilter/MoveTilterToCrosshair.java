@@ -1,15 +1,11 @@
-package frc.robot.commands.Camera;
+package frc.robot.commands.Tilter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
-import frc.robot.subsystems.Camera;
 import frc.robot.Robot;
-import static frc.robot.Constants.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MoveTilterToTarget extends CommandBase {
+public class MoveTilterToCrosshair extends CommandBase {
 
-  public MoveTilterToTarget() {
+  public MoveTilterToCrosshair() {
       addRequirements(Robot.tilter);
       //addRequirements(Robot.camera);
   }

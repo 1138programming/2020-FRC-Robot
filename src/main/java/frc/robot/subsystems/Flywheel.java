@@ -1,25 +1,27 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
-
 import frc.robot.controller.PIDController;
 import frc.robot.enums.IntegralType;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
+import java.util.HashMap;
+import java.util.ArrayList;
+import frc.robot.FlywheelState;
 
 public class Flywheel extends SubsystemBase {
   private final CANSparkMax flywheelTop, flywheelBottom;
   private final CANEncoder topEncoder, bottomEncoder;
   private PIDController topController, bottomController;
   private SlewRateLimiter topLimiter, bottomLimiter;
-
   private double topPWM = 0, bottomPWM = 0;
+  
+  private HashMap<Double, FlywheelState> shootingTable;
+  private ArrayList<Double> distanceKeys; // Sort from smallest to largest
 
   /**
    * @brief This is the Flywheel
@@ -62,6 +64,11 @@ public class Flywheel extends SubsystemBase {
     topLimiter = new SlewRateLimiter(1);
     bottomLimiter = new SlewRateLimiter(1);
 
+    // Initialize the shooting table
+    shootingTable = new HashMap<Double, FlywheelState>(14);
+    distanceKeys = new ArrayList<Double>(14);
+    initShootingTable();
+
     // Initialize SmartDashboard fields that we are getting numbers from
     SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
     SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
@@ -73,6 +80,9 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
     SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
     SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
+    SmartDashboard.putNumber("Shooting Table Top Vel", 0);
+    SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
+    SmartDashboard.putNumber("Shooting Table Angle", 0);
   }
 
   @Override
@@ -86,6 +96,42 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
   }
   
+  private void initShootingTable() {
+    addTableEntry(20.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(18.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(16.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(14.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(12.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(10.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(8.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(6.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(4.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(2.0, new FlywheelState(32, 3200, 3500));
+  }
+
+  private void addTableEntry(Double distance, FlywheelState flywheelState) {
+    shootingTable.put(distance, flywheelState);
+    for (int i = 0; i < distanceKeys.size(); i++) {
+      if (distanceKeys.get(i) > distance) {
+        distanceKeys.add(i, distance);
+        return;
+      }
+    }
+    distanceKeys.add(distance);
+  }
+
+  public FlywheelState readShootingTable(Double distance) {
+    for (Double distanceKey : distanceKeys) {
+      if (distanceKey > distance) {
+        SmartDashboard.putNumber("Shooting Table Key", distanceKey);
+        return shootingTable.get(distanceKey);
+      }
+    }
+    Double distanceKey = distanceKeys.get(distanceKeys.size() - 1);
+    SmartDashboard.putNumber("Shooting Table Key", distanceKey);
+    return shootingTable.get(distanceKey);
+  }
+
   /**
    * @brief Moves the flywheel directly
    * 
