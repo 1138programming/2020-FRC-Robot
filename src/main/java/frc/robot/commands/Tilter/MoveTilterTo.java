@@ -27,7 +27,7 @@ public class MoveTilterTo extends CommandBase {
   @Override
   public void initialize() {
     Robot.tilter.reset();
-    Robot.tilter.setSetpoint(SmartDashboard.getNumber("Tilter Target Linkage Angle", 0.0));
+    Robot.tilter.setTilterSetpoint(setpoint);
     Robot.tilter.setConstants(
       SmartDashboard.getNumber("Tilter P", 0.0),
       SmartDashboard.getNumber("Tilter I", 0.0),

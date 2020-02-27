@@ -42,6 +42,7 @@ import frc.robot.commands.Storage.StorageOut;
 import frc.robot.commands.Storage.MoveStorageFor;
 import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
+import frc.robot.commands.Wheel.Spin;
 import frc.robot.commands.Tilter.MoveTilterTo;
 import frc.robot.commands.Tilter.MoveTilterToIdealAngle;
 import frc.robot.commands.Tilter.TiltUp;
@@ -104,7 +105,7 @@ public class RobotContainer {
     // Set default commands
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
     Robot.climb.setDefaultCommand(new ClimbStop());
-    Robot.camera.setDefaultCommand(new SwitchPipelineToTargeting());
+    Robot.camera.setDefaultCommand(new SwitchPipelineToDefault());
     Robot.flywheel.setDefaultCommand(new StopFlywheel());
     Robot.indexer.setDefaultCommand(new IndexStop());
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
@@ -157,6 +158,7 @@ public class RobotContainer {
     // Commands whose isFinished is false
     PositionWithLimelight positionWithLimelight = new PositionWithLimelight();
     GoToColor goToColor = new GoToColor();
+    Spin spin = new Spin();
     Collecting collecting = new Collecting();
     FeedShot feedShot = new FeedShot();
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
@@ -181,19 +183,20 @@ public class RobotContainer {
     logitechBtnLT.whileHeld(new ClimbDown());
 
     // Position with limelight and start flywheel
-    logitechBtnA.whileHeld(positionWithLimelight);
+    // logitechBtnA.whileHeld(positionWithLimelight);
     logitechBtnA.whenPressed(spinUpFlywheel);
 
     // Use wheel mechanism to go to color
-    logitechBtnB.whenPressed(goToColor);
+    logitechBtnX.whenPressed(goToColor);
+    logitechBtnY.whenPressed(spin);
 
     // Xbox
     // Manual feed shot control for Gio
     xboxBtnB.whileActiveOnce(feedShot);
 
     // Actively start/stop flywheel
-    //xboxBtnA.toggleWhenActive(spinUpFlywheel);
-    xboxBtnA.toggleWhenActive(spinUpFromTable);
+    xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    // xboxBtnA.toggleWhenActive(spinUpFromTable);
 
     // Toggle collector position
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
