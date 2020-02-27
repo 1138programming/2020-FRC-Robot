@@ -22,7 +22,7 @@ public class Tilter extends SubsystemBase {
     private static final double KTicksPerRev = 4096;
     private static final double KGearRatio = 1; // It was supposed to be 300 but Humzah is bad
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
-    private static final double KDegreeOffset = 75.37; // Flywheel offset is 36
+    private static final double KDegreeOffset = 76; // Flywheel offset is 36
 
     private final DigitalInput tilterBottomLimit;
 
@@ -34,7 +34,7 @@ public class Tilter extends SubsystemBase {
     private final double KLinkageCLength = 4.757;
     private final double KLinkageDX = 7.75;
     private final double KLinkageDY = 2;
-    private final double KParallelCorrection = 3.013;
+    private final double KParallelCorrection = 0.6; // Should be 3.013
     private final double KLimelightMountOffset = 10; // Offset from flywheel
     private final double KTargetHeight = 8.1875; // Height of the goal off the ground in feet
 
@@ -87,6 +87,7 @@ public class Tilter extends SubsystemBase {
         SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
         SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle(45.11));
         SmartDashboard.putNumber("Tilter Ideal Linkage Angle", toLinkageAngle(idealTilterAngle(45.11)));
+        SmartDashboard.putNumber("Limelight Angle", getLimelightAngle());
     }
 
     /**
@@ -264,7 +265,7 @@ public class Tilter extends SubsystemBase {
      * @return Angle of the tilter linkage
      */
     private double toLinkageAngle(double tilterAngle) {
-        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, Math.toRadians(tilterAngle + KParallelCorrection));
+        double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, Math.toRadians(tilterAngle - KParallelCorrection));
         thetaC = thetaC * 180 / Math.PI;
         SmartDashboard.putNumber("toLinkageAngle output", thetaC);
         SmartDashboard.putNumber("toLinkageAngle input", tilterAngle);
@@ -279,7 +280,7 @@ public class Tilter extends SubsystemBase {
      */
     private double toTilterAngle(double linkageAngle) {
         double thetaC = solveForAngle(KLinkageALength, KLinkageBLength, KLinkageCLength, KLinkageDX, KLinkageDY, linkageAngle * Math.PI / 180);
-        return (thetaC * 180 / Math.PI) - 90 - KParallelCorrection;
+        return (thetaC * 180 / Math.PI) - 90 + KParallelCorrection;
     }
 
     private double idealTilterAngle(double vel) {
