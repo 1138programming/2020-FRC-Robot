@@ -1,13 +1,15 @@
 package frc.robot.subsystems;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.enums.SolenoidState;
 import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controller.PIDController;
 
@@ -16,12 +18,13 @@ public class Climb extends SubsystemBase {
   private final TalonSRX climbTalon;
   private final VictorSPX climbVictor;
 
-  private final Solenoid ratchetSolenoid;
+  //private final Solenoid ratchetSolenoid;
+  private final DoubleSolenoid ratchetSolenoid;
 
   private final DigitalInput TopLimit;
   private final DigitalInput BottomLimit;
 
-  public SolenoidState ratchetState = SolenoidState.DEFAULT;
+  //public DoubleSolenoid ratchetState = DoubleSolenoid.ACTIVE;
 
   private final PIDController climbPID;
   
@@ -42,12 +45,14 @@ public class Climb extends SubsystemBase {
 
     climbVictor.follow(climbTalon);
 
-    ratchetSolenoid = new Solenoid(KClimbRatchetSolenoid);
+    ratchetSolenoid = new DoubleSolenoid(KClimbRatchetSolenoidForward, KClimbRatchetSolenoidReverse);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // SmartDashboard.putString("climb ratchet state", getRatchetState().name());
+    SmartDashboard.putNumber("Climb Encoder", getClimbEncoder());
   }
 
   /**
@@ -68,6 +73,12 @@ public class Climb extends SubsystemBase {
     if (TopLimit.get() == false && BottomLimit.get() == false) { //limit logic in move, removed so we have a consistent move function and leave it to the methods
       moveWithoutLimits(PWM);
     }
+    else if (TopLimit.get() == true && PWM >= 0) {
+      moveWithoutLimits(PWM);
+    }
+    else if (BottomLimit.get() == true && PWM <= 0) {
+      moveWithoutLimits(PWM);
+    }
   }
 
   /**
@@ -75,9 +86,9 @@ public class Climb extends SubsystemBase {
    * 
    * @param state State of the pawl for the ratchet
    */
-  public void setRatchetState(SolenoidState state) {
-    ratchetState = state;
-    ratchetSolenoid.set(state == SolenoidState.ACTIVE);
+  public void setRatchetState(Value state) {
+    // ratchetState = state;
+    ratchetSolenoid.set(state);
   }
 
   /**
@@ -85,9 +96,9 @@ public class Climb extends SubsystemBase {
    * 
    * @return State of the pawl for the ratchet
    */
-  public SolenoidState getRatchetState() {
-    return ratchetState;
-  }
+  // public DoubleSolenoid getRatchetState() {
+  //   return DoubleSolenoid.Value;
+  // }
 
   /**
    * @brief Gets the value of the climb encoder

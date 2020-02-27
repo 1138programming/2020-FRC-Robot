@@ -12,7 +12,7 @@ import frc.robot.commands.Tilter.MoveTilterFromTable;
 public class PositionWithLimelight extends SequentialCommandGroup {
   public PositionWithLimelight() {
     addCommands(
-      new SwitchPipelineToTargeting(),
+      //new SwitchPipelineToTargeting(),
       parallel (
         new SpinUpFromTable(),
         sequence (

@@ -11,6 +11,7 @@ import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Camera.SwitchPipelineToDefault;
+import frc.robot.commands.Camera.SwitchPipelineToTargeting;
 import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Base.BaseShiftMedium;
@@ -19,8 +20,10 @@ import frc.robot.commands.Climb.ClimbDown;
 import frc.robot.commands.Climb.ClimbStop;
 import frc.robot.commands.Climb.ClimbUp;
 import frc.robot.commands.Climb.ClimbWithJoysticks;
+import frc.robot.commands.Climb.ClimbDisengage;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
+import frc.robot.commands.Flywheel.SpinUpFromTable;
 import frc.robot.commands.Indexer.IndexOut;
 import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Indexer.MoveIndexerFor;
@@ -98,7 +101,7 @@ public class RobotContainer {
     // Set default commands
     Robot.base.setDefaultCommand(new DriveWithJoysticks());
     Robot.climb.setDefaultCommand(new ClimbStop());
-    Robot.camera.setDefaultCommand(new SwitchPipelineToDefault());
+    Robot.camera.setDefaultCommand(new SwitchPipelineToTargeting());
     Robot.flywheel.setDefaultCommand(new StopFlywheel());
     Robot.indexer.setDefaultCommand(new IndexStop());
     Robot.pneumatics.setDefaultCommand(new CompressorControl());
@@ -154,6 +157,7 @@ public class RobotContainer {
     Collecting collecting = new Collecting();
     FeedShot feedShot = new FeedShot();
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
+    SpinUpFromTable spinUpFromTable = new SpinUpFromTable();
     TiltWithJoysticks tiltWithJoysticks = new TiltWithJoysticks();
 
     // Logitech
@@ -166,9 +170,11 @@ public class RobotContainer {
     logitechBtnRT.whenReleased(new BaseShiftMedium());
 
     // Climb up
+    logitechBtnLB.whenPressed(new ClimbDisengage(), false);
     logitechBtnLB.whileHeld(new ClimbUp());
 
     // Climb down
+    logitechBtnLT.whenPressed(new ClimbDisengage(), false);
     logitechBtnLT.whileHeld(new ClimbDown());
 
     // Position with limelight and start flywheel
@@ -183,7 +189,8 @@ public class RobotContainer {
     xboxBtnB.whileActiveOnce(feedShot);
 
     // Actively start/stop flywheel
-    xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    //xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    xboxBtnA.toggleWhenActive(spinUpFromTable);
 
     // Toggle collector position
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());

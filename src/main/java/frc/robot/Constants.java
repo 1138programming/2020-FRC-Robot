@@ -38,7 +38,8 @@ public final class Constants {
     public static final int KLeftIntakeSolenoid = 1;
     public static final int KRightIntakeSolenoid = 6;
     //Climb
-    public static final int KClimbRatchetSolenoid = 5;
+    public static final int KClimbRatchetSolenoidForward = 5;
+    public static final int KClimbRatchetSolenoidReverse = 2;
 
 // Sensors Ports
     //Storage
@@ -51,7 +52,7 @@ public final class Constants {
     public static final int KTilterBottomLimit = 4;
 
 // Default PWM values
-    public static final double KClimbPWM = 1;
+    public static final double KClimbPWM = .75;
     public static double KIndexerPWM = 1;
     public static double KIntakePWM = 1;
     public static double KStoragePWM = 1;
