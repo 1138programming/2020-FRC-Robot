@@ -11,7 +11,7 @@ public class FeedShot extends SequentialCommandGroup {
             new MoveIndexerFor(500),
             parallel(
                 new MoveIndexerFor(0),
-                new MoveStorageFor(StorageStage.BOTH, 0)
+                new MoveStorageFor(1, StorageStage.BOTH, 0)
             )
         );
 	}

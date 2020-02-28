@@ -97,16 +97,16 @@ public class Flywheel extends SubsystemBase {
   }
   
   private void initShootingTable() {
-    // addTableEntry(20.0, new FlywheelState(32, 3200, 3500));
-    // addTableEntry(18.0, new FlywheelState(32, 3200, 3500));
-    // addTableEntry(16.0, new FlywheelState(32, 3200, 3500));
-    addTableEntry(14.0, new FlywheelState(32, 4700, 3500));
-    // addTableEntry(12.0, new FlywheelState(32, 3200, 3500));
-    // addTableEntry(10.0, new FlywheelState(32, 3200, 3500));
-    // addTableEntry(8.0, new FlywheelState(32, 3200, 3500));
-    addTableEntry(6.0, new FlywheelState(61, 2700, 2900));
-    // addTableEntry(4.0, new FlywheelState(32, 3200, 3500));
-    // addTableEntry(2.0, new FlywheelState(32, 3200, 3500));
+    addTableEntry(20.0, new FlywheelState(76, 4700, 3500));
+    addTableEntry(18.0, new FlywheelState(76, 4700, 3500));
+    addTableEntry(16.0, new FlywheelState(76, 4700, 3500));
+    addTableEntry(14.0, new FlywheelState(76, 4700, 3500));
+    addTableEntry(12.0, new FlywheelState(76, 4700, 3500));
+    addTableEntry(10.0, new FlywheelState(76, 4700, 3500));
+    addTableEntry(8.0, new FlywheelState(76, 3000, 3200));
+    addTableEntry(6.0, new FlywheelState(76, 3000, 3200));
+    addTableEntry(4.0, new FlywheelState(76, 3000, 3200));
+    addTableEntry(2.0, new FlywheelState(76, 3000, 3200));
   }
 
   private void addTableEntry(Double distance, FlywheelState flywheelState) {
