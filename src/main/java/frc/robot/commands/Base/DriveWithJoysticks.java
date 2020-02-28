@@ -23,6 +23,8 @@ public class DriveWithJoysticks extends CommandBase {
     double rightPWM = Robot.m_robotContainer.getRightAxis();
     //double leftPWM = SmartDashboard.getNumber("Base Turn Speed", 0.0);
     //double rightPWM = -SmartDashboard.getNumber("Base Turn Speed", 0.0);
+    //double leftPWM = 0.0;
+    //double rightPWM = 0.0;
     
     Robot.base.move(leftPWM, rightPWM);
   }

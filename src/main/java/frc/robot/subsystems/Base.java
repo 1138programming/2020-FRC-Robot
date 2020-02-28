@@ -85,6 +85,7 @@ public class Base extends SubsystemBase {
 
     // Set up PID controller to work with the Limelight x offset
     xOffController = new PIDController(0.018, 0.003, 0.001, 0, 0.02);
+    //xOffController = new PIDController(0.0, 0.0, 0.0, 0.0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
@@ -97,7 +98,7 @@ public class Base extends SubsystemBase {
     leftLimiter = new SlewRateLimiter(6);
     rightLimiter = new SlewRateLimiter(6);
 
-    // Instantiating the solenoid
+    // Instantiating the solenoid 
     shifter = new Solenoid(KBaseShifter);
 
     SmartDashboard.putNumber("Base XOff P", xOffController.getP());

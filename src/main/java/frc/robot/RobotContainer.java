@@ -16,6 +16,8 @@ import frc.robot.commands.Camera.SwitchPipelineToTargeting;
 import frc.robot.commands.Base.BaseShiftHigh;
 import frc.robot.commands.Base.BaseShiftLow;
 import frc.robot.commands.Base.BaseShiftMedium;
+import frc.robot.commands.Base.ToggleHighGear;
+import frc.robot.commands.Base.ToggleLowGear;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Climb.ClimbDown;
 import frc.robot.commands.Climb.ClimbStop;
@@ -170,12 +172,14 @@ public class RobotContainer {
 
     // Logitech
     // Shift high on press and medium on release
-    logitechBtnRB.whenPressed(new BaseShiftHigh());
-    logitechBtnRB.whenReleased(new BaseShiftMedium());
+    //logitechBtnRB.whenPressed(new BaseShiftHigh());
+    //logitechBtnRB.whenReleased(new BaseShiftMedium());
+    logitechBtnRB.whenPressed(new ToggleHighGear());
 
     // Shift low on press and medium on release
-    logitechBtnRT.whenPressed(new BaseShiftLow());
-    logitechBtnRT.whenReleased(new BaseShiftMedium());
+    //logitechBtnRT.whenPressed(new BaseShiftLow());
+    //logitechBtnRT.whenReleased(new BaseShiftMedium());
+    logitechBtnRB.whenPressed(new ToggleLowGear());
 
     // Climb up
     logitechBtnLB.whenPressed(new ClimbDisengage(), false);
@@ -186,8 +190,8 @@ public class RobotContainer {
     logitechBtnLT.whileHeld(new ClimbDown());
 
     // Position with limelight and start flywheel
-    // logitechBtnA.whileHeld(positionWithLimelight);
-    logitechBtnA.whenPressed(spinUpFlywheel);
+    logitechBtnA.whileHeld(positionWithLimelight);
+    // logitechBtnA.whenPressed(spinUpFlywheel);
 
     // Use wheel mechanism to go to color
     logitechBtnX.whenPressed(goToColor);
@@ -249,7 +253,7 @@ public class RobotContainer {
   }
 
   public double getXboxRightAxis() {
-    final double Y = logitech.getRawAxis(KRightYAxis);
+    final double Y = xbox.getRawAxis(KRightYAxis);
     if (Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else
@@ -264,6 +268,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return m_autoCommand;
-    return new AutonShootFromLine();
+    // return new AutonShootFromLine();
+    return null;
   }
 }
