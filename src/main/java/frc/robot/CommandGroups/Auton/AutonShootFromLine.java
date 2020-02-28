@@ -12,9 +12,11 @@ import frc.robot.commands.Tilter.MoveTilterTo;
 public class AutonShootFromLine extends SequentialCommandGroup {
 	public AutonShootFromLine() {
         addCommands(
-            new SpinUpFlywheel(),
-            new MoveBaseFor(1, 1, 500),
-            new MoveTilterTo(61),
+            parallel(
+                new SpinUpFlywheel(),
+                new MoveBaseFor(1, 1, 500),
+                new MoveTilterTo(61)
+            ),
             new FeedShot()
         );
     }

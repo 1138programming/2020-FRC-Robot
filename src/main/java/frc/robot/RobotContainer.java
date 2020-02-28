@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CommandGroups.PositionWithLimelight;
+import frc.robot.CommandGroups.Auton.AutonShootFromLine;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Camera.SwitchPipelineToDefault;
@@ -195,8 +196,8 @@ public class RobotContainer {
     xboxBtnB.whileActiveOnce(feedShot);
 
     // Actively start/stop flywheel
-    xboxBtnA.toggleWhenActive(spinUpFlywheel);
-    // xboxBtnA.toggleWhenActive(spinUpFromTable);
+    // xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    xboxBtnA.toggleWhenActive(spinUpFromTable);
 
     // Toggle collector position
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
@@ -260,6 +261,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return m_autoCommand;
-    return null;
+    return new AutonShootFromLine();
   }
 }
