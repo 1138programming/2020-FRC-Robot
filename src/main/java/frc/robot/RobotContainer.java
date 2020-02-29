@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CommandGroups.PositionWithLimelight;
@@ -59,7 +60,7 @@ import frc.robot.CommandGroups.Collecting;
 import frc.robot.CommandGroups.EjectBalls;
 import frc.robot.CommandGroups.MoveOutEverythingALittleBit;
 import frc.robot.enums.StorageStage;
-import frc.robot.commands.Micellaneous.Conditional;
+import frc.robot.commands.Micellaneous.Delay;
 import frc.robot.Robot;
 import java.util.function.BooleanSupplier;
 
@@ -211,8 +212,9 @@ public class RobotContainer {
 
     // Collecting button. When released, move all balls out for a bit
     xboxBtnY.whileActiveOnce(collecting);
-    BooleanSupplier lessThanFive = () -> {return Robot.storage.getBallCount() < 5;};
-    xboxBtnY.whenReleased(new MoveOutEverythingALittleBit().raceWith(new Conditional(lessThanFive)));
+    BooleanSupplier lessThanFive = () -> {return Robot.storage.getBallCount() == 5;};
+    //xboxBtnY.whenReleased(new MoveOutEverythingALittleBit().raceWith(new Conditional(lessThanFive)));
+    xboxBtnY.whenReleased(new ConditionalCommand(new MoveOutEverythingALittleBit(), new Delay(0), lessThanFive));
 
     // Eject balls
     xboxBtnRB.whileHeld(new EjectBalls());
@@ -268,7 +270,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return m_autoCommand;
-    // return new AutonShootFromLine();
-    return null;
+    return new AutonShootFromLine();
+    // return null;
   }
 }

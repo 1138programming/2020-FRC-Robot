@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
-  private final TalonFX leftFront, leftBack, rightFront, rightBack;
+  private final TalonFX leftFront, leftBack, rightBack, rightFront;
 
   //Linear profiler for both sides of the base
   private final LinearProfiler leftProfiler, rightProfiler;
@@ -62,20 +62,20 @@ public class Base extends SubsystemBase {
     // Instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
     leftBack = new TalonFX(KLeftBackTalon);
-    rightFront = new TalonFX(KRightFrontTalon);
-    rightBack = new TalonFX(KRightBackTalon);
+    rightBack = new TalonFX(KRightFrontTalon);
+    rightFront = new TalonFX(KRightBackTalon);
 
     // Inverting the necessary talons
-    rightFront.setInverted(true);
     rightBack.setInverted(true);
+    rightFront.setInverted(true);
 
     // Slaving the talons
     leftBack.follow(leftFront);
-    rightBack.follow(rightFront);
+    // rightFront.follow(rightBack);
 
     // Configure sensors
     leftBack.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
-    rightFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    rightBack.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
     
     // Set up profilers for both sides
     leftProfiler = new LinearProfiler(5, 0.5, 0.1, 0, 0, 0, 0, 0.02);
@@ -134,7 +134,7 @@ public class Base extends SubsystemBase {
     lastLeftVel = leftVel;
     lastRightVel = rightVel;
 
-    autoShift();
+    //autoShift();
   }
 
   /**
@@ -152,9 +152,11 @@ public class Base extends SubsystemBase {
 
     if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftPWM * KBaseMediumGear);
+      rightBack.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
       rightFront.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
     } else {
       leftFront.set(ControlMode.PercentOutput, leftPWM);
+      rightBack.set(ControlMode.PercentOutput, rightPWM);
       rightFront.set(ControlMode.PercentOutput, rightPWM);
     }
   }
@@ -202,7 +204,7 @@ public class Base extends SubsystemBase {
    * @return  Right encoder value in rotations
    */
   public double getRightEncoder() {
-    return (double)rightFront.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
+    return (double)rightBack.getSelectedSensorPosition() * rotationsPerTick; //selected sensor (in raw sensor units) per 100ms
   }
 
   /**
@@ -210,9 +212,9 @@ public class Base extends SubsystemBase {
    */
   public void zeroEncoders() {
     leftFront.setSelectedSensorPosition(0);
-    rightFront.setSelectedSensorPosition(0);
-    leftBack.setSelectedSensorPosition(0);
     rightBack.setSelectedSensorPosition(0);
+    leftBack.setSelectedSensorPosition(0);
+    rightFront.setSelectedSensorPosition(0);
   }
 
   //Getters
@@ -233,7 +235,7 @@ public class Base extends SubsystemBase {
    */
 
   public double getRightVel() {
-    return (double)rightFront.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
+    return (double)rightBack.getSelectedSensorVelocity() * rotationsPerTick * 10; //selected sensor (in raw sensor units) per 100ms
   }
 
   private void autoShift() {

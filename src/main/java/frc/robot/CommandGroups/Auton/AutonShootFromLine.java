@@ -6,6 +6,7 @@ import frc.robot.Robot;
 import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.commands.Base.MoveBaseFor;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
+import frc.robot.commands.Micellaneous.Delay;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Tilter.MoveTilterTo;
 
@@ -14,10 +15,12 @@ public class AutonShootFromLine extends SequentialCommandGroup {
         addCommands(
             parallel(
                 new SpinUpFlywheel(),
-                new MoveBaseFor(1, 1, 500),
-                new MoveTilterTo(61)
-            ),
-            new FeedShot()
+                sequence(
+                    new Delay(1000),
+                    new FeedShot()
+                    // new MoveBaseFor(1, 1, 500),
+                )
+            )
         );
     }
     

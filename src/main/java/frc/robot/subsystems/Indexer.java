@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import frc.robot.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
@@ -8,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 
 public class Indexer extends SubsystemBase {
   private final CANSparkMax indexer;
+  private PIDController indexerPID;
 
   /**
    * @brief This is the Indexer
@@ -24,6 +26,8 @@ public class Indexer extends SubsystemBase {
     // Burn configurations to flash memory. This is where the sparks get configured upon being rebooted.
     // This protects against wrong configurations if the robot reboots during a match
     indexer.burnFlash();
+
+    indexerPID = new PIDController(0, 0, 0, 0, 0.02);
   }
 
   @Override
@@ -38,5 +42,13 @@ public class Indexer extends SubsystemBase {
    */
   public void move(double PWM) {
     indexer.set(PWM);
+  }
+
+  public void setSetpoint(double setpoint) {
+    indexerPID.setSetpoint(setpoint);
+  }
+
+  public void calculate() {
+    //indexerPID.calculate();
   }
 }

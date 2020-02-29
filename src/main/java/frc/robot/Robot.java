@@ -3,6 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.cscore.UsbCamera;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Intake;
@@ -42,7 +44,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+    CameraServer server = CameraServer.getInstance();
+    UsbCamera camera0 = server.startAutomaticCapture(0);
+    camera0.setFPS(15);
   }
 
   /**
