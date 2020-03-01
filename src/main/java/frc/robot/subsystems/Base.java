@@ -3,6 +3,9 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -70,10 +73,10 @@ public class Base extends SubsystemBase {
     rightFront.setInverted(true);
 
     //Smart Current
-    leftBack.setSmartCurrentLimit(40, 40, 3000);
-    leftFront.setSmartCurrentLimit(40, 40, 3000);
-    rightBack.setSmartCurrentLimit(40, 40, 3000);
-    rightFront.setSmartCurrentLimit(40, 40, 3000);
+    leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
+    leftBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
+    rightFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
+    rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
 
     //Set brake mode
     leftBack.setNeutralMode(NeutralMode.Brake);
