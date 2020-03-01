@@ -70,30 +70,30 @@ public class Flywheel extends SubsystemBase {
     initShootingTable();
 
     // Initialize SmartDashboard fields that we are getting numbers from
-    SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
-    SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
-    SmartDashboard.putNumber("Flywheel Top P", topController.getP());
-    SmartDashboard.putNumber("Flywheel Top I", topController.getI());
-    SmartDashboard.putNumber("Flywheel Top D", topController.getD());
-    SmartDashboard.putNumber("Flywheel Top F", topController.getF());
-    SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
-    SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
-    SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
-    SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
-    SmartDashboard.putNumber("Shooting Table Top Vel", 0);
-    SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
-    SmartDashboard.putNumber("Shooting Table Angle", 0);
+    //SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
+    //SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
+    //SmartDashboard.putNumber("Flywheel Top P", topController.getP());
+    //SmartDashboard.putNumber("Flywheel Top I", topController.getI());
+    //SmartDashboard.putNumber("Flywheel Top D", topController.getD());
+    //SmartDashboard.putNumber("Flywheel Top F", topController.getF());
+    //SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
+    //SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
+    //SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
+    //SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
+    //SmartDashboard.putNumber("Shooting Table Top Vel", 0);
+    //SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
+    //SmartDashboard.putNumber("Shooting Table Angle", 0);
   }
 
   @Override
   public void periodic() {
     // Print flywheel values
-    SmartDashboard.putNumber("Flywheel Top Velocity", getTopVel());
-    SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomVel());
-    SmartDashboard.putNumber("Flywheel Top PWM", topPWM);
-    SmartDashboard.putNumber("Flywheel Bottom PWM", bottomPWM);
-    SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
-    SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
+    //SmartDashboard.putNumber("Flywheel Top Velocity", getTopVel());
+    //SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomVel());
+    //SmartDashboard.putNumber("Flywheel Top PWM", topPWM);
+    //SmartDashboard.putNumber("Flywheel Bottom PWM", bottomPWM);
+    //SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
+    //SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
   }
   
   private void initShootingTable() {
@@ -123,12 +123,12 @@ public class Flywheel extends SubsystemBase {
   public FlywheelState readShootingTable(Double distance) {
     for (Double distanceKey : distanceKeys) {
       if (distanceKey > distance) {
-        SmartDashboard.putNumber("Shooting Table Key", distanceKey);
+        //SmartDashboard.putNumber("Shooting Table Key", distanceKey);
         return shootingTable.get(distanceKey);
       }
     }
     Double distanceKey = distanceKeys.get(distanceKeys.size() - 1);
-    SmartDashboard.putNumber("Shooting Table Key", distanceKey);
+    //SmartDashboard.putNumber("Shooting Table Key", distanceKey);
     return shootingTable.get(distanceKey);
   }
 

@@ -24,8 +24,8 @@ public class SpinUpFromTable extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    flywheelState.setTopVel(SmartDashboard.getNumber("Shooting Table Top Vel", 0.0));
-    flywheelState.setBottomVel(SmartDashboard.getNumber("Shooting Table Bottom Vel", 0.0));
+    flywheelState.setTopVel(SmartDashboard.getNumber("Shooting Table Top Vel", flywheelState.getTopVel()));
+    flywheelState.setBottomVel(SmartDashboard.getNumber("Shooting Table Bottom Vel", flywheelState.getBottomVel()));
     Robot.flywheel.setSetpoints(flywheelState.getTopVel(), flywheelState.getBottomVel());
     Robot.flywheel.calculate();
   }

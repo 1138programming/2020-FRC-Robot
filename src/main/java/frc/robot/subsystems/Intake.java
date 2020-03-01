@@ -57,8 +57,8 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("intake position", getIntakePosition().getValue());
-    SmartDashboard.putNumber("Intake Current", intake.getOutputCurrent());
+    //SmartDashboard.putNumber("intake position", getIntakePosition().getValue());
+    //SmartDashboard.putNumber("Intake Current", intake.getOutputCurrent());
   }
 
   /**

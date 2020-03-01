@@ -26,7 +26,7 @@ public class MoveTilterFromTable extends CommandBase {
   @Override
   public void initialize() {
     flywheelState = Robot.flywheel.readShootingTable(Robot.camera.getDistance());
-    SmartDashboard.putNumber("Shooting Table Angle", flywheelState.getAngle());
+    //SmartDashboard.putNumber("Shooting Table Angle", flywheelState.getAngle());
     Robot.tilter.reset();
     Robot.tilter.setSetpoint(flywheelState.getAngle());
   }
@@ -34,7 +34,7 @@ public class MoveTilterFromTable extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    flywheelState.setAngle(SmartDashboard.getNumber("Shooting Table Angle", 0.0));
+    flywheelState.setAngle(SmartDashboard.getNumber("Shooting Table Angle", flywheelState.getAngle()));
     Robot.tilter.setTilterSetpoint(flywheelState.getAngle());
     Robot.tilter.calculate();
   }

@@ -73,10 +73,10 @@ public class Base extends SubsystemBase {
     rightFront.setInverted(true);
 
     //Smart Current
-    leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
-    leftBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
-    rightFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
-    rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 40, .2));
+    // leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
+    // leftBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
+    // rightFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
+    // rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
 
     //Set brake mode
     leftBack.setNeutralMode(NeutralMode.Brake);
@@ -117,10 +117,10 @@ public class Base extends SubsystemBase {
     // Instantiating the solenoid 
     shifter = new Solenoid(KBaseShifter);
 
-    SmartDashboard.putNumber("Base XOff P", xOffController.getP());
-    SmartDashboard.putNumber("Base XOff I", xOffController.getI());
-    SmartDashboard.putNumber("Base XOff D", xOffController.getD());
-    SmartDashboard.putBoolean("Base Aligned", false);
+    //SmartDashboard.putNumber("Base XOff P", xOffController.getP());
+    //SmartDashboard.putNumber("Base XOff I", xOffController.getI());
+    //SmartDashboard.putNumber("Base XOff D", xOffController.getD());
+    //SmartDashboard.putBoolean("Base Aligned", false);
   }
 
   @Override
@@ -132,20 +132,20 @@ public class Base extends SubsystemBase {
     rightAccel = (rightVel - lastRightVel) * 5;
 
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Base Left Target Pos", leftProfiler.getTargetPos());
-    SmartDashboard.putNumber("Base Right Target Pos", rightProfiler.getTargetPos());
-    SmartDashboard.putNumber("Base Left Pos", getLeftEncoder());
-    SmartDashboard.putNumber("Base Right Pos", getRightEncoder());
-    SmartDashboard.putNumber("Base Left Target Vel", leftProfiler.getTargetVel());
-    SmartDashboard.putNumber("Base Right Target Vel", rightProfiler.getTargetVel());
-    SmartDashboard.putNumber("Base Left Vel", getLeftVel());
-    SmartDashboard.putNumber("Base Right Vel", getRightVel());
-    SmartDashboard.putNumber("Base Left Target Accel", leftProfiler.getTargetAccel());
-    SmartDashboard.putNumber("Base Right Target Accel", rightProfiler.getTargetAccel());
-    SmartDashboard.putNumber("Base Left Accel", getLeftAccel());
-    SmartDashboard.putNumber("Base Right Accel", getRightAccel());
-    SmartDashboard.putNumber("Base Left PWM", leftPWM);
-    SmartDashboard.putNumber("Base Right PWM", rightPWM);
+    //SmartDashboard.putNumber("Base Left Target Pos", leftProfiler.getTargetPos());
+    //SmartDashboard.putNumber("Base Right Target Pos", rightProfiler.getTargetPos());
+    //SmartDashboard.putNumber("Base Left Pos", getLeftEncoder());
+    //SmartDashboard.putNumber("Base Right Pos", getRightEncoder());
+    //SmartDashboard.putNumber("Base Left Target Vel", leftProfiler.getTargetVel());
+    //SmartDashboard.putNumber("Base Right Target Vel", rightProfiler.getTargetVel());
+    //SmartDashboard.putNumber("Base Left Vel", getLeftVel());
+    //SmartDashboard.putNumber("Base Right Vel", getRightVel());
+    //SmartDashboard.putNumber("Base Left Target Accel", leftProfiler.getTargetAccel());
+    //SmartDashboard.putNumber("Base Right Target Accel", rightProfiler.getTargetAccel());
+    //SmartDashboard.putNumber("Base Left Accel", getLeftAccel());
+    //SmartDashboard.putNumber("Base Right Accel", getRightAccel());
+    //SmartDashboard.putNumber("Base Left PWM", leftPWM);
+    //SmartDashboard.putNumber("Base Right PWM", rightPWM);
 
     lastLeftVel = leftVel;
     lastRightVel = rightVel;
@@ -166,15 +166,15 @@ public class Base extends SubsystemBase {
     this.leftPWM = leftPWM;
     this.rightPWM = rightPWM;
 
-    if (baseState == BaseState.MEDIUM) {
+    // if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftPWM * KBaseMediumGear);
       rightBack.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
       rightFront.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
-    } else {
-      leftFront.set(ControlMode.PercentOutput, leftPWM);
-      rightBack.set(ControlMode.PercentOutput, rightPWM);
-      rightFront.set(ControlMode.PercentOutput, rightPWM);
-    }
+    // } else {
+    //   leftFront.set(ControlMode.PercentOutput, leftPWM);
+    //   rightBack.set(ControlMode.PercentOutput, rightPWM);
+    //   rightFront.set(ControlMode.PercentOutput, rightPWM);
+    // }
   }
 
   /**
@@ -189,10 +189,20 @@ public class Base extends SubsystemBase {
       //shifter.set(DoubleSolenoid.Value.kForward);
       shifter.set(true);
       rotationsPerTick = KRotationsPerTickHigh;
+
+      //leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
+      //leftBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
+      //rightFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
+      //rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
     } else {
       //shifter.set(DoubleSolenoid.Value.kReverse);
       shifter.set(false);
       rotationsPerTick = KRotationsPerTickLow;
+
+      //leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 40, 50, 1));
+      //leftBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 40, 50, 1));
+      //rightFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 40, 50, 1));
+      //rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 40, 50, 1));
     }
   }
 
@@ -368,8 +378,8 @@ public class Base extends SubsystemBase {
     //double leftSpeed = leftProfiler.calculate(leftProfiler.getTargetPos());
     //double rightVel = rightProfiler.calculate(rightProfiler.getTargetPos());
 
-    SmartDashboard.putNumber("Base left voltage", leftSpeed);
-    SmartDashboard.putNumber("Base right voltage", rightVel);
+    //SmartDashboard.putNumber("Base left voltage", leftSpeed);
+    //SmartDashboard.putNumber("Base right voltage", rightVel);
 
     move(leftSpeed, rightVel);
   }
@@ -383,7 +393,7 @@ public class Base extends SubsystemBase {
 
   public void calculateXOff() {
     double output = xOffController.calculate(Robot.camera.getOffsetX());
-    SmartDashboard.putNumber("xOutput", output);
+    //SmartDashboard.putNumber("xOutput", output);
 
     move(-output, output);
   }

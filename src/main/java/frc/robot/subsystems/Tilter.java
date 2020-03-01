@@ -69,25 +69,25 @@ public class Tilter extends SubsystemBase {
         yOffController.reset();
         yOffController.setSetpoint(0);
 
-        SmartDashboard.putNumber("Tilter Target Linkage Angle", 0.0);
-        SmartDashboard.putNumber("Tilter P", tilterPID.getP());
-        SmartDashboard.putNumber("Tilter I", tilterPID.getI());
-        SmartDashboard.putNumber("Tilter D", tilterPID.getD());
-        SmartDashboard.putNumber("Ball Initial Vel", 45.11);
+        //SmartDashboard.putNumber("Tilter Target Linkage Angle", 0.0);
+        //SmartDashboard.putNumber("Tilter P", tilterPID.getP());
+        //SmartDashboard.putNumber("Tilter I", tilterPID.getI());
+        //SmartDashboard.putNumber("Tilter D", tilterPID.getD());
+        //SmartDashboard.putNumber("Ball Initial Vel", 45.11);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Tilter Encoder", getEncoder());
-        SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
-        SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
-        SmartDashboard.putNumber("Flywheel to Linkage", toLinkageAngle(getTilterAngle())); // Should give the same result as getLinkageAngle
-        SmartDashboard.putNumber("Tilter PWM", PWM);
-        SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
-        SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
-        SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle(45.11));
-        SmartDashboard.putNumber("Tilter Ideal Linkage Angle", toLinkageAngle(idealTilterAngle(45.11)));
-        SmartDashboard.putNumber("Limelight Angle", getLimelightAngle());
+        //SmartDashboard.putNumber("Tilter Encoder", getEncoder());
+        //SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
+        //SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
+        //SmartDashboard.putNumber("Flywheel to Linkage", toLinkageAngle(getTilterAngle())); // Should give the same result as getLinkageAngle
+        //SmartDashboard.putNumber("Tilter PWM", PWM);
+        //SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
+        //SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
+        //SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle(45.11));
+        //SmartDashboard.putNumber("Tilter Ideal Linkage Angle", toLinkageAngle(idealTilterAngle(45.11)));
+        //SmartDashboard.putNumber("Limelight Angle", getLimelightAngle());
     }
 
     /**
@@ -172,7 +172,7 @@ public class Tilter extends SubsystemBase {
      */
     public void setTilterSetpoint(double setpoint) {
         double linkageAngle = toLinkageAngle(setpoint);
-        SmartDashboard.putNumber("Table Angle Conversion", linkageAngle);
+        //SmartDashboard.putNumber("Table Angle Conversion", linkageAngle);
         setSetpoint(linkageAngle);
     }
 
@@ -203,7 +203,7 @@ public class Tilter extends SubsystemBase {
 
     public void calculateYOff() {
         double output = yOffController.calculate(Robot.camera.getOffsetY());
-        SmartDashboard.putNumber("yOutput", output);
+        //SmartDashboard.putNumber("yOutput", output);
         move(-output);
     }
 
@@ -273,8 +273,8 @@ public class Tilter extends SubsystemBase {
     private double toLinkageAngle(double tilterAngle) {
         double thetaC = solveForAngle(KLinkageCLength, KLinkageBLength, KLinkageALength, KLinkageDX, -KLinkageDY, Math.toRadians(tilterAngle - KParallelCorrection));
         thetaC = thetaC * 180 / Math.PI;
-        SmartDashboard.putNumber("toLinkageAngle output", thetaC);
-        SmartDashboard.putNumber("toLinkageAngle input", tilterAngle);
+        //SmartDashboard.putNumber("toLinkageAngle output", thetaC);
+        //SmartDashboard.putNumber("toLinkageAngle input", tilterAngle);
         return thetaC;
     }
 

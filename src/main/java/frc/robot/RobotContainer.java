@@ -204,8 +204,8 @@ public class RobotContainer {
     xboxBtnB.whileActiveOnce(new SpinUpFromTable());
 
     // Actively start/stop flywheel
-    xboxBtnA.toggleWhenActive(spinUpFlywheel);
-    //xboxBtnA.toggleWhenActive(spinUpFromTable);
+    //xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    xboxBtnA.toggleWhenActive(spinUpFromTable);
     //xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
     // Toggle collector position
