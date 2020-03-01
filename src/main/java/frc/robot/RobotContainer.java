@@ -201,11 +201,12 @@ public class RobotContainer {
     // Xbox
     // Manual feed shot control for Gio
     xboxBtnB.whileActiveOnce(feedShot);
+    xboxBtnB.whileActiveOnce(new SpinUpFromTable());
 
     // Actively start/stop flywheel
-    // xboxBtnA.toggleWhenActive(spinUpFlywheel);
-    xboxBtnA.toggleWhenActive(spinUpFromTable);
-    xboxBtnA.toggleWhenActive(moveTilterFromTable);
+    xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    //xboxBtnA.toggleWhenActive(spinUpFromTable);
+    //xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
     // Toggle collector position
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());

@@ -69,9 +69,22 @@ public class Base extends SubsystemBase {
     rightBack.setInverted(true);
     rightFront.setInverted(true);
 
+    //Smart Current
+    leftBack.setSmartCurrentLimit(40, 40, 3000);
+    leftFront.setSmartCurrentLimit(40, 40, 3000);
+    rightBack.setSmartCurrentLimit(40, 40, 3000);
+    rightFront.setSmartCurrentLimit(40, 40, 3000);
+
+    //Set brake mode
+    leftBack.setNeutralMode(NeutralMode.Brake);
+    leftFront.setNeutralMode(NeutralMode.Brake);
+    rightBack.setNeutralMode(NeutralMode.Brake);
+    rightFront.setNeutralMode(NeutralMode.Brake);
+
     // Slaving the talons
     leftBack.follow(leftFront);
     // rightFront.follow(rightBack);
+
 
     // Configure sensors
     leftBack.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);

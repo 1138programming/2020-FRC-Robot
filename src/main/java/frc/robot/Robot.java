@@ -15,6 +15,7 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.Tilter;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.enums.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,6 +24,8 @@ import frc.robot.subsystems.Pneumatics;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  
   public static final Base base = new Base();
   public static final Camera camera = new Camera();
   public static final Climb climb = new Climb();

@@ -112,6 +112,10 @@ public class Tilter extends SubsystemBase {
             if (PWM < 0) {
                 PWM = 0;
             }
+        } else if (getEncoder() >= 340) {
+            if (PWM > 0) {
+                PWM = 0;
+            }
         }
         return PWM;
     }

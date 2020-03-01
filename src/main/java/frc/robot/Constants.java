@@ -52,7 +52,7 @@ public final class Constants {
     public static final int KTilterBottomLimit = 4;
 
 // Default PWM values
-    public static final double KClimbPWM = .75;
+    public static final double KClimbPWM = 0.75;
     public static double KIndexerPWM = 1;
     public static double KIntakePWM = 1;
     public static double KStoragePWM = 1;

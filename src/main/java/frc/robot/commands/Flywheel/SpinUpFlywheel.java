@@ -53,8 +53,8 @@ public class SpinUpFlywheel extends CommandBase {
       SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
     );
 
-    double topSetpoint = 2700;
-    double bottomSetpoint = 2900;
+    double topSetpoint = SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0);
+    double bottomSetpoint = SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0);
     Robot.flywheel.setSetpoints(topSetpoint, bottomSetpoint);
     Robot.flywheel.calculate();
 

@@ -69,7 +69,7 @@ public class Wheel extends SubsystemBase {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     ColorLabel color;
     String colorString;
-    if(match.confidence > .95) {
+    if(match.confidence > 0.95) {
     if (match.color == KBlueTarget) {
       color = ColorLabel.BLUE;
       colorString = "Blue";
@@ -167,16 +167,16 @@ public class Wheel extends SubsystemBase {
     if(gameData.length() > 0)
     {
         if(gameData.charAt(0) == 'B') {
-          targetColor = ColorLabel.BLUE;
-        }
-        if(gameData.charAt(0) == 'G') {
-          targetColor = ColorLabel.GREEN;
-        }
-        if(gameData.charAt(0) == 'R') {
           targetColor = ColorLabel.RED;
         }
-        if(gameData.charAt(0) == 'Y') {
+        if(gameData.charAt(0) == 'G') {
           targetColor = ColorLabel.YELLOW;
+        }
+        if(gameData.charAt(0) == 'R') {
+          targetColor = ColorLabel.BLUE;
+        }
+        if(gameData.charAt(0) == 'Y') {
+          targetColor = ColorLabel.GREEN;
         }
     } else {
       targetColor = ColorLabel.UNKNOWN;
