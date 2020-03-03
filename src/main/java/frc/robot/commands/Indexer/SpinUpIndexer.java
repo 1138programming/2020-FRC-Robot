@@ -5,8 +5,8 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.*;
 
-public class IndexIn extends CommandBase {
-  public IndexIn() {
+public class SpinUpIndexer extends CommandBase {
+  public SpinUpIndexer() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.indexer);
   }
