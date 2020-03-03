@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.SlewRateLimiter;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
@@ -61,6 +63,15 @@ public class Base extends SubsystemBase {
   /**
    * @brief This is the Base
    */
+  private final AHRS ahrs;
+  private static double yawAngle;
+  private static double velocityX;
+  private static double velocityY;
+  private static double velocityZ;
+  private static double displacementX;
+  private static double displacementY;
+  private static double displacementZ;
+
   public Base() {
     // Instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
@@ -121,6 +132,8 @@ public class Base extends SubsystemBase {
     SmartDashboard.putNumber("Base XOff I", xOffController.getI());
     SmartDashboard.putNumber("Base XOff D", xOffController.getD());
     SmartDashboard.putBoolean("Base Aligned", false);
+
+    ahrs = new AHRS(SPI.Port.kMXP);
   }
 
   @Override
@@ -146,6 +159,13 @@ public class Base extends SubsystemBase {
     //SmartDashboard.putNumber("Base Right Accel", getRightAccel());
     //SmartDashboard.putNumber("Base Left PWM", leftPWM);
     //SmartDashboard.putNumber("Base Right PWM", rightPWM);
+    // SmartDashboard.putNumber("FacingAngle", yawAngle);
+    // SmartDashboard.putNumber("VelocityX", velocityX);
+    // SmartDashboard.putNumber("VelocityY", velocityY);
+    // SmartDashboard.putNumber("VelocityZ", velocityZ);
+    // SmartDashboard.putNumber("DisplacementX", displacementX);
+    // SmartDashboard.putNumber("DisplacementY", displacementY);
+    // SmartDashboard.putNumber("DisplacementZ", displacementZ);
 
     lastLeftVel = leftVel;
     lastRightVel = rightVel;
@@ -410,4 +430,46 @@ public class Base extends SubsystemBase {
   public void setXOffConstants(double kP, double kI, double kD) {
     xOffController.setGains(kP, kI, kD);
   }
+  /**
+   * Reset navx yaw
+   */
+  public void yawReset(){
+    ahrs.zeroYaw();
+  }
+
+  public double getFacingDirection(){
+    yawAngle = ahrs.getAngle();
+    return yawAngle;
+  }
+
+  public double getVelocityX(){
+    velocityX = ahrs.getVelocityX();
+    return velocityX;
+  }
+
+  public double getVelocityY(){
+    velocityY = ahrs.getVelocityY();
+    return velocityY;
+  }
+
+  public double getVelocityZ(){
+    velocityZ = ahrs.getVelocityZ();
+    return velocityZ;
+  }
+
+  public double getDisplacementX(){
+    displacementX = ahrs.getDisplacementX();
+    return displacementX;
+  }
+
+  public double getDisplacementY(){
+    displacementY = ahrs.getDisplacementY();
+    return displacementY;
+  }
+
+  public double getDisplacementZ(){
+    displacementZ = ahrs.getDisplacementZ();
+    return displacementZ;
+  }
+  // Navx
 }
