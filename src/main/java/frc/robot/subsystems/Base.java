@@ -105,7 +105,7 @@ public class Base extends SubsystemBase {
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
     xOffController.setTolerance(1, 0.001);
-    xOffController.setOutputDeadband(0.05, 0.02);
+    xOffController.setOutputDeadband(0.1, 0.02);
     xOffController.configIntegral(IntegralType.DEFAULT, true);
     xOffController.setIntegralZoneRange(5);
     xOffController.setSetpoint(0);
@@ -117,10 +117,10 @@ public class Base extends SubsystemBase {
     // Instantiating the solenoid 
     shifter = new Solenoid(KBaseShifter);
 
-    //SmartDashboard.putNumber("Base XOff P", xOffController.getP());
-    //SmartDashboard.putNumber("Base XOff I", xOffController.getI());
-    //SmartDashboard.putNumber("Base XOff D", xOffController.getD());
-    //SmartDashboard.putBoolean("Base Aligned", false);
+    SmartDashboard.putNumber("Base XOff P", xOffController.getP());
+    SmartDashboard.putNumber("Base XOff I", xOffController.getI());
+    SmartDashboard.putNumber("Base XOff D", xOffController.getD());
+    SmartDashboard.putBoolean("Base Aligned", false);
   }
 
   @Override

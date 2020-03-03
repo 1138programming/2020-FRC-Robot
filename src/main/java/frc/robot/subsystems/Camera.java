@@ -46,8 +46,8 @@ public class Camera extends SubsystemBase {
     area = ta.getDouble(0.0);
 
     ////SmartDashboard.putNumber("IsLimelightTarget", i);
-    //SmartDashboard.putNumber("LimelightX", x);
-    //SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
     ////SmartDashboard.putNumber("LimelightArea", area);
     //SmartDashboard.putNumber("Distance to Target", getDistance());
     //SmartDashboard.putNumber("Pipeline", pipeline.getDouble(0.0));
