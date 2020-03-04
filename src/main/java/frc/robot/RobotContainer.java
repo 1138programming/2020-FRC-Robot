@@ -192,7 +192,7 @@ public class RobotContainer {
 
     // Position with limelight and start flywheel
     logitechBtnA.whileHeld(positionWithLimelight);
-    // logitechBtnA.whenPressed(spinUpFlywheel);
+    logitechBtnA.whenPressed(spinUpFlywheel);
 
     // Use wheel mechanism to go to color
     logitechBtnX.whenPressed(goToColor);
@@ -201,11 +201,12 @@ public class RobotContainer {
     // Xbox
     // Manual feed shot control for Gio
     xboxBtnB.whileActiveOnce(feedShot);
-    xboxBtnB.whileActiveOnce(new SpinUpFromTable());
+    //xboxBtnB.whileActiveOnce(new SpinUpFromTable());
+    xboxBtnB.whileActiveOnce(spinUpFlywheel);
 
     // Actively start/stop flywheel
-    //xboxBtnA.toggleWhenActive(spinUpFlywheel);
-    xboxBtnA.toggleWhenActive(spinUpFromTable);
+    xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    //xboxBtnA.toggleWhenActive(spinUpFromTable);
     //xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
     // Toggle collector position
