@@ -2,6 +2,7 @@ package frc.robot.commands.Base;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MoveBaseFor extends CommandBase {
@@ -15,6 +16,10 @@ public class MoveBaseFor extends CommandBase {
         this.duration = duration;
 
         addRequirements(Robot.base);
+    }
+
+    public MoveBaseFor(long duration) {
+        this(KBasePWM, KBasePWM, duration);
     }
 
     // Called when the command is initially scheduled.

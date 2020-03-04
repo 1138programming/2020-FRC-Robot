@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.SlewRateLimiter;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.kauailabs.navx.frc.*;
+import edu.wpi.first.wpilibj.SPI;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
@@ -39,6 +41,7 @@ public class Base extends SubsystemBase {
 
   // PIDController using Limelight x offset
   private final PIDController xOffController;
+  private final PIDController rotationController;
   
   //Variables
   private static final int KTicksPerRotation = 2048; //conversion factor that we have to find
@@ -58,9 +61,16 @@ public class Base extends SubsystemBase {
 
   private double leftPWM, rightPWM;
 
-  /**
-   * @brief This is the Base
-   */
+  private final AHRS ahrs;
+  
+  private static double yawAngle;
+  private static double velocityX;
+  private static double velocityY;
+  private static double velocityZ;
+  private static double displacementX;
+  private static double displacementY;
+  private static double displacementZ;
+
   public Base() {
     // Instantiating the talons
     leftFront = new TalonFX(KLeftFrontTalon);
@@ -110,12 +120,24 @@ public class Base extends SubsystemBase {
     xOffController.setIntegralZoneRange(5);
     xOffController.setSetpoint(0);
 
+    // Set up PID controller to work with the gyro offset
+    rotationController = new PIDController(0.018, 0.003, 0.001, 0, 0.02);
+    rotationController.setInputRange(-180, 180);
+    rotationController.setOutputRange(-1, 1);
+    rotationController.setTolerance(1, 0.001);
+    rotationController.setOutputDeadband(0.1, 0.02);
+    rotationController.configIntegral(IntegralType.DEFAULT, true);
+    rotationController.setIntegralZoneRange(5);
+    rotationController.setSetpoint(0);
+
     // Set up slew rate limiters
     leftLimiter = new SlewRateLimiter(6);
     rightLimiter = new SlewRateLimiter(6);
 
     // Instantiating the solenoid 
     shifter = new Solenoid(KBaseShifter);
+    
+    ahrs = new AHRS(SPI.Port.kMXP);
 
     SmartDashboard.putNumber("Base XOff P", xOffController.getP());
     SmartDashboard.putNumber("Base XOff I", xOffController.getI());
@@ -410,4 +432,61 @@ public class Base extends SubsystemBase {
   public void setXOffConstants(double kP, double kI, double kD) {
     xOffController.setGains(kP, kI, kD);
   }
+
+  public void setRotationSetpoint(double desiredAngle) {
+    rotationController.setSetpoint(desiredAngle);
+  }
+
+  public void calculateRotation() {
+    double output = rotationController.calculate(getFacingDirection());
+
+    move(output, -output);
+  }
+
+  public boolean atRotationSetpoint() {
+    return rotationController.atSetpoint();
+  }
+
+  /**
+   * Reset navx yaw
+   */
+  public void yawReset(){
+    ahrs.zeroYaw();
+  }
+
+  public double getFacingDirection(){
+    yawAngle = ahrs.getAngle();
+    return yawAngle;
+  }
+
+  public double getVelocityX(){
+    velocityX = ahrs.getVelocityX();
+    return velocityX;
+  }
+
+  public double getVelocityY(){
+    velocityY = ahrs.getVelocityY();
+    return velocityY;
+  }
+
+  public double getVelocityZ(){
+    velocityZ = ahrs.getVelocityZ();
+    return velocityZ;
+  }
+
+  public double getDisplacementX(){
+    displacementX = ahrs.getDisplacementX();
+    return displacementX;
+  }
+
+  public double getDisplacementY(){
+    displacementY = ahrs.getDisplacementY();
+    return displacementY;
+  }
+
+  public double getDisplacementZ(){
+    displacementZ = ahrs.getDisplacementZ();
+    return displacementZ;
+  }
+  // Navx
 }
