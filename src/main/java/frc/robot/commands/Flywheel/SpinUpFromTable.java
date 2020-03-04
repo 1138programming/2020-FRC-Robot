@@ -26,6 +26,21 @@ public class SpinUpFromTable extends CommandBase {
   public void execute() {
     flywheelState.setTopVel(SmartDashboard.getNumber("Shooting Table Top Vel", flywheelState.getTopVel()));
     flywheelState.setBottomVel(SmartDashboard.getNumber("Shooting Table Bottom Vel", flywheelState.getBottomVel()));
+
+    Robot.flywheel.setTopConstants(
+      SmartDashboard.getNumber("Flywheel Top P", 0.0),
+      SmartDashboard.getNumber("Flywheel Top I", 0.0),
+      SmartDashboard.getNumber("Flywheel Top D", 0.0),
+      SmartDashboard.getNumber("Flywheel Top F", 0.0)
+    );
+
+    Robot.flywheel.setBottomConstants(
+      SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
+      SmartDashboard.getNumber("Flywheel Bottom I", 0.0),
+      SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
+      SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
+    );
+
     Robot.flywheel.setSetpoints(flywheelState.getTopVel(), flywheelState.getBottomVel());
     Robot.flywheel.calculate();
   }

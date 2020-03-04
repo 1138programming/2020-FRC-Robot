@@ -47,14 +47,14 @@ public class Flywheel extends SubsystemBase {
     bottomEncoder = flywheelBottom.getEncoder();
 
     // Top TBH Controller
-    topController = new PIDController(0.00028, 0.0005, 0.0002, 0.000169, 0.02);
+    topController = new PIDController(0.000265, 0.0005, 0.0, 0.000169, 0.02);
     topController.setInputRange(-5500, 5500);
     topController.setOutputRange(-1, 1);
     topController.configIntegral(IntegralType.DEFAULT, true);
     topController.setIntegralZoneRange(50);
 
     // Bottom TBH Controller
-    bottomController = new PIDController(0.0003, 0.0005, 0.00002, 0.000174, 0.02);
+    bottomController = new PIDController(0.000279, 0.0005, 0.0, 0.000169, 0.02);
     bottomController.setInputRange(-10000, 10000);
     bottomController.setOutputRange(-1, 1);
     bottomController.configIntegral(IntegralType.DEFAULT, true);
@@ -97,16 +97,19 @@ public class Flywheel extends SubsystemBase {
   }
   
   private void initShootingTable() {
-    addTableEntry(20.0, new FlywheelState(76, 5000, 3500));
-    addTableEntry(18.0, new FlywheelState(76, 4700, 3500));
-    addTableEntry(16.0, new FlywheelState(76, 4700, 3500));
-    addTableEntry(14.0, new FlywheelState(76, 4700, 3500));
-    addTableEntry(12.0, new FlywheelState(76, 4700, 3500));
-    addTableEntry(10.0, new FlywheelState(76, 4700, 3500));
-    addTableEntry(8.0, new FlywheelState(96, 2700, 2900));
-    addTableEntry(6.0, new FlywheelState(96, 2700, 2900));
-    addTableEntry(4.0, new FlywheelState(96, 2700, 2900));
-    addTableEntry(2.0, new FlywheelState(96, 2700, 2900));
+    addTableEntry(26.0, new FlywheelState(76, 4000, 2000));     //  4000/2000     [9,23]
+    addTableEntry(24.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(22.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(20.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(18.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(16.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(14.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(12.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(10.0, new FlywheelState(76, 4500, 2650));
+    addTableEntry(8.0, new FlywheelState(110, 4500, 3500));
+    addTableEntry(6.0, new FlywheelState(110, 4500, 3500));
+    addTableEntry(4.0, new FlywheelState(110, 2700, 2900));
+    addTableEntry(2.0, new FlywheelState(110, 2700, 2900));
   }
 
   private void addTableEntry(Double distance, FlywheelState flywheelState) {
