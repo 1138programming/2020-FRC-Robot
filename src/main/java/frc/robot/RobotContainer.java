@@ -203,11 +203,11 @@ public class RobotContainer {
     // Xbox
     // Manual feed shot control for Gio
     xboxBtnB.whileActiveOnce(feedShot);
-    // xboxBtnB.whileActiveOnce(spinUpFromTable);
+    //xboxBtnB.whileActiveOnce(spinUpFromTable);
     //xboxBtnB.whileActiveOnce(spinUpFlywheel);
 
     // Actively start/stop flywheel
-    //xboxBtnA.toggleWhenActive(spinUpFlywheel);
+    xboxBtnA.toggleWhenActive(spinUpFlywheel);
     //xboxBtnA.toggleWhenActive(spinUpFromTable);
     //xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
@@ -248,6 +248,24 @@ public class RobotContainer {
       return -Y;
     else 
       return 0; 
+  }
+
+  public double getArcadeRightAxis() {
+    double X = logitech.getRawAxis(2);
+    if (X > KDeadZone || X < -KDeadZone) {
+      return -X;
+    } else {
+      return 0; 
+    }
+  }
+
+  public double getArcadeLeftAxis() {
+    double X = logitech.getRawAxis(0);
+    if (X > KDeadZone || X < -KDeadZone) {
+      return -X;
+    } else {
+      return 0; 
+    }
   }
 
   public double getXboxLeftAxis() {

@@ -76,6 +76,10 @@ public class PIDController {
      */
     private double m_minInput = Double.NEGATIVE_INFINITY;
 
+    private double m_inputRange = Double.POSITIVE_INFINITY;
+
+    private boolean m_continuousInput = false;
+
     /**
      * @brief Upper bound for the output deadband
      * 
@@ -321,6 +325,8 @@ public class PIDController {
             m_minInput = minInput;
             m_maxInput = maxInput;
         }
+
+        m_inputRange = m_maxInput - m_minInput;
     }
 
     public void setOutputRange(double minOutput, double maxOutput) {
@@ -331,6 +337,19 @@ public class PIDController {
             m_minOutput = minOutput;
             m_maxOutput = maxOutput;
         }
+    }
+
+    public void enableContinuousInput(double minInput, double maxInput) {
+        m_continuousInput = true;
+        setInputRange(minInput, maxInput);
+    }
+
+    public void enableContinuousInput() {
+        m_continuousInput = true;
+    }
+
+    public void disableContinousInput() {
+        m_continuousInput = false;
     }
 
     public void setIntegralRange(double minIntegral, double maxIntegral) {
@@ -369,6 +388,20 @@ public class PIDController {
         }
     }
 
+    private double getContinuousError(double error) {
+        if (m_continuousInput && m_inputRange > 0) {
+            error %= m_inputRange;
+            if (Math.abs(error) > m_inputRange / 2) {
+                if (error > 0) {
+                    return error - m_inputRange;
+                } else {
+                    return error + m_inputRange;
+                }
+            }
+        }
+        return error;
+    }
+
     /**
      * Calculates and returns the output of the controller.
      * 
@@ -379,6 +412,7 @@ public class PIDController {
         m_measurement = measurement;
 
         // Gets the current error
+        //m_error = getContinuousError(m_setpoint - m_measurement);
         m_error = m_setpoint - m_measurement;
 
         // Computes the velocity error

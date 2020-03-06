@@ -138,9 +138,9 @@ public class Base extends SubsystemBase {
     
     ahrs = new AHRS(SPI.Port.kMXP);
 
-    SmartDashboard.putNumber("Base XOff P", xOffController.getP());
-    SmartDashboard.putNumber("Base XOff I", xOffController.getI());
-    SmartDashboard.putNumber("Base XOff D", xOffController.getD());
+    SmartDashboard.putNumber("Base Rot P", rotationController.getP());
+    SmartDashboard.putNumber("Base Rot I", rotationController.getI());
+    SmartDashboard.putNumber("Base Rot D", rotationController.getD());
     SmartDashboard.putBoolean("Base Aligned", false);
   }
 

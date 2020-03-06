@@ -31,9 +31,15 @@ public class DriveWithJoysticks extends CommandBase {
   public void execute() {
     double leftPWM = 0;
     double rightPWM = 0;
+
+    //leftPWM = quadraticCurve(Robot.m_robotContainer.getLeftAxis());
+    //rightPWM = quadraticCurve(Robot.m_robotContainer.getRightAxis());
+    leftPWM = Robot.m_robotContainer.getLeftAxis() - Robot.m_robotContainer.getArcadeRightAxis();
+    rightPWM = Robot.m_robotContainer.getLeftAxis() + Robot.m_robotContainer.getArcadeRightAxis();
+
     if(Robot.autonomousActive == false) {
-      leftPWM = quadraticCurve(Robot.m_robotContainer.getLeftAxis());
-      rightPWM = quadraticCurve(Robot.m_robotContainer.getRightAxis());
+      leftPWM = quadraticCurve(leftPWM);
+      rightPWM = quadraticCurve(rightPWM);
     }
 
     //double leftPWM = SmartDashboard.getNumber("Base Turn Speed", 0.0);

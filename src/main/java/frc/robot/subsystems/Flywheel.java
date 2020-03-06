@@ -61,8 +61,8 @@ public class Flywheel extends SubsystemBase {
     bottomController.setIntegralZoneRange(50);
 
     // Slew rate limits to prevent the motor PWM values from changing too fast
-    topLimiter = new SlewRateLimiter(1);
-    bottomLimiter = new SlewRateLimiter(1);
+    topLimiter = new SlewRateLimiter(2);
+    bottomLimiter = new SlewRateLimiter(2);
 
     // Initialize the shooting table
     shootingTable = new HashMap<Double, FlywheelState>(14);
@@ -70,8 +70,8 @@ public class Flywheel extends SubsystemBase {
     initShootingTable();
 
     // Initialize SmartDashboard fields that we are getting numbers from
-    // SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
-    // SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
+    SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
+    SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
     SmartDashboard.putNumber("Flywheel Top P", topController.getP());
     SmartDashboard.putNumber("Flywheel Top I", topController.getI());
     SmartDashboard.putNumber("Flywheel Top D", topController.getD());
