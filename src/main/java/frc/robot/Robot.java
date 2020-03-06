@@ -24,7 +24,7 @@ import frc.robot.enums.*;
  * project.
  */
 public class Robot extends TimedRobot {
-
+  public static boolean autonomousActive = false;
   
   public static final Base base = new Base();
   public static final Camera camera = new Camera();
@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
     CameraServer server = CameraServer.getInstance();
     UsbCamera camera0 = server.startAutomaticCapture(0);
     camera0.setFPS(15);
+    autonomousActive = false;
   }
 
   /**
@@ -91,6 +92,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    autonomousActive = true;
   }
 
   /**
@@ -98,6 +100,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    autonomousActive = true;
   }
 
   @Override
@@ -109,6 +112,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    autonomousActive = false;
     
     base.zeroEncoders();
     tilter.zeroEncoder();
@@ -120,6 +124,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    autonomousActive = false;
   }
 
   @Override

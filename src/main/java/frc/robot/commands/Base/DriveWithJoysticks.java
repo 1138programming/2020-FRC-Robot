@@ -19,8 +19,12 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftPWM = Robot.m_robotContainer.getLeftAxis();
-    double rightPWM = Robot.m_robotContainer.getRightAxis();
+    double leftPWM = 0;
+    double rightPWM = 0;
+    if(Robot.autonomousActive == false) {
+    leftPWM = Robot.m_robotContainer.getLeftAxis();
+    rightPWM = Robot.m_robotContainer.getRightAxis();
+    }
     //double leftPWM = SmartDashboard.getNumber("Base Turn Speed", 0.0);
     //double rightPWM = -SmartDashboard.getNumber("Base Turn Speed", 0.0);
     //double leftPWM = 0.0;
