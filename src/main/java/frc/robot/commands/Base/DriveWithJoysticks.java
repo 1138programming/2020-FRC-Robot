@@ -10,6 +10,16 @@ public class DriveWithJoysticks extends CommandBase {
     addRequirements(Robot.base);
   }
 
+  private double quadraticCurve(double input) {
+    if (input > 0) {
+      input *= input;
+    } else {
+      input *= -input;
+    }
+
+    return input;
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -19,12 +29,18 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftPWM = Robot.m_robotContainer.getLeftAxis();
-    double rightPWM = Robot.m_robotContainer.getRightAxis();
+    double leftPWM = 0;
+    double rightPWM = 0;
+    if(Robot.autonomousActive == false) {
+      leftPWM = quadraticCurve(Robot.m_robotContainer.getLeftAxis());
+      rightPWM = quadraticCurve(Robot.m_robotContainer.getRightAxis());
+    }
+
     //double leftPWM = SmartDashboard.getNumber("Base Turn Speed", 0.0);
     //double rightPWM = -SmartDashboard.getNumber("Base Turn Speed", 0.0);
     //double leftPWM = 0.0;
     //double rightPWM = 0.0;
+
     Robot.base.move(leftPWM, rightPWM);
   }
 

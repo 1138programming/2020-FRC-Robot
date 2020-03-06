@@ -21,15 +21,12 @@ public class AutonShootFromLine extends SequentialCommandGroup {
                 new SpinUpFromTable(),
                 sequence(
                     new Delay(1000),
-                    new MoveIndexerFor(0.5, 100),
+                    new MoveIndexerFor(0.5, 500),
                     parallel(
-                        new MoveStorageFor(0.5, StorageStage.BOTH, 20),
-                        new MoveIndexerFor(0.5, 200)
-                    )
-                ),
-                sequence(
-                    new Delay(14000),
-                    new MoveBaseFor(-0.5, -0.5, 0)
+                        new MoveStorageFor(0.5, StorageStage.BOTH, 7000),
+                        new MoveIndexerFor(0.5, 7000)
+                    ),
+                    new MoveBaseFor(-0.5, -0.5, 1000)
                 )
             )
         );
