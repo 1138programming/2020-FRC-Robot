@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.SlewRateLimiter;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.kauailabs.navx.frc.*;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Base extends SubsystemBase {
@@ -62,7 +62,6 @@ public class Base extends SubsystemBase {
   private double leftPWM, rightPWM;
 
   private final AHRS ahrs;
-  
   private static double yawAngle;
   private static double velocityX;
   private static double velocityY;
@@ -153,6 +152,7 @@ public class Base extends SubsystemBase {
     leftAccel = (leftVel - lastLeftVel) * 5;
     rightAccel = (rightVel - lastRightVel) * 5;
 
+    SmartDashboard.putString("base state", baseState.name());
     // This method will be called once per scheduler run
     //SmartDashboard.putNumber("Base Left Target Pos", leftProfiler.getTargetPos());
     //SmartDashboard.putNumber("Base Right Target Pos", rightProfiler.getTargetPos());
@@ -168,6 +168,13 @@ public class Base extends SubsystemBase {
     //SmartDashboard.putNumber("Base Right Accel", getRightAccel());
     //SmartDashboard.putNumber("Base Left PWM", leftPWM);
     //SmartDashboard.putNumber("Base Right PWM", rightPWM);
+    // SmartDashboard.putNumber("FacingAngle", yawAngle);
+    // SmartDashboard.putNumber("VelocityX", velocityX);
+    // SmartDashboard.putNumber("VelocityY", velocityY);
+    // SmartDashboard.putNumber("VelocityZ", velocityZ);
+    // SmartDashboard.putNumber("DisplacementX", displacementX);
+    // SmartDashboard.putNumber("DisplacementY", displacementY);
+    // SmartDashboard.putNumber("DisplacementZ", displacementZ);
 
     lastLeftVel = leftVel;
     lastRightVel = rightVel;
@@ -188,15 +195,15 @@ public class Base extends SubsystemBase {
     this.leftPWM = leftPWM;
     this.rightPWM = rightPWM;
 
-    // if (baseState == BaseState.MEDIUM) {
+    if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftPWM * KBaseMediumGear);
       rightBack.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
       rightFront.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
-    // } else {
-    //   leftFront.set(ControlMode.PercentOutput, leftPWM);
-    //   rightBack.set(ControlMode.PercentOutput, rightPWM);
-    //   rightFront.set(ControlMode.PercentOutput, rightPWM);
-    // }
+    } else {
+      leftFront.set(ControlMode.PercentOutput, leftPWM);
+      rightBack.set(ControlMode.PercentOutput, rightPWM);
+      rightFront.set(ControlMode.PercentOutput, rightPWM);
+    }
   }
 
   /**
@@ -209,7 +216,7 @@ public class Base extends SubsystemBase {
     
     if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
       //shifter.set(DoubleSolenoid.Value.kForward);
-      shifter.set(true);
+      shifter.set(false);
       rotationsPerTick = KRotationsPerTickHigh;
 
       //leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
@@ -218,7 +225,7 @@ public class Base extends SubsystemBase {
       //rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
     } else {
       //shifter.set(DoubleSolenoid.Value.kReverse);
-      shifter.set(false);
+      shifter.set(true);
       rotationsPerTick = KRotationsPerTickLow;
 
       //leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 40, 50, 1));

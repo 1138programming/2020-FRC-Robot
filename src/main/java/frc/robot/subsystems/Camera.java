@@ -49,7 +49,7 @@ public class Camera extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     ////SmartDashboard.putNumber("LimelightArea", area);
-    //SmartDashboard.putNumber("Distance to Target", getDistance());
+    SmartDashboard.putNumber("Distance to Target", getDistance());
     //SmartDashboard.putNumber("Pipeline", pipeline.getDouble(0.0));
   }
 
@@ -127,6 +127,10 @@ public class Camera extends SubsystemBase {
    * @return Distance in feet(ft.)
    */
   public double getDistance() {
+    if (!targetVisible()) {
+      return 0;
+    }
+    
     double h1 = Robot.tilter.getLimelightHeight();
     double h2 = 91 / 12;
     double a1 = Math.toRadians(Robot.tilter.getLimelightAngle());

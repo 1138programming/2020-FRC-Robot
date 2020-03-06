@@ -1,21 +1,29 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Camera.SwitchPipelineToTargeting;
 import frc.robot.commands.Flywheel.SpinUpFromTable;
 import frc.robot.commands.Indexer.MoveIndexerFor;
 import frc.robot.commands.Storage.MoveStorageFor;
 import frc.robot.enums.StorageStage;
+import frc.robot.commands.Micellaneous.Delay;
 
 public class FeedShot extends SequentialCommandGroup {
 	public FeedShot() {
         addCommands(
             parallel(
-                // new SpinUpFromTable(),
+                new SwitchPipelineToTargeting(),
                 sequence(
-                    new MoveIndexerFor(800),
+                    new Delay(1000),
                     parallel(
-                        new MoveIndexerFor(0),
-                        new MoveStorageFor(1, StorageStage.BOTH, 0)
+                    new SpinUpFromTable(),
+                    sequence(
+                    new MoveIndexerFor(2000),
+                        parallel(
+                            new MoveIndexerFor(0),
+                            new MoveStorageFor(1, StorageStage.BOTH, 0)
+                        )
+                    )
                     )
                 )
             )

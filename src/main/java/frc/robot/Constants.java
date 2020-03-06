@@ -47,7 +47,7 @@ public final class Constants {
     public static final int KBallSensor2 = 1;
     //Climb
     public static final int KTopLimit = 2; 
-    public static final int KBottomLimit = 3; 
+    public static final int KBottomLimit = 3;
     //Tilter
     public static final int KTilterBottomLimit = 4;
 
