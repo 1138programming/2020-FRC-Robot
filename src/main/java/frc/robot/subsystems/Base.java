@@ -188,6 +188,20 @@ public class Base extends SubsystemBase {
     this.leftPWM = leftPWM;
     this.rightPWM = rightPWM;
 
+    //J-Curves
+    if(leftPWM >= 0) {
+      leftPWM = Math.pow(leftPWM, 2);
+    }
+    else if(leftPWM < 0) {
+      leftPWM = -Math.pow(leftPWM, 2);
+    }
+    if(rightPWM >= 0) {
+      rightPWM = Math.pow(rightPWM, 2);
+    }
+    else if(rightPWM < 0) {
+      rightPWM = -Math.pow(rightPWM, 2);
+    }
+
     // if (baseState == BaseState.MEDIUM) {
       leftFront.set(ControlMode.PercentOutput, leftPWM * KBaseMediumGear);
       rightBack.set(ControlMode.PercentOutput, rightPWM * KBaseMediumGear);
