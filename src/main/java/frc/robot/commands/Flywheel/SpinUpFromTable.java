@@ -27,21 +27,21 @@ public class SpinUpFromTable extends CommandBase {
     // flywheelState.setTopVel(SmartDashboard.getNumber("Shooting Table Top Vel", flywheelState.getTopVel()));
     // flywheelState.setBottomVel(SmartDashboard.getNumber("Shooting Table Bottom Vel", flywheelState.getBottomVel()));
 
-    Robot.flywheel.setTopConstants(
-      SmartDashboard.getNumber("Flywheel Top P", 0.0),
-      SmartDashboard.getNumber("Flywheel Top I", 0.0),
-      SmartDashboard.getNumber("Flywheel Top D", 0.0),
-      SmartDashboard.getNumber("Flywheel Top F", 0.0)
-    );
-    //Robot.flywheel.setTopConstants(.00025, .00047, 0, .000178);
-    //Robot.flywheel.setBottomConstants(.000208, .00047, 0, .000178);
+    // Robot.flywheel.setTopConstants(
+    //   SmartDashboard.getNumber("Flywheel Top P", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Top I", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Top D", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Top F", 0.0)
+    // );
+    Robot.flywheel.setTopConstants(.00025, .00047, 0, .000178);
+    Robot.flywheel.setBottomConstants(.000208, .00047, 0, .000178);
 
-    Robot.flywheel.setBottomConstants(
-      SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
-      SmartDashboard.getNumber("Flywheel Bottom I", 0.0),
-      SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
-      SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
-    );
+    // Robot.flywheel.setBottomConstants(
+    //   SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Bottom I", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
+    // );
 
     Robot.flywheel.setSetpoints(flywheelState.getTopVel(), flywheelState.getBottomVel());
     Robot.flywheel.calculate();
@@ -50,7 +50,7 @@ public class SpinUpFromTable extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.flywheel.moveVoltage(0, 0);
+    // Robot.flywheel.moveVoltage(0, 0);
     Robot.flywheel.move(0, 0);
   }
 

@@ -47,23 +47,24 @@ public class Flywheel extends SubsystemBase {
     bottomEncoder = flywheelBottom.getEncoder();
 
     // Top TBH Controller
-    topController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
-    topController.setInputRange(-10000, 10000);
-    topController.setOutputRange(-12, 12);
+    topController = new PIDController(0.000208, 0.0005, 0.0, 0.000173, 0.02);
+    // topController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
+    topController.setInputRange(-5500, 5500);
+    topController.setOutputRange(-1, 1);
     topController.configIntegral(IntegralType.DEFAULT, true);
     topController.setIntegralZoneRange(50);
 
     // Bottom TBH Controller
-    // bottomController = new PIDController(0.000208, 0.00047, 0.0, 0.000178, 0.02);
-    bottomController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
+    bottomController = new PIDController(0.000208, 0.00047, 0.0, 0.000178, 0.02);
+    // bottomController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
     bottomController.setInputRange(-10000, 10000);
-    bottomController.setOutputRange(-12, 12);
+    bottomController.setOutputRange(-1, 1);
     bottomController.configIntegral(IntegralType.DEFAULT, true);
     bottomController.setIntegralZoneRange(50);
 
     // Slew rate limits to prevent the motor PWM values from changing too fast
-    topLimiter = new SlewRateLimiter(24);
-    bottomLimiter = new SlewRateLimiter(24);
+    topLimiter = new SlewRateLimiter(2);
+    bottomLimiter = new SlewRateLimiter(2);
 
     // Initialize the shooting table
     shootingTable = new HashMap<Double, FlywheelState>(14);
@@ -210,8 +211,8 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void calculate() {
-    //move(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
-    moveVoltage(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
+    move(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
+    // moveVoltage(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
   }
 
   public void reset() {
