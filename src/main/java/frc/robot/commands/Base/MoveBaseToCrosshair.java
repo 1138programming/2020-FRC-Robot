@@ -19,6 +19,7 @@ public class MoveBaseToCrosshair extends CommandBase {
   public void initialize() {
     SmartDashboard.putBoolean("Base Aligned", false);
     //Robot.base.setRotationSetpoint(Robot.base.getFacingDirection() + Robot.camera.getOffsetX());
+    Robot.base.resetXOff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

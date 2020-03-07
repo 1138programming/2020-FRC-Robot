@@ -2,7 +2,6 @@ package frc.robot.commands.Base;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import static frc.robot.Constants.*;
 
 public class TurnWithGyro extends CommandBase {
     private double targetAngle;
