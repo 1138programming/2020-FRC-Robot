@@ -9,7 +9,7 @@ import static frc.robot.Constants.*;
 
 public class DriveUntilFull extends CommandBase {
   public DriveUntilFull() {
-    addRequirements(Robot.storage);
+    addRequirements(Robot.base);
   }
 
   // Called when the command is initially scheduled.

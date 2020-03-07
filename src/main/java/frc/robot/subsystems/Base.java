@@ -442,9 +442,18 @@ public class Base extends SubsystemBase {
     xOffController.setGains(kP, kI, kD);
   }
 
+  public void setRotationMaxSpeed(double maxSpeed) {
+    rotationController.setOutputRange(-maxSpeed, maxSpeed);
+  }
+
   public void setRotationSetpoint(double setpoint) {
-    SmartDashboard.putNumber("Rotation setpoint", setpoint);
+    //SmartDashboard.putNumber("Rotation setpoint", setpoint);
     rotationController.setSetpoint(setpoint);
+  }
+
+  public void setRotationSetpointRelative(double setpoint) {
+    SmartDashboard.putNumber("Rotation setpoint", setpoint + getFacingDirection());
+    setRotationSetpoint(setpoint + getFacingDirection());
   }
 
   public void calculateRotation() {
