@@ -47,22 +47,23 @@ public class Flywheel extends SubsystemBase {
     bottomEncoder = flywheelBottom.getEncoder();
 
     // Top TBH Controller
-    topController = new PIDController(0.000265, 0.0005, 0.0, 0.000169, 0.02);
-    topController.setInputRange(-5500, 5500);
-    topController.setOutputRange(-1, 1);
+    topController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
+    topController.setInputRange(-10000, 10000);
+    topController.setOutputRange(-12, 12);
     topController.configIntegral(IntegralType.DEFAULT, true);
     topController.setIntegralZoneRange(50);
 
     // Bottom TBH Controller
-    bottomController = new PIDController(0.000279, 0.0005, 0.0, 0.000173, 0.02);
+    // bottomController = new PIDController(0.000208, 0.00047, 0.0, 0.000178, 0.02);
+    bottomController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
     bottomController.setInputRange(-10000, 10000);
-    bottomController.setOutputRange(-1, 1);
+    bottomController.setOutputRange(-12, 12);
     bottomController.configIntegral(IntegralType.DEFAULT, true);
     bottomController.setIntegralZoneRange(50);
 
     // Slew rate limits to prevent the motor PWM values from changing too fast
-    topLimiter = new SlewRateLimiter(2);
-    bottomLimiter = new SlewRateLimiter(2);
+    topLimiter = new SlewRateLimiter(24);
+    bottomLimiter = new SlewRateLimiter(24);
 
     // Initialize the shooting table
     shootingTable = new HashMap<Double, FlywheelState>(14);
@@ -70,8 +71,8 @@ public class Flywheel extends SubsystemBase {
     initShootingTable();
 
     // Initialize SmartDashboard fields that we are getting numbers from
-    SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
-    SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
+    // SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
+    // SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
     SmartDashboard.putNumber("Flywheel Top P", topController.getP());
     SmartDashboard.putNumber("Flywheel Top I", topController.getI());
     SmartDashboard.putNumber("Flywheel Top D", topController.getD());
@@ -80,9 +81,9 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
     SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
     SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
-    SmartDashboard.putNumber("Shooting Table Top Vel", 0);
-    SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
-    SmartDashboard.putNumber("Shooting Table Angle", 0);
+    // SmartDashboard.putNumber("Shooting Table Top Vel", 0);
+    // SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
+    // SmartDashboard.putNumber("Shooting Table Angle", 0);
   }
 
   @Override
@@ -97,8 +98,9 @@ public class Flywheel extends SubsystemBase {
   }
   
   private void initShootingTable() {
-    addTableEntry(26.0, new FlywheelState(76, 4000, 2000));     //  4000/2000     [9,23]
-    addTableEntry(24.0, new FlywheelState(76, 4000, 2000));
+    addTableEntry(26.0, new FlywheelState(76, 4500, 2250));     //  4000/2000     [9,23]
+    addTableEntry(24.0, new FlywheelState(76, 4500, 2250));
+    addTableEntry(22.8, new FlywheelState(76, 4500, 2250));
     addTableEntry(22.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(20.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(18.0, new FlywheelState(76, 4000, 2000));
@@ -154,6 +156,11 @@ public class Flywheel extends SubsystemBase {
     flywheelBottom.set(bottomPWM);
   }
 
+  public void moveVoltage(double topVoltage, double bottomVoltage) {
+    flywheelTop.setVoltage(topVoltage);
+    flywheelBottom.setVoltage(bottomVoltage);
+  }
+
   /**
    * @brief 
    */
@@ -203,7 +210,8 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void calculate() {
-    move(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
+    //move(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
+    moveVoltage(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
   }
 
   public void reset() {

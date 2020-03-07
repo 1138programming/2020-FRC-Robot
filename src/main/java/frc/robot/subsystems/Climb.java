@@ -52,7 +52,7 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // SmartDashboard.putString("climb ratchet state", getRatchetState().name());
-    SmartDashboard.putNumber("Climb Encoder", getClimbEncoder());
+    // SmartDashboard.putNumber("Climb Encoder", getClimbEncoder());
   }
 
   /**

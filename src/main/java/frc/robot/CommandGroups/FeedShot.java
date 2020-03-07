@@ -12,18 +12,18 @@ public class FeedShot extends SequentialCommandGroup {
 	public FeedShot() {
         addCommands(
             parallel(
-                new SwitchPipelineToTargeting(),
+                // new SwitchPipelineToTargeting(),
                 sequence(
                     new Delay(1000),
                     parallel(
-                    new SpinUpFromTable(),
-                    sequence(
-                    new MoveIndexerFor(2000),
-                        parallel(
-                            new MoveIndexerFor(0),
-                            new MoveStorageFor(1, StorageStage.BOTH, 0)
+                        new SpinUpFromTable(),
+                        sequence(
+                            new MoveIndexerFor(3000),
+                            parallel(
+                                new MoveIndexerFor(0),
+                                new MoveStorageFor(1, StorageStage.BOTH, 0)
+                            )
                         )
-                    )
                     )
                 )
             )

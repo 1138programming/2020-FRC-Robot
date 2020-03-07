@@ -18,6 +18,7 @@ public class MoveBaseToCrosshair extends CommandBase {
   @Override
   public void initialize() {
     SmartDashboard.putBoolean("Base Aligned", false);
+    //Robot.base.setRotationSetpoint(Robot.base.getFacingDirection() + Robot.camera.getOffsetX());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,6 +32,7 @@ public class MoveBaseToCrosshair extends CommandBase {
 
     SmartDashboard.putBoolean("Base Aligned", false);
 
+    //Robot.base.calculateRotation();
     Robot.base.calculateXOff();
   }
 
@@ -43,7 +45,7 @@ public class MoveBaseToCrosshair extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return Robot.base.atTargetXOff();
+    // return Robot.base.atTargetXOff();
     return false;
   }
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.enums.IntegralType;
+import frc.robot.Util;
 
 public class PIDController {
     /**
@@ -259,7 +260,7 @@ public class PIDController {
      * @param setpoint      The new setpoint
      */
     public void setSetpoint(double setpoint) {
-        m_setpoint = MathUtil.clamp(setpoint, m_minInput, m_maxInput);
+        m_setpoint = wrapInput(MathUtil.clamp(setpoint, m_minInput, m_maxInput));
     }
 
     /**
@@ -267,7 +268,7 @@ public class PIDController {
      * 
      * @param setpoint      The relative setpoint
      */
-    public void setSetpointRelative(double setpoint) {
+    public void setSetpointRelative(double setpoint) { //bad don't use
         setSetpoint(m_setpoint + setpoint);
     }
 
@@ -388,6 +389,13 @@ public class PIDController {
         }
     }
 
+    private double wrapInput(double input) {
+        if (m_continuousInput && m_inputRange > 0) {
+            return Util.wrapInput(input, m_minInput, m_maxInput);
+        }
+        return input;
+    }
+
     private double getContinuousError(double error) {
         if (m_continuousInput && m_inputRange > 0) {
             error %= m_inputRange;
@@ -412,8 +420,7 @@ public class PIDController {
         m_measurement = measurement;
 
         // Gets the current error
-        //m_error = getContinuousError(m_setpoint - m_measurement);
-        m_error = m_setpoint - m_measurement;
+        m_error = getContinuousError(m_setpoint - m_measurement);
 
         // Computes the velocity error
         m_velocityError = (m_error - m_errorCache.getFirst()) / m_period;

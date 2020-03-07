@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import frc.robot.Util;
 
 public class Base extends SubsystemBase {
   //Creating the Talons
@@ -109,7 +110,7 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.018, 0.003, 0.001, 0, 0.02);
+    xOffController = new PIDController(0.08, 0.003, 0.001, 0, 0.02);
     //xOffController = new PIDController(0.0, 0.0, 0.0, 0.0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
@@ -121,13 +122,12 @@ public class Base extends SubsystemBase {
 
     // Set up PID controller to work with the gyro offset
     rotationController = new PIDController(0.018, 0.003, 0.001, 0, 0.02);
-    rotationController.setInputRange(-180, 180);
+    rotationController.enableContinuousInput(0, 360);
     rotationController.setOutputRange(-1, 1);
     rotationController.setTolerance(1, 0.001);
     rotationController.setOutputDeadband(0.1, 0.02);
     rotationController.configIntegral(IntegralType.DEFAULT, true);
     rotationController.setIntegralZoneRange(5);
-    rotationController.setSetpoint(0);
 
     // Set up slew rate limiters
     leftLimiter = new SlewRateLimiter(6);
@@ -138,9 +138,9 @@ public class Base extends SubsystemBase {
     
     ahrs = new AHRS(SPI.Port.kMXP);
 
-    SmartDashboard.putNumber("Base Rot P", rotationController.getP());
-    SmartDashboard.putNumber("Base Rot I", rotationController.getI());
-    SmartDashboard.putNumber("Base Rot D", rotationController.getD());
+    SmartDashboard.putNumber("Base XOff P", rotationController.getP());
+    SmartDashboard.putNumber("Base XOff I", rotationController.getI());
+    SmartDashboard.putNumber("Base XOff D", rotationController.getD());
     SmartDashboard.putBoolean("Base Aligned", false);
   }
 
@@ -153,6 +153,8 @@ public class Base extends SubsystemBase {
     rightAccel = (rightVel - lastRightVel) * 5;
 
     SmartDashboard.putString("base state", baseState.name());
+    SmartDashboard.putNumber("Facing angle", getFacingDirection());
+
     // This method will be called once per scheduler run
     //SmartDashboard.putNumber("Base Left Target Pos", leftProfiler.getTargetPos());
     //SmartDashboard.putNumber("Base Right Target Pos", rightProfiler.getTargetPos());
@@ -421,8 +423,8 @@ public class Base extends SubsystemBase {
   }
 
   public void calculateXOff() {
-    double output = xOffController.calculate(Robot.camera.getOffsetX());
-    //SmartDashboard.putNumber("xOutput", output);
+    double output = xOffController.calculate(Robot.camera.getOffsetX() - .5);
+    SmartDashboard.putNumber("xOutput", output);
 
     move(-output, output);
   }
@@ -440,8 +442,9 @@ public class Base extends SubsystemBase {
     xOffController.setGains(kP, kI, kD);
   }
 
-  public void setRotationSetpoint(double desiredAngle) {
-    rotationController.setSetpoint(desiredAngle);
+  public void setRotationSetpoint(double setpoint) {
+    SmartDashboard.putNumber("Rotation setpoint", setpoint);
+    rotationController.setSetpoint(setpoint);
   }
 
   public void calculateRotation() {
@@ -462,7 +465,7 @@ public class Base extends SubsystemBase {
   }
 
   public double getFacingDirection(){
-    yawAngle = ahrs.getAngle();
+    yawAngle = Util.wrapInput(ahrs.getAngle(), 0, 360);
     return yawAngle;
   }
 

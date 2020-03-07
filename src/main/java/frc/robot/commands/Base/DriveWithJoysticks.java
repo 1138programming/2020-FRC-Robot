@@ -20,6 +20,22 @@ public class DriveWithJoysticks extends CommandBase {
     return input;
   }
 
+  private double cubicCurve(double input) {
+    return input * input * input;
+  }
+
+  private double quarticCurve(double input) {
+    if (input > 0) {
+      input *= input;
+      input *= input;
+    } else {
+      input *= input;
+      input *= -input;
+    }
+
+    return input;
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -32,14 +48,13 @@ public class DriveWithJoysticks extends CommandBase {
     double leftPWM = 0;
     double rightPWM = 0;
 
-    //leftPWM = quadraticCurve(Robot.m_robotContainer.getLeftAxis());
-    //rightPWM = quadraticCurve(Robot.m_robotContainer.getRightAxis());
-    leftPWM = Robot.m_robotContainer.getLeftAxis() - Robot.m_robotContainer.getArcadeRightAxis();
-    rightPWM = Robot.m_robotContainer.getLeftAxis() + Robot.m_robotContainer.getArcadeRightAxis();
-
     if(Robot.autonomousActive == false) {
-      leftPWM = quadraticCurve(leftPWM);
-      rightPWM = quadraticCurve(rightPWM);
+      //leftPWM = quadraticCurve(Robot.m_robotContainer.getLeftAxis());
+      //rightPWM = quadraticCurve(Robot.m_robotContainer.getRightAxis());
+      double leftY = quadraticCurve(Robot.m_robotContainer.getLeftAxis());
+      double rightX = Robot.m_robotContainer.getArcadeRightAxis() * 0.4; //cubicCurve(Robot.m_robotContainer.getArcadeRightAxis());
+      leftPWM = leftY - rightX;
+      rightPWM = leftY + rightX;
     }
 
     //double leftPWM = SmartDashboard.getNumber("Base Turn Speed", 0.0);

@@ -70,7 +70,7 @@ public class RobotContainer {
   private static final int KXboxArms = 1;  
 
   //Deadzone
-  private static final double KDeadZone = 0.2;
+  private static final double KDeadZone = 0.02;
 
   //Logitech Button Constants
   public static final int KLogitechButtonX = 1;
@@ -191,10 +191,10 @@ public class RobotContainer {
     logitechBtnLT.whileHeld(new ClimbDown());
 
     // Position with limelight and start flywheel
-    //logitechBtnA.whileHeld(positionWithLimelight);
+    logitechBtnA.whileHeld(positionWithLimelight);
     //logitechBtnA.whenPressed(spinUpFlywheel);
-    logitechBtnA.toggleWhenActive(moveTilterFromTable);
-    logitechBtnA.toggleWhenActive(spinUpFromTable);
+    // logitechBtnA.toggleWhenActive(moveTilterFromTable);
+    // logitechBtnA.toggleWhenActive(spinUpFromTable);
 
     // Use wheel mechanism to go to color
     logitechBtnX.whenPressed(goToColor);

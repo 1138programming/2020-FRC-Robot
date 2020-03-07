@@ -34,20 +34,20 @@ public class Indexer extends SubsystemBase {
 
     indexerPID = new PIDController(0, 0, 0, 0, 0.02);
 
-    SmartDashboard.putNumber("Indexer Setpoint", 0.0);
-    SmartDashboard.putNumber("Indexer P", indexerPID.getP());
-    SmartDashboard.putNumber("Indexer I", indexerPID.getI());
-    SmartDashboard.putNumber("Indexer D", indexerPID.getD());
-    SmartDashboard.putNumber("Indexer F", indexerPID.getF());
+    // SmartDashboard.putNumber("Indexer Setpoint", 0.0);
+    // SmartDashboard.putNumber("Indexer P", indexerPID.getP());
+    // SmartDashboard.putNumber("Indexer I", indexerPID.getI());
+    // SmartDashboard.putNumber("Indexer D", indexerPID.getD());
+    // SmartDashboard.putNumber("Indexer F", indexerPID.getF());
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
-    SmartDashboard.putNumber("Indexer Velocity", getIndexerVel());
-    SmartDashboard.putNumber("Indexer PWM", indexerPWM);
-    SmartDashboard.putNumber("Indexer Error", indexerPID.getError());
+    // SmartDashboard.putNumber("Indexer Velocity", getIndexerVel());
+    // SmartDashboard.putNumber("Indexer PWM", indexerPWM);
+    // SmartDashboard.putNumber("Indexer Error", indexerPID.getError());
   }
   
   /**

@@ -14,10 +14,10 @@ public class PositionWithLimelight extends SequentialCommandGroup {
     addCommands(
       new SwitchPipelineToTargeting(),
       parallel (
-        new SpinUpFromTable(),
+        // new SpinUpFromTable(),
         sequence (
-          //new MoveBaseToCrosshair(),
-          new MoveTilterFromTable()
+          new MoveBaseToCrosshair()
+          // new MoveTilterFromTable()
         )
       )
     );
