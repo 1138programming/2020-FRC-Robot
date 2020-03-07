@@ -43,15 +43,16 @@ public class Base extends SubsystemBase {
   // PIDController using Limelight x offset
   private final PIDController xOffController;
   private final PIDController rotationController;
-  
+  private final PIDController straightController;
+
   //Variables
   private static final int KTicksPerRotation = 2048; //conversion factor that we have to find
   private static final int KFreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
   private static final int KFreeSpeed = KFreeSpeedRPM / 60; // Free speed of the base in ticks per second
-  private static final double KLowGear = (8.0 / 62.0) * (24.0 / 32.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
-  private static final double KHighGear = (8.0 / 62.0) * (24.0 / 32.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
-  private static final double KRotationsPerTickLow = 1 / (KLowGear * KTicksPerRotation);
-  private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
+  private static final double KLowGear = (60.0 / 12.0) * (38.0 / 18.0) * (50.0 / 16.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KHighGear = (60.0 / 12.0) * (38.0 / 18.0) * (30.0 / 36.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KRotationsPerTickLow = KLowGear * KTicksPerRotation;
+  private static final double KRotationsPerTickHigh = KHighGear * KTicksPerRotation;
   private static final double KShiftSpeed = KFreeSpeed / ((KRotationsPerTickHigh + KRotationsPerTickLow) * KTicksPerRotation);
 
   private double lastLeftVel = 0;
@@ -128,6 +129,11 @@ public class Base extends SubsystemBase {
     rotationController.setOutputDeadband(0.1, 0.02);
     rotationController.configIntegral(IntegralType.DEFAULT, true);
     rotationController.setIntegralZoneRange(5);
+
+    // Set up PID controller to drive the base straight
+    straightController = new PIDController(0.018, 0, 0, 0, 0.02);
+    straightController.setOutputRange(-1, 1);
+    rotationController.setTolerance(0.25, 1);
 
     // Set up slew rate limiters
     leftLimiter = new SlewRateLimiter(6);
@@ -455,6 +461,35 @@ public class Base extends SubsystemBase {
 
   public boolean atRotationSetpoint() {
     return rotationController.atSetpoint();
+  }
+
+  public void resetRotation() {
+    rotationController.reset();
+  }
+
+  public void setStraightPIDSetpoint(double setpoint) {
+    straightController.setSetpoint(setpoint + (getLeftEncoder() + getRightEncoder()) / 2);
+    rotationController.setSetpoint(getFacingDirection());
+  }
+
+  public void resetStraightPID() {
+    straightController.reset();
+    rotationController.reset();
+  }
+
+  public void straightPIDCalculate() {
+    double straightOutput = straightController.calculate((getLeftEncoder() + getRightEncoder()) / 2);
+    double rotationOutput = rotationController.calculate(getFacingDirection());
+
+    move(straightOutput - rotationOutput, straightOutput + rotationOutput);
+  }
+
+  public boolean atStraightPIDSetpoint() {  
+    return straightController.atSetpoint();
+  }
+
+  public void setStraightPIDMaxPWM(double maxPWM) {
+    straightController.setOutputRange(-maxPWM, maxPWM);
   }
 
   /**
