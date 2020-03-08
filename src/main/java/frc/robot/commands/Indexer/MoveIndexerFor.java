@@ -35,6 +35,7 @@ public class MoveIndexerFor extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        Robot.indexer.move(0);
     }
 
     // Returns true when the command should end.

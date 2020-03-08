@@ -43,16 +43,16 @@ public class Base extends SubsystemBase {
   // PIDController using Limelight x offset
   private final PIDController xOffController;
   private final PIDController rotationController;
-  private final PIDController straightController;
+  private final PIDController straightener;
 
   //Variables
   private static final int KTicksPerRotation = 2048; //conversion factor that we have to find
   private static final int KFreeSpeedRPM = 6380; // Free speed of the base motors in RPM (check in the Quran)
   private static final int KFreeSpeed = KFreeSpeedRPM / 60; // Free speed of the base in ticks per second
-  private static final double KLowGear = (60.0 / 12.0) * (38.0 / 18.0) * (50.0 / 16.0); // Numbers from the Quran, absolutely 100% true
-  private static final double KHighGear = (60.0 / 12.0) * (38.0 / 18.0) * (30.0 / 36.0); // Numbers from the Quran, absolutely 100% true
-  private static final double KRotationsPerTickLow = KLowGear * KTicksPerRotation;
-  private static final double KRotationsPerTickHigh = KHighGear * KTicksPerRotation;
+  private static final double KLowGear = (12.0 / 60.0) * (18.0 / 38.0) * (16.0 / 50.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KHighGear = (12.0 / 60.0) * (18.0 / 13.0) * (36.0 / 30.0); // Numbers from the Quran, absolutely 100% true
+  private static final double KRotationsPerTickLow = 1 / (KLowGear * KTicksPerRotation);
+  private static final double KRotationsPerTickHigh = 1 / (KHighGear * KTicksPerRotation);
   private static final double KShiftSpeed = KFreeSpeed / ((KRotationsPerTickHigh + KRotationsPerTickLow) * KTicksPerRotation);
 
   private double lastLeftVel = 0;
@@ -111,7 +111,7 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.08, 0.003, 0.001, 0, 0.02);
+    xOffController = new PIDController(0.07, 0.003, 0.001, 0, 0.02);
     //xOffController = new PIDController(0.0, 0.0, 0.0, 0.0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
@@ -122,7 +122,7 @@ public class Base extends SubsystemBase {
     xOffController.setSetpoint(0);
 
     // Set up PID controller to work with the gyro offset
-    rotationController = new PIDController(0.018, 0.003, 0.001, 0, 0.02);
+    rotationController = new PIDController(0.016, 0.003, 0.001, 0, 0.02);
     rotationController.enableContinuousInput(0, 360);
     rotationController.setOutputRange(-1, 1);
     rotationController.setTolerance(1, 0.001);
@@ -131,9 +131,10 @@ public class Base extends SubsystemBase {
     rotationController.setIntegralZoneRange(5);
 
     // Set up PID controller to drive the base straight
-    straightController = new PIDController(0.018, 0, 0, 0, 0.02);
-    straightController.setOutputRange(-1, 1);
-    rotationController.setTolerance(0.25, 1);
+    straightener = new PIDController(0.016, 0, 0, 0, 0.02);
+    rotationController.enableContinuousInput(0, 360);
+    rotationController.setOutputRange(-1, 1);
+    rotationController.setOutputDeadband(0.1, 0.02);
 
     // Set up slew rate limiters
     leftLimiter = new SlewRateLimiter(6);
@@ -476,29 +477,15 @@ public class Base extends SubsystemBase {
     rotationController.reset();
   }
 
-  public void setStraightPIDSetpoint(double setpoint) {
-    straightController.setSetpoint(setpoint + (getLeftEncoder() + getRightEncoder()) / 2);
-    rotationController.setSetpoint(getFacingDirection());
+  public void resetStraightener() {
+    straightener.reset();
+    straightener.setSetpoint(getFacingDirection());
   }
 
-  public void resetStraightPID() {
-    straightController.reset();
-    rotationController.reset();
-  }
+  public void moveWithStraightener(double PWM) {
+    double rotationCorrection = straightener.calculate(getFacingDirection());
 
-  public void straightPIDCalculate() {
-    double straightOutput = straightController.calculate((getLeftEncoder() + getRightEncoder()) / 2);
-    double rotationOutput = rotationController.calculate(getFacingDirection());
-
-    move(straightOutput - rotationOutput, straightOutput + rotationOutput);
-  }
-
-  public boolean atStraightPIDSetpoint() {  
-    return straightController.atSetpoint();
-  }
-
-  public void setStraightPIDMaxPWM(double maxPWM) {
-    straightController.setOutputRange(-maxPWM, maxPWM);
+    move(PWM + rotationCorrection, PWM - rotationCorrection);
   }
 
   /**

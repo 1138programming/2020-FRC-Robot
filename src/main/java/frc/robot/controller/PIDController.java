@@ -260,7 +260,7 @@ public class PIDController {
      * @param setpoint      The new setpoint
      */
     public void setSetpoint(double setpoint) {
-        m_setpoint = wrapInput(MathUtil.clamp(setpoint, m_minInput, m_maxInput));
+        m_setpoint = MathUtil.clamp(wrapInput(setpoint), m_minInput, m_maxInput);
     }
 
     /**

@@ -99,8 +99,8 @@ public class Flywheel extends SubsystemBase {
   }
   
   private void initShootingTable() {
-    addTableEntry(26.0, new FlywheelState(76, 4500, 2250));     //  4000/2000     [9,23]
-    addTableEntry(24.0, new FlywheelState(76, 4400, 2200));
+    addTableEntry(26.0, new FlywheelState(76, 4400, 2100));     //  4000/2000     [9,23]
+    addTableEntry(24.0, new FlywheelState(76, 4400, 2100));
     addTableEntry(22.8, new FlywheelState(76, 4200, 2100));
     addTableEntry(22.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(20.0, new FlywheelState(76, 4000, 2000));

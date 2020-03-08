@@ -12,7 +12,6 @@ public class FeedShot extends SequentialCommandGroup {
 	public FeedShot() {
         addCommands(
             parallel(
-                // new SwitchPipelineToTargeting(),
                 sequence(
                     new Delay(1000),
                     parallel(
@@ -21,7 +20,7 @@ public class FeedShot extends SequentialCommandGroup {
                             new MoveIndexerFor(3000),
                             parallel(
                                 new MoveIndexerFor(0),
-                                new MoveStorageFor(1, StorageStage.BOTH, 0)
+                                new MoveStorageFor(0.7, StorageStage.BOTH, 0)
                             )
                         )
                     )

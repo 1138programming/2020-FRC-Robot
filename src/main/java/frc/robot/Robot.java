@@ -93,6 +93,10 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
     autonomousActive = true;
+
+    base.zeroEncoders();
+    tilter.zeroEncoder();
+    storage.setBallCount(0);
   }
 
   /**

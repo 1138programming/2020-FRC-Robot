@@ -5,11 +5,14 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.CommandGroups.AutonCollecting;
 import frc.robot.CommandGroups.Collecting;
-import frc.robot.CommandGroups.FeedShot;
+import frc.robot.CommandGroups.AutonFeedShot;
+import frc.robot.CommandGroups.MoveOutEverythingALittleBit;
 import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.commands.Base.BaseLinearMovement;
 import frc.robot.commands.Base.DriveUntilFull;
 import frc.robot.commands.Base.TurnWithGyro;
+import frc.robot.commands.Flywheel.SpinUpFlywheel;
+import frc.robot.commands.Base.DriveStraightFor;
 import frc.robot.commands.Intake.IntakeDeploy;
 import frc.robot.commands.Micellaneous.Delay;
 
@@ -18,14 +21,20 @@ public class FiveBallAuton extends SequentialCommandGroup {
         addCommands(
             new IntakeDeploy(),
             parallel(
-                new DriveUntilFull(),
-                //new BaseLinearMovement(2000, 2000),
+                new DriveStraightFor(2000, 0.5),
                 new AutonCollecting()
             ),
-            new TurnWithGyro(179, 0.5, true),
+            new MoveOutEverythingALittleBit(),
+            new DriveStraightFor(1200, -1),
             parallel(
-                new PositionWithLimelight(),
-                new FeedShot()
+                new SpinUpFlywheel(4000, 2000),
+                sequence(
+                    new TurnWithGyro(150, 0.8, true),
+                    parallel(
+                        new PositionWithLimelight(),
+                        new AutonFeedShot()
+                    )
+                )
             )
         );
     }
