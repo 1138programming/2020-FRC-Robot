@@ -13,9 +13,9 @@ public class FeedShot extends SequentialCommandGroup {
         addCommands(
             parallel(
                 sequence(
-                    new Delay(1000),
+                    // new Delay(1000),
                     parallel(
-                        new SpinUpFromTable(),
+                        // new SpinUpFromTable(),
                         sequence(
                             new MoveIndexerFor(3000),
                             parallel(

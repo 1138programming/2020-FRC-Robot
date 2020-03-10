@@ -46,7 +46,7 @@ public class MoveBaseToCrosshair extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return Robot.base.atTargetXOff();
-    return false;
+    return Robot.base.atTargetXOff();
+    // return false;
   }
 }
