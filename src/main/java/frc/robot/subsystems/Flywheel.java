@@ -5,9 +5,11 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import static frc.robot.Constants.*;
-import frc.robot.controller.PIDController;
-import frc.robot.enums.IntegralType;
+import frc.robot.controller.MiniPID;
+// import frc.robot.controller.PIDController;
+// import frc.robot.enums.IntegralType;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class Flywheel extends SubsystemBase {
   private final CANSparkMax flywheelTop, flywheelBottom;
   private final CANEncoder topEncoder, bottomEncoder;
   private PIDController topController, bottomController;
+  private double kFTop = 0.00236;
+  private double kFBottom = 0.00236;
   private SlewRateLimiter topLimiter, bottomLimiter;
   private double topPWM = 0, bottomPWM = 0;
   
@@ -47,20 +51,22 @@ public class Flywheel extends SubsystemBase {
     bottomEncoder = flywheelBottom.getEncoder();
 
     // Top TBH Controller
-    topController = new PIDController(0.000208, 0.0005, 0.0, 0.000173, 0.02);
+    topController = new PIDController(0.000, 0.000, 0.0, .002);
+    // topController.setOutputLimits(1);
     // topController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
-    topController.setInputRange(-5500, 5500);
-    topController.setOutputRange(-1, 1);
-    topController.configIntegral(IntegralType.DEFAULT, true);
-    topController.setIntegralZoneRange(50);
+    // topController.setInputRange(-5500, 5500);
+    // topController.setOutputRange(-1, 1);
+    // topController.configIntegral(IntegralType.DEFAULT, true);
+    // topController.setIntegralZoneRange(50);
 
     // Bottom TBH Controller
-    bottomController = new PIDController(0.000208, 0.00047, 0.0, 0.000178, 0.02);
+    bottomController = new PIDController(0.000, 0.000, 0.0, .002);
+    // bottomController.setOutputLimits(1);
     // bottomController = new PIDController(0.000, 0.000, 0.0, 0.0021, 0.02);
-    bottomController.setInputRange(-10000, 10000);
-    bottomController.setOutputRange(-1, 1);
-    bottomController.configIntegral(IntegralType.DEFAULT, true);
-    bottomController.setIntegralZoneRange(50);
+    // bottomController.setInputRange(-10000, 10000);
+    // bottomController.setOutputRange(-1, 1);
+    // bottomController.configIntegral(IntegralType.DEFAULT, true);
+    // bottomController.setIntegralZoneRange(50);
 
     // Slew rate limits to prevent the motor PWM values from changing too fast
     topLimiter = new SlewRateLimiter(4);
@@ -74,14 +80,14 @@ public class Flywheel extends SubsystemBase {
     // Initialize SmartDashboard fields that we are getting numbers from
     // SmartDashboard.putNumber("Flywheel Top Setpoint", 3200.0);
     // SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3500.0);
-    SmartDashboard.putNumber("Flywheel Top P", topController.getP());
-    SmartDashboard.putNumber("Flywheel Top I", topController.getI());
-    SmartDashboard.putNumber("Flywheel Top D", topController.getD());
-    SmartDashboard.putNumber("Flywheel Top F", topController.getF());
-    SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
-    SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
-    SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
-    SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
+    // SmartDashboard.putNumber("Flywheel Top P", topController.getP());
+    // SmartDashboard.putNumber("Flywheel Top I", topController.getI());
+    // SmartDashboard.putNumber("Flywheel Top D", topController.getD());
+    // // SmartDashboard.putNumber("Flywheel Top F", topController.getF());
+    // SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
+    // SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
+    // SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
+    // SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
     // SmartDashboard.putNumber("Shooting Table Top Vel", 0);
     // SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
     // SmartDashboard.putNumber("Shooting Table Angle", 0);
@@ -94,8 +100,8 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Bottom Velocity", getBottomVel());
     SmartDashboard.putNumber("Flywheel Top PWM", topPWM);
     SmartDashboard.putNumber("Flywheel Bottom PWM", bottomPWM);
-    SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
-    SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
+    // SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
+    // SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
   }
   
   private void initShootingTable() {
@@ -184,16 +190,16 @@ public class Flywheel extends SubsystemBase {
   /**
    * @brief 
    */
-  public double getTopSetpoint() {
-    return topController.getSetpoint();
-  }
+  // public double getTopSetpoint() {
+  //   return topController.getOutput();
+  // }
 
   /**
    * @brief 
    */
-  public double getBottomSetpoint() {
-    return bottomController.getSetpoint();
-  }
+  // public double getBottomSetpoint() {
+  //   return bottomController.getOutput();
+  // }
 
   public boolean atTopSetpoint() {
     return topController.atSetpoint();
@@ -211,7 +217,10 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void calculate() {
-    move(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
+    double topPWM, bottomPWM;
+    topPWM = topLimiter.calculate(topController.calculate(getTopVel()) + (kFTop * topController.getSetpoint()));
+    bottomPWM = bottomLimiter.calculate(bottomController.calculate(getBottomVel()) + (kFBottom * bottomController.getSetpoint()));
+    move(topPWM, bottomPWM);
     // moveVoltage(topLimiter.calculate(topController.calculate(getTopVel())), bottomLimiter.calculate(bottomController.calculate(getBottomVel())));
   }
 
@@ -224,13 +233,13 @@ public class Flywheel extends SubsystemBase {
     topController.setP(Kp);
     topController.setI(Ki);
     topController.setD(Kd);
-    topController.setF(Kf);
+    kFTop = Kf;
   }
 
   public void setBottomConstants(double Kp, double Ki, double Kd, double Kf) {
     bottomController.setP(Kp);
     bottomController.setI(Ki);
     bottomController.setD(Kd);
-    bottomController.setF(Kf);
+    kFBottom = Kf;
   }
 }

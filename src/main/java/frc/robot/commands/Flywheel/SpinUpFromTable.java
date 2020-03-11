@@ -33,8 +33,8 @@ public class SpinUpFromTable extends CommandBase {
     //   SmartDashboard.getNumber("Flywheel Top D", 0.0),
     //   SmartDashboard.getNumber("Flywheel Top F", 0.0)
     // );
-    Robot.flywheel.setTopConstants(.00025, .00047, 0, .000178);
-    Robot.flywheel.setBottomConstants(.000208, .00047, 0, .000178);
+    Robot.flywheel.setTopConstants(.000108, .000055, 0.000002, 0.000173);
+    Robot.flywheel.setBottomConstants(.000108, .000055, 0, 0.000173);
 
     // Robot.flywheel.setBottomConstants(
     //   SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
