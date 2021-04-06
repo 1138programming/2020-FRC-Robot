@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.CommandGroups.Auton.AutonShootFromLine;
-import frc.robot.CommandGroups.Auton.FiveBallAuton;
+// import frc.robot.CommandGroups.Auton.FiveBallAuton;
+import frc.robot.CommandGroups.Auton.BarrelAuton;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Camera.SwitchPipelineToDefault;
@@ -292,7 +293,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new FiveBallAuton();
+    return new BarrelAuton();
     // return new AutonShootFromLine();
     // return null;
   }
