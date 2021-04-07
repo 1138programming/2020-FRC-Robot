@@ -12,20 +12,24 @@ public class FeedShot extends SequentialCommandGroup {
 	public FeedShot() {
         addCommands(
             parallel(
-                sequence(
-                    new Delay(1000),
-                    parallel(
-                        new SpinUpFromTable(),
-                        sequence(
-                            new MoveIndexerFor(3000),
-                            parallel(
                                 new MoveIndexerFor(0),
                                 new MoveStorageFor(0.7, StorageStage.BOTH, 0)
-                            )
-                        )
-                    )
-                )
             )
+            // parallel(
+            //     sequence(
+            //         new Delay(1000),
+            //         parallel(
+            //             new SpinUpFromTable(),
+            //             sequence(
+            //                 new MoveIndexerFor(3000),
+            //                 parallel(
+                //                     new MoveIndexerFor(0),
+                //                     new MoveStorageFor(0.7, StorageStage.BOTH, 0)
+                //                 )
+                //             )
+                //         )
+            //     )
+            // )
         );
 	}
 }

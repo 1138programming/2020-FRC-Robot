@@ -17,7 +17,7 @@ public class SpinUpFlywheel extends CommandBase {
 
   public SpinUpFlywheel() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this(4000, 2000);
+    this(4000, 3000);
   }
 
   // Called when the command is initially scheduled.
@@ -46,9 +46,9 @@ public class SpinUpFlywheel extends CommandBase {
       SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
     );*/
 
-    //double topSetpoint = SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0);
-    //double bottomSetpoint = SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0);
-    //Robot.flywheel.setSetpoints(topSetpoint, bottomSetpoint);
+    // double topSetpoint = SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0);
+    // double bottomSetpoint = SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0);
+    // Robot.flywheel.setSetpoints(topSetpoint, bottomSetpoint);
 
     Robot.flywheel.setTopConstants(.00025, .00047, 0, .000178);
     Robot.flywheel.setBottomConstants(.000208, .00047, 0, .000178);

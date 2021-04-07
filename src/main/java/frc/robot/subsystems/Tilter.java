@@ -69,7 +69,7 @@ public class Tilter extends SubsystemBase {
         yOffController.reset();
         yOffController.setSetpoint(0);
 
-        //SmartDashboard.putNumber("Tilter Target Linkage Angle", 0.0);
+        SmartDashboard.putNumber("Tilter Target Linkage Angle", 0.0);
         //SmartDashboard.putNumber("Tilter P", tilterPID.getP());
         //SmartDashboard.putNumber("Tilter I", tilterPID.getI());
         //SmartDashboard.putNumber("Tilter D", tilterPID.getD());
@@ -79,7 +79,7 @@ public class Tilter extends SubsystemBase {
     @Override
     public void periodic() {
         // SmartDashboard.putNumber("Tilter Encoder", getEncoder());
-        // SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
+        SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
         // SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
         //SmartDashboard.putNumber("Flywheel to Linkage", toLinkageAngle(getTilterAngle())); // Should give the same result as getLinkageAngle
         //SmartDashboard.putNumber("Tilter PWM", PWM);
