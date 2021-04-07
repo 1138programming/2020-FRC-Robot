@@ -30,6 +30,7 @@ import frc.robot.commands.Climb.ClimbDisengage;
 import frc.robot.commands.Flywheel.StopFlywheel;
 import frc.robot.commands.Flywheel.SpinUpFlywheel;
 import frc.robot.commands.Flywheel.SpinUpFromTable;
+import frc.robot.commands.Flywheel.ChangeCurrentZone;
 import frc.robot.commands.Indexer.IndexOut;
 import frc.robot.commands.Indexer.IndexStop;
 import frc.robot.commands.Indexer.MoveIndexerFor;
@@ -173,6 +174,7 @@ public class RobotContainer {
     TiltWithJoysticks tiltWithJoysticks = new TiltWithJoysticks();
     MoveTilterFromTable moveTilterFromTable = new MoveTilterFromTable();
 
+
     // Logitech
     // Shift high on press and medium on release
     //logitechBtnRB.whenPressed(new BaseShiftHigh());
@@ -199,14 +201,14 @@ public class RobotContainer {
     // logitechBtnA.toggleWhenActive(spinUpFromTable);
 
     // Use wheel mechanism to go to color
-    logitechBtnX.whenPressed(goToColor);
-    logitechBtnY.whenPressed(spin);
+    // logitechBtnX.whenPressed(goToColor);
+    // logitechBtnY.whenPressed(spin);
 
     // Xbox
     // Manual feed shot control for Gio
     xboxBtnB.whileActiveOnce(feedShot);
     //xboxBtnB.whileActiveOnce(spinUpFromTable);
-    
+
     //xboxBtnB.whileActiveOnce(spinUpFlywheel);
 
     // Actively start/stop flywheel
@@ -218,17 +220,20 @@ public class RobotContainer {
     xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
 
     // Collecting button. When released, move all balls out for a bit
-    xboxBtnY.whileActiveOnce(collecting);
+    // xboxBtnY.whileActiveOnce(collecting);
     BooleanSupplier lessThanFive = () -> {return Robot.storage.getBallCount() == 5;};
     //xboxBtnY.whenReleased(new MoveOutEverythingALittleBit().raceWith(new Conditional(lessThanFive)));
-    xboxBtnY.whenReleased(new ConditionalCommand(new MoveOutEverythingALittleBit(), new Delay(0), lessThanFive));
+    // xboxBtnY.whenReleased(new ConditionalCommand(new MoveOutEverythingALittleBit(), new Delay(0), lessThanFive));
+    // xboxBtnY.whenPressed(new ChangeCurrentZone());
+    xboxBtnY.whenPressed(new ChangeCurrentZone());
 
-    // Eject balls
-    xboxBtnRB.whileHeld(new EjectBalls());
-    xboxBtnRB.cancelWhenPressed(collecting);
+
+    // Intake
+    xboxBtnRB.whileHeld(collecting);
+    // xboxBtnRB.cancelWhenPressed();
 
     // Intake out
-    xboxBtnLB.whileHeld(new IntakeOut());
+    xboxBtnLB.whileHeld(new EjectBalls());
     
     // Manual override for moving the tilter with the joystick
     xboxLeftJoystick.whileActiveOnce(tiltWithJoysticks);

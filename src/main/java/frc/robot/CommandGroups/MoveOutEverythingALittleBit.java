@@ -20,4 +20,4 @@ public class MoveOutEverythingALittleBit extends SequentialCommandGroup {
         )
     );
   }
-}
+} 

@@ -19,6 +19,7 @@ public class Flywheel extends SubsystemBase {
   private PIDController topController, bottomController;
   private SlewRateLimiter topLimiter, bottomLimiter;
   private double topPWM = 0, bottomPWM = 0;
+  private double currentZone = 0;
   
   private HashMap<Double, FlywheelState> shootingTable;
   private ArrayList<Double> distanceKeys; // Sort from smallest to largest
@@ -74,14 +75,14 @@ public class Flywheel extends SubsystemBase {
     // Initialize SmartDashboard fields that we are getting numbers from
     SmartDashboard.putNumber("Flywheel Top Setpoint", 3000.0);
     SmartDashboard.putNumber("Flywheel Bottom Setpoint", 3000.0);
-    // SmartDashboard.putNumber("Flywheel Top P", topController.getP());
-    // SmartDashboard.putNumber("Flywheel Top I", topController.getI());
-    // SmartDashboard.putNumber("Flywheel Top D", topController.getD());
-    // SmartDashboard.putNumber("Flywheel Top F", topController.getF());
-    // SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
-    // SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
-    // SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
-    // SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
+    SmartDashboard.putNumber("Flywheel Top P", topController.getP());
+    SmartDashboard.putNumber("Flywheel Top I", topController.getI());
+    SmartDashboard.putNumber("Flywheel Top D", topController.getD());
+    SmartDashboard.putNumber("Flywheel Top F", topController.getF());
+    SmartDashboard.putNumber("Flywheel Bottom P", bottomController.getP());
+    SmartDashboard.putNumber("Flywheel Bottom I", bottomController.getI());
+    SmartDashboard.putNumber("Flywheel Bottom D", bottomController.getD());
+    SmartDashboard.putNumber("Flywheel Bottom F", bottomController.getF());
     // SmartDashboard.putNumber("Shooting Table Top Vel", 0);
     // SmartDashboard.putNumber("Shooting Table Bottom Vel", 0);
     // SmartDashboard.putNumber("Shooting Table Angle", 0);
@@ -96,6 +97,7 @@ public class Flywheel extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Bottom PWM", bottomPWM);
     SmartDashboard.putNumber("Flywheel Top Error", topController.getError());
     SmartDashboard.putNumber("Flywheel Bottom Error", bottomController.getError());
+    SmartDashboard.putNumber("Flywheel Current Zone", currentZone);
   }
   
   private void initShootingTable() {
@@ -233,4 +235,17 @@ public class Flywheel extends SubsystemBase {
     bottomController.setD(Kd);
     bottomController.setF(Kf);
   }
+
+  
+  public void updateCurrentZone() {
+    if (currentZone < 4) {
+        currentZone = currentZone + 1;             
+    } else {
+        currentZone = 0;
+    }
+  }
+
+  public double getCurrentZone() {
+    return currentZone;
+  } 
 }

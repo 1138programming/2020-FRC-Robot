@@ -3,10 +3,12 @@ package frc.robot.commands.Flywheel;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.Flywheel;
 import static frc.robot.Constants.*;
 
 public class SpinUpFlywheel extends CommandBase {
   private double topSetpoint, bottomSetpoint;
+  private double currentZone;
 
   public SpinUpFlywheel(double topSetpoint, double bottomSetpoint) {
     this.topSetpoint = topSetpoint;
@@ -17,7 +19,7 @@ public class SpinUpFlywheel extends CommandBase {
 
   public SpinUpFlywheel() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this(4000, 3000);
+    this(Robot.flywheel.getTopSetpoint(), Robot.flywheel.getBottomSetpoint());
   }
 
   // Called when the command is initially scheduled.
@@ -29,29 +31,41 @@ public class SpinUpFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    currentZone = Robot.flywheel.getCurrentZone();
+    if (currentZone == 0) {
+      Robot.flywheel.setSetpoints(3000, 1500);
+    } else if (currentZone == 1) {
+      Robot.flywheel.setSetpoints(3500, 2000);
+    } else if (currentZone == 2) {
+      Robot.flywheel.setSetpoints(4000, 2200);
+    } else if (currentZone == 3) {
+      Robot.flywheel.setSetpoints(4000, 2000);
+    } else if (currentZone == 4) {
+      Robot.flywheel.setSetpoints(4000, 3500);
+    }
     //atTopSetpoint = Robot.flywheel.atTopSetpoint();
     //atBottomSetpoint = Robot.flywheel.atBottomSetpoint();
 
-    /*Robot.flywheel.setTopConstants(
-      SmartDashboard.getNumber("Flywheel Top P", 0.0),
-      SmartDashboard.getNumber("Flywheel Top I", 0.0),
-      SmartDashboard.getNumber("Flywheel Top D", 0.0),
-      SmartDashboard.getNumber("Flywheel Top F", 0.0)
-    );
+    // Robot.flywheel.setTopConstants(
+    //   SmartDashboard.getNumber("Flywheel Top P", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Top I", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Top D", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Top F", 0.0)
+    // );
 
-    Robot.flywheel.setBottomConstants(
-      SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
-      SmartDashboard.getNumber("Flywheel Bottom I", 0.0),
-      SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
-      SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
-    );*/
+    // Robot.flywheel.setBottomConstants(
+    //   SmartDashboard.getNumber("Flywheel Bottom P", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Bottom I", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
+    //   SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
+    // );
 
     // double topSetpoint = SmartDashboard.getNumber("Flywheel Top Setpoint", 0.0);
     // double bottomSetpoint = SmartDashboard.getNumber("Flywheel Bottom Setpoint", 0.0);
     // Robot.flywheel.setSetpoints(topSetpoint, bottomSetpoint);
 
-    Robot.flywheel.setTopConstants(.00025, .00047, 0, .000178);
-    Robot.flywheel.setBottomConstants(.000208, .00047, 0, .000178);
+    Robot.flywheel.setTopConstants(.00015, .000, 0.00002, .000178);
+    Robot.flywheel.setBottomConstants(.00015, .000, 0.00002, .000178);
 
     Robot.flywheel.calculate();
   }
