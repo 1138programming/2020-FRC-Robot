@@ -24,7 +24,7 @@ public class Tilter extends SubsystemBase {
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
     private static final double KDegreeOffset = 76; // Flywheel offset is 36
 
-    private final DigitalInput tilterBottomLimit;
+    // private final DigitalInput tilterBottomLimit;
 
     private final PIDController yOffController;
 
@@ -48,7 +48,7 @@ public class Tilter extends SubsystemBase {
         tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
         //tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.PulseWidthEncodedPosition, 0, 0);
 
-        tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
+        // tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
 
         tilterPID = new PIDController(0.0045, 0.002, 0);
 
@@ -91,13 +91,23 @@ public class Tilter extends SubsystemBase {
     }
 
     /**
-     * @brief Moves the tilter by a given speed
+     * @brief Moves the tilter by a given speed with limits enforced
      * 
      * @param PWM   The PWM value to move the tilter at
      */
     public void move(double PWM) {
         this.PWM = PWM;
         tilterMotor.set(ControlMode.PercentOutput, enforceLimits(PWM));
+    }
+
+    /**
+     * @brief Moves the tilter by a given speed (limits not enforced)
+     * 
+     * @param PWM   The PWM value to move the tilter at
+     */
+    public void moveWithoutLimits(double PWM) {
+        this.PWM = PWM;
+        tilterMotor.set(ControlMode.PercentOutput, PWM);
     }
 
     /**
@@ -228,7 +238,8 @@ public class Tilter extends SubsystemBase {
     }
 
     public boolean getBottomLimit() {
-        return !tilterBottomLimit.get();
+        // return !tilterBottomLimit.get();
+        return true;
     }
 
     /**

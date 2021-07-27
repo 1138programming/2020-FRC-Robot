@@ -51,6 +51,7 @@ public class Storage extends SubsystemBase {
     ballSensor2 = new DigitalInput(KBallSensor2);
 
     stage2.setNeutralMode(NeutralMode.Brake);
+    stage2.setInverted(true);
 
     stage2Limiter = new SlewRateLimiter(1.95);
   }

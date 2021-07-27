@@ -24,6 +24,8 @@ import frc.robot.commands.Base.ToggleLowGear;
 import frc.robot.commands.Base.DriveWithJoysticks;
 import frc.robot.commands.Climb.ClimbDown;
 import frc.robot.commands.Climb.ClimbStop;
+import frc.robot.commands.Climb.ClimbUpWithoutLimit;
+import frc.robot.commands.Climb.ClimbDownWithoutLimit;
 import frc.robot.commands.Climb.ClimbUp;
 import frc.robot.commands.Climb.ClimbWithJoysticks;
 import frc.robot.commands.Climb.ClimbDisengage;
@@ -50,10 +52,10 @@ import frc.robot.commands.Wheel.WheelStop;
 import frc.robot.commands.Wheel.GoToColor;
 import frc.robot.commands.Wheel.Spin;
 import frc.robot.commands.Tilter.MoveTilterTo;
+import frc.robot.commands.Tilter.TiltDown;
 import frc.robot.commands.Tilter.MoveTilterToIdealAngle;
 import frc.robot.commands.Tilter.MoveTilterFromTable;
 import frc.robot.commands.Tilter.TiltUp;
-import frc.robot.commands.Tilter.TiltDown;
 import frc.robot.commands.Tilter.TilterStop;
 import frc.robot.commands.Tilter.TiltWithJoysticks;
 import frc.robot.commands.Wheel.WheelStop;
@@ -85,7 +87,9 @@ public class RobotContainer {
   public static final int KLogitechRightTrigger = 8;
 
   private static final int KLeftYAxis = 1;
-  private static final int KRightYAxis = 3;
+  private static final int KRightYAxis = 5; 
+  private static final int KLeftXAxis = 0; 
+  private static final int KRightXAxis = 4;
 
   //Xbox Button Constants
   public static final int KXboxButtonA = 1; 
@@ -185,12 +189,16 @@ public class RobotContainer {
     logitechBtnRT.whenPressed(new ToggleLowGear());
 
     // Climb up
-    logitechBtnLB.whenPressed(new ClimbDisengage(), false);
-    logitechBtnLB.whileHeld(new ClimbUp());
+    // logitechBtnLB.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
+    // logitechBtnLB.whileHeld(new ClimbUp());
+    logitechBtnLB.whenPressed(new ClimbDisengage(), false); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
+    logitechBtnLB.whileHeld(new ClimbUpWithoutLimit());
 
     // Climb down
-    logitechBtnLT.whenPressed(new ClimbDisengage(), false);
-    logitechBtnLT.whileHeld(new ClimbDown());
+    // logitechBtnLT.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
+    // logitechBtnLT.whileHeld(new ClimbDown());
+    logitechBtnLT.whenPressed(new ClimbDisengage(), false); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
+    logitechBtnLT.whileHeld(new ClimbDownWithoutLimit());
 
     // Position with limelight and start flywheel
     logitechBtnA.whileHeld(positionWithLimelight);
@@ -199,12 +207,12 @@ public class RobotContainer {
     // logitechBtnA.toggleWhenActive(spinUpFromTable);
 
     // Use wheel mechanism to go to color
-    logitechBtnX.whenPressed(goToColor);
-    logitechBtnY.whenPressed(spin);
-
+    // logitechBtnX.whenPressed(goToColor);
+    // logitechBtnY.whenPressed(spin);
     // Xbox
     // Manual feed shot control for Gio
-    xboxBtnB.whileActiveOnce(feedShot);
+    // xboxBtnB.whileActiveOnce(feedShot);
+    xboxBtnB.whileHeld(new StorageIn());
     //xboxBtnB.whileActiveOnce(spinUpFromTable);
     
     //xboxBtnB.whileActiveOnce(spinUpFlywheel);
@@ -215,7 +223,8 @@ public class RobotContainer {
     //xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
     // Toggle collector position
-    xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
+    // xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
+    xboxBtnX.whenPressed(new TiltDown());
 
     // Collecting button. When released, move all balls out for a bit
     xboxBtnY.whileActiveOnce(collecting);
@@ -254,7 +263,7 @@ public class RobotContainer {
   }
 
   public double getArcadeRightAxis() {
-    double X = logitech.getRawAxis(2);
+    double X = logitech.getRawAxis(KRightXAxis);
     if (X > KDeadZone || X < -KDeadZone) {
       return -X;
     } else {
@@ -263,7 +272,7 @@ public class RobotContainer {
   }
 
   public double getArcadeLeftAxis() {
-    double X = logitech.getRawAxis(0);
+    double X = logitech.getRawAxis(KLeftXAxis);
     if (X > KDeadZone || X < -KDeadZone) {
       return -X;
     } else {

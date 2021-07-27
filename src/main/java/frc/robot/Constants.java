@@ -46,10 +46,10 @@ public final class Constants {
     public static final int KBallSensor1 = 0; 
     public static final int KBallSensor2 = 1;
     //Climb
-    public static final int KTopLimit = 2; 
-    public static final int KBottomLimit = 3;
+    public static final int KTopLimit = 3; //check on blue bot
+    public static final int KBottomLimit = 4; //check on blue bot
     //Tilter
-    public static final int KTilterBottomLimit = 4;
+    public static final int KTilterBottomLimit = 0;
 
 // Default PWM values
     public static double KBasePWM = 1;

@@ -62,7 +62,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * @brief Moves the intake directly
+   * @brief Moves the intake 
    * 
    * @param PWM Speed to move the intake at
    */
@@ -72,6 +72,15 @@ public class Intake extends SubsystemBase {
     } else {
       intake.set(0);
     }
+  }
+
+    /**
+   * @brief Moves the intake directly regardless of intake position
+   * 
+   * @param PWM Speed to move the intake at
+   */
+  public void moveNoCondition(double PWM) {
+      intake.set(PWM);
   }
 
   public double getIntakeVel() {

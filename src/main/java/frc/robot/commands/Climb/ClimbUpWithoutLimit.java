@@ -1,29 +1,29 @@
-package frc.robot.commands.Tilter;
+package frc.robot.commands.Climb;
 
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Tilter;
+import frc.robot.subsystems.Climb;
+import frc.robot.Robot;
+import frc.robot.enums.*;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 import static frc.robot.Constants.*;
 
-public class TiltWithJoysticks extends CommandBase {
-  /**
-   * Creates a new TiltWithJoysticks.
-   */
-  public TiltWithJoysticks() {
-    addRequirements(Robot.tilter);
+public class ClimbUpWithoutLimit extends CommandBase {
+
+  public ClimbUpWithoutLimit() {
+      addRequirements(Robot.climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double PWM = Robot.m_robotContainer.getXboxLeftAxis();
-    Robot.tilter.move(PWM);
+    Robot.climb.moveWithoutLimits(KClimbPWM);
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +34,6 @@ public class TiltWithJoysticks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
