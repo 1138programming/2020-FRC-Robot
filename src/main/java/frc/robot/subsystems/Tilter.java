@@ -24,7 +24,7 @@ public class Tilter extends SubsystemBase {
     private static final double KDegreesPerTick = KDegreesPerRevolution / (KTicksPerRev * KGearRatio);
     private static final double KDegreeOffset = 76; // Flywheel offset is 36
 
-    // private final DigitalInput tilterBottomLimit;
+    private final DigitalInput tilterBottomLimit;
 
     private final PIDController yOffController;
 
@@ -48,7 +48,7 @@ public class Tilter extends SubsystemBase {
         tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
         //tilterMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.PulseWidthEncodedPosition, 0, 0);
 
-        // tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
+        tilterBottomLimit = new DigitalInput(KTilterBottomLimit);
 
         tilterPID = new PIDController(0.0045, 0.002, 0);
 
@@ -78,12 +78,12 @@ public class Tilter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // SmartDashboard.putNumber("Tilter Encoder", getEncoder());
+        SmartDashboard.putNumber("Tilter Encoder", getEncoder());
         SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
         // SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
         //SmartDashboard.putNumber("Flywheel to Linkage", toLinkageAngle(getTilterAngle())); // Should give the same result as getLinkageAngle
         //SmartDashboard.putNumber("Tilter PWM", PWM);
-        //SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
+        SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
         //SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
         //SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle(45.11));
         //SmartDashboard.putNumber("Tilter Ideal Linkage Angle", toLinkageAngle(idealTilterAngle(45.11)));
@@ -143,7 +143,7 @@ public class Tilter extends SubsystemBase {
      * @return  The encoder value
      */
     public double getEncoder() {
-        return tilterMotor.getSelectedSensorPosition();
+        return tilterMotor.getSelectedSensorPosition(); //If this doesn't work, check for bad ribbon cable
     }
 
     /**
@@ -238,8 +238,7 @@ public class Tilter extends SubsystemBase {
     }
 
     public boolean getBottomLimit() {
-        // return !tilterBottomLimit.get();
-        return true;
+        return !tilterBottomLimit.get();
     }
 
     /**

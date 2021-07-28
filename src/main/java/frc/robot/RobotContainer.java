@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.CommandGroups.Auton.AutonShootFromLine;
-// import frc.robot.CommandGroups.Auton.FiveBallAuton;
+// import frc.robot.CommandGroups.Auton.FiveBallAuton; //Removed for 2021 challenge
 import frc.robot.CommandGroups.Auton.BarrelAuton;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
@@ -77,6 +77,7 @@ public class RobotContainer {
   private static final double KDeadZone = 0.02;
 
   //Logitech Button Constants
+  /* !Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"!! */
   public static final int KLogitechButtonX = 1;
   public static final int KLogitechButtonA = 2;
   public static final int KLogitechButtonB = 3;
@@ -86,10 +87,10 @@ public class RobotContainer {
   public static final int KLogitechLeftTrigger = 7;
   public static final int KLogitechRightTrigger = 8;
 
-  private static final int KLeftYAxis = 1;
-  private static final int KRightYAxis = 5; 
-  private static final int KLeftXAxis = 0; 
-  private static final int KRightXAxis = 4;
+  private static final int KLogiLeftYAxis = 1;
+  private static final int KLogiRightYAxis = 3; 
+  private static final int KLogiLeftXAxis = 0; 
+  private static final int KLogiRightXAxis = 2; 
 
   //Xbox Button Constants
   public static final int KXboxButtonA = 1; 
@@ -168,8 +169,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Commands whose isFinished is false
     PositionWithLimelight positionWithLimelight = new PositionWithLimelight();
-    GoToColor goToColor = new GoToColor();
-    Spin spin = new Spin();
     Collecting collecting = new Collecting();
     FeedShot feedShot = new FeedShot();
     SpinUpFlywheel spinUpFlywheel = new SpinUpFlywheel();
@@ -177,54 +176,50 @@ public class RobotContainer {
     TiltWithJoysticks tiltWithJoysticks = new TiltWithJoysticks();
     MoveTilterFromTable moveTilterFromTable = new MoveTilterFromTable();
 
-    // Logitech
+    // ----------Logitech----------
     // Shift high on press and medium on release
     //logitechBtnRB.whenPressed(new BaseShiftHigh());
     //logitechBtnRB.whenReleased(new BaseShiftMedium());
-    logitechBtnRB.whenPressed(new ToggleHighGear());
+    logitechBtnRB.whenPressed(new ToggleHighGear()); //press to shift to high(slow), does not return to medium!
 
     // Shift low on press and medium on release
     //logitechBtnRT.whenPressed(new BaseShiftLow());
     //logitechBtnRT.whenReleased(new BaseShiftMedium());
-    logitechBtnRT.whenPressed(new ToggleLowGear());
+    logitechBtnRT.whenPressed(new ToggleLowGear()); ////press to shift to low(fast), does not return to medium!
 
     // Climb up
     // logitechBtnLB.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
     // logitechBtnLB.whileHeld(new ClimbUp());
-    logitechBtnLB.whenPressed(new ClimbDisengage(), false); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
-    logitechBtnLB.whileHeld(new ClimbUpWithoutLimit());
+    logitechBtnLB.whenPressed(new ClimbDisengage(), false); 
+    logitechBtnLB.whileHeld(new ClimbUpWithoutLimit()); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
 
     // Climb down
     // logitechBtnLT.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
     // logitechBtnLT.whileHeld(new ClimbDown());
-    logitechBtnLT.whenPressed(new ClimbDisengage(), false); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
-    logitechBtnLT.whileHeld(new ClimbDownWithoutLimit());
+    logitechBtnLT.whenPressed(new ClimbDisengage(), false);
+    logitechBtnLT.whileHeld(new ClimbDownWithoutLimit()); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
 
     // Position with limelight and start flywheel
     logitechBtnA.whileHeld(positionWithLimelight);
-    //logitechBtnA.whenPressed(spinUpFlywheel);
     // logitechBtnA.toggleWhenActive(moveTilterFromTable);
     // logitechBtnA.toggleWhenActive(spinUpFromTable);
 
     // Use wheel mechanism to go to color
-    // logitechBtnX.whenPressed(goToColor);
+    // logitechBtnX.whenPressed(goToColor); //Wheel feature removed on THX
     // logitechBtnY.whenPressed(spin);
-    // Xbox
-    // Manual feed shot control for Gio
-    // xboxBtnB.whileActiveOnce(feedShot);
-    xboxBtnB.whileHeld(new StorageIn());
-    //xboxBtnB.whileActiveOnce(spinUpFromTable);
-    
-    //xboxBtnB.whileActiveOnce(spinUpFlywheel);
 
+    // ----------Xbox----------
+    // xboxBtnB.whileActiveOnce(feedShot); // Manual feed shot control
+    //xboxBtnB.whileActiveOnce(spinUpFromTable);
+    xboxBtnB.whileHeld(new StorageIn()); //For testing
+    
     // Actively start/stop flywheel
     xboxBtnA.toggleWhenActive(spinUpFlywheel);
     //xboxBtnA.toggleWhenActive(spinUpFromTable);
     //xboxBtnA.toggleWhenActive(moveTilterFromTable);
 
     // Toggle collector position
-    // xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
-    xboxBtnX.whenPressed(new TiltDown());
+    xboxBtnX.toggleWhenActive(new ToggleIntakePosition());
 
     // Collecting button. When released, move all balls out for a bit
     xboxBtnY.whileActiveOnce(collecting);
@@ -247,7 +242,7 @@ public class RobotContainer {
   }
 
   public double getRightAxis() {
-    final double Y = logitech.getRawAxis(KRightYAxis);
+    final double Y = logitech.getRawAxis(KLogiRightYAxis);
     if (Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else
@@ -255,7 +250,7 @@ public class RobotContainer {
   }
 
   public double getLeftAxis() {
-    final double Y = logitech.getRawAxis(KLeftYAxis);
+    final double Y = logitech.getRawAxis(KLogiLeftYAxis);
     if(Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else 
@@ -263,7 +258,7 @@ public class RobotContainer {
   }
 
   public double getArcadeRightAxis() {
-    double X = logitech.getRawAxis(KRightXAxis);
+    double X = logitech.getRawAxis(KLogiRightXAxis);
     if (X > KDeadZone || X < -KDeadZone) {
       return -X;
     } else {
@@ -272,7 +267,7 @@ public class RobotContainer {
   }
 
   public double getArcadeLeftAxis() {
-    double X = logitech.getRawAxis(KLeftXAxis);
+    double X = logitech.getRawAxis(KLogiLeftXAxis);
     if (X > KDeadZone || X < -KDeadZone) {
       return -X;
     } else {
@@ -281,7 +276,7 @@ public class RobotContainer {
   }
 
   public double getXboxLeftAxis() {
-    final double Y = xbox.getRawAxis(KLeftYAxis);
+    final double Y = xbox.getRawAxis(KLogiLeftYAxis);
     if(Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else 
@@ -289,7 +284,7 @@ public class RobotContainer {
   }
 
   public double getXboxRightAxis() {
-    final double Y = xbox.getRawAxis(KRightYAxis);
+    final double Y = xbox.getRawAxis(KLogiRightYAxis);
     if (Y > KDeadZone || Y < -KDeadZone)
       return -Y;
     else

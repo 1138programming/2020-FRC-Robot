@@ -49,7 +49,7 @@ public final class Constants {
     public static final int KTopLimit = 3; //check on blue bot
     public static final int KBottomLimit = 4; //check on blue bot
     //Tilter
-    public static final int KTilterBottomLimit = 0;
+    public static final int KTilterBottomLimit = 2; //DO NOT use port 0 or 1, Roborio no like and will quit if you do! 
 
 // Default PWM values
     public static double KBasePWM = 1;
