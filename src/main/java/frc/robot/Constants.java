@@ -43,13 +43,13 @@ public final class Constants {
 
 // Sensors Ports
     //Storage
-    public static final int KBallSensor1 = 0; 
-    public static final int KBallSensor2 = 1;
+    public static final int KBallSensor1 = 2; 
+    public static final int KBallSensor2 = 3;
     //Climb
-    public static final int KTopLimit = 3; //check on blue bot
-    public static final int KBottomLimit = 4; //check on blue bot
+    public static final int KTopLimit = 9; 
+    public static final int KBottomLimit = 4;
     //Tilter
-    public static final int KTilterBottomLimit = 2; //DO NOT use port 0 or 1, Roborio no like and will quit if you do! 
+    public static final int KTilterBottomLimit = 5; //DO NOT use port 0 or 1, Roborio no like and will quit if you do! 
 
 // Default PWM values
     public static double KBasePWM = 1;

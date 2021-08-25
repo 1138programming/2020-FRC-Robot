@@ -53,6 +53,9 @@ public class Climb extends SubsystemBase {
     // This method will be called once per scheduler run
     // SmartDashboard.putString("climb ratchet state", getRatchetState().name());
     // SmartDashboard.putNumber("Climb Encoder", getClimbEncoder());
+    SmartDashboard.putBoolean("climb top Limit", TopLimit.get());
+    SmartDashboard.putBoolean("climb bott Limit", BottomLimit.get());
+
   }
 
   /**
@@ -70,13 +73,13 @@ public class Climb extends SubsystemBase {
    * @param PWM Speed to move the climb at
    */
   public void move(double PWM) {
-    if (TopLimit.get() == false && BottomLimit.get() == false) { //limit logic in move, removed so we have a consistent move function and leave it to the methods
+    if (!(TopLimit.get() == false) && !(BottomLimit.get() == false)) { //limit logic in move, removed so we have a consistent move function and leave it to the methods
       moveWithoutLimits(PWM);
     }
-    else if (TopLimit.get() == true && PWM >= 0) {
+    else if (!(TopLimit.get() == true) && PWM >= 0) {
       moveWithoutLimits(PWM);
     }
-    else if (BottomLimit.get() == true && PWM <= 0) {
+    else if (!(BottomLimit.get() == true) && PWM <= 0) {
       moveWithoutLimits(PWM);
     }
   }
