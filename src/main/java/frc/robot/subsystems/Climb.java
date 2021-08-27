@@ -76,10 +76,10 @@ public class Climb extends SubsystemBase {
     if (!(TopLimit.get() == false) && !(BottomLimit.get() == false)) { //limit logic in move, removed so we have a consistent move function and leave it to the methods
       moveWithoutLimits(PWM);
     }
-    else if (!(TopLimit.get() == true) && PWM >= 0) {
+    else if (TopLimit.get() == true && PWM >= 0) {
       moveWithoutLimits(PWM);
     }
-    else if (!(BottomLimit.get() == true) && PWM <= 0) {
+    else if (BottomLimit.get() == true && PWM <= 0) {
       moveWithoutLimits(PWM);
     }
   }

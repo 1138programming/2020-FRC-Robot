@@ -55,7 +55,7 @@ public final class Constants {
     public static double KBasePWM = 1;
     public static final double KClimbPWM = 0.75;
     public static double KIndexerPWM = 1;
-    public static double KIntakePWM = 1;
+    public static double KIntakePWM = 0.55;
     public static double KStoragePWM = 1;
     public static final double KTilterPWM = 0.5;
     public static final double KWheelPWM = 0.5;

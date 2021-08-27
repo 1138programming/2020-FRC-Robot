@@ -191,13 +191,13 @@ public class RobotContainer {
     // logitechBtnLB.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
     // logitechBtnLB.whileHeld(new ClimbUp());
     logitechBtnLB.whenPressed(new ClimbDisengage(), false); 
-    logitechBtnLB.whileHeld(new ClimbUp()); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
+    logitechBtnLB.whileHeld(new ClimbUp()); 
 
     // Climb down
     // logitechBtnLT.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
     // logitechBtnLT.whileHeld(new ClimbDown());
     logitechBtnLT.whenPressed(new ClimbDisengage(), false);
-    logitechBtnLT.whileHeld(new ClimbDown()); //FOR TESTING ONLY!! CHANGE IT BACK TO CLIMB WITH LIMIT
+    logitechBtnLT.whileHeld(new ClimbDown());
 
     // Position with limelight and start flywheel
     logitechBtnA.whileHeld(positionWithLimelight);
@@ -209,9 +209,8 @@ public class RobotContainer {
     // logitechBtnY.whenPressed(spin);
 
     // ----------Xbox----------
-    // xboxBtnB.whileActiveOnce(feedShot); // Manual feed shot control
+    xboxBtnB.whileActiveOnce(feedShot); // Manual feed shot control
     //xboxBtnB.whileActiveOnce(spinUpFromTable);
-    xboxBtnB.whileHeld(new StorageIn()); //For testing
     
     // Actively start/stop flywheel
     xboxBtnA.toggleWhenActive(spinUpFlywheel);
