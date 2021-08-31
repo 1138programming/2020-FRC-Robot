@@ -1,0 +1,14 @@
+Logitech Joysticks: Split Arcade Drive
+ 
+LogitechRB: Switch to Base High Gear(SLOW)
+LogitechRightTrigger: Switch to Base Low Gear(FAST)
+LogitechLB: Climb Up While Held
+LogitechLeftTrigger: Climb Down While Held
+
+XBox A: Start/Stop Flywheel(Do this before shooting)
+XBox B: Shoot Ball While Held
+XBox X: Intake Toggle Down/Up
+XBox Y: Collect Balls While Held (Intake, Storage In)
+XBox RB: Eject Balls While Held (Intake, Storage Out)
+
+
