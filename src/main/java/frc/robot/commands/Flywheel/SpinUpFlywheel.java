@@ -17,7 +17,7 @@ public class SpinUpFlywheel extends CommandBase {
 
   public SpinUpFlywheel() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this(1000, 1000);
+    this(1800, 1800);
   }
 
   // Called when the command is initially scheduled.

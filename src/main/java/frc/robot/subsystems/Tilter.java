@@ -82,7 +82,7 @@ public class Tilter extends SubsystemBase {
         SmartDashboard.putNumber("Tilter Flywheel Angle", getTilterAngle());
         // SmartDashboard.putNumber("Tilter Linkage Angle", getLinkageAngle());
         //SmartDashboard.putNumber("Flywheel to Linkage", toLinkageAngle(getTilterAngle())); // Should give the same result as getLinkageAngle
-        //SmartDashboard.putNumber("Tilter PWM", PWM);
+        SmartDashboard.putNumber("Tilter PWM", PWM);
         SmartDashboard.putBoolean("Tilter Limit", getBottomLimit());
         //SmartDashboard.putNumber("Limelight Height", getLimelightHeight());
         //SmartDashboard.putNumber("Tilter Ideal Angle", idealTilterAngle(45.11));
@@ -117,13 +117,13 @@ public class Tilter extends SubsystemBase {
      * @return      The modified PWM value
      */
     public double enforceLimits(double PWM) {
-        if (getBottomLimit()) {
+        if (!getBottomLimit()) {
             zeroEncoder();
-            if (PWM < 0) {
+            if (PWM > 0) {
                 PWM = 0;
             }
-        } else if (getEncoder() >= 340) {
-            if (PWM > 0) {
+        } else if (getEncoder() <= -340) {
+            if (PWM < 0) {
                 PWM = 0;
             }
         }

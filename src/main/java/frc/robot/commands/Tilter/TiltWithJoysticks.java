@@ -22,7 +22,8 @@ public class TiltWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double PWM = Robot.m_robotContainer.getXboxLeftAxis() * 0.3;
+    double PWM = Robot.m_robotContainer.getXboxLeftAxis() * 0.5;
+    SmartDashboard.putNumber("XBoxLeft", Robot.m_robotContainer.getXboxLeftAxis());
     Robot.tilter.move(PWM);
   }
 
