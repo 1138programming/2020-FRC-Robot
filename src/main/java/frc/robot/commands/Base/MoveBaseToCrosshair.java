@@ -31,8 +31,6 @@ public class MoveBaseToCrosshair extends CommandBase {
       SmartDashboard.getNumber("Base XOff D", 0.0)
     );
 
-    SmartDashboard.putBoolean("Base Aligned", false);
-
     //Robot.base.calculateRotation();
     Robot.base.calculateXOff();
   }
@@ -46,7 +44,6 @@ public class MoveBaseToCrosshair extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return Robot.base.atTargetXOff();
     return false;
   }
 }

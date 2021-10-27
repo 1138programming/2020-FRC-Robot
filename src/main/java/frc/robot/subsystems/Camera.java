@@ -50,7 +50,7 @@ public class Camera extends SubsystemBase {
     // SmartDashboard.putNumber("LimelightY", y);
     //SmartDashboard.putNumber("LimelightArea", area);
     SmartDashboard.putNumber("Distance to Target", getDistance());
-    // SmartDashboard.putNumber("xoffset", getOffsetX());
+    SmartDashboard.putNumber("xoffset", getOffsetX());
     //SmartDashboard.putNumber("Pipeline", pipeline.getDouble(0.0));
   }
 

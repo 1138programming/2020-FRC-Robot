@@ -111,7 +111,7 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.07, 0.003, 0.001, 0, 0.02);
+    xOffController = new PIDController(0.0065, 0.0035, 0.00005, 0, 0.05);
     //xOffController = new PIDController(0.0, 0.0, 0.0, 0.0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
