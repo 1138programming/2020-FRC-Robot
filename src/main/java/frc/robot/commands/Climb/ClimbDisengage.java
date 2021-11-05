@@ -19,7 +19,7 @@ public class ClimbDisengage extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.climb.setRatchetState(Value.kForward);
+        Robot.climb.setRatchetState(Value.kReverse);
         Robot.climb.move(0);
         startTime = System.currentTimeMillis();
     }

@@ -106,11 +106,11 @@ public class Flywheel extends SubsystemBase {
     addTableEntry(20.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(18.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(16.0, new FlywheelState(76, 4000, 2000));
-    addTableEntry(14.0, new FlywheelState(76, 4000, 2000));
-    addTableEntry(12.0, new FlywheelState(76, 4000, 2000));
-    addTableEntry(10.0, new FlywheelState(76, 4500, 2650));
-    addTableEntry(8.0, new FlywheelState(110, 4500, 3500));
-    addTableEntry(6.0, new FlywheelState(110, 4500, 3500));
+    addTableEntry(14.0, new FlywheelState(76, 3800, 2000));
+    addTableEntry(12.0, new FlywheelState(76, 3400, 2000));
+    addTableEntry(10.0, new FlywheelState(76, 3200, 2000));
+    addTableEntry(8.0, new FlywheelState(110, 3200, 3000));
+    addTableEntry(6.0, new FlywheelState(110, 3000, 3000));
     addTableEntry(4.0, new FlywheelState(110, 2700, 2900));
     addTableEntry(2.0, new FlywheelState(110, 2700, 2900));
   }

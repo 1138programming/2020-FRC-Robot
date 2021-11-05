@@ -16,7 +16,7 @@ public class SpinUpFromTable extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheelState = Robot.flywheel.readShootingTable(Robot.camera.getDistance());
+    flywheelState = Robot.flywheel.readShootingTable(Robot.camera.getDistance() - 3);
     // SmartDashboard.putNumber("Shooting Table Top Vel", flywheelState.getTopVel());
     // SmartDashboard.putNumber("Shooting Table Bottom Vel", flywheelState.getBottomVel());
   }
@@ -42,6 +42,8 @@ public class SpinUpFromTable extends CommandBase {
     //   SmartDashboard.getNumber("Flywheel Bottom D", 0.0),
     //   SmartDashboard.getNumber("Flywheel Bottom F", 0.0)
     // );
+
+    Robot.tilter.setSetpoint(flywheelState.getAngle());
 
     Robot.flywheel.setSetpoints(flywheelState.getTopVel(), flywheelState.getBottomVel());
     Robot.flywheel.calculate();

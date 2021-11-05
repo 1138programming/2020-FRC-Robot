@@ -177,15 +177,11 @@ public class RobotContainer {
     MoveTilterFromTable moveTilterFromTable = new MoveTilterFromTable();
 
     // ----------Logitech----------
-    // Shift high on press and medium on release
-    //logitechBtnRB.whenPressed(new BaseShiftHigh());
-    //logitechBtnRB.whenReleased(new BaseShiftMedium());
-    logitechBtnRB.whenPressed(new ToggleHighGear()); //press to shift to high(slow), does not return to medium!
+    logitechBtnX.whenPressed(new BaseShiftHigh()); //press to shift to high(fastest)
+    
+    logitechBtnRB.whenPressed(new BaseShiftMedium()); //press to shift to medium(fast)
 
-    // Shift low on press and medium on release
-    //logitechBtnRT.whenPressed(new BaseShiftLow());
-    //logitechBtnRT.whenReleased(new BaseShiftMedium());
-    logitechBtnRT.whenPressed(new ToggleLowGear()); ////press to shift to low(fast), does not return to medium!
+    logitechBtnRT.whenPressed(new BaseShiftLow()); ////press to shift to low(slowest)
 
     // Climb up
     // logitechBtnLB.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"

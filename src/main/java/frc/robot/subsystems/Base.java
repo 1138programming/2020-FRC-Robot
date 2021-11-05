@@ -38,7 +38,7 @@ public class Base extends SubsystemBase {
   private final Solenoid shifter;
 
   //Sets the default state to medium
-  private BaseState baseState = BaseState.MEDIUM;
+  private BaseState baseState = BaseState.LOW;
 
   // PIDController using Limelight x offset
   private final PIDController xOffController;
@@ -111,7 +111,7 @@ public class Base extends SubsystemBase {
     rightProfiler.setTolerance(50, 20);
 
     // Set up PID controller to work with the Limelight x offset
-    xOffController = new PIDController(0.007, 0.00025, 0.00001, 0, 0.02);
+    xOffController = new PIDController(0.007, 0.00055, 0.00001, 0, 0.02);
     //xOffController = new PIDController(0.0, 0.0, 0.0, 0.0, 0.02);
     xOffController.setInputRange(-28, 28);
     xOffController.setOutputRange(-1, 1);
@@ -225,7 +225,7 @@ public class Base extends SubsystemBase {
     
     if (baseState == BaseState.HIGH || baseState == BaseState.MEDIUM) {
       //shifter.set(DoubleSolenoid.Value.kForward);
-      shifter.set(false);
+      shifter.set(true);
       rotationsPerTick = KRotationsPerTickHigh;
 
       //leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
@@ -234,7 +234,7 @@ public class Base extends SubsystemBase {
       //rightBack.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 50, 1));
     } else {
       //shifter.set(DoubleSolenoid.Value.kReverse);
-      shifter.set(true);
+      shifter.set(false);
       rotationsPerTick = KRotationsPerTickLow;
 
       //leftFront.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 40, 50, 1));

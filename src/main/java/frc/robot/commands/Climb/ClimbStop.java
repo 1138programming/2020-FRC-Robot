@@ -21,7 +21,7 @@ public class ClimbStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.climb.setRatchetState(Value.kReverse);
+    Robot.climb.setRatchetState(Value.kForward);
     Robot.climb.move(0);
   }
 

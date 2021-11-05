@@ -452,7 +452,7 @@ public class PIDController {
         }
 
         // Calculates output
-        m_output = (m_Kp * m_error) + (m_Ki * m_integral * m_period) - (m_Kd * m_velocityError) + (m_Kf * m_setpoint);
+        m_output = (m_Kp * m_error) + (m_Ki * m_integral * m_period) + (m_Kd * m_velocityError) + (m_Kf * m_setpoint);
 
         // Add the deadband to the controller output, or if it is within the tolerance, set the output to 0
         if (Math.abs(m_output) > m_outputDeadbandTolerance) {
