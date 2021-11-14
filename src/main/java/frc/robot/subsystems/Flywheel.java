@@ -105,14 +105,14 @@ public class Flywheel extends SubsystemBase {
     addTableEntry(22.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(20.0, new FlywheelState(76, 4000, 2000));
     addTableEntry(18.0, new FlywheelState(76, 4000, 2000));
-    addTableEntry(16.0, new FlywheelState(76, 4000, 2000));
-    addTableEntry(14.0, new FlywheelState(76, 3800, 2000));
-    addTableEntry(12.0, new FlywheelState(76, 3400, 2000));
-    addTableEntry(10.0, new FlywheelState(76, 3200, 2000));
-    addTableEntry(8.0, new FlywheelState(110, 3200, 3000));
-    addTableEntry(6.0, new FlywheelState(110, 3000, 3000));
-    addTableEntry(4.0, new FlywheelState(110, 2700, 2900));
-    addTableEntry(2.0, new FlywheelState(110, 2700, 2900));
+    addTableEntry(16.0, new FlywheelState(76, 3000, 3000));
+    addTableEntry(14.0, new FlywheelState(76, 2600, 2100));
+    addTableEntry(12.0, new FlywheelState(76, 2600, 2100));
+    addTableEntry(10.0, new FlywheelState(76, 2500, 2000));
+    addTableEntry(8.0, new FlywheelState(110, 2800, 2600));
+    addTableEntry(6.0, new FlywheelState(110, 2800, 2600));
+    addTableEntry(4.0, new FlywheelState(110, 2700, 2200));
+    addTableEntry(2.0, new FlywheelState(110, 2500, 2000));
   }
 
   private void addTableEntry(Double distance, FlywheelState flywheelState) {

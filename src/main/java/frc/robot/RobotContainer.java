@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CommandGroups.PositionWithLimelight;
 import frc.robot.CommandGroups.Auton.AutonShootFromLine;
-// import frc.robot.CommandGroups.Auton.FiveBallAuton; //Removed for 2021 challenge
+// import frc.robot.CommandGroups.Auton.FiveBallAuton;
 import frc.robot.CommandGroups.Auton.BarrelAuton;
 import frc.robot.CommandGroups.FeedShot;
 import frc.robot.commands.Base.DriveWithJoysticks;
@@ -177,28 +177,27 @@ public class RobotContainer {
     MoveTilterFromTable moveTilterFromTable = new MoveTilterFromTable();
 
     // ----------Logitech----------
-    logitechBtnX.whenPressed(new BaseShiftHigh()); //press to shift to high(fastest)
-    
-    logitechBtnRB.whenPressed(new BaseShiftMedium()); //press to shift to medium(fast)
+    logitechBtnRB.whenPressed(new BaseShiftHigh()); //hold to shift to high(fastest), let go to shift to medium(fast)
+    logitechBtnRB.whenReleased(new BaseShiftMedium()); 
 
-    logitechBtnRT.whenPressed(new BaseShiftLow()); ////press to shift to low(slowest)
+    logitechBtnRT.whenPressed(new BaseShiftLow()); //press to shift to low(slowest)
+    logitechBtnRT.whenReleased(new BaseShiftMedium()); 
 
     // Climb up
     // logitechBtnLB.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
     // logitechBtnLB.whileHeld(new ClimbUp());
-    logitechBtnLB.whenPressed(new ClimbDisengage(), false); 
-    logitechBtnLB.whileHeld(new ClimbUp()); 
-
+    logitechBtnY.whenPressed(new ClimbDisengage(), false); 
+    logitechBtnY.whileHeld(new ClimbUp()); 
+    // logitechBtnX.whenPressed(new ClimbDisengage(), false);
+    // logitechBtnB.whileHeld(new ClimbDisengage(), false);
     // Climb down
     // logitechBtnLT.whenPressed(new ClimbDisengage(), false); //Make sure logi controller is set to "Logitech Dual Action" NOT "Gamepad F310"
     // logitechBtnLT.whileHeld(new ClimbDown());
-    logitechBtnLT.whenPressed(new ClimbDisengage(), false);
-    logitechBtnLT.whileHeld(new ClimbDown());
+    logitechBtnA.whenPressed(new ClimbDisengage(), false);
+    logitechBtnA.whileHeld(new ClimbDown());
 
     // Position with limelight and start flywheel
-    logitechBtnA.whileHeld(positionWithLimelight);
-    // logitechBtnA.toggleWhenActive(moveTilterFromTable);
-    // logitechBtnA.toggleWhenActive(spinUpFromTable);
+    // logitechBtnA.whileHeld(positionWithLimelight); //not needed cuz OP defense strat
 
     // Use wheel mechanism to go to color
     // logitechBtnX.whenPressed(goToColor); //Wheel feature removed on THX
@@ -293,8 +292,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new BarrelAuton();
-    // return new AutonShootFromLine();
+    // return new ();
+    return new AutonShootFromLine();
     // return null;
   }
 }

@@ -26,7 +26,8 @@ public class AutonShootFromLine extends SequentialCommandGroup {
                         new MoveStorageFor(0.5, StorageStage.BOTH, 7000),
                         new MoveIndexerFor(0.5, 7000)
                     ),
-                    new MoveBaseFor(-0.5, -0.5, 1000)
+                    new Delay(2500),
+                    new MoveBaseFor(0.5, 0.5, 600)// doesnt stop ater time 
                 )
             )
         );

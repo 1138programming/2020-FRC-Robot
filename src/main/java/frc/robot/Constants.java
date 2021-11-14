@@ -42,23 +42,25 @@ public final class Constants {
     public static final int KClimbRatchetSolenoidReverse = 2;
 
 // Sensors Ports
+//DO NOT use port 0 or 1, Roborio no like and will quit if you do! 
     //Storage
-    public static final int KBallSensor1 = 2; 
-    public static final int KBallSensor2 = 3;
+    public static final int KBallSensor1 = 6; 
+    public static final int KBallSensor2 = 2;
     //Climb
     public static final int KTopLimit = 9; 
     public static final int KBottomLimit = 4;
     //Tilter
-    public static final int KTilterBottomLimit = 5; //DO NOT use port 0 or 1, Roborio no like and will quit if you do! 
+    public static final int KTilterBottomLimit = 5; 
 
 // Default PWM values
     public static double KBasePWM = 1;
     public static final double KClimbPWM = 0.75;
     public static double KIndexerPWM = 1;
-    public static double KIntakePWM = 0.55;
+    public static double KIntakePWM = 0.75;
     public static double KStoragePWM = 1;
     public static final double KTilterPWM = 0.5;
     public static final double KWheelPWM = 0.5;
+    
 
 //Other constants
     //Global Conversion Factors
